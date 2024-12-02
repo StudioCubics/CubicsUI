@@ -1,0 +1,14 @@
+[workspace]
+members = ["jobs/*"]
+resolver = "2"
+
+[workspace.package]
+authors = ["Ishfaq Ahmed <ishfaqahmed0837@gmail.com>"]
+edition = "2021"
+version = "0.1.0"
+
+# Optional: Common dependencies across all workspace packages
+[workspace.dependencies]
+# You can define common dependencies here that can be shared across packages
+# For example:
+# some-crate = "1.0.0"
