@@ -1,0 +1,50 @@
+{
+  "name": "@cubicsui/cli",
+  "version": "0.0.1",
+  "description": "CLI to build components in your project",
+  "private": false,
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "@cubicsui/cli": "./bin.js",
+    "cui": "./bin.js"
+  },
+  "exports": "./dist/index.js",
+  "scripts": {
+    "build": "eslint && tsc -b && tsc-alias -p tsconfig.json",
+    "lint": "eslint",
+    "clean": "rimraf node_modules .turbo dist "
+  },
+  "keywords": [
+    "cli",
+    "studiocubics",
+    "cubicsui",
+    "cui",
+    "initialization"
+  ],
+  "author": {
+    "name": "Studio Cubics",
+    "email": "studiocubics7@gmail.com",
+    "url": "https://studio-cubics.vercel.app"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@cubicsui/db": "workspace:^",
+    "commander": "^13.1.0",
+    "dotenv": "^16.5.0",
+    "fs-extra": "^11.3.0",
+    "inquirer": "^12.5.2"
+  },
+  "devDependencies": {
+    "@cubicsui/configs": "workspace:^",
+    "@eslint/js": "^9.25.1",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.14.1",
+    "eslint": "^9.15.0",
+    "tsc-alias": "^1.8.15",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.0"
+  }
+}
