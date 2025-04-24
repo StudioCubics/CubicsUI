@@ -1,0 +1,14 @@
+{
+  "name": "@cubicsui/tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@cubicsui/configs": "workspace:^",
+    "execa": "^9.5.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  }
+}

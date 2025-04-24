@@ -1,0 +1,10 @@
+.default {
+  border-width: 0.1875em;
+  border-color: var(--border-color);
+}
+.horizontal {
+  border-style: dotted none none none;
+}
+.vertical {
+  border-style: none dotted none none;
+}
