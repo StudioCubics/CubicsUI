@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Package containing the database connection and models for CubicsUI",
   "exports": "./dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "eslint && tsc",
     "lint": "eslint",

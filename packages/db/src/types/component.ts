@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
-import { Dependencies } from "./dependencies";
-import Codeblock from "./codeblock";
-import Library from "./library";
+import { Dependencies } from "./dependencies.js";
+import Codeblock from "./codeblock.js";
+import Library from "./library.js";
 
 /**
  * A component is the main building block of CubicsUI

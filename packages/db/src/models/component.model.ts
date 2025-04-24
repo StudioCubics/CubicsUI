@@ -1,10 +1,10 @@
-import Component from "@/types/component";
+import Component from "../types/component.js";
 import {
   Dependencies,
   ExternalDependency,
   LocalDependency,
-} from "@/types/dependencies";
-import { HydratedDocument, Model, Schema, model, models } from "mongoose";
+} from "../types/dependencies.js";
+import mongoose, { type HydratedDocument, type Model } from "mongoose";
 
 type ComponentHydratedDocument = HydratedDocument<Component>;
 type ComponentModelType = Model<
@@ -17,10 +17,10 @@ type ComponentModelType = Model<
 
 /**
  * Mongoose schema for the external dependencies
- * @type {Schema<ExternalDependency>}
+ * @type {mongoose.Schema<ExternalDependency>}
  */
-const externalDependencySchema: Schema<ExternalDependency> =
-  new Schema<ExternalDependency>(
+const externalDependencySchema: mongoose.Schema<ExternalDependency> =
+  new mongoose.Schema<ExternalDependency>(
     {
       name: { type: String, required: true },
       ver: { type: String, default: "@latest" },
@@ -31,57 +31,56 @@ const externalDependencySchema: Schema<ExternalDependency> =
 
 /**
  * Mongoose schema for the local dependencies
- * @type {Schema<LocalDependency>}
+ * @type {mongoose.Schema<LocalDependency>}
  */
-const localDependencySchema: Schema<LocalDependency> =
-  new Schema<LocalDependency>(
+const localDependencySchema: mongoose.Schema<LocalDependency> =
+  new mongoose.Schema<LocalDependency>(
     {
       path: { type: String, required: true },
-      cmp: { type: Schema.Types.ObjectId, ref: "Module" },
+      cmp: { type: mongoose.Schema.Types.ObjectId, ref: "Module" },
     },
     { _id: false }
   );
 
 /**
  * Mongoose schema for the component dependencies
- * @type {Schema<Dependencies>}
+ * @type {mongoose.Schema<Dependencies>}
  */
-const dependenciesSchema: Schema<Dependencies> = new Schema<Dependencies>(
-  {
-    ext: [externalDependencySchema],
-    lcl: [localDependencySchema],
-  },
-  { _id: false }
-);
+const dependenciesSchema: mongoose.Schema<Dependencies> =
+  new mongoose.Schema<Dependencies>(
+    {
+      ext: [externalDependencySchema],
+      lcl: [localDependencySchema],
+    },
+    { _id: false }
+  );
 
 /**
  * Mongoose schema for a component
- * @type {Schema<Component,ComponentModelType>}
+ * @type {mongoose.Schema<Component,ComponentModelType>}
  */
-const componentSchema: Schema<Component, ComponentModelType> = new Schema<
-  Component,
-  ComponentModelType
->(
-  {
-    name: { type: String, required: true },
-    size: { type: Number, required: true },
-    outPath: { type: String, required: true },
-    desc: String,
-    deps: dependenciesSchema,
-    lib: {
-      type: Schema.Types.ObjectId,
-      ref: "Library",
-      required: true,
+const componentSchema: mongoose.Schema<Component, ComponentModelType> =
+  new mongoose.Schema<Component, ComponentModelType>(
+    {
+      name: { type: String, required: true },
+      size: { type: Number, required: true },
+      outPath: { type: String, required: true },
+      desc: String,
+      deps: dependenciesSchema,
+      lib: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Library",
+        required: true,
+      },
+      cb: { type: mongoose.Schema.Types.ObjectId, ref: "Codeblock" },
     },
-    cb: { type: Schema.Types.ObjectId, ref: "Codeblock" },
-  },
-  { timestamps: { createdAt: "created", updatedAt: "updated" } }
-);
+    { timestamps: { createdAt: "created", updatedAt: "updated" } }
+  );
 
 componentSchema.index({ lib: 1, name: 1, outPath: 1 }, { unique: true });
 
 const ComponentModel =
-  (models.Component as Model<Component, ComponentModelType>) ||
-  model<Component, ComponentModelType>("Component", componentSchema);
+  (mongoose.models.Component as Model<Component, ComponentModelType>) ||
+  mongoose.model<Component, ComponentModelType>("Component", componentSchema);
 
 export default ComponentModel;
