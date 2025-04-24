@@ -5,5 +5,5 @@ export default function registerUploadCommand(program: Command) {
   program
     .command("upload")
     .argument("<componentPath>", "Path of the file you want to upload")
-    .action((componentPath) => uploadComponents(componentPath));
+    .action(uploadComponents);
 }
