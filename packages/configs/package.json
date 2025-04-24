@@ -1,0 +1,18 @@
+{
+    "name": "@cubicsui/configs",
+    "version": "0.0.1",
+    "description": "This packages contains all the configs for build tools like typescript, eslint etc.",
+    "private": true,
+    "keywords": [
+      "configs",
+      "studiocubics",
+      "cubicsui",
+      "cui"
+    ],
+    "author": {
+      "name": "Studio Cubics",
+      "email": "studiocubics7@gmail.com",
+      "url": "https://studio-cubics.vercel.app"
+    },
+    "license": "MIT"
+}
