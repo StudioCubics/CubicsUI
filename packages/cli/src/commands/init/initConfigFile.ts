@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { format } from "prettier";
 import fs from "fs-extra";
-import { InitOptions } from "@/commands/init/index.js";
+import { InitOptions } from "@/commands/init/_index.js";
 import getConfigName from "@/utils/getConfigName.js";
 import getDetectedConfig from "@/utils/configFile/getDetectedConfig.js";
 import { configTemplateESM } from "@/utils/configFile/configTemplate.js";

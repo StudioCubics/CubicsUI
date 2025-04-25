@@ -1,5 +1,5 @@
 import { program } from "commander";
-import registerInitCommand from "@/commands/init/index.js";
+import registerInitCommand from "@/commands/init/_index.js";
 import { config } from "@dotenvx/dotenvx";
 import registerUploadCommand from "./commands/upload.js";
 import { envPath } from "./constants/defaults.js";

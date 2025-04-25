@@ -1,5 +1,5 @@
 import configGen from "./configGen.js";
-import type { DetectedConfig } from "./cuiConfig.js";
+import type { DetectedConfig } from "../../types/cuiConfig.js";
 
 /**
  * Default configuration template for ESM modules

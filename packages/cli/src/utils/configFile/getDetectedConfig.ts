@@ -2,8 +2,8 @@ import {
   isProjectUsingTypescript,
   checkIfSrcFolderExists,
 } from "@/utils/checks.js";
-import { InitOptions } from "@/commands/init/index.js";
-import type { DetectedConfig } from "./cuiConfig.js";
+import { InitOptions } from "@/commands/init/_index.js";
+import type { DetectedConfig } from "../../types/cuiConfig.js";
 import configGen from "./configGen.js";
 
 /**

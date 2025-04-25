@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import { parse, resolve } from "path";
-import { configFiles } from "./configFile/cuiConfig.js";
+import { configFiles } from "../types/cuiConfig.js";
 
 /**
  * Checks if the the project is initialised for cui

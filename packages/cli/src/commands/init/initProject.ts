@@ -2,7 +2,7 @@ import { isProjectInitialised, isDBURIAvailableInEnv } from "@/utils/checks.js";
 import initEnvFile from "@/commands/init/initEnvFile.js";
 import rerunCurrentCommand from "@/utils/rerunCurrentCommand.js";
 import initConfigFile from "./initConfigFile.js";
-import { InitOptions } from "./index.js";
+import { InitOptions } from "./_index.js";
 import initIgnores from "./initIgnores.js";
 
 /**

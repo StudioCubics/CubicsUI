@@ -1,5 +1,5 @@
 import { defaultBasePath, defaultLibraryName } from "@/constants/defaults.js";
-import type { CUIConfig, DetectedConfig } from "./cuiConfig.js";
+import type { CUIConfig, DetectedConfig } from "../../types/cuiConfig.js";
 
 /**
  * Generates the final configuration of the `cui.config` file.
