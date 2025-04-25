@@ -2,7 +2,7 @@ import {
   isProjectUsingNextJs,
   isProjectUsingTypescript,
 } from "@/utils/checks.js";
-import { type ConfigFile, configFiles } from "../types/cuiConfig.js";
+import { type ConfigFile, configFiles } from "../../types/cuiConfig.js";
 
 export default function getConfigName() {
   // By default use the "cui.config.mjs" file
