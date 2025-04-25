@@ -1,7 +1,4 @@
 {
   "name": "@cubicsui/test_fixture-jsx",
-  "author": "Ishfaq Ahmed",
-  "scripts": {
-    "clean": "rimraf node_modules"
-  }
+  "author": "Ishfaq Ahmed"
 }
