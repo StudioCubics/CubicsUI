@@ -5,10 +5,18 @@ import {
   disconnectDB,
   LibraryModel,
 } from "@cubicsui/db";
+import fs from "fs-extra";
 
 export default async function uploadComponents(componentPath: string) {
   try {
+    if (!fs.existsSync(componentPath))
+      throw new Error(`No file found in ${componentPath}`);
+
     console.log(`uploading components ${componentPath}`);
+
+    const componentSize = (await fs.stat(componentPath)).size;
+    const componentData = (await fs.readFile(componentPath)).toString();
+
     await connectDB();
     const library = new LibraryModel({
       name: "defaultLibrary",
@@ -16,11 +24,11 @@ export default async function uploadComponents(componentPath: string) {
       desc: "The default library that is created when no library is selected",
     });
     const codeblock = new CodeblockModel({
-      code: `//TODO: Code for avatar`,
+      code: componentData,
     });
     const component = new ComponentModel({
       name: "Avatar",
-      size: 300,
+      size: componentSize,
       outPath: componentPath,
       deps: { lcl: [], ext: [] },
       lib: library._id,
