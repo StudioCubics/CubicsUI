@@ -3,11 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:keep": "cross-env KEEP_FIXTURE=true vitest run"
   },
   "devDependencies": {
     "@cubicsui/configs": "workspace:^",
     "@types/fs-extra": "^11.0.4",
+    "cross-env": "^7.0.3",
     "execa": "^9.5.2",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"

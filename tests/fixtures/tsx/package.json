@@ -3,8 +3,5 @@
   "author": "Ishfaq Ahmed",
   "scripts": {
     "clean": "rimraf node_modules"
-  },
-  "devDependencies": {
-    "@cubicsui/cli": "workspace:^"
   }
 }

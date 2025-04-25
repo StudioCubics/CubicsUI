@@ -1,46 +1,36 @@
 import { join } from "path";
-import {
-  describe,
-  it,
-  expect,
-  //  beforeAll, afterAll
-} from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { execa } from "execa";
-import { cliBinPath, jsxFixturePath } from "../utils/paths.js";
-// import getTempDir from "../utils/getTempDir";
-// import fs from "fs-extra";
-// import copyFixture from "../utils/copyFixture.js";
+import { jsxFixturePath } from "../utils/paths.js";
+import getTempDir from "../utils/getTempDir.js";
+import {
+  afterAllOnFixture,
+  beforeAllOnFixture,
+} from "../utils/fixtureSetup.js";
 
-// const backupDir = path.resolve(__dirname, "../fixtures-backup/jsx");
+let tempDir = "";
 
-// TODO Fix Error: EPERM: operation not permitted, symlink created in node_modules cannot be copied to temp directory
-// beforeAll(async () => {
-//   await fs.remove(backupDir);
-//   await fs.ensureDir(backupDir);
-//   await copyFixture(jsxFixturePath, backupDir);
-// });
+beforeAll(async () => {
+  tempDir = getTempDir("cui-test-fixure-jsx-");
+  await beforeAllOnFixture(tempDir, jsxFixturePath);
+});
 
-// afterAll(async () => {
-//   await fs.remove(jsxFixturePath);
-//   await copyFixture(backupDir, jsxFixturePath);
-//   await fs.remove(backupDir);
-// });
+afterAll(async () => {
+  await afterAllOnFixture(tempDir);
+});
 
 describe("CLI tests on fixture: jsx", () => {
-  const cwd = jsxFixturePath;
-
   it("initialises project", async () => {
-    const result = await execa("node", [cliBinPath, "init"], {
-      cwd,
-      stdio: "inherit",
+    const result = await execa("pnpm", ["cui", "init"], {
+      cwd: tempDir,
     });
     expect(result.exitCode).toBe(0);
     // TODO expect cwd to have a .env file, and the .env file should contain the CUI_DB_URI env variable.
   });
   it("uploads component", async () => {
-    const componentToUpload = join(cwd, "/components/Line/Line.jsx");
-    const result = await execa("node", [cliBinPath, "upload", componentToUpload], {
-      cwd,
+    const componentToUpload = join(tempDir, "/components/Line/Line.jsx");
+    const result = await execa("pnpm", ["cui", "upload", componentToUpload], {
+      cwd: tempDir,
     });
     expect(result.exitCode).toBe(0);
   });
