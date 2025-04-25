@@ -2,14 +2,14 @@
   "name": "@cubicsui/db",
   "version": "0.0.1",
   "description": "Package containing the database connection and models for CubicsUI",
-  "exports": "./dist/index.js",
-  "type": "module",
-  "scripts": {
-    "build": "eslint && tsc",
-    "lint": "eslint",
-    "clean": "rimraf node_modules .turbo dist"
+  "private": false,
+  "publishConfig": {
+    "access": "public"
   },
+  "repository": "https://github.com/StudioCubics/CubicsUI",
   "keywords": [
+    "@cubicsui/db",
+    "database",
     "models",
     "studiocubics",
     "cubicsui",
@@ -21,6 +21,13 @@
     "url": "https://studio-cubics.vercel.app"
   },
   "license": "MIT",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "scripts": {
+    "build": "eslint && tsc",
+    "lint": "eslint",
+    "clean": "rimraf node_modules .turbo dist"
+  },
   "dependencies": {
     "mongoose": "^8.13.2"
   },

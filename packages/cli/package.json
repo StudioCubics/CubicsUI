@@ -3,21 +3,12 @@
   "version": "0.0.1",
   "description": "CLI to build components in your project",
   "private": false,
-  "type": "module",
   "publishConfig": {
     "access": "public"
   },
-  "bin": {
-    "@cubicsui/cli": "./bin.js",
-    "cui": "./bin.js"
-  },
-  "exports": "./dist/index.js",
-  "scripts": {
-    "build": "eslint && tsc -b && tsc-alias -p tsconfig.json",
-    "lint": "eslint",
-    "clean": "rimraf node_modules .turbo dist "
-  },
+  "repository": "https://github.com/StudioCubics/CubicsUI",
   "keywords": [
+    "@cubicsui/cli",
     "cli",
     "studiocubics",
     "cubicsui",
@@ -30,6 +21,17 @@
     "url": "https://studio-cubics.vercel.app"
   },
   "license": "MIT",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "bin": {
+    "@cubicsui/cli": "./bin.js",
+    "cui": "./bin.js"
+  },
+  "scripts": {
+    "build": "eslint && tsc -b && tsc-alias -p tsconfig.json",
+    "lint": "eslint",
+    "clean": "rimraf node_modules .turbo dist "
+  },
   "dependencies": {
     "@cubicsui/db": "workspace:^",
     "@dotenvx/dotenvx": "^1.41.0",

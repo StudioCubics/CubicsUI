@@ -1,6 +1,11 @@
 {
   "name": "cubicsui",
   "private": false,
+  "repository": "https://github.com/StudioCubics/CubicsUI",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20.18.0"
+  },
   "workspaces": [
     "packages/*",
     "tests/**",
@@ -27,9 +32,5 @@
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "turbo": "^2.4.0"
-  },
-  "packageManager": "pnpm@9.15.4",
-  "engines": {
-    "node": ">=20.18.0"
   }
 }
