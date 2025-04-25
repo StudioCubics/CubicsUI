@@ -6,27 +6,31 @@ import {
   //  beforeAll, afterAll
 } from "vitest";
 import { execa } from "execa";
-import { cliPath, jsxFixturePath } from "../utils/paths.js";
+import { cliBinPath, jsxFixturePath } from "../utils/paths.js";
 // import getTempDir from "../utils/getTempDir";
 // import fs from "fs-extra";
+// import copyFixture from "../utils/copyFixture.js";
 
-// let tempDir = "";
+// const backupDir = path.resolve(__dirname, "../fixtures-backup/jsx");
 
 // TODO Fix Error: EPERM: operation not permitted, symlink created in node_modules cannot be copied to temp directory
 // beforeAll(async () => {
-//   tempDir = getTempDir("tmp-jsx-");
-//   await fs.copy(jsxFixturePath, tempDir);
+//   await fs.remove(backupDir);
+//   await fs.ensureDir(backupDir);
+//   await copyFixture(jsxFixturePath, backupDir);
 // });
 
 // afterAll(async () => {
-//   await fs.remove(tempDir);
+//   await fs.remove(jsxFixturePath);
+//   await copyFixture(backupDir, jsxFixturePath);
+//   await fs.remove(backupDir);
 // });
 
 describe("CLI tests on fixture: jsx", () => {
   const cwd = jsxFixturePath;
 
   it("initialises project", async () => {
-    const result = await execa("node", [cliPath, "init"], {
+    const result = await execa("node", [cliBinPath, "init"], {
       cwd,
       stdio: "inherit",
     });
@@ -35,7 +39,7 @@ describe("CLI tests on fixture: jsx", () => {
   });
   it("uploads component", async () => {
     const componentToUpload = join(cwd, "/components/Line/Line.jsx");
-    const result = await execa("node", [cliPath, "upload", componentToUpload], {
+    const result = await execa("node", [cliBinPath, "upload", componentToUpload], {
       cwd,
     });
     expect(result.exitCode).toBe(0);
