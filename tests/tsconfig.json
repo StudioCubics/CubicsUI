@@ -1,0 +1,9 @@
+{
+  "extends": "@cubicsui/configs/typescript/tsconfig.node.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "types": ["vitest/globals"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["fixtures/**/*"]
+}

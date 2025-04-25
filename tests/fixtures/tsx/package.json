@@ -1,0 +1,7 @@
+{
+  "name": "@cubicsui/test_fixture-tsx",
+  "author": "Ishfaq Ahmed",
+  "devDependencies": {
+    "@cubicsui/cli": "workspace:^"
+  }
+}
