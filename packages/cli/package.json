@@ -1,6 +1,6 @@
 {
   "name": "@cubicsui/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI to build components in your project",
   "private": false,
   "publishConfig": {
