@@ -1,5 +1,11 @@
 # @cubicsui/cli
 
+## 0.0.3
+
+### Patch Changes
+
+- Fixed `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'prettier'` by adding dependency `prettier@3.5.3` directly to CLI
+
 ## 0.0.2
 
 ### Patch Changes
@@ -10,7 +16,6 @@
   - tsconfig.\*
   - eslint.config.\*
   - CHANGELOG.md
-
 - Updated dependencies
   - @cubicsui/db@0.0.2
 
