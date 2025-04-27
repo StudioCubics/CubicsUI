@@ -1,0 +1,32 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "Monorepo",
+      "description": "Root of the monorepo",
+      "icon": "repo",
+      "focus": true
+    },
+    {
+      "name": "CLI",
+      "icon": "terminal",
+      "color": "terminal.ansiGreen",
+      "description": "Points to the cli package",
+      "command": "cd .\\packages\\cli\\"
+    },
+    {
+      "name": "DB",
+      "color": "terminal.ansiYellow",
+      "icon": "database",
+      "description": "Points to the db package",
+      "command": "cd .\\packages\\db\\"
+    },
+    {
+      "name": "Tests",
+      "icon": "beaker",
+      "color": "terminal.ansiBlue",
+      "description": "Points to the tests",
+      "command": "cd .\\tests\\"
+    }
+  ]
+}
