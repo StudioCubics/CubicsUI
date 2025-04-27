@@ -37,4 +37,13 @@ describe.each(fixtures)("Testing init command (Fixture: $name)", ({ name }) => {
     const envContents = await fs.readFile(envFilePath, "utf-8");
     expect(envContents).toContain("CUI_DB_URI=");
   });
+
+  it("Creates a cui.config file in cwd", async () => {
+    const configPath = join(
+      tempDir,
+      name == "tsx" ? "cui.config.ts" : "cui.config.mjs"
+    );
+    const configExists = fs.existsSync(configPath);
+    expect(configExists).toBe(true);
+  });
 });
