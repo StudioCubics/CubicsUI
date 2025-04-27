@@ -8,6 +8,8 @@ export {
   default as Component,
   PopulatedComponent,
   LibraryPopulatedComponent,
-  CodeblockPopulatedComponent,
+  ScriptPopulatedComponent,
+  StylesPopulatedComponent,
+  DocPopulatedComponent,
 } from "./component.js";
 export { default as Library } from "./library.js";

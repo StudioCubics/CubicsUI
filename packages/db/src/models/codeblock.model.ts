@@ -17,7 +17,8 @@ type CodeblockModelType = Model<
 const codeblockSchema: mongoose.Schema<Codeblock, CodeblockModelType> =
   new mongoose.Schema<Codeblock, CodeblockModelType>(
     {
-      code: { type: String, required: true },
+      content: { type: String, required: true },
+      size: { type: Number, required: true },
     },
     { timestamps: { createdAt: "created", updatedAt: "updated" } }
   );
