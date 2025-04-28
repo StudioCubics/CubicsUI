@@ -2,12 +2,6 @@
   "autorun": false,
   "terminals": [
     {
-      "name": "Monorepo",
-      "description": "Root of the monorepo",
-      "icon": "repo",
-      "focus": true
-    },
-    {
       "name": "CLI",
       "icon": "terminal",
       "color": "terminal.ansiGreen",
@@ -20,6 +14,13 @@
       "icon": "database",
       "description": "Points to the db package",
       "command": "cd .\\packages\\db\\"
+    },
+    {
+      "name": "Helpers",
+      "icon": "references",
+      "color": "terminal.ansiCyan",
+      "description": "Points to the helpers package",
+      "command": "cd .\\packages\\helpers\\"
     },
     {
       "name": "Tests",
