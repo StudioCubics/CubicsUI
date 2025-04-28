@@ -1,0 +1,9 @@
+{
+  "extends": "@cubicsui/configs/typescript/tsconfig.node.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src"]
+}
