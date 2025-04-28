@@ -38,6 +38,7 @@ const externalDependencySchema: mongoose.Schema<ExternalDependency> =
 const localDependencySchema: mongoose.Schema<LocalDependency> =
   new mongoose.Schema<LocalDependency>(
     {
+      value: { type: String },
       path: { type: String, required: true },
       cmp: { type: mongoose.Schema.Types.ObjectId, ref: "Module" },
     },
