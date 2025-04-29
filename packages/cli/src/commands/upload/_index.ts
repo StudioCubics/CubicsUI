@@ -1,4 +1,4 @@
-import uploadComponents from "@/utils/uploadComponents.js";
+import uploadComponents from "@/commands/upload/uploadComponents.js";
 import { Command } from "commander";
 
 export default function registerUploadCommand(program: Command) {

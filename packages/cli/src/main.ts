@@ -1,8 +1,8 @@
 import { program } from "commander";
-import registerInitCommand from "@/commands/init/_index.js";
 import { config } from "@dotenvx/dotenvx";
-import registerUploadCommand from "./commands/upload.js";
 import { envPath } from "./constants/defaults.js";
+import registerInitCommand from "@/commands/init/_index.js";
+import registerUploadCommand from "./commands/upload/_index.js";
 
 // Resolve `.env` from the user's project root
 config({ path: envPath });
