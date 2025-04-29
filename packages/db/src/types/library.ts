@@ -1,7 +1,9 @@
+import { HydratedDocument, Model } from "mongoose";
+
 /**
  * A library is composition of components it can contain one or multiple components
  */
-export default interface Library {
+export interface Library {
   /**
    * Name of the library
    * @remarks This is unique in a database, so only one library with a particular name can exist in a database
@@ -16,3 +18,12 @@ export default interface Library {
    */
   rootPath: string;
 }
+
+export type LibraryDocument = HydratedDocument<Library>;
+export type LibraryModelType = Model<
+  Library,
+  object,
+  object,
+  object,
+  LibraryDocument
+>;

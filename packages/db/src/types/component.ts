@@ -1,13 +1,13 @@
-import { Types } from "mongoose";
+import { HydratedDocument, Model, Types } from "mongoose";
 import { Dependencies } from "./dependencies.js";
-import Codeblock from "./codeblock.js";
-import Library from "./library.js";
+import { Codeblock } from "./codeblock.js";
+import { Library } from "./library.js";
 import { Expand, SinglePopulatedField } from "../utils/typeUtils.js";
 
 /**
  * The component is the main building block of CubicsUI
  */
-export default interface Component {
+export interface Component {
   /**
    * The name of the component, this will be set and used by the user to download the component to their projects
    * @remarks This is unique to a component in a {@link Library | Library}, so only one component can have the same name in a specific library.
@@ -70,7 +70,7 @@ export type ForeignKeyOmittedComponent = Omit<
 /**
  * Component with all the foreign keys populated
  */
-export type PopulatedComponent = Expand<
+export type ComponentPopulated = Expand<
   ForeignKeyOmittedComponent & {
     lib: Library;
     script: Codeblock;
@@ -82,25 +82,34 @@ export type PopulatedComponent = Expand<
 /**
  * Component type with the `lib` field populated
  */
-export type LibraryPopulatedComponent = Expand<
-  SinglePopulatedField<Omit<Component, "lib">, PopulatedComponent, "lib">
+export type ComponentLibraryPopulated = Expand<
+  SinglePopulatedField<Omit<Component, "lib">, ComponentPopulated, "lib">
 >;
 
 /**
  * Component type with the `script` field populated
  */
-export type ScriptPopulatedComponent = Expand<
-  SinglePopulatedField<Omit<Component, "script">, PopulatedComponent, "script">
+export type ComponentScriptPopulated = Expand<
+  SinglePopulatedField<Omit<Component, "script">, ComponentPopulated, "script">
 >;
 /**
  * Component type with the `styles` field populated
  */
-export type StylesPopulatedComponent = Expand<
-  SinglePopulatedField<Omit<Component, "styles">, PopulatedComponent, "styles">
+export type ComponentStylesPopulated = Expand<
+  SinglePopulatedField<Omit<Component, "styles">, ComponentPopulated, "styles">
 >;
 /**
  * Component type with the `doc` field populated
  */
-export type DocPopulatedComponent = Expand<
-  SinglePopulatedField<Omit<Component, "doc">, PopulatedComponent, "doc">
+export type ComponentDocPopulated = Expand<
+  SinglePopulatedField<Omit<Component, "doc">, ComponentPopulated, "doc">
+>;
+
+export type ComponentDocument = HydratedDocument<Component>;
+export type ComponentModelType = Model<
+  Component,
+  object,
+  object,
+  object,
+  ComponentDocument
 >;

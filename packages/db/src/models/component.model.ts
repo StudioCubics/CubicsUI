@@ -1,19 +1,10 @@
-import Component from "../types/component.js";
+import { Component, ComponentModelType } from "../types/component.js";
 import {
   Dependencies,
   ExternalDependency,
   LocalDependency,
 } from "../types/dependencies.js";
-import mongoose, { type HydratedDocument, type Model } from "mongoose";
-
-type ComponentHydratedDocument = HydratedDocument<Component>;
-type ComponentModelType = Model<
-  Component,
-  object,
-  object,
-  object,
-  ComponentHydratedDocument
->;
+import mongoose from "mongoose";
 
 // -------------------------------------------------------- Schemas ---------------------------------------------------------------- //
 
@@ -142,7 +133,10 @@ componentSchema.pre("findOneAndDelete", async function (next) {
 // -------------------------------------------------------- Models ---------------------------------------------------------------- //
 
 const ComponentModel =
-  (mongoose.models.Component as Model<Component, ComponentModelType>) ||
+  (mongoose.models.Component as mongoose.Model<
+    Component,
+    ComponentModelType
+  >) ||
   mongoose.model<Component, ComponentModelType>("Component", componentSchema);
 
 export default ComponentModel;

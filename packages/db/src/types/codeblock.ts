@@ -1,7 +1,9 @@
+import { HydratedDocument, Model } from "mongoose";
+
 /**
  * A code block contains the code content in the file
  */
-export default interface Codeblock {
+export interface Codeblock {
   /**
    * name of the file the codeblock will be output to
    */
@@ -15,3 +17,11 @@ export default interface Codeblock {
    */
   content: string;
 }
+export type CodeblockDocument = HydratedDocument<Codeblock>;
+export type CodeblockModelType = Model<
+  Codeblock,
+  object,
+  object,
+  object,
+  CodeblockDocument
+>;

@@ -1,14 +1,5 @@
-import Library from "../types/library.js";
-import mongoose, { type HydratedDocument, type Model } from "mongoose";
-
-type LibraryHydratedDocument = HydratedDocument<Library>;
-type LibraryModelType = Model<
-  Library,
-  object,
-  object,
-  object,
-  LibraryHydratedDocument
->;
+import { Library, LibraryModelType } from "../types/library.js";
+import mongoose from "mongoose";
 
 // -------------------------------------------------------- Schemas ---------------------------------------------------------------- //
 
