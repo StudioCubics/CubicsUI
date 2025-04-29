@@ -40,7 +40,16 @@ export default async function getDependencies(
     code = extractScriptTag(codeOriginal);
   }
 
-  const [imports] = parse(code);
+  let parseLexend;
+
+  try {
+    parseLexend = parse(code);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Couldnt parse your given script for imports!");
+  }
+  const [imports] = parseLexend;
+
   const tsconfigPaths = loadTsConfigPaths(configPath);
 
   for (const imp of imports) {
