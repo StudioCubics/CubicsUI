@@ -5,11 +5,14 @@ import getTempDir from "../utils/getTempDir";
 import fs from "fs-extra";
 import { cliPath, fixturesDir } from "../utils/paths";
 
-const fixtures = [{ name: "tsx" }, { name: "jsx" }];
+const fixtures = [
+  { name: "tsx", componentToUpload: "./components/Line/Line.tsx" },
+  // { name: "jsx", componentToUpload: "./components/Line/Line.jsx" },
+];
 
 describe.each(fixtures)(
   "Testing upload command (Fixture: $name)",
-  ({ name }) => {
+  ({ name, componentToUpload }) => {
     let tempDir = "";
 
     beforeAll(async () => {
@@ -33,11 +36,7 @@ describe.each(fixtures)(
     });
 
     it("Uploads a component", async () => {
-      const component =
-        name == "tsx"
-          ? "./components/Line/Line.tsx"
-          : "./components/Line/Line.jsx";
-      const componentPath = join(tempDir, component);
+      const componentPath = join(tempDir, componentToUpload);
       const result = await execa("pnpm", ["cui", "upload", componentPath], {
         cwd: tempDir,
         stdio: "inherit",

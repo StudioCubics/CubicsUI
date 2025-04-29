@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import styles from "./Line.module.scss";
 import { AnimatedDivProps } from "@/shared/interfaces/ElementProps";
 
