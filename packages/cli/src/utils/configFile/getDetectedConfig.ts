@@ -18,6 +18,6 @@ export default function getDetectedConfig(
   const detectedConfig = configGen() as DetectedConfig;
   detectedConfig.envOptions.typescript =
     options?.typescript ?? isProjectUsingTypescript();
-  detectedConfig.envOptions.basePath = checkIfSrcFolderExists() ? "./src" : ".";
+  detectedConfig.envOptions.baseUrl = checkIfSrcFolderExists() ? "./src" : ".";
   return detectedConfig;
 }

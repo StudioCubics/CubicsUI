@@ -11,7 +11,9 @@ export default function configGen(detectedConfig?: DetectedConfig): CUIConfig {
   return {
     envOptions: {
       typescript: false,
-      basePath: defaultBasePath,
+      baseUrl: defaultBasePath,
+      stylePattern: "*.module.scss",
+      documentationPattern: "*.md",
     },
     databaseOptions: {
       libraryName: defaultLibraryName,

@@ -14,7 +14,7 @@
 export interface CUIConfig {
   envOptions: {
     /**
-     * Set to true if the generated components should use typescript,
+     * Set to true if the project is using typescript,
      *
      * @remarks
      * This will be detected when you run
@@ -23,14 +23,27 @@ export interface CUIConfig {
      */
     typescript: boolean;
     /**
-     * Controls wether the root directory is in src or process.cwd()
+     * baseUrl from tsconfig or jsconfig
+     * @see https://www.typescriptlang.org/tsconfig#baseUrl
      *
      * @remarks
      * This will be detected when you run
      * `cui init`
-     * @default "."
+     * @default "current working directory"
      */
-    basePath: string;
+    baseUrl?: string;
+    /**
+     * The components style module's glob pattern.
+     * if the component file is `abc.jsx` then the style for the component will be `abc.module.css`
+     * @default "*.module.css"
+     */
+    stylePattern?: string;
+    /**
+     * The documentation file's glob pattern.
+     * If the component file is `abc.jsx` then the documentation for the component will be `abc.md`
+     * @default "*.md"
+     */
+    documentationPattern?: string;
   };
   databaseOptions: {
     /**
