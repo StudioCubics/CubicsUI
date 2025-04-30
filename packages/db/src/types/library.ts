@@ -14,9 +14,12 @@ export interface Library {
    */
   desc?: string;
   /**
-   * The rootPath defines where to start walking when traversing from procces.cwd() while downloading the component
+   * The baseUrl defines where to start walking when traversing while downloading or uploading the component
+   * this is usually taken from tsconfig or jsconfig and when none of these exist it defaults to current working directory.
+   * @see https://www.typescriptlang.org/tsconfig#baseUrl
+   * @default "."
    */
-  rootPath: string;
+  baseUrl?: string;
 }
 
 export type LibraryDocument = HydratedDocument<Library>;

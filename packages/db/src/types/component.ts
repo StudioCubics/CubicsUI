@@ -14,7 +14,7 @@ export interface Component {
    */
   name: string;
   /**
-   * The path relative to the {@link Library.rootPath | rootPath}, where the component should be output to while downloading.
+   * The path relative to the {@link Library.baseUrl | rootPath}, where the component should be output to while downloading.
    * @remarks This is unique to a component in a library, so only one component can have the same name in a specific library.
    */
   outPath: string;

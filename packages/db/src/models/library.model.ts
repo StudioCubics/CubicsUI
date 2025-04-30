@@ -12,7 +12,7 @@ const librarySchema: mongoose.Schema<Library, LibraryModelType> =
     {
       name: { type: String, required: true },
       desc: String,
-      rootPath: { type: String, required: true },
+      baseUrl: { type: String, default: "." },
     },
     { timestamps: { createdAt: "created", updatedAt: "updated" } }
   );
