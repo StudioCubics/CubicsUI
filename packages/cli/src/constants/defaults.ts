@@ -14,4 +14,4 @@ export const filesToIgnore = [cacheDirName, ".env"];
 
 // Config defaults
 export const defaultLibraryName = "default";
-export const defaultBasePath = ".";
+export const defaultBaseUrl = ".";

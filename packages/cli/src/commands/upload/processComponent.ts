@@ -49,7 +49,7 @@ export async function processComponent(
   const baseDir = dirname(filePath);
 
   const scriptCodeblockId = await createCodeblock(filePath, codeblocksToSave);
-  
+
   // Detect and add styles and docs,
   // and remove from componentDependencies if these are imported in the component,
   // based on pattern from config
@@ -66,7 +66,7 @@ export async function processComponent(
   const rawDependencies = await getDependencies(
     filePath,
     undefined,
-    config.envOptions.baseUrl
+    config.databaseOptions.baseUrl
   );
 
   // Filter out style module imports from dependencies

@@ -43,3 +43,4 @@ export function isProjectUsingNextJs(): boolean {
 export function checkIfSrcFolderExists(): boolean {
   return fs.existsSync(resolve(process.cwd(), "src"));
 }
+

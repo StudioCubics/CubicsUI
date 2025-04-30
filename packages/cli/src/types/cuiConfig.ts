@@ -22,16 +22,7 @@ export interface CUIConfig {
      * @default false
      */
     typescript: boolean;
-    /**
-     * baseUrl from tsconfig or jsconfig
-     * @see https://www.typescriptlang.org/tsconfig#baseUrl
-     *
-     * @remarks
-     * This will be detected when you run
-     * `cui init`
-     * @default "current working directory"
-     */
-    baseUrl?: string;
+
     /**
      * The components style module's glob pattern.
      * if the component file is `abc.jsx` then the style for the component will be `abc.module.css`
@@ -51,25 +42,19 @@ export interface CUIConfig {
      * @default "default"
      */
     libraryName: string;
+    /**
+     * baseUrl from tsconfig or jsconfig
+     * @see https://www.typescriptlang.org/tsconfig#baseUrl
+     *
+     * @remarks
+     * This will be detected when you run
+     * `cui init`
+     * @default "current working directory"
+     */
+    baseUrl?: string;
   };
   mods?: [];
 }
-
-/**
- * Subset of CUIConfig representing configuration parameters that can be automatically
- * detected from the project's existing structure and setup.
- *
- * @description
- * Provides a focused view of the most fundamental configuration parameters that
- * can be inferred without explicit user configuration. This type is derived from
- * the main CUIConfig interface, extracting only the key auto-detectable properties.
- *
- * @remarks
- * - Represents the minimum viable configuration information
- *
- * @see CUIConfig for the complete configuration interface
- */
-export type DetectedConfig = Pick<CUIConfig, "envOptions">;
 
 /**
  * Defines an array of recognized configuration file names for the CubicsUI configuration system.

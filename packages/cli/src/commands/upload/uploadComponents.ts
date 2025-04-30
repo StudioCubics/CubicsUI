@@ -3,13 +3,13 @@ import {
   ComponentDocument,
   ComponentModel,
   connectDB,
-  disconnectDB,
-  LibraryModel,
+  disconnectDB
 } from "@cubicsui/db";
 import fs from "fs-extra";
 import loadConfig from "../../utils/configFile/loadConfig.js";
 import { processComponent } from "./processComponent.js";
 import { convertAbsToRelPath } from "@cubicsui/helpers";
+import findOrCreateLibrary from "@/utils/findOrCreateLibrary.js";
 
 /**
  * Recursively uploads a component and its local dependencies to the database.
@@ -29,20 +29,11 @@ export default async function uploadComponents(componentPath: string) {
     await connectDB();
 
     // Create or get the library
-    let library = await LibraryModel.findOne({
-      name: config.databaseOptions.libraryName,
-    }).exec();
-    if (!library) {
-      library = await LibraryModel.create({
-        name: config.databaseOptions.libraryName,
-        desc: "",
-        rootPath: config.envOptions.baseUrl,
-      });
-    }
+    const library = await findOrCreateLibrary(config.databaseOptions);
 
     const componentRelPath = convertAbsToRelPath(
       componentPath,
-      config.envOptions.baseUrl
+      config.databaseOptions.baseUrl
     );
 
     // Track processed files: path -> component._id
