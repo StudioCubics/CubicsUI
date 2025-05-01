@@ -17,7 +17,7 @@ describe.each(fixtures)("Testing init command (Fixture: $name)", ({ name }) => {
     await execa("pnpm", ["link", cliPath], {
       cwd: tempDir,
     });
-    await execa("pnpm", ["cui", "init"], {
+    await execa("pnpm", ["cui", "init", "--libraryName", `@cubicsui/init`], {
       cwd: tempDir,
     });
   });

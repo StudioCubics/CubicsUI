@@ -7,7 +7,7 @@ import { cliPath, fixturesDir } from "../utils/paths";
 
 const fixtures = [
   { name: "tsx", componentToUpload: "./components/Line/Line.tsx" },
-  // { name: "jsx", componentToUpload: "./components/Line/Line.jsx" },
+  { name: "jsx", componentToUpload: "./components/Line/Line.jsx" },
 ];
 
 describe.each(fixtures)(
@@ -22,9 +22,13 @@ describe.each(fixtures)(
       await execa("pnpm", ["link", cliPath], {
         cwd: tempDir,
       });
-      await execa("pnpm", ["cui", "init"], {
-        cwd: tempDir,
-      });
+      await execa(
+        "pnpm",
+        ["cui", "init", "--libraryName", `@cubicsui/${name}`],
+        {
+          cwd: tempDir,
+        }
+      );
     });
 
     afterAll(async () => {
