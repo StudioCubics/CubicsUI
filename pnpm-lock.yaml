@@ -50,6 +50,12 @@ importers:
       ignore:
         specifier: ^7.0.3
         version: 7.0.3
+      mongodb-connection-string-url:
+        specifier: ^3.0.2
+        version: 3.0.2
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.5.3
         version: 3.5.3

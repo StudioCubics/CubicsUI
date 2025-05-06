@@ -1,18 +1,29 @@
 import { CUIConfig } from "@/types/cuiConfig.js";
 import { LibraryModel } from "@cubicsui/db";
+import pc from "picocolors";
 
 export default async function findOrCreateLibrary(
-  databaseOptions: CUIConfig["libraryOptions"]
+  libraryOptions: CUIConfig["libraryOptions"]
 ) {
   let library = await LibraryModel.findOne({
-    name: databaseOptions.libraryName,
+    name: libraryOptions.libraryName,
   }).exec();
+
+  if (library)
+    console.log(
+      `✔ Found library "${pc.bold(libraryOptions.libraryName)}" in database.`
+    );
+
   if (!library) {
     library = await LibraryModel.create({
-      name: databaseOptions.libraryName,
+      name: libraryOptions.libraryName,
       desc: "",
-      baseUrl: databaseOptions.baseUrl,
+      baseUrl: libraryOptions.baseUrl,
     });
+
+    console.log(
+      `✔ Created library "${pc.bold(libraryOptions.libraryName)}" in database.`
+    );
   }
   return library;
 }

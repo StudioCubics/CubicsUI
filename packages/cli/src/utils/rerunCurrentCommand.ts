@@ -6,13 +6,16 @@ import { spawn } from "child_process";
  * @return void
  */
 export default function rerunCurrentCommand() {
-  console.log("\nRerunning command!");
   const nodeBinary = process.argv0; // Usually "node"
   const args = process.argv.slice(1); // Remove the Node binary path, keep script + args
 
   const child = spawn(nodeBinary, args, {
     stdio: "inherit",
     shell: true,
+  });
+  
+  child.on("error", (e) => {
+    console.error(e);
   });
 
   child.on("exit", (code) => {

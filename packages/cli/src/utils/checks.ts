@@ -10,11 +10,13 @@ export function isProjectInitialised() {
 }
 
 /**
- * Checks if the CUI_DB_URI env variable is available in the process
+ * Checks if the CUI_DB_URL env variable is available in the process
  */
 export function isDBURIAvailableInEnv() {
-  return !!process.env.CUI_DB_URI;
+  return !!process.env.CUI_DB_URL;
 }
+
+
 
 /**
  * Check if project is using typescript or not by checking if the
@@ -43,4 +45,3 @@ export function isProjectUsingNextJs(): boolean {
 export function checkIfSrcFolderExists(): boolean {
   return fs.existsSync(resolve(process.cwd(), "src"));
 }
-

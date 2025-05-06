@@ -15,3 +15,5 @@ export const filesToIgnore = [cacheDirName, ".env"];
 // Config defaults
 export const defaultLibraryName = "default";
 export const defaultBaseUrl = ".";
+export const defaultStylePattern = "*.module.css";
+export const defaultDocumentationPattern = "*.md";

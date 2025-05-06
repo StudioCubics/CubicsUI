@@ -19,7 +19,7 @@ export interface Library {
    * @see https://www.typescriptlang.org/tsconfig#baseUrl
    * @default "."
    */
-  baseUrl?: string;
+  baseUrl: string;
 }
 
 export type LibraryDocument = HydratedDocument<Library>;

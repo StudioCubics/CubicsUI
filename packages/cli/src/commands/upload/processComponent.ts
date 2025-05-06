@@ -5,8 +5,8 @@ import {
   LibraryDocument,
 } from "@cubicsui/db";
 import fs from "fs-extra";
-import { basename, dirname, extname, join } from "path";
-import { getDependencies } from "@cubicsui/helpers";
+import { basename, dirname, extname, join, resolve } from "path";
+import { convertAbsToRelPath, getDependencies } from "@cubicsui/helpers";
 import { CUIConfig } from "@/types/cuiConfig.js";
 import { filterComponentDependencies } from "./filterComponentDependencies.js";
 import createCodeblock from "./createCodeblock.js";
@@ -18,7 +18,7 @@ const MAX_DEPTH = 10;
  * Handles circular imports and depth limits.
  */
 export async function processComponent(
-  filePath: string,
+  componentAbsPath: string,
   config: CUIConfig,
   library: LibraryDocument,
   processedFiles: Map<string, ComponentDocument["_id"]>,
@@ -28,27 +28,30 @@ export async function processComponent(
   importStack: Set<string> = new Set()
 ): Promise<ComponentDocument["_id"]> {
   if (depth > MAX_DEPTH) {
-    throw new Error(`Max depth of ${MAX_DEPTH} reached at ${filePath}`);
+    throw new Error(`Max depth of ${MAX_DEPTH} reached at ${componentAbsPath}`);
   }
 
-  const cachedId = processedFiles.get(filePath);
+  const cachedId = processedFiles.get(componentAbsPath);
   if (cachedId) return cachedId;
 
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Dependency file not found: ${filePath}`);
+  if (!fs.existsSync(componentAbsPath)) {
+    throw new Error(`⚠ Dependency file not found: ${componentAbsPath}`);
   }
 
-  if (importStack.has(filePath)) {
-    console.warn(`⚠️ Circular import detected: ${filePath}`);
+  if (importStack.has(componentAbsPath)) {
+    console.warn(`⚠ Circular import detected: ${componentAbsPath}`);
     return undefined as any;
   }
 
-  importStack.add(filePath);
+  importStack.add(componentAbsPath);
 
-  const componentName = basename(filePath, extname(filePath));
-  const baseDir = dirname(filePath);
+  const componentName = basename(componentAbsPath, extname(componentAbsPath));
+  const baseDir = dirname(componentAbsPath);
 
-  const scriptCodeblockId = await createCodeblock(filePath, codeblocksToSave);
+  const scriptCodeblockId = await createCodeblock(
+    componentAbsPath,
+    codeblocksToSave
+  );
 
   // Detect and add styles and docs,
   // and remove from componentDependencies if these are imported in the component,
@@ -64,7 +67,7 @@ export async function processComponent(
 
   // Get the dependencies for the filePath
   const rawDependencies = await getDependencies(
-    filePath,
+    componentAbsPath,
     undefined,
     config.libraryOptions.baseUrl
   );
@@ -77,7 +80,8 @@ export async function processComponent(
 
   for (const localDep of componentDependencies.lcl) {
     const dependencyId = await processComponent(
-      localDep.path,
+      // Convert relative path to absolute path
+      resolve(config.libraryOptions.baseUrl, localDep.path),
       config,
       library,
       processedFiles,
@@ -92,7 +96,11 @@ export async function processComponent(
 
   const component = new ComponentModel({
     name: componentName,
-    outPath: filePath,
+    // Converting absolute path to relative path to save instead of absolute path
+    outPath: convertAbsToRelPath(
+      componentAbsPath,
+      config.libraryOptions.baseUrl
+    ),
     desc: "This is an awesome component",
     deps: componentDependencies,
     lib: library._id,
@@ -101,10 +109,10 @@ export async function processComponent(
     doc: docsCodeblockId ?? undefined,
   });
 
-  processedFiles.set(filePath, component._id);
+  processedFiles.set(componentAbsPath, component._id);
   componentsToSave.push(component);
 
-  console.log(`Staged component: ${filePath}`);
+  console.log(`Staged component: ${componentAbsPath}`);
 
   return component._id;
 }

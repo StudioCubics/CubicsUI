@@ -50,9 +50,9 @@ export interface CUIConfig {
      * @remarks
      * This will be detected when you run
      * `cui init`
-     * @default "current working directory"
+     * @default "."
      */
-    baseUrl?: string;
+    baseUrl: string;
   };
   mods?: [];
 }

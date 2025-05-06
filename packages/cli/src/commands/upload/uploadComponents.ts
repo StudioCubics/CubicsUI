@@ -3,38 +3,32 @@ import {
   ComponentDocument,
   ComponentModel,
   connectDB,
-  disconnectDB
+  disconnectDB,
 } from "@cubicsui/db";
 import fs from "fs-extra";
 import loadConfig from "../../utils/configFile/loadConfig.js";
 import { processComponent } from "./processComponent.js";
-import { convertAbsToRelPath } from "@cubicsui/helpers";
 import findOrCreateLibrary from "@/utils/findOrCreateLibrary.js";
 
 /**
  * Recursively uploads a component and its local dependencies to the database.
  * Associates style and doc codeblocks without creating separate components.
- * @param componentPath - Path of the root component to upload.
+ * @param componentAbsPath - Absolute path of the root component to upload.
  */
-export default async function uploadComponents(componentPath: string) {
+export default async function uploadComponents(componentAbsPath: string) {
   try {
     const config = await loadConfig();
 
-    if (!fs.existsSync(componentPath)) {
-      throw new Error(`No file found in ${componentPath}`);
+    if (!fs.existsSync(componentAbsPath)) {
+      throw new Error(`No file found in ${componentAbsPath}`);
     }
 
-    console.log(`Uploading components starting from: ${componentPath}`);
+    console.log(`Uploading components starting from: ${componentAbsPath}`);
 
     await connectDB();
 
     // Create or get the library
     const library = await findOrCreateLibrary(config.libraryOptions);
-
-    const componentRelPath = convertAbsToRelPath(
-      componentPath,
-      config.libraryOptions.baseUrl
-    );
 
     // Track processed files: path -> component._id
     const processedFiles = new Map<string, ComponentDocument["_id"]>();
@@ -44,7 +38,7 @@ export default async function uploadComponents(componentPath: string) {
     const codeblocksToSave: InstanceType<typeof CodeblockModel>[] = [];
 
     await processComponent(
-      componentRelPath,
+      componentAbsPath,
       config,
       library,
       processedFiles,
@@ -57,7 +51,7 @@ export default async function uploadComponents(componentPath: string) {
     await ComponentModel.bulkSave(componentsToSave);
 
     console.log(
-      `✅ Completed uploading all components starting from ${componentPath}`
+      `✔ Completed uploading all components starting from ${componentAbsPath}`
     );
     await disconnectDB();
   } catch (error) {

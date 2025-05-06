@@ -1,5 +1,4 @@
-import configGen from "./configGen.js";
-import { InitOptions } from "@/commands/init/_index.js";
+import { CUIConfig } from "@/types/cuiConfig.js";
 
 /**
  * Default configuration template for ESM modules
@@ -8,9 +7,8 @@ import { InitOptions } from "@/commands/init/_index.js";
  */
 
 export default async function configTemplate(
-  options: InitOptions
+  generatedConfig: CUIConfig
 ): Promise<string> {
-  const generatedConfig = await configGen(options);
   return `
 import { defineConfig } from '@cubicsui/cli';
 export default defineConfig(${JSON.stringify(generatedConfig)});`;

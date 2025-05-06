@@ -15,11 +15,10 @@ const cached = global.mongoose || { conn: null, promise: null };
  * Connect to MongoDB with caching to support serverless environments.
  */
 export async function connectDB(): Promise<mongoose.Connection> {
-  const CUI_DB_URI =
-    process.env.CUI_DB_URI || "mongodb://localhost:27017/cubicsui";
+  const CUI_DB_URL = process.env.CUI_DB_URL;
 
-  if (!CUI_DB_URI) {
-    throw new Error("Please define the CUI_DB_URI environment variable");
+  if (!CUI_DB_URL) {
+    throw new Error("Please define the CUI_DB_URL environment variable");
   }
 
   if (cached.conn) {
@@ -27,8 +26,9 @@ export async function connectDB(): Promise<mongoose.Connection> {
   }
 
   if (!cached.promise) {
+    console.log("🔌 Connecting to your MongoDB database!");
     cached.promise = mongoose
-      .connect(CUI_DB_URI)
+      .connect(CUI_DB_URL)
       .then((mongoose) => mongoose.connection)
       .catch((err) => {
         cached.promise = null;
