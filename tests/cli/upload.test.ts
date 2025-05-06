@@ -22,13 +22,9 @@ describe.each(fixtures)(
       await execa("pnpm", ["link", cliPath], {
         cwd: tempDir,
       });
-      await execa(
-        "pnpm",
-        ["cui", "init", "--libraryName", `@cubicsui/${name}`],
-        {
-          cwd: tempDir,
-        }
-      );
+      await execa("pnpm", ["cui", "init", "--lib", `@cubicsui/${name}`], {
+        cwd: tempDir,
+      });
     });
 
     afterAll(async () => {
