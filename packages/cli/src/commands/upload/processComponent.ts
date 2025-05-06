@@ -66,7 +66,7 @@ export async function processComponent(
   const rawDependencies = await getDependencies(
     filePath,
     undefined,
-    config.databaseOptions.baseUrl
+    config.libraryOptions.baseUrl
   );
 
   // Filter out style module imports from dependencies

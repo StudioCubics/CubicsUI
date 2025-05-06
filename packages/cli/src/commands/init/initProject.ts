@@ -4,6 +4,8 @@ import rerunCurrentCommand from "@/utils/rerunCurrentCommand.js";
 import initConfigFile from "./initConfigFile.js";
 import { InitOptions } from "./_index.js";
 import initIgnores from "./initIgnores.js";
+import { confirm, input } from "@inquirer/prompts";
+import { defaultDbURI, defaultLibraryName } from "@/constants/defaults.js";
 
 /**
  * Initializes the configuration file and the cache folder ".cui" for the CubicsUI CLI toolkit.
@@ -20,27 +22,44 @@ import initIgnores from "./initIgnores.js";
  * // Typical usage
  * cui init
  */
-export default async function initProject(options: InitOptions): Promise<void> {
+export default async function initProject(
+  options: Partial<InitOptions>
+): Promise<void> {
   // Check if config already exists in the root
   if (isProjectInitialised()) {
     console.error(
-      "\nThis project seems to be already initialised for @cubicsui/cli."
-    );
-    console.error(
-      "\nIf you are trying to reinitialise this project then delete the config file(cui.config) and .cui folder before initialising again."
+      "\nThis project seems to be already initialised for @cubicsui/cli.",
+      "\nIf you are trying to reinitialise this project then delete the config file(cui.config) before initialising again."
     );
     process.exit(0);
   }
+  const initOptions: InitOptions = {
+    typescript:
+      options.typescript ??
+      (await confirm({
+        message: "Are you using typescript in your project?",
+        default: false,
+      })),
+    database:
+      options.database ??
+      (await input({
+        message: "Input your MongoDB database url",
+        default: defaultDbURI,
+      })),
+    library:
+      options.library ??
+      (await input({
+        message: "Input the name of the library in your database",
+        default: defaultLibraryName,
+      })),
+  };
 
   // Check if environment variables already exists if it exists continue or else initialise env file and then rerun the cui init function
   if (!isDBURIAvailableInEnv()) {
-    console.log(
-      "\nLooks like environment variable CUI_DB_URI is missing, cui will now add the default value of CUI_DB_URI to .env file"
-    );
-    await initEnvFile();
+    await initEnvFile(initOptions);
     rerunCurrentCommand();
   } else {
-    await initConfigFile(options);
+    await initConfigFile(initOptions);
     await initIgnores();
   }
 }

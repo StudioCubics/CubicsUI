@@ -29,11 +29,11 @@ export default async function uploadComponents(componentPath: string) {
     await connectDB();
 
     // Create or get the library
-    const library = await findOrCreateLibrary(config.databaseOptions);
+    const library = await findOrCreateLibrary(config.libraryOptions);
 
     const componentRelPath = convertAbsToRelPath(
       componentPath,
-      config.databaseOptions.baseUrl
+      config.libraryOptions.baseUrl
     );
 
     // Track processed files: path -> component._id

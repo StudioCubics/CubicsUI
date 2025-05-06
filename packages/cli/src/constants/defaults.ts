@@ -1,7 +1,7 @@
 import { resolve } from "path";
 
 // Env variable related defaults
-export const envVariables = `CUI_DB_URI="mongodb://localhost:27017/cubicsui"\n`;
+export const defaultDbURI = "mongodb://localhost:27017/cubicsui";
 export const envFileName = ".env";
 export const envPath = resolve(process.cwd(), envFileName);
 

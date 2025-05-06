@@ -14,8 +14,8 @@ import { connectDB, disconnectDB } from "@cubicsui/db";
 export default async function configGen(
   options: InitOptions
 ): Promise<CUIConfig> {
-  const databaseOptions: CUIConfig["databaseOptions"] = {
-    libraryName: options.libraryName ?? defaultLibraryName,
+  const databaseOptions: CUIConfig["libraryOptions"] = {
+    libraryName: options.library ?? defaultLibraryName,
     baseUrl: checkIfSrcFolderExists() ? "./src" : defaultBaseUrl,
   };
 
@@ -29,7 +29,7 @@ export default async function configGen(
       stylePattern: "*.module.scss",
       documentationPattern: "*.md",
     },
-    databaseOptions: {
+    libraryOptions: {
       libraryName: library.name,
       baseUrl: library.baseUrl,
     },

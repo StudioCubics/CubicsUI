@@ -6,7 +6,6 @@
  * This configuration allows fine-grained control over code generation, style management,
  * and project-specific preferences.
  *
- * @see {@link DetectedConfig} for automatically detected configuration subset
  * @see {@link configFiles} for supported configuration file names
  *
  */
@@ -36,14 +35,16 @@ export interface CUIConfig {
      */
     documentationPattern?: string;
   };
-  databaseOptions: {
+  libraryOptions: {
     /**
-     * Name of the selected library in the database where the components can be found
+     * Name of the selected library in the database where the components can be found,
+     * if the library doesnt exist then it is created in the database
      * @default "default"
      */
     libraryName: string;
     /**
-     * baseUrl from tsconfig or jsconfig
+     * This is used by cui to know where the root of the library is located,
+     * `baseUrl` is taken from the nearest `tsconfig.json` or `jsconfig.json`
      * @see https://www.typescriptlang.org/tsconfig#baseUrl
      *
      * @remarks
