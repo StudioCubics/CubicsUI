@@ -42,7 +42,7 @@ export default async function configGen(
         message: "Are you using typescript in your project?",
         default: isProjectUsingTypescript(),
       })),
-    stylePattern:
+    styleModulePattern:
       options.stylePattern ??
       (await input({
         message: "What is the pattern of the style modules in your project?",

@@ -13,7 +13,7 @@ export function filterComponentDependencies(
   deps: Dependencies,
   config: CUIConfig
 ): Dependencies {
-  const stylePattern = config.envOptions.stylePattern ?? "*.module.css";
+  const stylePattern = config.envOptions.styleModulePattern ?? "*.module.css";
   const docPattern = config.envOptions.documentationPattern ?? "*.md";
 
   const styleRegex = new RegExp(

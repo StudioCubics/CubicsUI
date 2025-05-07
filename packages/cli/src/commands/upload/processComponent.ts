@@ -55,7 +55,7 @@ export async function processComponent(
   // Detect and add styles and docs,
   // and remove from componentDependencies if these are imported in the component,
   // based on pattern from config
-  const stylePattern = config.envOptions.stylePattern ?? "*.module.css";
+  const stylePattern = config.envOptions.styleModulePattern ?? "*.module.css";
   const docPattern = config.envOptions.documentationPattern ?? "*.md";
 
   const styleFile = join(baseDir, stylePattern.replace("*", componentName));

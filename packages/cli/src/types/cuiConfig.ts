@@ -1,16 +1,11 @@
 /**
  * Comprehensive configuration interface for the CubicsUI CLI.
- *
- * @description
- * Represents the full configuration schema that controls component generation and project setup.
- * This configuration allows fine-grained control over code generation, style management,
- * and project-specific preferences.
- *
- * @see {@link configFiles} for supported configuration file names
- *
+ * Represents the full configuration schema that controls component,library and codeblock generation
  */
-
 export interface CUIConfig {
+  /**
+   * Options about the current projects environment.
+   */
   envOptions: {
     /**
      * Set to true if the project is using typescript,
@@ -21,20 +16,22 @@ export interface CUIConfig {
      * @default false
      */
     typescript: boolean;
-
     /**
-     * The components style module's glob pattern.
-     * if the component file is `abc.jsx` then the style for the component will be `abc.module.css`
+     * The components style module's wildcard pattern.
+     * if the component file is in `./dir/abc.jsx` then the style for the component must be in `./dir/abc.module.css`
      * @default "*.module.css"
      */
-    stylePattern?: string;
+    styleModulePattern?: string;
     /**
-     * The documentation file's glob pattern.
-     * If the component file is `abc.jsx` then the documentation for the component will be `abc.md`
+     * The documentation file's wildcard pattern.
+     * If the component file is `./dir/abc.jsx` then the documentation for the component will be `./dir/abc.md`
      * @default "*.md"
      */
     documentationPattern?: string;
   };
+  /**
+   * Options containing information about the library, with which the components are associated.
+   */
   libraryOptions: {
     /**
      * Name of the selected library in the database where the components can be found,
@@ -44,7 +41,8 @@ export interface CUIConfig {
     libraryName: string;
     /**
      * This is used by cui to know where the root of the library is located,
-     * `baseUrl` is taken from the nearest `tsconfig.json` or `jsconfig.json`
+     * `baseUrl` is taken from the nearest `tsconfig.json` or `jsconfig.json`,
+     * if none of these exist then it defaults to current working directory
      * @see https://www.typescriptlang.org/tsconfig#baseUrl
      *
      * @remarks
@@ -58,23 +56,13 @@ export interface CUIConfig {
 }
 
 /**
- * Defines an array of recognized configuration file names for the CubicsUI configuration system.
+ * Defines an array of recognized configuration file names for the CubicsUI configuration.
  *
- * This constant array contains the standard filenames that the configuration loader will search for when
- * attempting to locate and parse the application's configuration. Currently supports both JavaScript and
- * TypeScript configuration file formats.
- *
- * @remarks
- * - The configuration files are expected to be located in the project's root directory
- * - Supports `.mjs` and `.ts` extensions for maximum flexibility across different project setups
+ * The configuration files are expected to be located in the project's root directory
  */
 export const configFiles = ["cui.config.mjs", "cui.config.ts"] as const;
 
 /**
  * A type that represents the literal string types of valid configuration file names.
- *
- * Allows precise type checking and autocompletion for configuration file names throughout the application.
- *
- * @typeparam ConfigFile - A union type of the specific configuration file name strings
  */
 export type ConfigFile = (typeof configFiles)[number];
