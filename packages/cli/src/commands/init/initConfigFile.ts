@@ -25,5 +25,5 @@ export default async function (options: InitOptions) {
     resolve(process.cwd(), configFileName),
     finalConfigContent
   );
-  console.log(`✔ Created config file ${configFileName} in project root`);
+  console.log(`✅ Created config file ${configFileName} in project root`);
 }

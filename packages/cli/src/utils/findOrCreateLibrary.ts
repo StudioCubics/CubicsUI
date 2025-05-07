@@ -11,7 +11,7 @@ export default async function findOrCreateLibrary(
 
   if (library)
     console.log(
-      `✔ Found library "${pc.bold(libraryOptions.libraryName)}" in database.`
+      `🔍 Found library "${pc.bold(libraryOptions.libraryName)}" in database.\n`
     );
 
   if (!library) {
@@ -22,7 +22,7 @@ export default async function findOrCreateLibrary(
     });
 
     console.log(
-      `✔ Created library "${pc.bold(libraryOptions.libraryName)}" in database.`
+      `✅ Created library "${pc.bold(libraryOptions.libraryName)}" in database.\n`
     );
   }
   return library;

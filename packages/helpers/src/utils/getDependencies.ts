@@ -44,16 +44,8 @@ export default async function getDependencies(
     imports = parseCode(code);
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to parse your given script for imports!");
+    throw new Error("⛔ Failed to parse your given script for imports!");
   }
-
-  // try {
-  //   // TODO replace with @babel/parser
-  //   parsedCode = parse(code);
-  // } catch (error) {
-  //   console.error(error);
-  //   throw new Error("Failed to parse your given script for imports!");
-  // }
 
   const tsconfigPaths = loadTsConfigPaths(configPath);
 

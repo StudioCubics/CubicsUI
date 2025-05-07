@@ -44,10 +44,10 @@ export default async function initProject(options: InitOptions): Promise<void> {
     }
   } catch (error) {
     if (error instanceof Error && error.name === "ExitPromptError") {
-      console.error(`✖ Stopped initialising project`);
+      console.error(`❌ Stopped initialising project`);
       console.log("👋 Until next time!");
     } else {
-      console.error(`✖ Failed to initialise project!`);
+      console.error(`❌ Failed to initialise project!`);
       console.error(error);
     }
     process.exit(1);

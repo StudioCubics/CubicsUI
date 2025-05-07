@@ -6,7 +6,7 @@ export default async function createCodeblock(
   filePath: string,
   codeblocksToSave: CodeblockDocument[]
 ) {
-  if (!fs.existsSync(filePath)) return null;
+  if (!fs.existsSync(filePath)) return undefined;
 
   const size = (await fs.stat(filePath)).size;
   const content = (await fs.readFile(filePath)).toString();
@@ -16,7 +16,6 @@ export default async function createCodeblock(
     size,
     content,
   });
-
   codeblocksToSave.push(codeblock);
   return codeblock._id;
 }

@@ -32,5 +32,5 @@ export default function resolveWithExtensions(
     }
   }
 
-  throw new Error(`Cannot resolve file: ${resolvedPath}`);
+  throw new Error(`⛔ Cannot resolve file: ${resolvedPath}`);
 }

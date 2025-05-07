@@ -1,7 +1,8 @@
 import {
-  CodeblockModel,
+  CodeblockDocument,
+  // CodeblockModel,
   ComponentDocument,
-  ComponentModel,
+  // ComponentModel,
   connectDB,
   disconnectDB,
 } from "@cubicsui/db";
@@ -9,6 +10,7 @@ import fs from "fs-extra";
 import loadConfig from "../../utils/configFile/loadConfig.js";
 import { processComponent } from "./processComponent.js";
 import findOrCreateLibrary from "@/utils/findOrCreateLibrary.js";
+import picocolors from "picocolors";
 
 /**
  * Recursively uploads a component and its local dependencies to the database.
@@ -20,10 +22,12 @@ export default async function uploadComponents(componentAbsPath: string) {
     const config = await loadConfig();
 
     if (!fs.existsSync(componentAbsPath)) {
-      throw new Error(`No file found in ${componentAbsPath}`);
+      throw new Error(`⛔ No file found in ${componentAbsPath}`);
     }
 
-    console.log(`Uploading components starting from: ${componentAbsPath}`);
+    console.log(
+      `\n🔼 Uploading components starting from: ${componentAbsPath}\n`
+    );
 
     await connectDB();
 
@@ -35,8 +39,11 @@ export default async function uploadComponents(componentAbsPath: string) {
 
     // Collect components and codeblocks before saving
     const componentsToSave: ComponentDocument[] = [];
-    const codeblocksToSave: InstanceType<typeof CodeblockModel>[] = [];
+    const codeblocksToSave: CodeblockDocument[] = [];
 
+    console.log(
+      `⌛ Staging components ${picocolors.italic("(Duplicate components are not shown)")}`
+    );
     await processComponent(
       componentAbsPath,
       config,
@@ -47,14 +54,16 @@ export default async function uploadComponents(componentAbsPath: string) {
     );
 
     // Save all collected models
-    await CodeblockModel.bulkSave(codeblocksToSave);
-    await ComponentModel.bulkSave(componentsToSave);
+    console.log("\n💾 Saving the staged components to the database.");
+    // await CodeblockModel.bulkSave(codeblocksToSave);
+    // await ComponentModel.bulkSave(componentsToSave);
 
     console.log(
-      `✔ Completed uploading all components starting from ${componentAbsPath}`
+      `\n✅ Completed uploading all components starting from ${componentAbsPath}`
     );
     await disconnectDB();
   } catch (error) {
+    console.error(`❌ Failed to upload component!`);
     console.error(error);
     await disconnectDB();
     process.exit(1);

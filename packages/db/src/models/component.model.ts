@@ -89,13 +89,13 @@ componentSchema.pre("deleteOne", { document: true }, async function (next) {
         .deleteMany({ _id: { $in: ids } });
 
       console.log(
-        `[Component] Cascade deleted ${result.deletedCount} codeblock associated with "${this.name}"`
+        `✅ [Component] Cascade deleted ${result.deletedCount} codeblock associated with "${this.name}"`
       );
     }
     next();
   } catch (error) {
     console.error(
-      `[Component] Failed to cascade delete codeblocks for component "${this.name}":`,
+      `❌ [Component] Failed to cascade delete codeblocks for component "${this.name}":`,
       error
     );
     if (error instanceof Error) next(error);
@@ -120,12 +120,12 @@ componentSchema.pre("findOneAndDelete", async function (next) {
         .deleteMany({ _id: { $in: ids } });
 
       console.log(
-        `[Component] Cascade deleted ${result.deletedCount} codeblock associated with "${doc.name}".`
+        `✅ [Component] Cascade deleted ${result.deletedCount} codeblock associated with "${doc.name}".`
       );
     }
     next();
   } catch (error) {
-    console.error(`[Component] Failed to cascade delete codeblocks:`, error);
+    console.error(`❌ [Component] Failed to cascade delete codeblocks:`, error);
     if (error instanceof Error) next(error);
   }
 });
