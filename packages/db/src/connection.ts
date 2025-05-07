@@ -18,7 +18,7 @@ export async function connectDB(): Promise<mongoose.Connection> {
   const CUI_DB_URL = process.env.CUI_DB_URL;
 
   if (!CUI_DB_URL) {
-    throw new Error("Please define the CUI_DB_URL environment variable");
+    throw new Error("⛔ Please define the CUI_DB_URL environment variable.");
   }
 
   if (cached.conn) {
@@ -26,13 +26,15 @@ export async function connectDB(): Promise<mongoose.Connection> {
   }
 
   if (!cached.promise) {
-    console.log("🔌 Connecting to your MongoDB database!");
     cached.promise = mongoose
       .connect(CUI_DB_URL)
-      .then((mongoose) => mongoose.connection)
-      .catch((err) => {
+      .then((mongoose) => {
+        console.log("🔗 Connected to your MongoDB database.");
+        return mongoose.connection;
+      })
+      .catch((error) => {
         cached.promise = null;
-        throw err;
+        throw error;
       });
   }
 

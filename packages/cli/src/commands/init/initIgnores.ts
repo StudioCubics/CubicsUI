@@ -14,13 +14,13 @@ export default async function initIgnores() {
   let gitignoreContent = "";
   try {
     gitignoreContent = await readFile(ignoreFilePath, "utf8");
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-      console.warn(`⚠ .gitignore not found, creating one: ${ignoreFilePath}`);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      console.warn(`🔔 .gitignore not found, creating one: ${ignoreFilePath}`);
       // Ensure the file exists
       await fs.ensureFile(ignoreFilePath);
     } else {
-      throw err;
+      throw error;
     }
   }
 
@@ -33,5 +33,4 @@ export default async function initIgnores() {
 
   const dataToAppend = `\n# Added by CubicsUI\n${newEntries.join("\n")}\n`;
   await writeFile(ignoreFilePath, gitignoreContent + dataToAppend, "utf8");
-  console.log(`✔ Added to .gitignore: ${newEntries.join(", ")}`);
 }

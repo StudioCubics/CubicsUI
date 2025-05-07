@@ -32,12 +32,12 @@ librarySchema.pre("deleteOne", { document: true }, async function (next) {
     const result = await ComponentModel.deleteMany({ lib: this._id });
 
     console.log(
-      `[Library] Cascade deleted ${result.deletedCount} components associated with library "${this.name}".`
+      `✅ [Library] Cascade deleted ${result.deletedCount} components associated with library "${this.name}".`
     );
     next();
   } catch (error) {
     console.error(
-      `[Library] Failed to cascade delete components for library "${this.name}":`,
+      `❌ [Library] Failed to cascade delete components for library "${this.name}":`,
       error
     );
     if (error instanceof Error) next(error);
@@ -59,11 +59,11 @@ librarySchema.pre("findOneAndDelete", async function (next) {
     const result = await ComponentModel.deleteMany({ lib: doc._id });
 
     console.log(
-      `[Library] Cascade deleted ${result.deletedCount} components associated with library "${doc.name}".`
+      `✅ [Library] Cascade deleted ${result.deletedCount} components associated with library "${doc.name}".`
     );
     next();
   } catch (error) {
-    console.error(`[Library] Failed to cascade delete components:`, error);
+    console.error(`❌ [Library] Failed to cascade delete components:`, error);
     if (error instanceof Error) next(error);
   }
 });
