@@ -1,0 +1,7 @@
+{
+  "build": [
+    { "label": "Linting", "command": "pnpm eslint" },
+    { "label": "Transpiling", "command": "pnpm tsc -b" }
+  ],
+  "package": "pnpm pack --json"
+}

@@ -28,7 +28,8 @@
     "cui": "./bin.js"
   },
   "scripts": {
-    "build": "eslint && tsc -b && tsc-alias -p tsconfig.json",
+    "build": "node ../../scripts/build.js ./packages/cli",
+    "package": "node ../../scripts/package.js ./packages/cli",
     "lint": "eslint",
     "clean": "rimraf node_modules .turbo dist "
   },

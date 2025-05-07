@@ -10,6 +10,6 @@ export default tseslint.config(
   // Ignoring bin.js because of error
   //  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
   {
-    ignores: ["dist", "node_modules", "bin.js"],
+    ignores: ["dist", "node_modules",],
   }
 );

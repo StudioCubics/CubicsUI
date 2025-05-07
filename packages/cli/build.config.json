@@ -1,0 +1,11 @@
+{
+  "build": [
+    { "label": "Linting", "command": "pnpm eslint" },
+    { "label": "Transpiling", "command": "pnpm tsc -b" },
+    {
+      "label": "Resolving Aliases",
+      "command": "pnpm tsc-alias -p tsconfig.json"
+    }
+  ],
+  "package": "pnpm pack --json"
+}

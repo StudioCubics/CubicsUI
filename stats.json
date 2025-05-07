@@ -1,0 +1,12 @@
+{
+  "db": {
+    "packageStats": {
+      "Name": "@cubicsui/db",
+      "Version": "0.0.2",
+      "Package Size": "4.807 kB",
+      "Unpacked Size": "18.195 kB",
+      "Total Files": 26,
+      "Largest File": "dist/models/component.model.js (4.058 kB kB)"
+    }
+  }
+}
