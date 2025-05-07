@@ -39,8 +39,7 @@ export async function processComponent(
   }
 
   if (importStack.has(componentAbsPath)) {
-    console.warn(`⚠ Circular import detected: ${componentAbsPath}`);
-    return undefined as any;
+    throw new Error(`⚠ Circular import detected: ${componentAbsPath}`);
   }
 
   importStack.add(componentAbsPath);

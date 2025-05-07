@@ -14,8 +14,8 @@ export default async function initIgnores() {
   let gitignoreContent = "";
   try {
     gitignoreContent = await readFile(ignoreFilePath, "utf8");
-  } catch (err: any) {
-    if (err.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
       console.warn(`⚠ .gitignore not found, creating one: ${ignoreFilePath}`);
       // Ensure the file exists
       await fs.ensureFile(ignoreFilePath);
