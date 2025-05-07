@@ -1,10 +1,7 @@
 import {
-  CodeblockDocument,
   CodeblockModel,
-  // CodeblockModel,
   ComponentDocument,
   ComponentModel,
-  // ComponentModel,
   connectDB,
   disconnectDB,
 } from "@cubicsui/db";
@@ -56,7 +53,6 @@ export default async function uploadComponents(componentAbsPath: string) {
     );
 
     // Save all collected models
-    console.log("\n💾 Saving the staged components to the database.");
     await CodeblockModel.bulkSave(codeblocksToSave);
     await ComponentModel.bulkSave(componentsToSave);
 
