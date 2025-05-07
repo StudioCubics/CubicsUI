@@ -1,17 +1,17 @@
 import fs from "fs-extra";
 import path from "path";
-import { init, parse } from "es-module-lexer";
+import { init } from "es-module-lexer";
 import {
   LocalDependency,
   ExternalDependency,
   Dependencies,
 } from "@cubicsui/db";
-import extractScriptTag from "./extractScriptTag.js";
 import loadTsConfigPaths from "./loadTsConfigPaths.js";
 import resolveWithExtensions from "./resolveWithExtensions.js";
 import resolveAlias from "./resolveAlias.js";
 import convertAbsToRelPath from "./convertAbsToRelPath.js";
 import { possibleScriptExtensions } from "../constants/extensions.js";
+import parseCode from "./parseCode.js";
 
 /**
  * Analyzes a file and returns its local and external dependencies.
@@ -35,25 +35,30 @@ export default async function getDependencies(
   const ext: ExternalDependency[] = [];
   const lcl: LocalDependency[] = [];
 
-  let code = codeOriginal;
-  if (filePath.endsWith(".vue") || filePath.endsWith(".svelte")) {
-    code = extractScriptTag(codeOriginal);
-  }
+  const code = codeOriginal;
+  // TODO add .svelte and .vue SFC handling here
 
-  let parseLexend;
+  let imports;
 
   try {
-    parseLexend = parse(code);
+    imports = parseCode(code);
   } catch (error) {
     console.error(error);
-    throw new Error("Couldnt parse your given script for imports!");
+    throw new Error("Failed to parse your given script for imports!");
   }
-  const [imports] = parseLexend;
+
+  // try {
+  //   // TODO replace with @babel/parser
+  //   parsedCode = parse(code);
+  // } catch (error) {
+  //   console.error(error);
+  //   throw new Error("Failed to parse your given script for imports!");
+  // }
 
   const tsconfigPaths = loadTsConfigPaths(configPath);
 
-  for (const imp of imports) {
-    const importPath = code.slice(imp.s, imp.e).trim();
+  for (const importPath of imports) {
+    // const importPath = code.slice(imp.s, imp.e).trim();
 
     if (importPath.startsWith(".") || importPath.startsWith("/")) {
       // imports that are for sure local module imports
