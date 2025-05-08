@@ -70,26 +70,30 @@ export async function processComponent(
     lib: library._id,
   });
 
-  printTree(depth, {
-    ID: component.id,
-    OutPath: component.outPath,
-    Name: component.name,
-  });
+  // assign the main scripts codeblock._id
+  component.script = await createCodeblock(componentAbsPath, codeblocksToSave);
 
-  const scriptCbId = await createCodeblock(componentAbsPath, codeblocksToSave);
-  if (scriptCbId) component.script = scriptCbId;
   // Detect and add styles and docs,
-
   const stylePattern = config.envOptions.styleModulePattern ?? "*.module.css";
   const docPattern = config.envOptions.documentationPattern ?? "*.md";
 
   const styleFile = join(baseDir, stylePattern.replace("*", componentName));
   const docFile = join(baseDir, docPattern.replace("*", componentName));
 
-  component.styles = await createCodeblock(styleFile, codeblocksToSave);
-  component.doc = await createCodeblock(docFile, codeblocksToSave);
+  if (fs.existsSync(styleFile)) {
+    component.styles = await createCodeblock(styleFile, codeblocksToSave);
+  }
+  if (fs.existsSync(docFile)) {
+    component.doc = await createCodeblock(docFile, codeblocksToSave);
+  }
 
-  // Get the dependencies for the filePath
+  printTree(depth, {
+    ID: component.id,
+    OutPath: component.outPath,
+    Name: component.name,
+  });
+
+  // Get the dependencies of the component
   const rawDependencies = await getDependencies(
     componentAbsPath,
     undefined,
@@ -101,8 +105,7 @@ export async function processComponent(
     rawDependencies,
     config
   );
-  component.deps = componentDependencies;
-
+  // get dependencyIds for the local dependencies
   for (const localDep of componentDependencies.lcl) {
     const dependencyId = await processComponent(
       // Convert relative path to absolute path
@@ -118,6 +121,8 @@ export async function processComponent(
     localDep.cmp =
       dependencyId as unknown as ComponentDocument["deps"]["lcl"][number]["cmp"];
   }
+  // add to components.deps
+  component.deps = componentDependencies;
 
   processedFiles.set(componentAbsPath, component._id);
   componentsToSave.push(component);

@@ -1,6 +1,9 @@
 import { CUIConfig } from "@/types/cuiConfig.js";
 import { cosmiconfig } from "cosmiconfig";
 
+/**
+ * Loads the config file from the user's project
+ */
 export default async function loadConfig() {
   const explorer = cosmiconfig("cui");
   const result = await explorer.search();

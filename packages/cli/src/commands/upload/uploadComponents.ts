@@ -25,9 +25,7 @@ export default async function uploadComponents(componentAbsPath: string) {
       throw new Error(`⛔ No file found in ${componentAbsPath}`);
     }
 
-    console.log(
-      `\n🔼 Uploading components starting from: ${componentAbsPath}\n`
-    );
+    console.log(`\n🔼 Uploading components starting from: ${componentAbsPath}\n`);
 
     await connectDB();
 
@@ -42,7 +40,7 @@ export default async function uploadComponents(componentAbsPath: string) {
     const codeblocksToSave: CodeblockDocument[] = [];
 
     console.log(
-      `⌛ Staging components ${picocolors.italic("(Duplicate components are not shown)")}`
+      `\n⌛ Staging components ${picocolors.italic("(Duplicate components are not shown)")}`
     );
     await processComponent(
       componentAbsPath,
@@ -54,8 +52,9 @@ export default async function uploadComponents(componentAbsPath: string) {
     );
 
     // Save all collected models
-    await CodeblockModel.bulkSave(codeblocksToSave);
+    console.log("\n💾 Saving staged components to database...");
     await ComponentModel.bulkSave(componentsToSave);
+    await CodeblockModel.bulkSave(codeblocksToSave);
 
     console.log(
       `\n✅ Completed uploading all components starting from ${componentAbsPath}`
@@ -64,6 +63,7 @@ export default async function uploadComponents(componentAbsPath: string) {
   } catch (error) {
     console.error(`❌ Failed to upload component!`);
     console.error(error);
+
     await disconnectDB();
     process.exit(1);
   }
