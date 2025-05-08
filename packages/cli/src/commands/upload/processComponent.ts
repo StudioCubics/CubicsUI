@@ -17,14 +17,14 @@ const MAX_DEPTH = 10;
 /**
  * Recursively processes a component and its dependencies.
  * Handles circular imports and depth limits.
- * @param {string} componentAbsPath absolute path of the component.
- * @param {CUIConfig} config the config object.
- * @param {LibraryDocument} library the library where the component should be uploaded.
- * @param {Map<string,ComponentDocument["_id"]>} processedFiles Map containing the components that have been processed this is to prevent reprocessing the same component multiple times.
- * @param {ComponentDocument[]} componentsToSave Array containing all the component documents that will be saved at the end of the process.
- * @param {CodeblockDocument[]} codeblocksToSave Array containing all the codeblock documents that will be saved at the end of the process.
- * @param {number} [depth=0] Depth prevents the recursive nature of this function from running forever.
- * @param {Set<string>} [importStack=new Set()] importStack is required to check for circular imports.
+ * @param componentAbsPath absolute path of the component.
+ * @param config the config object.
+ * @param library the library where the component should be uploaded.
+ * @param processedFiles Map containing the components that have been processed this is to prevent reprocessing the same component multiple times.
+ * @param componentsToSave Array containing all the component documents that will be saved at the end of the process.
+ * @param codeblocksToSave Array containing all the codeblock documents that will be saved at the end of the process.
+ * @param depth Depth prevents the recursive nature of this function from running forever (default is 0).
+ * @param importStack importStack is required to check for circular imports (default is and empty Set).
  */
 export async function processComponent(
   componentAbsPath: string,
