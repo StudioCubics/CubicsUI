@@ -1,4 +1,4 @@
-import { HydratedDocument, Model } from "mongoose";
+import { HydratedDocument, Model, Types } from "mongoose";
 
 /**
  * A code block contains the code content in the file
@@ -18,10 +18,12 @@ export interface Codeblock {
   content: string;
 }
 export type CodeblockDocument = HydratedDocument<Codeblock>;
-export type CodeblockModelType = Model<
-  Codeblock,
-  object,
-  object,
-  object,
-  CodeblockDocument
->;
+export type CodeblockModelType = Model<Codeblock> & {
+  /**
+   * Find a codeblock by if or throw an error if it doesn't exist
+   * @param id - The id of the codeblock to find
+   * @returns the found codeblock
+   * @throws {Error} if library doesn't exist
+   */
+  findByIdOrThrow(id: Types.ObjectId): Promise<CodeblockDocument>;
+};

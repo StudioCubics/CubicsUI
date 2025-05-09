@@ -1,22 +1,56 @@
+import pc from "picocolors";
 import { Library, LibraryModelType } from "../types/library.js";
-import mongoose from "mongoose";
+import mongoose, { RootFilterQuery } from "mongoose";
 
 // -------------------------------------------------------- Schemas ---------------------------------------------------------------- //
 
 /**
  * Mongoose schema for library
- * @type {Schema<Library,LibraryModelType>}
  */
-const librarySchema: mongoose.Schema<Library, LibraryModelType> =
-  new mongoose.Schema<Library, LibraryModelType>(
-    {
-      name: { type: String, required: true },
-      desc: String,
-      baseUrl: { type: String, default: "." },
-    },
-    { timestamps: { createdAt: "created", updatedAt: "updated" } }
-  );
+const librarySchema = new mongoose.Schema<Library, LibraryModelType>(
+  {
+    name: { type: String, required: true },
+    desc: String,
+    baseUrl: { type: String, default: "." },
+  },
+  {
+    timestamps: { createdAt: "created", updatedAt: "updated" },
+  }
+);
 
+// -------------------------------------------------------- Statics ---------------------------------------------------------------- //
+
+librarySchema.static(
+  "findOneOrThrow",
+  async function findOneOrThrow(filter: RootFilterQuery<Library>) {
+    const doc = await this.findOne(filter).exec();
+    // If document doesn't exist, throw
+    if (!doc) {
+      throw new Error(
+        `⛔ The Library you are looking for is missing in the database, check ${pc.bold("libraryName")} field in cui.config.`
+      );
+    }
+    return doc;
+  }
+);
+
+librarySchema.static(
+  "findOneOrCreate",
+  async function findOneOrCreate(
+    filter: RootFilterQuery<Library>,
+    data: Library
+  ) {
+    const doc = await this.findOne(filter).exec();
+    if (!doc) {
+      // If no document found, create it
+      const newDoc = await LibraryModel.create(data);
+      console.log(`✅ Created library "${pc.bold(newDoc.name)}" in database.`);
+      return newDoc;
+    }
+    console.log(`🔍 Found library "${pc.bold(doc.name)}" in database.`);
+    return doc;
+  }
+);
 // -------------------------------------------------------- Indexes ---------------------------------------------------------------- //
 
 // Indexing library so that only one library with the same name exists in the database
@@ -71,7 +105,7 @@ librarySchema.pre("findOneAndDelete", async function (next) {
 // -------------------------------------------------------- Models ---------------------------------------------------------------- //
 
 const LibraryModel =
-  (mongoose.models.Library as mongoose.Model<Library, LibraryModelType>) ||
-  mongoose.model<Library, LibraryModelType>("Library", librarySchema);
+  (mongoose.models.Library as LibraryModelType) ||
+  mongoose.model("Library", librarySchema);
 
 export default LibraryModel;

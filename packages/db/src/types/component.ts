@@ -106,10 +106,4 @@ export type ComponentDocPopulated = Expand<
 >;
 
 export type ComponentDocument = HydratedDocument<Component>;
-export type ComponentModelType = Model<
-  Component,
-  object,
-  object,
-  object,
-  ComponentDocument
->;
+export type ComponentModelType = Model<Component>;

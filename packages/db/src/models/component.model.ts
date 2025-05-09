@@ -10,67 +10,59 @@ import mongoose from "mongoose";
 
 /**
  * Mongoose schema for the external dependencies
- * @type {mongoose.Schema<ExternalDependency>}
  */
-const externalDependencySchema: mongoose.Schema<ExternalDependency> =
-  new mongoose.Schema<ExternalDependency>(
-    {
-      name: { type: String, required: true },
-      ver: { type: String, default: "@latest" },
-      type: { type: String },
-    },
-    { _id: false }
-  );
+const externalDependencySchema = new mongoose.Schema<ExternalDependency>(
+  {
+    name: { type: String, required: true },
+    ver: { type: String, default: "@latest" },
+    type: { type: String },
+  },
+  { _id: false }
+);
 
 /**
  * Mongoose schema for the local dependencies
- * @type {mongoose.Schema<LocalDependency>}
  */
-const localDependencySchema: mongoose.Schema<LocalDependency> =
-  new mongoose.Schema<LocalDependency>(
-    {
-      value: { type: String },
-      path: { type: String, required: true },
-      cmp: { type: mongoose.Schema.Types.ObjectId, ref: "Module" },
-    },
-    { _id: false }
-  );
+const localDependencySchema = new mongoose.Schema<LocalDependency>(
+  {
+    value: { type: String },
+    path: { type: String, required: true },
+    cmp: { type: mongoose.Schema.Types.ObjectId, ref: "Module" },
+  },
+  { _id: false }
+);
 
 /**
  * Mongoose schema for the component dependencies
- * @type {mongoose.Schema<Dependencies>}
  */
-const dependenciesSchema: mongoose.Schema<Dependencies> =
-  new mongoose.Schema<Dependencies>(
-    {
-      ext: [externalDependencySchema],
-      lcl: [localDependencySchema],
-    },
-    { _id: false }
-  );
+const dependenciesSchema = new mongoose.Schema<Dependencies>(
+  {
+    ext: [externalDependencySchema],
+    lcl: [localDependencySchema],
+  },
+  { _id: false }
+);
 
 /**
  * Mongoose schema for a component
- * @type {mongoose.Schema<Component,ComponentModelType>}
  */
-const componentSchema: mongoose.Schema<Component, ComponentModelType> =
-  new mongoose.Schema<Component, ComponentModelType>(
-    {
-      name: { type: String, required: true },
-      outPath: { type: String, required: true },
-      desc: String,
-      deps: dependenciesSchema,
-      lib: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Library",
-        required: true,
-      },
-      script: { type: mongoose.Schema.Types.ObjectId, ref: "Codeblock" },
-      styles: { type: mongoose.Schema.Types.ObjectId, ref: "Codeblock" },
-      doc: { type: mongoose.Schema.Types.ObjectId, ref: "Codeblock" },
+const componentSchema = new mongoose.Schema<Component>(
+  {
+    name: { type: String, required: true },
+    outPath: { type: String, required: true },
+    desc: String,
+    deps: dependenciesSchema,
+    lib: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Library",
+      required: true,
     },
-    { timestamps: { createdAt: "created", updatedAt: "updated" } }
-  );
+    script: { type: mongoose.Schema.Types.ObjectId, ref: "Codeblock" },
+    styles: { type: mongoose.Schema.Types.ObjectId, ref: "Codeblock" },
+    doc: { type: mongoose.Schema.Types.ObjectId, ref: "Codeblock" },
+  },
+  { timestamps: { createdAt: "created", updatedAt: "updated" } }
+);
 
 // -------------------------------------------------------- Indexes ---------------------------------------------------------------- //
 
@@ -133,10 +125,7 @@ componentSchema.pre("findOneAndDelete", async function (next) {
 // -------------------------------------------------------- Models ---------------------------------------------------------------- //
 
 const ComponentModel =
-  (mongoose.models.Component as mongoose.Model<
-    Component,
-    ComponentModelType
-  >) ||
-  mongoose.model<Component, ComponentModelType>("Component", componentSchema);
+  (mongoose.models.Component as ComponentModelType) ||
+  mongoose.model("Component", componentSchema);
 
 export default ComponentModel;

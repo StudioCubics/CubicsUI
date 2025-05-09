@@ -92,6 +92,9 @@ importers:
       mongoose:
         specifier: ^8.13.2
         version: 8.13.2
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
     devDependencies:
       '@cubicsui/configs':
         specifier: workspace:^
