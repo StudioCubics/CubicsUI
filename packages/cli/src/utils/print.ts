@@ -5,7 +5,7 @@ import pc from "picocolors";
 // │
 // →
 // ├
-
+// ◖
 /**
  * Prints a tree based on depth of the provided object
  * @example
@@ -26,21 +26,22 @@ import pc from "picocolors";
  *     ├→ OutPath: components/extra/required.ts
  *     └→ Name: required
  */
-export default function printTree(depth: number, obj: Record<string, string>) {
-  const indentationLength = "   ";
+const Indent_Length = "   ";
+
+export function printTree(depth: number, obj: Record<string, string>) {
   const keys = Object.keys(obj);
 
   let indentation = "";
   for (let index = 0; index < depth; index++) {
-    indentation = indentation + indentationLength + "│";
+    indentation = indentation + Indent_Length + "│";
   }
 
   const beginIndent = replaceLast(indentation, "│", "├");
 
   const suffixes = {
-    beg: beginIndent + "┬" + "→",
-    mid: indentation + "├" + "→",
-    end: indentation + "└" + "→",
+    beg: beginIndent + "┬" + "◖",
+    mid: indentation + "├" + "◖",
+    end: indentation + "└" + "◖",
   };
 
   if (depth == 0) suffixes.beg = replaceLast(suffixes.beg, "┬", "├");
@@ -61,4 +62,19 @@ function replaceLast(str: string, search: string, replace: string) {
   const index = str.lastIndexOf(search);
   if (index != -1) return str.slice(0, index) + replace + str.slice(index + 1);
   return str;
+}
+
+export function printRootNode(
+  depth: number,
+  name: string,
+  direction?: "up" | "down"
+) {
+  let indentation = "";
+  for (let index = 0; index < depth; index++) {
+    indentation = indentation + Indent_Length;
+  }
+  const arrow = direction == "up" ? "↑" : direction == "down" ? "↓" : "│";
+
+  console.log(indentation + `[${name}]`);
+  console.log(indentation + arrow);
 }

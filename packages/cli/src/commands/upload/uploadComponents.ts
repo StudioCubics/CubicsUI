@@ -5,12 +5,13 @@ import {
   ComponentModel,
   connectDB,
   disconnectDB,
+  LibraryModel,
 } from "@cubicsui/db";
 import fs from "fs-extra";
 import loadConfig from "../../utils/configFile/loadConfig.js";
 import { processComponent } from "./processComponent.js";
-import findOrCreateLibrary from "@/utils/findOrCreateLibrary.js";
 import picocolors from "picocolors";
+import { printRootNode } from "@/utils/print.js";
 
 /**
  * Recursively uploads a component and its local dependencies to the database.
@@ -20,17 +21,26 @@ import picocolors from "picocolors";
 export default async function uploadComponents(componentAbsPath: string) {
   try {
     const config = await loadConfig();
+    const { libraryOptions } = config;
 
     if (!fs.existsSync(componentAbsPath)) {
       throw new Error(`⛔ No file found in ${componentAbsPath}`);
     }
 
-    console.log(`\n🔼 Uploading components starting from: ${componentAbsPath}\n`);
+    console.log(
+      `\n🔼 Uploading components starting from: ${componentAbsPath}\n`
+    );
 
     await connectDB();
 
     // Create or get the library
-    const library = await findOrCreateLibrary(config.libraryOptions);
+    const library = await LibraryModel.findOneOrCreate(
+      { name: libraryOptions.libraryName },
+      {
+        name: libraryOptions.libraryName,
+        baseUrl: libraryOptions.baseUrl,
+      }
+    );
 
     // Track processed files: path -> component._id
     const processedFiles = new Map<string, ComponentDocument["_id"]>();
@@ -40,8 +50,9 @@ export default async function uploadComponents(componentAbsPath: string) {
     const codeblocksToSave: CodeblockDocument[] = [];
 
     console.log(
-      `\n⌛ Staging components ${picocolors.italic("(Duplicate components are not shown)")}`
+      `\n⌛ Staging components ${picocolors.italic("(Duplicate components are not shown)")}\n`
     );
+    printRootNode(1, "💿 Database", "up");
     await processComponent(
       componentAbsPath,
       config,
@@ -61,7 +72,7 @@ export default async function uploadComponents(componentAbsPath: string) {
     );
     await disconnectDB();
   } catch (error) {
-    console.error(`❌ Failed to upload component!`);
+    console.error(`❌ Failed to upload component "${componentAbsPath}"!`);
     console.error(error);
 
     await disconnectDB();

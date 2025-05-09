@@ -10,7 +10,7 @@ import { convertAbsToRelPath, getDependencies } from "@cubicsui/helpers";
 import { CUIConfig } from "@/types/cuiConfig.js";
 import { filterComponentDependencies } from "./filterComponentDependencies.js";
 import createCodeblock from "./createCodeblock.js";
-import printTree from "@/utils/printTree.js";
+import { printTree } from "@/utils/print.js";
 
 const MAX_DEPTH = 10;
 
