@@ -7,8 +7,7 @@ import {
 import type { CUIConfig } from "../../types/cuiConfig.js";
 import { InitOptions } from "@/commands/init/_index.js";
 import { checkIfSrcFolderExists, isProjectUsingTypescript } from "../checks.js";
-import findOrCreateLibrary from "../findOrCreateLibrary.js";
-import { connectDB, disconnectDB } from "@cubicsui/db";
+import { connectDB, disconnectDB, LibraryModel } from "@cubicsui/db";
 import { confirm, input } from "@inquirer/prompts";
 import pc from "picocolors";
 
@@ -32,7 +31,10 @@ export default async function configGen(
   };
 
   await connectDB();
-  const library = await findOrCreateLibrary(libraryOptions);
+  const library = await LibraryModel.findOneOrCreate(
+    { name: libraryOptions.libraryName },
+    { name: libraryOptions.libraryName, baseUrl: libraryOptions.baseUrl }
+  );
   await disconnectDB();
 
   const envOptions: CUIConfig["envOptions"] = {
