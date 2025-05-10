@@ -5,6 +5,10 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
     "envOptions": {
       "type": "object",
       "additionalProperties": false,
