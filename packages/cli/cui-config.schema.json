@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CUIConfig",
+  "description": "JSON schema for the CubicsUI CLI configuration file",
+  "type": "object",
+  "properties": {
+    "envOptions": {
+      "type": "object",
+      "description": "Options about the current project's environment.",
+      "properties": {
+        "typescript": {
+          "type": "boolean",
+          "description": "Set to true if the project is using TypeScript. This will be detected when you run `cui init`.",
+          "default": false
+        },
+        "styleModulePattern": {
+          "type": "string",
+          "description": "The components style module's wildcard pattern. If the component file is in `./dir/abc.jsx` then the style for the component must be in `./dir/abc.module.css`.",
+          "default": "*.module.css"
+        },
+        "documentationPattern": {
+          "type": "string",
+          "description": "The documentation file's wildcard pattern. If the component file is `./dir/abc.jsx` then the documentation for the component will be `./dir/abc.md`.",
+          "default": "*.md"
+        }
+      },
+      "required": ["typescript"]
+    },
+    "libraryOptions": {
+      "type": "object",
+      "description": "Options containing information about the library, with which the components are associated.",
+      "properties": {
+        "libraryName": {
+          "type": "string",
+          "description": "Name of the selected library in the database where the components can be found. If the library doesn't exist then it is created in the database.",
+          "default": "default"
+        },
+        "baseUrl": {
+          "type": "string",
+          "description": "This is used by cui to know where the root of the library is located. `baseUrl` is taken from the nearest `tsconfig.json` or `jsconfig.json`. If none of these exist then it defaults to current working directory.",
+          "default": "."
+        }
+      },
+      "required": ["libraryName", "baseUrl"]
+    }
+  },
+  "required": ["envOptions", "libraryOptions"]
+}
