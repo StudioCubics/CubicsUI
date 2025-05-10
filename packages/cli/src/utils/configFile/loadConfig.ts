@@ -5,14 +5,17 @@ import { cosmiconfig } from "cosmiconfig";
  * Loads the config file from the user's project
  */
 export default async function loadConfig() {
-  const explorer = cosmiconfig("cui");
+  const explorer = cosmiconfig("cui", {
+    searchPlaces: ["package.json", "cuiconfig.json"],
+    packageProp: "cui",
+  });
   const result = await explorer.search();
   if (!result) {
-    console.error("❌ Could not find a cui.config file.");
+    console.error("❌ Could not find a cuiconfig.json file.");
     process.exit(1);
   }
   if (result.isEmpty) {
-    console.error("❌ cui.config file is empty.");
+    console.error("❌ cuiconfig.json file is empty.");
     process.exit(1);
   }
   const config: CUIConfig = result.config;
