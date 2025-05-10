@@ -7,13 +7,14 @@ import { spawn } from "child_process";
  */
 export default function rerunCurrentCommand() {
   const nodeBinary = process.argv0; // Usually "node"
+  console.log("nodeBinary", nodeBinary);
   const args = process.argv.slice(1); // Remove the Node binary path, keep script + args
 
-  const child = spawn(nodeBinary, args, {
+  const child = spawn(`"${nodeBinary}"`, args, {
     stdio: "inherit",
-    shell: true,
+    shell: process.platform == "win32",
   });
-  
+
   child.on("error", (e) => {
     console.error(e);
   });
