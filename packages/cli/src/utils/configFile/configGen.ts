@@ -4,7 +4,7 @@ import {
   defaultLibraryName,
   defaultStylePattern,
 } from "@/constants/defaults.js";
-import type { CUIConfig } from "../../types/cuiConfig.js";
+import type { CUIConfig } from "@/types/cuiConfig.js";
 import { InitOptions } from "@/commands/init/_index.js";
 import { checkIfSrcFolderExists, isProjectUsingTypescript } from "../checks.js";
 import { connectDB, disconnectDB, LibraryModel } from "@cubicsui/db";
@@ -20,20 +20,21 @@ import pc from "picocolors";
 export default async function configGen(
   options: InitOptions
 ): Promise<CUIConfig> {
-  const libraryOptions: CUIConfig["libraryOptions"] = {
-    libraryName:
-      options.library ??
-      (await input({
-        message: `What is the name of the library in your database? ${pc.dim("If the library doesnt exist it will be created")}\n`,
-        default: defaultLibraryName,
-      })),
-    baseUrl: checkIfSrcFolderExists() ? "./src" : defaultBaseUrl,
+  const databaseOptions: CUIConfig["databaseOptions"] = {
+    library: {
+      name:
+        options.library ??
+        (await input({
+          message: `What is the name of the library in your database? ${pc.dim("If the library doesnt exist it will be created")}\n`,
+          default: defaultLibraryName,
+        })),
+      baseUrl: checkIfSrcFolderExists() ? "./src" : defaultBaseUrl,
+    },
   };
-
   await connectDB();
   const library = await LibraryModel.findOneOrCreate(
-    { name: libraryOptions.libraryName },
-    { name: libraryOptions.libraryName, baseUrl: libraryOptions.baseUrl }
+    { name: databaseOptions.library.name },
+    databaseOptions.library
   );
   await disconnectDB();
 
@@ -60,7 +61,9 @@ export default async function configGen(
   };
 
   return {
-    libraryOptions: { libraryName: library.name, baseUrl: library.baseUrl },
+    databaseOptions: {
+      library: { name: library.name, baseUrl: library.baseUrl },
+    },
     envOptions,
   };
 }

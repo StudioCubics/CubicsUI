@@ -21,7 +21,7 @@ import { printRootNode } from "@/utils/print.js";
 export default async function setComponents(componentAbsPath: string) {
   try {
     const config = await loadConfig();
-    const { libraryOptions } = config;
+    const { databaseOptions } = config;
 
     if (!fs.existsSync(componentAbsPath)) {
       throw new Error(`⛔ No file found in ${componentAbsPath}`);
@@ -35,11 +35,8 @@ export default async function setComponents(componentAbsPath: string) {
 
     // Create or get the library
     const library = await LibraryModel.findOneOrCreate(
-      { name: libraryOptions.libraryName },
-      {
-        name: libraryOptions.libraryName,
-        baseUrl: libraryOptions.baseUrl,
-      }
+      { name: databaseOptions.library.name },
+      databaseOptions.library
     );
 
     // Track processed files: path -> component._id

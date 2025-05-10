@@ -28,7 +28,8 @@
     "cui": "./bin.js"
   },
   "scripts": {
-    "build": "eslint && tsc -b && tsc-alias -p tsconfig.json",
+    "build": "pnpm prebuild && eslint && tsc -b && tsc-alias -p tsconfig.json",
+    "prebuild": "json2ts cui-config.schema.json ./src/types/cuiConfig.ts --bannerComment ''",
     "lint": "eslint",
     "clean": "rimraf node_modules .turbo dist "
   },
@@ -51,6 +52,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.14.1",
     "eslint": "^9.15.0",
+    "json-schema-to-typescript": "^15.0.4",
     "tsc-alias": "^1.8.15",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.0"

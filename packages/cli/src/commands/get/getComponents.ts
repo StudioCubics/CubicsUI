@@ -30,7 +30,7 @@ export default async function getComponents(componentName: string) {
     await connectDB();
 
     const library = await LibraryModel.findOneOrThrow({
-      name: config.libraryOptions.libraryName,
+      name: config.databaseOptions.library.name,
     });
 
     const components = await ComponentModel.find({

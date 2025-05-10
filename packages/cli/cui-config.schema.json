@@ -1,48 +1,110 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CUIConfig",
-  "description": "JSON schema for the CubicsUI CLI configuration file",
+  "description": "Comprehensive configuration schema for the CubicsUI CLI. Represents the full configuration schema that controls component, library, and codeblock generation.",
   "type": "object",
-  "properties": {
-    "envOptions": {
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "$ref": "#/definitions/EnvSection"
+    },
+    {
+      "$ref": "#/definitions/DatabaseSection"
+    },
+    {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ModsSection"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "EnvOptions": {
       "type": "object",
+      "additionalProperties": false,
       "description": "Options about the current project's environment.",
       "properties": {
         "typescript": {
           "type": "boolean",
           "description": "Set to true if the project is using TypeScript. This will be detected when you run `cui init`.",
+          "markdownDescription": "Set to true if the project is using TypeScript. This will be detected when you run `cui init`.",
           "default": false
         },
         "styleModulePattern": {
           "type": "string",
           "description": "The components style module's wildcard pattern. If the component file is in `./dir/abc.jsx` then the style for the component must be in `./dir/abc.module.css`.",
+          "markdownDescription": "The components style module's wildcard pattern. If the component file is in `./dir/abc.jsx` then the style for the component must be in `./dir/abc.module.css`.",
           "default": "*.module.css"
         },
         "documentationPattern": {
           "type": "string",
           "description": "The documentation file's wildcard pattern. If the component file is `./dir/abc.jsx` then the documentation for the component will be `./dir/abc.md`.",
+          "markdownDescription": "The documentation file's wildcard pattern. If the component file is `./dir/abc.jsx` then the documentation for the component will be `./dir/abc.md`.",
           "default": "*.md"
         }
       },
       "required": ["typescript"]
     },
-    "libraryOptions": {
+    "DatabaseOptions": {
       "type": "object",
-      "description": "Options containing information about the library, with which the components are associated.",
+      "additionalProperties": false,
+      "description": "Options containing information about the database.",
       "properties": {
-        "libraryName": {
-          "type": "string",
-          "description": "Name of the selected library in the database where the components can be found. If the library doesn't exist then it is created in the database.",
-          "default": "default"
-        },
-        "baseUrl": {
-          "type": "string",
-          "description": "This is used by cui to know where the root of the library is located. `baseUrl` is taken from the nearest `tsconfig.json` or `jsconfig.json`. If none of these exist then it defaults to current working directory.",
-          "default": "."
+        "library": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "The library that the current project is associated with in the database. This will also be used to create a library if the library doesnt exist.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the selected library in the database where the components can be found. If the library doesn't exist then it is created in the database.",
+              "markdownDescription": "Name of the selected library in the database where the components can be found. If the library doesn't exist then it is created in the database.",
+              "default": "default"
+            },
+            "baseUrl": {
+              "type": "string",
+              "description": "This is used by cui to know where the root of the library is located. `baseUrl` is taken from the nearest `tsconfig.json` or `jsconfig.json`. If none of these exist then it defaults to current working directory.",
+              "markdownDescription": "This is used by cui to know where the root of the library is located. `baseUrl` is taken from the nearest `tsconfig.json` or `jsconfig.json`. If none of these exist then it defaults to current working directory.\n https://www.typescriptlang.org/tsconfig#baseUrl",
+              "default": "."
+            }
+          },
+          "required": ["name", "baseUrl"]
         }
       },
-      "required": ["libraryName", "baseUrl"]
+      "required": ["library"]
+    },
+    "EnvSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "envOptions": {
+          "$ref": "#/definitions/EnvOptions"
+        }
+      },
+      "required": ["envOptions"]
+    },
+    "DatabaseSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "databaseOptions": {
+          "$ref": "#/definitions/DatabaseOptions"
+        }
+      },
+      "required": ["databaseOptions"]
+    },
+    "ModsSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mods": {
+          "type": "array",
+          "description": "Optional mods array.",
+          "items": {},
+          "default": []
+        }
+      }
     }
-  },
-  "required": ["envOptions", "libraryOptions"]
+  }
 }

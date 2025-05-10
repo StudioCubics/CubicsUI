@@ -22,7 +22,7 @@ export default async function downloadCodeblocks(
 ) {
   // resolve outpath
   const resolvedOutPath = resolve(
-    config.libraryOptions.baseUrl,
+    config.databaseOptions.library.baseUrl,
     component.outPath
   );
   const outDir = dirname(resolvedOutPath);
@@ -54,7 +54,7 @@ async function handleCodeblockSaving(
   const filePath = join(outDir, codeblock.name);
   const relFilePath = convertAbsToRelPath(
     filePath,
-    config.libraryOptions.baseUrl
+    config.databaseOptions.library.baseUrl
   );
   if (fs.existsSync(filePath)) {
     const rewrite = await confirm({

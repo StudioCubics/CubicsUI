@@ -59,7 +59,7 @@ export async function stageComponents(
   const baseDir = dirname(componentAbsPath);
   const componentRelPath = convertAbsToRelPath(
     componentAbsPath,
-    config.libraryOptions.baseUrl
+    config.databaseOptions.library.baseUrl
   );
 
   const component = new ComponentModel({
@@ -97,7 +97,7 @@ export async function stageComponents(
   const rawDependencies = await getDependencies(
     componentAbsPath,
     undefined,
-    config.libraryOptions.baseUrl
+    config.databaseOptions.library.baseUrl
   );
 
   // Filter out style module imports from dependencies
@@ -109,7 +109,7 @@ export async function stageComponents(
   for (const localDep of componentDependencies.lcl) {
     const dependencyId = await stageComponents(
       // Convert relative path to absolute path
-      resolve(config.libraryOptions.baseUrl, localDep.path),
+      resolve(config.databaseOptions.library.baseUrl, localDep.path),
       config,
       library,
       processedFiles,

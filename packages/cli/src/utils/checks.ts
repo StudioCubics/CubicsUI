@@ -1,12 +1,12 @@
+import { defaultConfigFileName } from "@/constants/defaults.js";
 import fs from "fs-extra";
 import { parse, resolve } from "path";
-import { configFiles } from "../types/cuiConfig.js";
 
 /**
  * Checks if the the project is initialised for cui
  */
 export function isProjectInitialised() {
-  return configFiles.some((cf) => fs.existsSync(resolve(process.cwd(), cf)));
+  return fs.existsSync(resolve(process.cwd(), defaultConfigFileName));
 }
 
 /**
@@ -15,8 +15,6 @@ export function isProjectInitialised() {
 export function isDBURIAvailableInEnv() {
   return !!process.env.CUI_DB_URL;
 }
-
-
 
 /**
  * Check if project is using typescript or not by checking if the
