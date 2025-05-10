@@ -28,8 +28,7 @@
     "cui": "./bin.js"
   },
   "scripts": {
-    "build": "pnpm prebuild && eslint && tsc -b && tsc-alias -p tsconfig.json",
-    "prebuild": "json2ts cui-config.schema.json ./src/types/cuiConfig.ts --bannerComment ''",
+    "build": "json2ts cuiconfig.schema.json ./src/types/cuiConfig.ts --bannerComment \"\" && eslint && tsc -b && tsc-alias -p tsconfig.json",
     "lint": "eslint",
     "clean": "rimraf node_modules .turbo dist "
   },

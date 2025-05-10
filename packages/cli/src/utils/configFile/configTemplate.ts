@@ -7,9 +7,9 @@ import { CUIConfig } from "@/types/cuiConfig.js";
  * @returns The template that will be used to build `cui.config`
  */
 export default async function configTemplate(
-  generatedConfig: CUIConfig
+  composedConfig: CUIConfig
 ): Promise<string> {
-  return JSON.stringify({ $schema: defaultConfigSchema, ...generatedConfig });
+  return JSON.stringify({ $schema: defaultConfigSchema, ...composedConfig });
 }
 // export default async function configTemplate(
 //   generatedConfig: CUIConfig

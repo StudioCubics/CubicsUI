@@ -55,6 +55,17 @@ export default async function getComponents(componentName: string) {
           };
         }),
       });
+      // Ongoing issue https://github.com/SBoudrias/Inquirer.js/issues/1743
+      // startingComponent = await select({
+      //   message: "Select the component you want to download\n",
+      //   choices: components.map((c) => {
+      //     return {
+      //       name: `${pc.bold("ID")}: ${c.id}\n${pc.bold("Name")}: ${c.name}\n${pc.bold("OutPath")}: ${c.outPath}`,
+      //       value: c,
+      //     };
+      //   }),
+      //   pageSize: 1000,
+      // });
     }
 
     console.log("\n⏳ Staging components to download.\n");

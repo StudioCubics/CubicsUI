@@ -18,5 +18,5 @@ export const defaultBaseUrl = ".";
 export const defaultStylePattern = "*.module.css";
 export const defaultDocumentationPattern = "*.md";
 export const defaultConfigSchema =
-  "https://raw.githubusercontent.com/StudioCubics/CubicsUI/main/packages/cli/cui-config.schema.json";
+  "https://raw.githubusercontent.com/StudioCubics/CubicsUI/main/packages/cli/cuiconfig.schema.json";
 export const defaultConfigFileName = "cuiconfig.json";

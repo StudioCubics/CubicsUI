@@ -1,5 +1,3 @@
-("");
-
 /**
  * Comprehensive configuration schema for the CubicsUI CLI. Represents the full configuration schema that controls component, library, and codeblock generation.
  */
