@@ -2,7 +2,7 @@ import { program } from "commander";
 import { config } from "@dotenvx/dotenvx";
 import { envPath } from "./constants/defaults.js";
 import registerInitCommand from "@/commands/init/_index.js";
-import registerUploadCommand from "./commands/upload/_index.js";
+import registerUploadCommand from "./commands/set/_index.js";
 import registerGetCommand from "./commands/get/_index.js";
 
 // Resolve `.env` from the user's project root

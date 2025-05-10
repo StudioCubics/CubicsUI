@@ -1,9 +1,0 @@
-import uploadComponents from "@/commands/upload/uploadComponents.js";
-import { Command } from "commander";
-
-export default function registerUploadCommand(program: Command) {
-  program
-    .command("upload")
-    .argument("<componentPath>", "Path of the file you want to upload")
-    .action(uploadComponents);
-}

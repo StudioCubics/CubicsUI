@@ -26,7 +26,7 @@ const MAX_DEPTH = 10;
  * @param depth Depth prevents the recursive nature of this function from running forever (default is 0).
  * @param importStack importStack is required to check for circular imports (default is and empty Set).
  */
-export async function processComponent(
+export async function stageComponents(
   componentAbsPath: string,
   config: CUIConfig,
   library: LibraryDocument,
@@ -107,7 +107,7 @@ export async function processComponent(
   );
   // get dependencyIds for the local dependencies
   for (const localDep of componentDependencies.lcl) {
-    const dependencyId = await processComponent(
+    const dependencyId = await stageComponents(
       // Convert relative path to absolute path
       resolve(config.libraryOptions.baseUrl, localDep.path),
       config,

@@ -9,7 +9,7 @@ import {
 } from "@cubicsui/db";
 import fs from "fs-extra";
 import loadConfig from "../../utils/configFile/loadConfig.js";
-import { processComponent } from "./processComponent.js";
+import { stageComponents } from "./stageComponents.js";
 import picocolors from "picocolors";
 import { printRootNode } from "@/utils/print.js";
 
@@ -18,7 +18,7 @@ import { printRootNode } from "@/utils/print.js";
  * Associates style and doc codeblocks without creating separate components.
  * @param componentAbsPath - Absolute path of the root component to upload.
  */
-export default async function uploadComponents(componentAbsPath: string) {
+export default async function setComponents(componentAbsPath: string) {
   try {
     const config = await loadConfig();
     const { libraryOptions } = config;
@@ -53,7 +53,7 @@ export default async function uploadComponents(componentAbsPath: string) {
       `\n⌛ Staging components ${picocolors.italic("(Duplicate components are not shown)")}\n`
     );
     printRootNode(1, "💿 Database", "up");
-    await processComponent(
+    await stageComponents(
       componentAbsPath,
       config,
       library,

@@ -6,7 +6,7 @@ import {
   disconnectDB,
   LibraryModel,
 } from "@cubicsui/db";
-import stageComponents from "./stageComponentsForGet.js";
+import stageComponents from "./stageComponents.js";
 import downloadCodeblocks from "./downloadCodeblocks.js";
 import pc from "picocolors";
 import { printRootNode } from "@/utils/print.js";
