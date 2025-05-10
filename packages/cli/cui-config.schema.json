@@ -4,23 +4,8 @@
   "description": "Comprehensive configuration schema for the CubicsUI CLI. Represents the full configuration schema that controls component, library, and codeblock generation.",
   "type": "object",
   "additionalProperties": false,
-  "allOf": [
-    {
-      "$ref": "#/definitions/EnvSection"
-    },
-    {
-      "$ref": "#/definitions/DatabaseSection"
-    },
-    {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/ModsSection"
-        }
-      ]
-    }
-  ],
-  "definitions": {
-    "EnvOptions": {
+  "properties": {
+    "envOptions": {
       "type": "object",
       "additionalProperties": false,
       "description": "Options about the current project's environment.",
@@ -46,7 +31,7 @@
       },
       "required": ["typescript"]
     },
-    "DatabaseOptions": {
+    "databaseOptions": {
       "type": "object",
       "additionalProperties": false,
       "description": "Options containing information about the database.",
@@ -74,37 +59,12 @@
       },
       "required": ["library"]
     },
-    "EnvSection": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "envOptions": {
-          "$ref": "#/definitions/EnvOptions"
-        }
-      },
-      "required": ["envOptions"]
-    },
-    "DatabaseSection": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "databaseOptions": {
-          "$ref": "#/definitions/DatabaseOptions"
-        }
-      },
-      "required": ["databaseOptions"]
-    },
-    "ModsSection": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "mods": {
-          "type": "array",
-          "description": "Optional mods array.",
-          "items": {},
-          "default": []
-        }
-      }
+    "mods": {
+      "type": "array",
+      "description": "Optional mods array.",
+      "items": {},
+      "default": []
     }
-  }
+  },
+  "required": ["envOptions", "databaseOptions"]
 }
