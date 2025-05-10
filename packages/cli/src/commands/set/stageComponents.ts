@@ -87,7 +87,7 @@ export async function stageComponents(
     component.doc = await createCodeblock(docFile, codeblocksToSave);
   }
 
-  printTree(depth, {
+  printTree(1, {
     ID: component.id,
     OutPath: component.outPath,
     Name: component.name,
