@@ -36,7 +36,7 @@
     "@cubicsui/db": "workspace:^",
     "@cubicsui/helpers": "workspace:^",
     "@dotenvx/dotenvx": "^1.41.0",
-    "@inquirer/prompts": "^7.5.0",
+    "@inquirer/prompts": "^7.5.3",
     "commander": "^13.1.0",
     "cosmiconfig": "^9.0.0",
     "fs-extra": "^11.3.0",

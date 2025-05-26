@@ -26,6 +26,7 @@ export async function connectDB(): Promise<mongoose.Connection> {
   }
 
   if (!cached.promise) {
+    console.log("⌛ Connecting to your MongoDB database.");
     cached.promise = mongoose
       .connect(CUI_DB_URL)
       .then((mongoose) => {
@@ -34,6 +35,11 @@ export async function connectDB(): Promise<mongoose.Connection> {
       })
       .catch((error) => {
         cached.promise = null;
+        if (
+          error instanceof Error &&
+          error.name == "MongooseServerSelectionError"
+        )
+          console.error("❌ Failed to connect to database!");
         throw error;
       });
   }

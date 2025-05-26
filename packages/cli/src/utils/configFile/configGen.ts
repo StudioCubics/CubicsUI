@@ -20,6 +20,7 @@ import pc from "picocolors";
 export default async function configGen(
   options: InitOptions
 ): Promise<CUIConfig> {
+  await connectDB();
   const databaseOptions: CUIConfig["databaseOptions"] = {
     library: {
       name:
@@ -31,12 +32,10 @@ export default async function configGen(
       baseUrl: checkIfSrcFolderExists() ? "./src" : defaultBaseUrl,
     },
   };
-  await connectDB();
-  const library = await LibraryModel.findOneOrCreate(
+const library = await LibraryModel.findOneOrCreate(
     { name: databaseOptions.library.name },
     databaseOptions.library
   );
-  await disconnectDB();
 
   const envOptions: CUIConfig["envOptions"] = {
     typescript:
@@ -59,7 +58,7 @@ export default async function configGen(
         default: defaultDocumentationPattern,
       })),
   };
-
+  await disconnectDB();
   return {
     databaseOptions: {
       library: { name: library.name, baseUrl: library.baseUrl },

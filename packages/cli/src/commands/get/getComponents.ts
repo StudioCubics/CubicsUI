@@ -46,26 +46,29 @@ export default async function getComponents(componentName: string) {
       console.log(
         `\n🔍 Found multiple components called "${pc.bold(componentName)}" with different outPaths`
       );
-      startingComponent = await select({
-        message: "Select the component you want to download\n",
-        choices: components.map((c) => {
-          return {
-            name: `${pc.bold("Name")}: ${c.name} ├→ ${pc.bold("OutPath")}: ${c.outPath}`,
-            value: c,
-          };
-        }),
-      });
-      // Ongoing issue https://github.com/SBoudrias/Inquirer.js/issues/1743
       // startingComponent = await select({
       //   message: "Select the component you want to download\n",
       //   choices: components.map((c) => {
       //     return {
-      //       name: `${pc.bold("ID")}: ${c.id}\n${pc.bold("Name")}: ${c.name}\n${pc.bold("OutPath")}: ${c.outPath}`,
+      //       name: `${pc.bold("Name")}: ${c.name} ├→ ${pc.bold("OutPath")}: ${c.outPath}`,
       //       value: c,
       //     };
       //   }),
-      //   pageSize: 1000,
       // });
+      // Ongoing issue https://github.com/SBoudrias/Inquirer.js/issues/1743
+      startingComponent = await select({
+        message: "Select the component you want to download\n",
+        choices: components.map((c, i) => {
+          return {
+            name: `${i + 1}) ${pc.bold("Name")}: ${c.name} ├→ ${pc.bold("OutPath")}: ${c.outPath}`,
+            description: `${pc.bold("ID")}: ${c.id}\n${pc.bold("Name")}: ${c.name}\n${pc.bold("OutPath")}: ${c.outPath}\n`,
+            value: c,
+          };
+        }),
+
+        pageSize: 10,
+        loop: false,
+      });
     }
 
     console.log("\n⏳ Staging components to download.\n");
