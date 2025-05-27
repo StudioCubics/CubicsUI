@@ -1,3 +1,4 @@
+import { logger } from "@/main.js";
 import { spawn } from "child_process";
 
 /**
@@ -7,7 +8,6 @@ import { spawn } from "child_process";
  */
 export default function rerunCurrentCommand() {
   const nodeBinary = process.argv0; // Usually "node"
-  console.log("nodeBinary", nodeBinary);
   const args = process.argv.slice(1); // Remove the Node binary path, keep script + args
 
   const child = spawn(`"${nodeBinary}"`, args, {
@@ -21,7 +21,7 @@ export default function rerunCurrentCommand() {
 
   child.on("exit", (code) => {
     if (code !== 0) {
-      console.error(`Re-running init failed with exit code ${code}`);
+      logger.failure(`Re-running init failed with exit code ${code}`);
       process.exit(code || 1);
     }
   });

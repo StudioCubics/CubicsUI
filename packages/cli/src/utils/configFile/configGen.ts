@@ -32,7 +32,7 @@ export default async function configGen(
       baseUrl: checkIfSrcFolderExists() ? "./src" : defaultBaseUrl,
     },
   };
-const library = await LibraryModel.findOneOrCreate(
+  const library = await LibraryModel.findOneOrCreate(
     { name: databaseOptions.library.name },
     databaseOptions.library
   );

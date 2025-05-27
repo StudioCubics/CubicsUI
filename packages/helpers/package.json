@@ -33,7 +33,8 @@
     "babel-walk": "^3.0.1",
     "es-module-lexer": "^1.7.0",
     "fs-extra": "^11.3.0",
-    "get-tsconfig": "^4.10.0"
+    "get-tsconfig": "^4.10.0",
+    "strip-ansi": "^7.1.0"
   },
   "devDependencies": {
     "@cubicsui/configs": "workspace:^",

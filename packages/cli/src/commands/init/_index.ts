@@ -23,5 +23,5 @@ export default function registerInitCommand(program: Command) {
       "--dp, --documentation-pattern [pattern]",
       "Wildcard pattern of the documentation files"
     )
-    .action((options) => initProject(options));
+    .action(initProject);
 }

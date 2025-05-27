@@ -3,6 +3,7 @@ import { resolve } from "path";
 import { filesToIgnore } from "@/constants/defaults.js";
 import fs from "fs-extra";
 import ignore from "ignore";
+import { logger } from "@/main.js";
 
 /**
  * Writes files to ignore to .gitignore and other ignore files if present
@@ -16,7 +17,7 @@ export default async function initIgnores() {
     gitignoreContent = await readFile(ignoreFilePath, "utf8");
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      console.warn(`🔔 .gitignore not found, creating one: ${ignoreFilePath}`);
+      logger.warning(`.gitignore not found, creating one: ${ignoreFilePath}`);
       // Ensure the file exists
       await fs.ensureFile(ignoreFilePath);
     } else {

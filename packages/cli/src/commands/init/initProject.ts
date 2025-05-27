@@ -4,6 +4,7 @@ import initConfigFile from "./initConfigFile.js";
 import { InitOptions } from "./_index.js";
 import initIgnores from "./initIgnores.js";
 import rerunCurrentCommand from "@/utils/rerunCurrentCommand.js";
+import { logger } from "@/main.js";
 
 /**
  * Initializes the configuration file and the cache folder ".cui" for the CubicsUI CLI toolkit.
@@ -23,10 +24,10 @@ import rerunCurrentCommand from "@/utils/rerunCurrentCommand.js";
 export default async function initProject(options: InitOptions): Promise<void> {
   // Check if config already exists in the root
   if (isProjectInitialised()) {
-    console.error(
+    logger.info(
       "This project seems to be already initialised for @cubicsui/cli."
     );
-    console.error(
+    logger.info(
       "If you are trying to reinitialise this project then delete the config file(cui.config) before initialising again."
     );
     process.exit(0);
@@ -44,10 +45,10 @@ export default async function initProject(options: InitOptions): Promise<void> {
     }
   } catch (error) {
     if (error instanceof Error && error.name === "ExitPromptError") {
-      console.error(`❌ Stopped initialising project`);
+      logger.failure(`Stopped initialising project`);
       console.log("👋 Until next time!");
     } else {
-      console.error(`❌ Failed to initialise project!`);
+      logger.failure(`Failed to initialise project!`);
       console.error(error);
     }
     process.exit(1);

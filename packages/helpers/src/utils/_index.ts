@@ -7,3 +7,4 @@ export {
 export { default as convertAbsToRelPath } from "./convertAbsToRelPath.js";
 export { default as resolveAlias } from "./resolveAlias.js";
 export { default as resolveWithExtensions } from "./resolveWithExtensions.js";
+export * from "./logger.js";

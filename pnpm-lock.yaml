@@ -135,6 +135,9 @@ importers:
       get-tsconfig:
         specifier: ^4.10.0
         version: 4.10.0
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
     devDependencies:
       '@cubicsui/configs':
         specifier: workspace:^

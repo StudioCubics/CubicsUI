@@ -4,6 +4,7 @@ import fs from "fs-extra";
 import { parse as parseEnv } from "@dotenvx/dotenvx";
 import { InitOptions } from "./_index.js";
 import { password } from "@inquirer/prompts";
+import { logger } from "@/main.js";
 
 export const envVariablesObject = { CUI_DB_URL: "" };
 
@@ -23,14 +24,14 @@ export default async function initEnvFile(options: InitOptions) {
 
   if (!fs.existsSync(envPath)) {
     fs.writeFileSync(envPath, envVariablesString, "utf8");
-    console.log("⚠ .env file created and CUI_DB_URL variable added.");
+    logger.warning(".env file created and CUI_DB_URL variable added.");
   } else {
     const content = fs.readFileSync(envPath, "utf8");
     const parsed = parseEnv(content);
 
     if (!parsed["CUI_DB_URL"]) {
       fs.appendFileSync(envPath, `\n${envVariablesString}`);
-      console.log("⚠ CUI_DB_URL appended to existing .env file.");
+      logger.warning("CUI_DB_URL appended to existing .env file.");
     }
   }
 }

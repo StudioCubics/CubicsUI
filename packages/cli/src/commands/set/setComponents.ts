@@ -12,6 +12,7 @@ import loadConfig from "../../utils/configFile/loadConfig.js";
 import { stageComponents } from "./stageComponents.js";
 import picocolors from "picocolors";
 import { printRootNode } from "@/utils/print.js";
+import { logger } from "@/main.js";
 
 /**
  * Recursively uploads a component and its local dependencies to the database.
@@ -27,8 +28,10 @@ export default async function setComponents(componentAbsPath: string) {
       throw new Error(`⛔ No file found in ${componentAbsPath}`);
     }
 
-    console.log(
-      `\n🔼 Uploading components starting from: ${componentAbsPath}\n`
+    logger.log(
+      `Uploading components starting from: ${componentAbsPath}`,
+      "Info",
+      "🔼"
     );
 
     await connectDB();
@@ -46,8 +49,8 @@ export default async function setComponents(componentAbsPath: string) {
     const componentsToSave: ComponentDocument[] = [];
     const codeblocksToSave: CodeblockDocument[] = [];
 
-    console.log(
-      `\n⌛ Staging components ${picocolors.italic("(Duplicate components are not shown)")}\n`
+    logger.waiting(
+      `Staging components ${picocolors.italic("(Duplicate components are not shown)")}`
     );
     printRootNode(1, "💿 Database", "up");
     await stageComponents(
@@ -60,16 +63,16 @@ export default async function setComponents(componentAbsPath: string) {
     );
 
     // Save all collected models
-    console.log("\n💾 Saving staged components to database...");
+    logger.saving("Saving staged components to database...");
     await ComponentModel.bulkSave(componentsToSave);
     await CodeblockModel.bulkSave(codeblocksToSave);
 
-    console.log(
-      `\n✅ Completed uploading all components starting from ${componentAbsPath}`
+    logger.success(
+      `Completed uploading all components starting from ${componentAbsPath}`
     );
     await disconnectDB();
   } catch (error) {
-    console.error(`❌ Failed to upload component "${componentAbsPath}"!`);
+    logger.failure(`Failed to upload component "${componentAbsPath}"!`);
     console.error(error);
 
     await disconnectDB();

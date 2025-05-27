@@ -1,3 +1,4 @@
+import { logger } from "@/main.js";
 import { printTree } from "@/utils/print.js";
 import { ComponentDocument, ComponentModel } from "@cubicsui/db";
 
@@ -39,8 +40,8 @@ export default async function stageComponents(
         cache
       );
     } else
-      console.warn(
-        `🔔 Component ${component.name}'s local dependency (${localDep.value}) is missing from the database `
+      logger.warning(
+        `Component ${component.name}'s local dependency (${localDep.value}) is missing from the database `
       );
   }
 

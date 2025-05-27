@@ -5,6 +5,7 @@ import { InitOptions } from "@/commands/init/_index.js";
 import configTemplate from "@/utils/configFile/configTemplate.js";
 import configGen from "@/utils/configFile/configGen.js";
 import { defaultConfigFileName } from "@/constants/defaults.js";
+import { logger } from "@/main.js";
 
 /**
  * Builds the `cui.config` file in the root of the project
@@ -24,7 +25,7 @@ export default async function (options: InitOptions) {
     resolve(process.cwd(), defaultConfigFileName),
     finalConfigContent
   );
-  console.log(
-    `✅ Created config file ${defaultConfigFileName} in project root`
+  logger.success(
+    `Created config file ${defaultConfigFileName} in project root`
   );
 }

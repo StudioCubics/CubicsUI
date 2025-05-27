@@ -9,6 +9,7 @@ import { dirname, join, resolve } from "path";
 import fs from "fs-extra";
 import { confirm } from "@inquirer/prompts";
 import pc from "picocolors";
+import { logger } from "@/main.js";
 
 /**
  * Downloads and saves codeblocks associated with a given component to the specified output paths.
@@ -61,7 +62,7 @@ async function handleCodeblockSaving(
       message: `Replace existing "${pc.yellow(relFilePath)}"?`,
     });
     if (!rewrite) {
-      console.warn(`🔔 No changes made to "${pc.bold(relFilePath)}"`);
+      logger.warning(`No changes made to "${pc.bold(relFilePath)}"`);
       return;
     }
   }
