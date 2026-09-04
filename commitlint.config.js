@@ -1,3 +1,6 @@
 module.exports = {
-  extends: ["./node_modules/cz-cubics/commitlint.config.js"],
+  extends: [
+    "@commitlint/config-conventional",
+    "./node_modules/cz-cubics/commitlint.config.js",
+  ],
 };
