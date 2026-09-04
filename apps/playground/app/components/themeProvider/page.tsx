@@ -42,24 +42,28 @@ export default function RootLayout({
           Set <code>data-theme="light"</code> in <code>{"<Card/>"}</code>
         </h3>
         <p> This will always be light mode</p>
-        <div data-theme={"light"}>
-          <Card className="column">
-            <Button variant={"contained"}>Button</Button>
-            <TextInput label="TextInput" />
-            <Checkbox label="Checkbox" />
-          </Card>
-        </div>
+        <Card data-theme={"light"} className="column">
+          <Button variant={"contained"}>Button</Button>
+          <Button variant={"contained"} color="primary">
+            Button
+          </Button>
+          <TextInput label="TextInput" />
+          <Checkbox label="Checkbox" />
+          <Checkbox label="Checkbox" color="primary" />
+        </Card>
         <h3>
           Set <code>data-theme="dark"</code> in <code>{"<Card/>"}</code>
         </h3>
         <p> This will always be dark mode</p>
-        <div data-theme={"dark"}>
-          <Card className="column">
-            <Button variant={"contained"}>Button</Button>
-            <TextInput label="TextInput" />
-            <Checkbox label="Checkbox" />
-          </Card>
-        </div>
+        <Card data-theme={"dark"} className="column">
+          <Button variant={"contained"}>Button</Button>
+          <Button variant={"contained"} color="primary">
+            Button
+          </Button>
+          <TextInput label="TextInput" />
+          <Checkbox label="Checkbox" />
+          <Checkbox label="Checkbox" color="primary" />
+        </Card>
       </section>
     </main>
   );
