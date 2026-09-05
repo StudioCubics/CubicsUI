@@ -11,15 +11,12 @@ importers:
       '@commitlint/cli':
         specifier: ^21.2.2
         version: 21.2.2(@types/node@24.10.1)(conventional-commits-parser@7.1.2)(typescript@5.9.3)
-      '@commitlint/config-conventional':
-        specifier: ^21.2.2
-        version: 21.2.2
       commitizen:
         specifier: ^4.3.2
         version: 4.3.2(@types/node@24.10.1)(typescript@5.9.3)
       cz-cubics:
-        specifier: ^0.0.8
-        version: 0.0.8(commitizen@4.3.2(@types/node@24.10.1)(typescript@5.9.3))
+        specifier: ^0.0.10
+        version: 0.0.10(commitizen@4.3.2(@types/node@24.10.1)(typescript@5.9.3))
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -1473,8 +1470,8 @@ packages:
     resolution: {integrity: sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==}
     engines: {node: '>= 10'}
 
-  cz-cubics@0.0.8:
-    resolution: {integrity: sha512-EnDnYMd9kacMlB49uLOWsUgeF9suwgPIActF82cUBYvRLN5t85nUYc2vobn6N0mGgMREDaUiGSVEtsXo87WHZA==}
+  cz-cubics@0.0.10:
+    resolution: {integrity: sha512-vb1sq9onDb63u2hTHtOPseZAd1tlD7T1SCUbb5fKaRiNdgv3AEOV5jdaSgF+dpFaHlehg6+LqJGzj51diOACkg==}
     peerDependencies:
       commitizen: ^4
 
@@ -4326,7 +4323,7 @@ snapshots:
       - '@types/node'
       - typescript
 
-  cz-cubics@0.0.8(commitizen@4.3.2(@types/node@24.10.1)(typescript@5.9.3)):
+  cz-cubics@0.0.10(commitizen@4.3.2(@types/node@24.10.1)(typescript@5.9.3)):
     dependencies:
       cli-truncate: 1.1.0
       commitizen: 4.3.2(@types/node@24.10.1)(typescript@5.9.3)
@@ -4546,7 +4543,7 @@ snapshots:
       eslint: 9.39.5(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(eslint@9.39.5(jiti@2.6.1)))(eslint@9.39.5(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@9.39.5(jiti@2.6.1)))(eslint@9.39.5(jiti@2.6.1)))(eslint@9.39.5(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.5(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.5(jiti@2.6.1))
       eslint-plugin-react-hooks: 7.1.1(eslint@9.39.5(jiti@2.6.1))
@@ -4579,7 +4576,7 @@ snapshots:
       tinyglobby: 0.2.17
       unrs-resolver: 1.12.2
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@9.39.5(jiti@2.6.1)))(eslint@9.39.5(jiti@2.6.1)))(eslint@9.39.5(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -4593,7 +4590,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5(jiti@2.6.1)):
+  eslint-plugin-import@2.32.0(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@9.39.5(jiti@2.6.1)))(eslint@9.39.5(jiti@2.6.1)))(eslint@9.39.5(jiti@2.6.1)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
