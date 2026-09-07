@@ -132,8 +132,8 @@ function RenderSwitchIcons(props: RenderSwitchIconsProps) {
   if ("on" in icons || "off" in icons)
     return (
       <span {...rest}>
-        {icons.on && <span className={cn("on")}>{icons.on}</span>}
-        {icons.off && <span className={cn("off")}>{icons.off}</span>}
+        {icons.on && <span className={cn(styles.on)}>{icons.on}</span>}
+        {icons.off && <span className={cn(styles.off)}>{icons.off}</span>}
       </span>
     );
   return;

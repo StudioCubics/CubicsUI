@@ -1,0 +1,34 @@
+.root {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "title action"
+    "desc  action";
+  align-items: center;
+  container-type: inline-size;
+  column-gap: 0.5em;
+}
+.title {
+  grid-area: title;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--size) / var(--gr));
+}
+.desc {
+  grid-area: desc;
+  min-width: 100%;
+  width: 0;
+  color: var(--color-on-background-low);
+  font-size: 0.8em;
+  line-height: var(--lh-snug);
+  padding-top: 0.325em;
+}
+.action {
+  grid-area: action;
+  justify-self: flex-end;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--size) / var(--gr));
+}

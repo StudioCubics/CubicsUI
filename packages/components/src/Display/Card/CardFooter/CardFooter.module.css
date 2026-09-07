@@ -1,0 +1,7 @@
+/* CardFooter.module.css */
+.root {
+  background: color-mix(in srgb, var(--bg) 30%, transparent);
+  padding: var(--size);
+  border-radius: 0 0 var(--br) var(--br);
+  backdrop-filter: blur(var(--blur-light));
+}

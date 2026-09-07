@@ -1,0 +1,6 @@
+.root {
+  margin-top: var(--size);
+}
+.root.overflowMargin {
+  margin-inline: calc(-1 * var(--size));
+}

@@ -1,3 +1,8 @@
+import type { CssLength, PolymorphicComponentProps } from "@cubicsui/types";
+import type { ElementType } from "react";
+
+export type CardProps<C extends ElementType = "div"> =
+  PolymorphicComponentProps<C, CardBaseProps>;
 /**
  * Props specific to the Card component.
  *
@@ -21,6 +26,9 @@ export interface CardBaseProps {
   /** Force a 1:1 aspect ratio. */
   square?: boolean;
 
+  /** How elevated the card should look, use when using a card on top of a card */
+  elevation?: "high" | "highest";
+
   /** These define the amount of padding around the card
    * @default "md"
    */
@@ -28,4 +36,10 @@ export interface CardBaseProps {
 
   /** Use this if no padding should be set around the card */
   disablePadding?: boolean;
+
+  /** The width will be of fixed length */
+  fixedWidth?: CssLength | boolean;
+
+  /** The height will be of fixed length */
+  fixedHeight?: CssLength | boolean;
 }

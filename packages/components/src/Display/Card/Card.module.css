@@ -1,48 +1,69 @@
+/* Card.module.css */
 .root {
-  position: relative;
-  &[data-size="xs"] {
-    padding: var(--gap);
-    border-radius: var(--br-sm);
-  }
-  &[data-size="sm"] {
-    padding: var(--gap-2);
-    border-radius: var(--br-sm);
-  }
-  &[data-size="md"] {
-    padding: var(--gap-4);
-    border-radius: var(--br-md);
-  }
-  &[data-size="lg"] {
-    padding: var(--gap-6);
-    border-radius: var(--br-lg);
-  }
-  &[data-size="xl"] {
-    padding: var(--gap-8);
-    border-radius: var(--br-xl);
-  }
+  --bg: var(--color-surface);
+  --br: var(--br-md);
+  --size: var(--gap-4);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  container-type: inline-size;
+  border-radius: var(--br);
 }
-.square {
-  aspect-ratio: 1;
-}
-.fullWidth {
+.root.fullWidth {
   width: 100%;
 }
-.fullHeight {
+.root.fullHeight {
   height: 100%;
 }
-.fullScreen {
+.root.fullScreen {
   width: 100dvw;
   height: 100dvh;
 }
 
-.variant_outlined {
-  border: 1px solid var(--color-outline);
-  background: var(--color-surface);
+.surface {
+  padding: var(--size);
+  background: var(--bg);
+  position: relative;
+  border-radius: var(--br);
 }
-.variant_contained {
-  background: var(--color-surface-alpha);
-  backdrop-filter: blur(var(--blur-light));
+.surface.square {
+  aspect-ratio: 1;
 }
-.disablePadding {
+.surface.disablePadding {
   padding: 0;
+}
+.variant_outlined {
+  border: var(--border-width) solid var(--color-outline);
+}
+.elevation_high {
+  --bg: var(--color-surface-high);
+}
+.elevation_highest {
+  --bg: var(--color-surface-highest);
+}
+.surface[data-size="xs"] {
+  --size: var(--gap);
+  --br: var(--br-sm);
+}
+.surface[data-size="sm"] {
+  --size: var(--gap-2);
+  --br: var(--br-sm);
+}
+.surface[data-size="md"] {
+  --size: var(--gap-4);
+  --br: var(--br-md);
+}
+.surface[data-size="lg"] {
+  --size: var(--gap-6);
+  --br: var(--br-lg);
+}
+.surface[data-size="xl"] {
+  --size: var(--gap-8);
+  --br: var(--br-xl);
+}
+
+/* squares off the surface's bottom corners when a footer follows */
+.root:has([data-slot="card_footer"]) .surface {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }

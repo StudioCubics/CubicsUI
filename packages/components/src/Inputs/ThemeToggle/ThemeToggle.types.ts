@@ -1,7 +1,7 @@
 import type { ComponentProps, MouseEvent, ReactNode } from "react";
 import type { ButtonProps } from "../Button/Button.types";
 import type { PopoverProps } from "../../Layout/Popover/Popover.types";
-import type { CardProps } from "../../Display/Card/Card";
+import type { CardProps } from "../../Display/Card/Card.types";
 import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
 export interface ThemeObjectValue {
   text?: string;

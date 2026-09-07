@@ -1,37 +1,13 @@
 "use client";
 
-import type {
-  PolymorphicComponentProps,
-  PolymorphicComponentType,
-} from "@cubicsui/types";
-import { type ElementType } from "react";
-
+import type { PolymorphicComponentType } from "@cubicsui/types";
+import { Children, isValidElement, type ElementType } from "react";
 import { cn } from "@cubicsui/utils";
-import type { CardBaseProps } from "./Card.types";
+import type { CardBaseProps, CardProps } from "./Card.types";
 import styles from "./Card.module.css";
 
-const defaultElement = "div";
-type DefaultElement = typeof defaultElement;
-/**
- * Polymorphic props for the Card component.
- *
- * `C` defines the element type rendered by the component (e.g. `"a"`, `"div"`).
- * All intrinsic props for `C` are supported unless overridden by `CardBaseProps`.
- *
- */
-export type CardProps<C extends ElementType = DefaultElement> =
-  PolymorphicComponentProps<C, CardBaseProps>;
-
-/**
- * Base implementation for the Card component.
- *
- * This is a polymorphic component that defaults to rendering a `<div>`.
- * Use the `as` prop to change the underlying element.
- *
- * @typeParam C - The intrinsic or custom element type to render.
- *
- */
-function CardBase<C extends ElementType = DefaultElement>(props: CardProps<C>) {
+// CardBase.tsx
+function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
   const {
     as,
     className,
@@ -42,28 +18,76 @@ function CardBase<C extends ElementType = DefaultElement>(props: CardProps<C>) {
     fullScreen,
     square,
     disablePadding = false,
-    ref,
+    fixedWidth,
+    fixedHeight,
+    elevation,
+    style,
+    ref: _ref,
+    children,
     ...restProps
   } = props;
-  const Component = (as || defaultElement) as ElementType;
+  const Component = (as || "div") as ElementType;
+
+  // Split out the footer so it can render outside the opaque surface,
+  // letting its backdrop-filter see through to whatever is behind the card.
+  const childArray = Children.toArray(children);
+  const footer = childArray.find(
+    (child) =>
+      isValidElement(child) &&
+      (child.props as { "data-slot"?: string })["data-slot"] === "card_footer",
+  );
+  const rest = childArray.filter((child) => child !== footer);
 
   const componentProps = {
     className: cn(
       className,
       styles.root,
-      square && styles.square,
       fullWidth && styles.fullWidth,
       fullHeight && styles.fullHeight,
       fullScreen && styles.fullScreen,
-      disablePadding && styles.disablePadding,
       variant && styles[`variant_${variant}`],
     ),
     "data-size": size,
-    ref,
+    style: {
+      ...style,
+      width: typeof fixedWidth === "string" ? fixedWidth : undefined,
+      height: typeof fixedHeight === "string" ? fixedHeight : undefined,
+    },
+    ref: _ref,
     ...restProps,
   };
-
-  return <Component {...componentProps} />;
+  if (footer)
+    return (
+      <Component {...componentProps}>
+        <div
+          className={cn(
+            styles.surface,
+            square && styles.square,
+            disablePadding && styles.disablePadding,
+            elevation && styles[`elevation_${elevation}`],
+          )}
+          data-size={size}
+        >
+          {rest}
+        </div>
+        {footer}
+      </Component>
+    );
+  return (
+    <Component
+      {...componentProps}
+      className={cn(
+        componentProps.className,
+        styles.surface,
+        square && styles.square,
+        disablePadding && styles.disablePadding,
+        elevation && styles[`elevation_${elevation}`],
+      )}
+      data-size={size}
+    >
+      {rest}
+    </Component>
+  );
 }
 
 CardBase.displayName = "Card";
@@ -74,11 +98,8 @@ CardBase.displayName = "Card";
  * By default it renders a `<Card>`, but any element can be used via the `as` prop:
  *
  * ```tsx
- * <Card as="a" href="/docs">Read docs</Card>
+ * <Card as={GlassCard}>...</Card>
  * ```
  *
  */
-export const Card = CardBase as PolymorphicComponentType<
-  CardBaseProps,
-  DefaultElement
->;
+export const Card = CardBase as PolymorphicComponentType<CardBaseProps, "div">;
