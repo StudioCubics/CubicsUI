@@ -5,3 +5,6 @@
   border-radius: 0 0 var(--br) var(--br);
   backdrop-filter: blur(var(--blur-light));
 }
+.root.overflowMargin {
+  padding: var(--size) 0;
+}

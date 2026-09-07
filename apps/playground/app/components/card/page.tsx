@@ -227,8 +227,8 @@ export default function Page() {
         <em>behind the whole card</em>, not the card&apos;s own surface color.
       </p>
       <section>
+        <h3>On image translucent footer over page background</h3>
         <div className="column image_bg">
-          <h3>On image (translucent footer over page background)</h3>
           <Card fixedWidth="300px">
             <CardHeader
               title={<>Register</>}
@@ -280,22 +280,6 @@ export default function Page() {
           </Card>
         </div>
 
-        <h3>Dynamic footer content</h3>
-        <div className="column image_bg">
-          <Card fixedWidth="300px">
-            <CardHeader title={<>Continue with</>} />
-            <CardContent>
-              <TextInput label="Enter email address" type="email" fullWidth />
-            </CardContent>
-            <CardFooter>
-              <Button fullWidth>Google</Button>
-              <Button fullWidth>linkedIn</Button>
-              <Button fullWidth>Apple</Button>
-              <Button fullWidth>GitHub</Button>
-            </CardFooter>
-          </Card>
-        </div>
-
         <h3>Footer across sizes</h3>
         <div className="column image_bg">
           <div className="row">
@@ -323,8 +307,29 @@ export default function Page() {
           <Card fixedWidth="280px" variant="outlined">
             <CardContent>Outlined card with a footer below it.</CardContent>
             <CardFooter>
-              <Button fullWidth>Google</Button>
-              <Button fullWidth>linkedIn</Button>
+              <Button fullWidth variant="outlined">
+                Google
+              </Button>
+              <Button fullWidth variant="outlined">
+                linkedIn
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+        <h3>
+          With <code>overflowMargin</code>
+        </h3>
+        <div className="column image_bg">
+          <Card fixedWidth="280px">
+            <CardContent>
+              Card with a overflowMargin footer below it.
+            </CardContent>
+            <CardFooter overflowMargin>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
+              pariatur at aliquid dignissimos officia deserunt illum
+              consequuntur nam, maxime voluptas esse dolorum. Dolore
+              reprehenderit nostrum veniam temporibus doloremque illum
+              consequuntur?
             </CardFooter>
           </Card>
         </div>

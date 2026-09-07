@@ -33,7 +33,8 @@
   padding: 0;
 }
 .variant_outlined {
-  border: var(--border-width) solid var(--color-outline);
+  outline: var(--border-width) solid
+    color-mix(in srgb, currentColor 30%, transparent);
 }
 .elevation_high {
   --bg: var(--color-surface-high);

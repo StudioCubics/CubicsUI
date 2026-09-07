@@ -19,7 +19,7 @@ export default function Page() {
       <ol className={"column"}>
         <Item href={"/components/chip"}>Chip ✅</Item>
         <Item href={"/components/glassCard"}>GlassCard ✅</Item>
-        <Item href={"/components/card"}>Card 🚧</Item>
+        <Item href={"/components/card"}>Card ✅</Item>
       </ol>
       <h2>Inputs</h2>
       <ol className={"column"}>
