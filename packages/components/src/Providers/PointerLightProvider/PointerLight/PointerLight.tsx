@@ -41,8 +41,8 @@ export function PointerLight(props: PointerLightProps): ReactElement {
         style={{
           left: `${pointerPosition.x}px`,
           top: `${pointerPosition.y}px`,
-          width: `${getSpeedAdjustedSize(33.75, pointerSpeed)}em`,
-          height: `${getSpeedAdjustedSize(24, pointerSpeed)}em`,
+          width: `${getSpeedAdjustedSize(20, pointerSpeed)}em`,
+          height: `${getSpeedAdjustedSize(10, pointerSpeed)}em`,
           opacity,
           ...style,
         }}
