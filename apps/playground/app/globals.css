@@ -45,7 +45,7 @@
   --color-surface-bright: #f7f7f7;
   --color-input-surface: color-mix(
     in srgb,
-    var(--color-surface-highest) 30%,
+    var(--color-surface-highest) 50%,
     transparent
   );
 
@@ -188,7 +188,7 @@
   --color-surface-bright: #34343d;
   --color-input-surface: color-mix(
     in srgb,
-    var(--color-surface-highest) 30%,
+    var(--color-surface-highest) 50%,
     transparent
   );
 

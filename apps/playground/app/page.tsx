@@ -39,12 +39,15 @@ export default function Page() {
       </ol>
       <h2>Misc</h2>
       <ol className={"column"}>
-        <Item href="/components/pointerLight">PointerLight 🚧</Item>
+        <Item href="/components/ripple">Ripple 🚧</Item>
       </ol>
       <h2>Providers</h2>
       <ol className={"column"}>
         <Item href="/components/themeProvider">ThemeProvider ✅</Item>
         <Item href="/components/contrastProvider">ContrastProvider ✅</Item>
+        <Item href="/components/pointerLightProvider">
+          PointerLightProvider ✅
+        </Item>
       </ol>
       <h2>Typography</h2>
       <ol className={"column"}>

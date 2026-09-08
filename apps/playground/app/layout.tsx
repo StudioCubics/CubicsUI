@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Fira_Code, Outfit, Titillium_Web } from "next/font/google";
 import { Header } from "@/lib/ui/Layout/Header/Header";
-import { ContrastProvider, ThemeProvider } from "@cubicsui/components";
+import {
+  ContrastProvider,
+  PointerLightProvider,
+  ThemeProvider,
+} from "@cubicsui/components";
 import "./globals.css";
 import "./pg-globals.css";
 
@@ -41,8 +45,10 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <ContrastProvider>
-            <Header />
-            {children}
+            <PointerLightProvider>
+              <Header />
+              {children}
+            </PointerLightProvider>
           </ContrastProvider>
         </ThemeProvider>
       </body>

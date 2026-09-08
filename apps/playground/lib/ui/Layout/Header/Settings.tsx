@@ -8,6 +8,7 @@ import {
   Switch,
   ThemeToggle,
   useContrast,
+  usePointerLight,
 } from "@cubicsui/components";
 import { useMounted } from "@cubicsui/hooks";
 import { SettingsIcon } from "@cubicsui/icons";
@@ -15,6 +16,7 @@ import { SettingsIcon } from "@cubicsui/icons";
 export function Settings() {
   const { mounted } = useMounted();
   const { contrast, setContrast } = useContrast();
+  const { pointerLight, setPointerLight } = usePointerLight();
   if (!mounted) return;
   return (
     <>
@@ -26,7 +28,7 @@ export function Settings() {
           as={Card}
           elevation="high"
           className="column"
-          fixedWidth="15vw"
+          fixedWidth="200px"
         >
           <ThemeToggle
             variant="full"
@@ -35,10 +37,15 @@ export function Settings() {
           <Switch
             size="sm"
             checked={contrast}
-            onChange={(e, v) => setContrast(v)}
+            onChange={(_, v) => setContrast(v)}
             label="High Contrast"
           />
-          <Switch size="sm" label="Pointer Light" />
+          <Switch
+            size="sm"
+            checked={pointerLight}
+            onChange={(_, v) => setPointerLight(v)}
+            label="Pointer Light"
+          />
           <Switch size="sm" label="Disable Animations" />
         </GlassCard>
       </Popover>

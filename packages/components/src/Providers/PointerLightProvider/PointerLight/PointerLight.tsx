@@ -3,18 +3,20 @@
 import { usePointerPosition } from "@cubicsui/hooks";
 import { cn, remap } from "@cubicsui/utils";
 import type { CSSProperties, ReactElement } from "react";
-import type { PointerLightProps } from "./PointerLight.types";
 import styles from "./PointerLight.module.css";
+import type { PointerLightProps } from "../PointerLightProvider.types";
+import { POINTERLIGHT_DEFAULTS } from "../PointerLightProvider";
 
 function getSpeedAdjustedSize(value: number, mouseSpeed: number) {
   return value - Math.round(remap(mouseSpeed, [33, 1000], [0, 100]));
 }
+
 // TODO fix functionality
 export function PointerLight(props: PointerLightProps): ReactElement {
   const {
-    overlay = false,
-    colorA = "color-mix(in srgb, var(--color-primary) 50%, transparent)",
-    colorB = "color-mix(in srgb, var(--color-secondary) 50%, transparent)",
+    colorA = POINTERLIGHT_DEFAULTS.colorA,
+    colorB = POINTERLIGHT_DEFAULTS.colorB,
+    opacity = POINTERLIGHT_DEFAULTS.opacity,
     slotProps = {},
     className,
     style,
@@ -25,11 +27,7 @@ export function PointerLight(props: PointerLightProps): ReactElement {
   return (
     <div
       {...slotProps.root}
-      className={cn(
-        styles.root,
-        slotProps.root?.className,
-        overlay ? styles.overlay : "",
-      )}
+      className={cn(styles.root, slotProps.root?.className)}
       style={
         {
           "--cursor-color-a": colorA,
@@ -45,6 +43,7 @@ export function PointerLight(props: PointerLightProps): ReactElement {
           top: `${pointerPosition.y}px`,
           width: `${getSpeedAdjustedSize(33.75, pointerSpeed)}em`,
           height: `${getSpeedAdjustedSize(24, pointerSpeed)}em`,
+          opacity,
           ...style,
         }}
       />
