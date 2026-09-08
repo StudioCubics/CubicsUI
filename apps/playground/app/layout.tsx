@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fira_Code, Outfit, Titillium_Web } from "next/font/google";
 import { Header } from "@/lib/ui/Layout/Header/Header";
-import { ThemeProvider } from "@cubicsui/components";
+import { ContrastProvider, ThemeProvider } from "@cubicsui/components";
 import "./globals.css";
 import "./pg-globals.css";
 
@@ -40,8 +40,10 @@ export default function RootLayout({
         className={`${outfit.variable} ${titiliumWeb.variable} ${firaCode.variable}`}
       >
         <ThemeProvider>
-          <Header />
-          {children}
+          <ContrastProvider>
+            <Header />
+            {children}
+          </ContrastProvider>
         </ThemeProvider>
       </body>
     </html>

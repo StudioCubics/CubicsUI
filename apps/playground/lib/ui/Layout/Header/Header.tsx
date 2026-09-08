@@ -1,8 +1,6 @@
-"use client";
-
-import { ThemeToggle } from "@cubicsui/components";
-import styles from "./Header.module.css";
 import Link from "next/link";
+import { Settings } from "./Settings";
+import styles from "./Header.module.css";
 
 export function Header() {
   return (
@@ -10,7 +8,7 @@ export function Header() {
       <Link href="/">
         <span className={styles.logo}>Playground</span>
       </Link>
-      <ThemeToggle />
+      <Settings />
     </nav>
   );
 }

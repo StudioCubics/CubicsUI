@@ -1,11 +1,7 @@
 .root {
   --color: var(--color-on-surface);
   --bg: var(--color-input-surface);
-  --border-color: color-mix(
-    in srgb,
-    var(--color-on-background-low) 5%,
-    transparent
-  );
+  --border-color: var(--color-on-background-low);
   --label-color: var(--color-on-background);
 
   --color-focused: var(--color-on-background);
@@ -38,7 +34,7 @@
   height: 100%;
   padding: var(--size);
   border: var(--border-width) solid;
-  border-color: var(--border-color);
+  border-color: color-mix(in srgb, var(--border-color) 10%, transparent);
   border-radius: var(--br);
   color: var(--color);
   background: var(--bg);
@@ -144,6 +140,12 @@
   }
   & .input {
     outline: none;
+  }
+}
+/* For high contrast env */
+*[data-contrast="true"] .root {
+  & .inputSurface {
+    border-color: var(--border-color);
   }
 }
 
