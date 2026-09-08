@@ -1,4 +1,3 @@
-/* Card.module.css */
 .root {
   --bg: var(--color-surface);
   --br: var(--br-md);
@@ -42,23 +41,23 @@
 .elevation_highest {
   --bg: var(--color-surface-highest);
 }
-.surface[data-size="xs"] {
+.root[data-size="xs"] {
   --size: var(--gap);
   --br: var(--br-sm);
 }
-.surface[data-size="sm"] {
+.root[data-size="sm"] {
   --size: var(--gap-2);
   --br: var(--br-sm);
 }
-.surface[data-size="md"] {
+.root[data-size="md"] {
   --size: var(--gap-4);
   --br: var(--br-md);
 }
-.surface[data-size="lg"] {
+.root[data-size="lg"] {
   --size: var(--gap-6);
   --br: var(--br-lg);
 }
-.surface[data-size="xl"] {
+.root[data-size="xl"] {
   --size: var(--gap-8);
   --br: var(--br-xl);
 }

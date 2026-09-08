@@ -66,7 +66,6 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
             disablePadding && styles.disablePadding,
             elevation && styles[`elevation_${elevation}`],
           )}
-          data-size={size}
         >
           {rest}
         </div>
