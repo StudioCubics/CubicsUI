@@ -1,5 +1,6 @@
 .root:not(:first-child) {
   margin-top: var(--size);
+  color: var(--color-on-surface);
 }
 .root.overflowMargin {
   margin-inline: calc(-1 * var(--size));

@@ -34,6 +34,12 @@
   flex-direction: column;
   gap: var(--gap-2);
 }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  grid-template-rows: auto;
+  grid-gap: 1rem;
+}
 .rgb_bg {
   padding: var(--gap-5);
   background-image: linear-gradient(

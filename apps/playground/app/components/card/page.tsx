@@ -53,23 +53,96 @@ export default function Page() {
         card.
       </p>
       <section>
-        {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
-          <div className="column" key={size}>
-            <h3>
-              {size} {size === "md" && "(Default)"}
-            </h3>
-            <Card size={size} fixedWidth="220px">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
-              consectetur quia maiores veniam.
-            </Card>
-          </div>
-        ))}
+        <div className="row">
+          {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
+            <div className="column" key={size}>
+              <h3>
+                {size} {size === "md" && "(Default)"}
+              </h3>
+              <Card size={size} fixedWidth="220px">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+                consectetur quia maiores veniam.
+              </Card>
+            </div>
+          ))}
+        </div>
+      </section>
+      <h2>Colors</h2>
+      <section>
+        <p>
+          Controls the color of the card, the color for content is always{" "}
+          <code>--color-on-surface</code>,
+        </p>
+        <div className="row">
+          {(
+            [
+              "primary",
+              "secondary",
+              "tertiary",
+              "error",
+              "warn",
+              "success",
+            ] as const
+          ).map((color) => (
+            <div className="column" key={color}>
+              <h3>{color}</h3>
+              <Card color={color} fixedWidth="350px">
+                <CardHeader
+                  title="This is a card title"
+                  desc="This is a card desc"
+                  action={<Button color={color}>Action</Button>}
+                />
+                <CardContent>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+                  consectetur quia maiores veniam.
+                </CardContent>
+                <CardFooter>
+                  <Button color={color}>Footer Button</Button>
+                </CardFooter>
+              </Card>
+            </div>
+          ))}
+        </div>
+        <hr />
+        <h3>Outlined colors</h3>
+        <div className="row">
+          {(
+            [
+              "primary",
+              "secondary",
+              "tertiary",
+              "error",
+              "warn",
+              "success",
+            ] as const
+          ).map((color) => (
+            <div className="column" key={color}>
+              <h3>{color}</h3>
+              <Card variant="outlined" color={color} fixedWidth="350px">
+                <CardHeader
+                  title="This is a card title"
+                  desc="This is a card desc"
+                  action={<Button color={color}>Action</Button>}
+                />
+                <CardContent>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+                  consectetur quia maiores veniam.
+                </CardContent>
+                <CardFooter>
+                  <Button color={color}>Footer Button</Button>
+                </CardFooter>
+              </Card>
+            </div>
+          ))}
+        </div>
       </section>
 
       <h2>Variants</h2>
       <section>
         <div className="column">
-          <h3>contained (Default)</h3>
+          <h3>
+            contained {"("}Default{")"}
+          </h3>
           <Card variant="contained" fixedWidth="220px">
             Solid surface background, no border.
           </Card>
@@ -78,6 +151,23 @@ export default function Page() {
           <h3>outlined</h3>
           <Card variant="outlined" fixedWidth="220px">
             Bordered surface, useful on already-colored backgrounds.
+          </Card>
+        </div>
+      </section>
+      <h2>
+        <code>removeBg</code> Removes the surface background
+      </h2>
+      <section>
+        <div className="column">
+          <h3>contained</h3>
+          <Card variant="contained" removeBg fixedWidth="220px">
+            Solid surface no bg, no border.
+          </Card>
+        </div>
+        <div className="column">
+          <h3>outlined</h3>
+          <Card variant="outlined" removeBg fixedWidth="220px">
+            Bordered surface,
           </Card>
         </div>
       </section>

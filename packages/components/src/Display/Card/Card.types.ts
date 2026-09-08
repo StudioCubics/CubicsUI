@@ -34,8 +34,14 @@ export interface CardBaseProps {
    */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 
+  /** Color theme of the card. */
+  color?: "primary" | "secondary" | "tertiary" | "error" | "warn" | "success";
+
   /** Use this if no padding should be set around the card */
   disablePadding?: boolean;
+
+  /** Use this to remove background when using with GlassCard */
+  removeBg?: boolean;
 
   /** The width will be of fixed length */
   fixedWidth?: CssLength | boolean;

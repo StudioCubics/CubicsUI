@@ -17,11 +17,13 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
     fullHeight,
     fullScreen,
     square,
+    removeBg = false,
     disablePadding = false,
     fixedWidth,
     fixedHeight,
     elevation,
     style,
+    color,
     ref: _ref,
     children,
     ...restProps
@@ -46,7 +48,9 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
       fullHeight && styles.fullHeight,
       fullScreen && styles.fullScreen,
       variant && styles[`variant_${variant}`],
+      removeBg && styles.removeBg,
     ),
+    "data-color": color,
     "data-size": size,
     style: {
       ...style,
@@ -82,7 +86,6 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
         disablePadding && styles.disablePadding,
         elevation && styles[`elevation_${elevation}`],
       )}
-      data-size={size}
     >
       {rest}
     </Component>

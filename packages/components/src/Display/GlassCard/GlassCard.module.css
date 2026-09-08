@@ -1,6 +1,5 @@
 .root {
-  --tint: var(--color-primary);
-  --br: var(--br-md);
+  --tint: var(--color, var(--color-primary));
   --border-color: var(--color-outline);
   --pointer-color: color-mix(in srgb, var(--tint) 70%, transparent);
   --shadow: color-mix(in srgb, var(--tint) 15%, transparent);
@@ -11,7 +10,7 @@
   --mouse-y: -9999;
 
   isolation: isolate;
-  border-radius: var(--br);
+  border-radius: var(--br, var(--br-md));
   position: var(--position);
   box-shadow: inset 0px 0px 4px var(--shadow);
   backdrop-filter: blur(var(--blur-light));
@@ -45,7 +44,7 @@
     content: "";
     inset: 0;
     position: absolute;
-    transition: opacity var(--transition-time);
+    transition: opacity var(--transition-time-slow);
     pointer-events: none;
     opacity: 1;
     padding: var(--border-width);
@@ -61,5 +60,3 @@
     z-index: -1;
   }
 }
-
-/* conic-gradient(from 0deg at 50% 50%, #073AFF79 0%, #446DF900 16%, #073AFFC7 33%, #073AFFC7 66%, #446DF900 84%, #073AFF79 100%) */
