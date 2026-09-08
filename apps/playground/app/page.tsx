@@ -44,6 +44,7 @@ export default function Page() {
       <h2>Providers</h2>
       <ol className={"column"}>
         <Item href="/components/themeProvider">ThemeProvider ✅</Item>
+        <Item href="/components/contrastProvider">ContrastProvider ✅</Item>
       </ol>
       <h2>Typography</h2>
       <ol className={"column"}>

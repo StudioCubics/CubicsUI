@@ -206,6 +206,7 @@
   --color-scrim: #221a1e80;
   --color-focus: #b1b1b1;
 }
+[data-theme="light"] [data-contrast="true"],
 [data-theme="light"][data-contrast="true"] {
   color-scheme: light;
   /* Brand Colors - boosted contrast */
@@ -256,6 +257,7 @@
   --color-focus: #000000;
 }
 
+[data-theme="dark"] [data-contrast="true"],
 [data-theme="dark"][data-contrast="true"] {
   color-scheme: dark;
 
