@@ -7,24 +7,24 @@ import {
   useState,
   type ReactElement,
   type Context,
-  type ComponentProps,
 } from "react";
 import type {
   ThemeContextProps,
   ThemeProviderProps,
   ResolvedTheme,
   Theme,
+  ThemeScriptProps,
 } from "./ThemeProvider.types";
-import { ThemeScript } from "./ThemeScript";
-import { notImplemented } from "@cubicsui/utils";
+import { notImplemented, withDisabledTransitions } from "@cubicsui/utils";
+import { script } from "./script";
 
 const IS_SERVER = typeof window === "undefined";
 const MEDIA = "(prefers-color-scheme: dark)";
-export const THEME_PROVIDER_DEFAULTS = {
+export const THEME_PROVIDER_DEFAULTS: Required<ThemeScriptProps> = {
   attribute: "data-theme",
   storageKey: "themePreference",
   defaultTheme: "light",
-  enableSystem: false,
+  enableSystem: true,
   enableColorScheme: false,
 };
 
@@ -73,11 +73,11 @@ function resolveTheme(theme: Theme, enableSystem: boolean): ResolvedTheme {
 export function ThemeProvider(props: ThemeProviderProps): ReactElement {
   const {
     children,
-    attribute = "data-theme",
-    storageKey = "themePreference",
-    defaultTheme = "light",
-    enableSystem = true,
-    enableColorScheme = false,
+    attribute = THEME_PROVIDER_DEFAULTS.attribute,
+    storageKey = THEME_PROVIDER_DEFAULTS.storageKey,
+    defaultTheme = THEME_PROVIDER_DEFAULTS.defaultTheme,
+    enableSystem = THEME_PROVIDER_DEFAULTS.enableSystem,
+    enableColorScheme = THEME_PROVIDER_DEFAULTS.enableColorScheme,
     disableTransitionOnChange = false,
     nonce,
     scriptProps,
@@ -89,17 +89,19 @@ export function ThemeProvider(props: ThemeProviderProps): ReactElement {
   const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(
     resolveTheme(initialTheme, enableSystem),
   );
+  const scriptArgs = {
+    attribute,
+    storageKey,
+    defaultTheme,
+    enableSystem,
+    enableColorScheme,
+  };
 
-  const applyTheme = (name: ResolvedTheme) => {
-    const enable = disableTransitionOnChange
-      ? disableTransition({ nonce })
-      : null;
+  function applyTheme(name: ResolvedTheme) {
     let d = document.documentElement;
-
     d.setAttribute(attribute, name);
     if (enableColorScheme) d.style.colorScheme = name;
-    enable?.();
-  };
+  }
 
   function setTheme(value: Theme) {
     setThemeState(value);
@@ -136,8 +138,12 @@ export function ThemeProvider(props: ThemeProviderProps): ReactElement {
 
   // Apply resolved theme
   useEffect(() => {
-    applyTheme(resolvedTheme);
-  }, [resolvedTheme, applyTheme]);
+    if (disableTransitionOnChange) {
+      withDisabledTransitions(() => applyTheme(resolvedTheme), { nonce });
+    } else {
+      applyTheme(resolvedTheme);
+    }
+  }, [resolvedTheme, applyTheme, disableTransitionOnChange, nonce]);
 
   return (
     <ThemeContext.Provider
@@ -148,35 +154,15 @@ export function ThemeProvider(props: ThemeProviderProps): ReactElement {
         systemEnabled: enableSystem,
       }}
     >
-      <ThemeScript
+      <script
         {...scriptProps}
-        storageKey={storageKey}
-        attribute={attribute}
-        defaultTheme={defaultTheme}
-        enableSystem={enableSystem}
-        enableColorScheme={enableColorScheme}
-        nonce={nonce}
+        suppressHydrationWarning
+        nonce={typeof window === "undefined" ? nonce : ""}
+        dangerouslySetInnerHTML={{
+          __html: `(${script.toString()})(${JSON.stringify(scriptArgs)})`,
+        }}
       />
       {children}
     </ThemeContext.Provider>
   );
-}
-// Briefly disables all CSS transitions so elements don't animate through
-// intermediate colors while the theme attribute flips.
-function disableTransition(styleProps: ComponentProps<"style">) {
-  const { nonce } = styleProps;
-  const css = document.createElement("style");
-  if (nonce) css.setAttribute("nonce", nonce);
-  css.appendChild(
-    document.createTextNode("*,*::before,*::after{transition:none!important}"),
-  );
-  document.head.appendChild(css);
-
-  return () => {
-    // Force a reflow so the "no transition" rule applies before removal.
-    window.getComputedStyle(document.body);
-    setTimeout(() => {
-      document.head.removeChild(css);
-    }, 1);
-  };
 }

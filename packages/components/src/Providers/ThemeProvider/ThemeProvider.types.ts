@@ -34,7 +34,7 @@ export interface ThemeScriptProps {
    */
   enableColorScheme?: boolean;
 }
-export interface ThemeProviderProps extends Omit<ThemeScriptProps, "element"> {
+export interface ThemeProviderProps extends ThemeScriptProps {
   children: ReactNode;
   /** Disables transitions for all components when changing themes */
   disableTransitionOnChange?: boolean;
@@ -43,5 +43,3 @@ export interface ThemeProviderProps extends Omit<ThemeScriptProps, "element"> {
   /** Props of the script tag */
   scriptProps?: ComponentProps<"script">;
 }
-export type ThemeScriptInjectorProps = ThemeScriptProps &
-  ComponentProps<"script">;
