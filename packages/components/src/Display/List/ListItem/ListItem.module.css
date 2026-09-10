@@ -1,0 +1,125 @@
+.root {
+  display: flow-root list-item;
+  list-style-position: outside;
+  font-size: var(--fs);
+}
+.surface {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--size) / var(--gr));
+  transition: all var(--transition-time) var(--transition-tf);
+  padding: calc(var(--size) / 2) calc(var(--size) * var(--gr));
+  border-radius: var(--br);
+  background: var(--bg);
+  font-size: var(--fs);
+  color: var(--color);
+}
+.surface:not(.disabled).isClickable {
+  cursor: pointer;
+  &:hover:not(:has(.dropdownToggle:hover)) {
+    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+  }
+}
+.disabled {
+  opacity: 0.5;
+  & ~ .sublist {
+    opacity: 0.5;
+  }
+}
+.content {
+  flex: 1 1 20ch;
+}
+.action {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--br);
+}
+.dropdownToggle {
+  width: fit-content;
+  height: min-content;
+  cursor: pointer;
+  border-radius: inherit;
+  color: var(--color);
+  font-size: var(--fs);
+  &:hover {
+    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+  }
+  & > svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
+.sublist {
+  position: relative;
+  height: calc-size(auto, size);
+  transition: all var(--transition-time) var(--transition-tf);
+  margin-block: calc(var(--size) * var(--gr));
+  padding-left: calc(var(--size) * var(--gr) * var(--gr));
+  border-radius: 0 0 var(--br) var(--br);
+  list-style-type: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: var(--border-width);
+    height: 100%;
+    left: calc(var(--size) * 2);
+    top: 0;
+    background: color-mix(in srgb, var(--color) 20%, transparent);
+  }
+}
+.collapsed {
+  & .sublist {
+    height: 0;
+    overflow: hidden;
+    margin-block: 0;
+  }
+}
+.separator {
+  margin-block: var(--size);
+  margin-inline: calc(var(--size) * var(--gr));
+  border-color: color-mix(in srgb, var(--color) 20%, transparent);
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--size);
+  padding: calc(var(--size) / 2) calc(var(--size) * var(--gr));
+  margin-block: calc(var(--size) * var(--gr));
+  font-family: var(--font-h);
+  font-size: 0.9em;
+  color: color-mix(in srgb, var(--color) 50%, transparent);
+  text-box: trim-both ex alphabetic;
+
+  &.renderLine {
+    &::after {
+      content: "";
+      background-color: color-mix(in srgb, var(--color) 20%, transparent);
+      height: var(--border-width);
+      flex: 1;
+    }
+  }
+}
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+.root[data-selected="true"] {
+  & .surface {
+    background: color-mix(in srgb, var(--bg-selected) 80%, transparent);
+    color: var(--color-selected);
+  }
+  & .surface:not(.disabled).isClickable {
+    &:hover:not(:has(.dropdownToggle:hover)) {
+      background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+      color: var(--color);
+    }
+  }
+}

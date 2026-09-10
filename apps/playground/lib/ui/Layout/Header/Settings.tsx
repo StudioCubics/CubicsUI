@@ -4,17 +4,21 @@ import {
   Button,
   Card,
   GlassCard,
+  List,
+  ListItem,
   Popover,
   Switch,
   ThemeToggle,
   useContrast,
   usePointerLight,
+  useTheme,
 } from "@cubicsui/components";
 import { useMounted } from "@cubicsui/hooks";
 import { SettingsIcon } from "@cubicsui/icons";
 
 export function Settings() {
   const { mounted } = useMounted();
+  const { theme } = useTheme();
   const { contrast, setContrast } = useContrast();
   const { pointerLight, setPointerLight } = usePointerLight();
   if (!mounted) return;
@@ -28,25 +32,38 @@ export function Settings() {
           as={Card}
           elevation="high"
           className="column"
-          fixedWidth="200px"
+          fixedWidth="min(250px, 80dvw)"
         >
-          <ThemeToggle
-            variant="full"
-            slotProps={{ button: { size: "sm", fullWidth: true } }}
-          />
-          <Switch
-            size="sm"
-            checked={contrast}
-            onChange={(_, v) => setContrast(v)}
-            label="High Contrast"
-          />
-          <Switch
-            size="sm"
-            checked={pointerLight}
-            onChange={(_, v) => setPointerLight(v)}
-            label="Pointer Light"
-          />
-          <Switch size="sm" label="Disable Animations" />
+          <List size="sm">
+            <ListItem>
+              <ThemeToggle
+                variant="full"
+                slotProps={{ button: { size: "sm", fullWidth: true } }}
+              />
+            </ListItem>
+            <ListItem
+              action={
+                <Switch
+                  size="sm"
+                  checked={contrast}
+                  onChange={(_, v) => setContrast(v)}
+                />
+              }
+            >
+              Change contrast
+            </ListItem>
+            <ListItem
+              action={
+                <Switch
+                  size="sm"
+                  checked={pointerLight}
+                  onChange={(_, v) => setPointerLight(v)}
+                />
+              }
+            >
+              Pointer light
+            </ListItem>
+          </List>
         </GlassCard>
       </Popover>
     </>

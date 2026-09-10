@@ -1,0 +1,97 @@
+.root {
+  --bg: transparent;
+  --color: var(--color-on-background);
+  --bg-hover: color-mix(in srgb, var(--color-on-background) 10%, transparent);
+  --bg-selected: var(--color-on-background);
+  --color-selected: var(--color-background);
+  --size: var(--gap);
+  --br: var(--br-md);
+  --fs: var(--fs-md);
+  list-style-type: none;
+  position: relative;
+  font-size: var(--fs);
+}
+.disablePadding {
+  padding-inline: 0;
+}
+.root li::marker {
+  font-family: var(--font-h);
+  color: color-mix(in srgb, var(--color) 50%, transparent);
+}
+.marker {
+  width: 0;
+  left: 0;
+  opacity: 0;
+  scale: 0;
+  z-index: -1;
+  transition: all var(--transition-time) var(--transition-tf);
+  border-radius: var(--br-sm);
+  background-color: color-mix(
+    in srgb,
+    var(--color-background) 50%,
+    transparent
+  );
+}
+/* Sizes */
+.root,
+.root [data-slot="list-item"] {
+  &[data-size="xs"] {
+    --size: calc(var(--gap)/2);
+    --br: var(--br-xs);
+    --fs: var(--fs-xs);
+  }
+  &[data-size="sm"] {
+    --size: var(--gap);
+    --br: var(--br-sm);
+    --fs: var(--fs-sm);
+  }
+
+  &[data-size="lg"] {
+    --size: var(--gap-2);
+    --br: var(--br-lg);
+    --fs: var(--fs-lg);
+  }
+
+  &[data-size="xl"] {
+    --size: var(--gap-3);
+    --br: var(--br-xl);
+    --fs: var(--fs-xl);
+  }
+  /* Colors */
+  &[data-color="primary"] {
+    --color: var(--color-primary);
+    --bg-hover: var(--color-primary-container);
+    --bg-selected: var(--color-primary);
+    --color-selected: var(--color-on-primary);
+  }
+  &[data-color="secondary"] {
+    --color: var(--color-secondary);
+    --bg-hover: var(--color-secondary-container);
+    --bg-selected: var(--color-secondary);
+    --color-selected: var(--color-on-secondary);
+  }
+  &[data-color="tertiary"] {
+    --color: var(--color-tertiary);
+    --bg-hover: var(--color-tertiary-container);
+    --bg-selected: var(--color-tertiary);
+    --color-selected: var(--color-on-tertiary);
+  }
+  &[data-color="error"] {
+    --color: var(--color-error);
+    --bg-hover: var(--color-error-container);
+    --bg-selected: var(--color-error);
+    --color-selected: var(--color-on-error);
+  }
+  &[data-color="warn"] {
+    --color: var(--color-warn);
+    --bg-hover: var(--color-warn-container);
+    --bg-selected: var(--color-warn);
+    --color-selected: var(--color-on-warn);
+  }
+  &[data-color="success"] {
+    --color: var(--color-success);
+    --bg-hover: var(--color-success-container);
+    --bg-selected: var(--color-success);
+    --color-selected: var(--color-on-success);
+  }
+}

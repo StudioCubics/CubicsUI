@@ -11,3 +11,7 @@ export * from "./Chip/Chip";
 export * from "./Chip/Chip.types";
 
 export * from "./GlassCard/GlassCard";
+
+export * from "./List/List";
+export * from "./List/List.types";
+export * from "./List/ListItem/ListItem";

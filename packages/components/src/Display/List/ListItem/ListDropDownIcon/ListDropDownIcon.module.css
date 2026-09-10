@@ -1,0 +1,10 @@
+.root {
+  & path {
+    transition: d var(--transition-time-fast) var(--transition-time);
+  }
+}
+.root.collapsed {
+  & path {
+    d: path("m6 9 6 6 6-6");
+  }
+}
