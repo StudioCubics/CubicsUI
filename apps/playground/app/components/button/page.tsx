@@ -327,6 +327,37 @@ export default function Page() {
         Button as a <code>{"<Link/>"}</code>
       </h2>
       <AsLink />
+      <h2>Background Check</h2>
+      <section className="rgb_bg">
+        <div className={"row"}>
+          <div className={"column"}>
+            <Button>Default</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="outlined">Outlined</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="contained">Contained</Button>
+          </div>
+        </div>
+      </section>
+      <section className="image_bg">
+        <div className={"row"}>
+          <div className={"column"}>
+            <Button>Default</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="outlined">Outlined</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="contained">Contained</Button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
