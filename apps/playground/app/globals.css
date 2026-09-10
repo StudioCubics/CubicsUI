@@ -201,7 +201,7 @@
   --color-success-alpha: color-mix(var(--color-success) 20%, transparent);
 
   /* Misc Colors */
-  --color-outline: #22222b;
+  --color-outline: #6666665b;
   --color-shadow: #00000054;
   --color-scrim: #221a1e80;
   --color-focus: #b1b1b1;
