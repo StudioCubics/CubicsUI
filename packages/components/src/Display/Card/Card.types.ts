@@ -1,4 +1,4 @@
-import type { CssLength, PolymorphicComponentProps } from "@cubicsui/types";
+import type { PolymorphicComponentProps } from "@cubicsui/types";
 import type { ElementType } from "react";
 
 export type CardProps<C extends ElementType = "div"> =
@@ -43,9 +43,9 @@ export interface CardBaseProps {
   /** Use this to remove background when using with GlassCard */
   removeBg?: boolean;
 
-  /** The width will be of fixed length */
-  fixedWidth?: CssLength | boolean;
+  /** The width will be of fixed length, any value that can be put in width */
+  fixedWidth?: string;
 
-  /** The height will be of fixed length */
-  fixedHeight?: CssLength | boolean;
+  /** The height will be of fixed length, any value that can be put in width */
+  fixedHeight?: string;
 }

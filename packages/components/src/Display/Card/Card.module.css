@@ -1,5 +1,4 @@
 .root {
-  --color: var(--color-on-background);
   --bg: var(--color-surface);
   --br: var(--br-md);
   --size: var(--gap-4);
@@ -7,7 +6,7 @@
   flex-direction: column;
   isolation: isolate;
   border-radius: var(--br);
-  color: var(--color);
+  color: var(--color, var(--color-on-background));
 }
 .root.fullWidth {
   width: 100%;
