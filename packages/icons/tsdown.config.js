@@ -6,7 +6,7 @@ export default defineConfig({
   sourcemap: true,
   clean: false,
   dts: true,
-  minify: true,
+  // minify: true,
   treeshake: true,
   unbundle: true,
   deps: {

@@ -14,7 +14,7 @@ import {
   useTheme,
 } from "@cubicsui/components";
 import { useMounted } from "@cubicsui/hooks";
-import { SettingsIcon } from "@cubicsui/icons";
+import { PointerLightIcon, SettingsIcon } from "@cubicsui/icons";
 
 export function Settings() {
   const { mounted } = useMounted();
@@ -53,6 +53,7 @@ export function Settings() {
               Change contrast
             </ListItem>
             <ListItem
+              icon={<PointerLightIcon />}
               action={
                 <Switch
                   size="sm"
