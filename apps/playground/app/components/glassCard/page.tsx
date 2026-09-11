@@ -189,22 +189,22 @@ export default function Page() {
       <h2>Grid layout / many cards at once</h2>
       <section>
         <div className="grid">
-          <GlassCard as={Card} removeBg color={"tertiary"}>
+          <GlassCard as={Card} removeBg>
             <CardContent>Card 1</CardContent>
           </GlassCard>
-          <GlassCard as={Card} removeBg color={"primary"}>
+          <GlassCard as={Card} removeBg>
             <CardContent>Card 2</CardContent>
           </GlassCard>
-          <GlassCard as={Card} removeBg color={"tertiary"}>
+          <GlassCard as={Card} removeBg>
             <CardContent>Card 3</CardContent>
           </GlassCard>
-          <GlassCard as={Card} removeBg color={"primary"}>
+          <GlassCard as={Card} removeBg>
             <CardContent>Card 4</CardContent>
           </GlassCard>
-          <GlassCard as={Card} removeBg color={"tertiary"}>
+          <GlassCard as={Card} removeBg>
             <CardContent>Card 5</CardContent>
           </GlassCard>
-          <GlassCard as={Card} removeBg color={"primary"}>
+          <GlassCard as={Card} removeBg>
             <CardContent>Card 6</CardContent>
           </GlassCard>
         </div>

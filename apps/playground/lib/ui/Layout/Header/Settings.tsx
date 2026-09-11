@@ -11,14 +11,12 @@ import {
   ThemeToggle,
   useContrast,
   usePointerLight,
-  useTheme,
 } from "@cubicsui/components";
 import { useMounted } from "@cubicsui/hooks";
 import { PointerLightIcon, SettingsIcon } from "@cubicsui/icons";
 
 export function Settings() {
   const { mounted } = useMounted();
-  const { theme } = useTheme();
   const { contrast, setContrast } = useContrast();
   const { pointerLight, setPointerLight } = usePointerLight();
   if (!mounted) return;
