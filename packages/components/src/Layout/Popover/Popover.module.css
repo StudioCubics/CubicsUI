@@ -8,7 +8,6 @@
   inset: auto;
   border: none;
   background: none;
-
   position: fixed;
   position-area: var(--popover-position-area, bottom center);
   position-try-fallbacks: flip-block, flip-inline, flip-start;
@@ -26,6 +25,10 @@
     translate var(--popover-duration) var(--popover-easing),
     display var(--popover-duration) var(--popover-easing) allow-discrete,
     overlay var(--popover-duration) var(--popover-easing) allow-discrete;
+}
+
+.anchorWidth {
+  width: anchor-size(width);
 }
 
 /* open state */

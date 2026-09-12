@@ -2,7 +2,7 @@
 
 import type { PolymorphicComponentType } from "@cubicsui/types";
 import { cn } from "@cubicsui/utils";
-import type { CSSProperties, ElementType } from "react";
+import type { CSSProperties, ElementType, ToggleEvent } from "react";
 import type { PopoverBaseProps, PopoverProps } from "./Popover.types";
 import styles from "./Popover.module.css";
 
@@ -14,14 +14,22 @@ function PopoverBase<C extends ElementType = "div">(props: PopoverProps<C>) {
     style,
     positionArea = "bottom center",
     transformOrigin = "top center",
+    anchorWidth,
     popover = "auto",
+    onClose,
     ...rest
   } = props as PopoverProps<"div">;
   const Component = as || "div";
   const componentProps = {
     ...rest,
     popover: popover,
-    className: cn(className, styles.root),
+    onToggle: (e: ToggleEvent<HTMLDivElement>) => {
+      rest.onToggle?.(e);
+      if (e.newState === "closed") {
+        onClose?.();
+      }
+    },
+    className: cn(className, styles.root, anchorWidth && styles.anchorWidth),
     style: {
       ...style,
       "--popover-position-area": positionArea,
