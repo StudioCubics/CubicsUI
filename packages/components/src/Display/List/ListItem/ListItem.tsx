@@ -61,8 +61,12 @@ export function ListItemTypeCollapsible(
     nodes,
     color,
     size,
+    className,
+    dropdownIcon,
     listType: _listType,
     LinkComponent: _LinkComponent,
+    slotProps = {},
+    ...rest
   } = props;
   const { LinkComponent, selectedWhen, listType } = useList();
   const { mounted } = useMounted();
@@ -91,7 +95,12 @@ export function ListItemTypeCollapsible(
   if (!mounted) return null;
   return (
     <li
-      className={cn(styles.root, collapsed && styles.collapsed)}
+      {...slotProps.root}
+      className={cn(
+        slotProps.root?.className,
+        styles.root,
+        collapsed && styles.collapsed,
+      )}
       data-color={color}
       data-size={size}
       data-slot={"list-item"}
@@ -99,18 +108,39 @@ export function ListItemTypeCollapsible(
     >
       <Component
         className={cn(
+          className,
           styles.surface,
           disabled && styles.disabled,
           isClickable && styles.isClickable,
         )}
         onClick={handleClick}
         href={href}
+        {...rest}
       >
-        {icon && <span className={cn(styles.icon)}>{icon}</span>}
-        <span className={cn(styles.content)}>{children}</span>
-        <span className={cn(styles.action)}>
+        {icon && (
+          <span
+            {...slotProps.icon}
+            className={cn(slotProps.icon?.className, styles.icon)}
+          >
+            {icon}
+          </span>
+        )}
+        <span
+          {...slotProps.content}
+          className={cn(slotProps.content?.className, styles.content)}
+        >
+          {children}
+        </span>
+        <span
+          {...slotProps.action}
+          className={cn(slotProps.action?.className, styles.action)}
+        >
           <button
-            className={cn(styles.dropdownToggle)}
+            {...slotProps.dropdownToggle}
+            className={cn(
+              slotProps.dropdownToggle?.className,
+              styles.dropdownToggle,
+            )}
             type="button"
             disabled={disabled}
             onClick={(e) => {
@@ -119,7 +149,7 @@ export function ListItemTypeCollapsible(
               setCollapsed(!collapsed);
             }}
           >
-            <ListDropDownIcon collapsed={collapsed} />
+            {dropdownIcon ?? <ListDropDownIcon collapsed={collapsed} />}
           </button>
         </span>
       </Component>
@@ -127,9 +157,14 @@ export function ListItemTypeCollapsible(
         <ListComponent
           className={cn(styles.sublist)}
           style={{ listStyleType: _listType || listType }}
+          {...slotProps.sublist}
         >
           {nodes.map((n, i) => (
-            <ListItem key={i} {...n} />
+            <ListItem
+              key={i}
+              {...(n.type == "collapsible" ? { dropdownIcon } : {})}
+              {...n}
+            />
           ))}
         </ListComponent>
       )}
@@ -148,7 +183,10 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     selected: _selected,
     color,
     size,
+    className,
     LinkComponent: _LinkComponent,
+    slotProps = {},
+    ...rest
   } = props;
   const { LinkComponent, selectedWhen } = useList();
   const isClickable = !!href || !!onClick;
@@ -164,7 +202,8 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
 
   return (
     <li
-      className={cn(styles.root)}
+      {...slotProps.root}
+      className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
       data-slot={"list-item"}
@@ -172,16 +211,37 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     >
       <Component
         className={cn(
+          className,
           styles.surface,
           disabled && styles.disabled,
           isClickable && styles.isClickable,
         )}
         onClick={handleClick}
         href={href}
+        {...rest}
       >
-        {icon && <span className={cn(styles.icon)}>{icon}</span>}
-        <span className={cn(styles.content)}>{children}</span>
-        {action && <span className={cn(styles.action)}>{action}</span>}
+        {icon && (
+          <span
+            {...slotProps.icon}
+            className={cn(slotProps.icon?.className, styles.icon)}
+          >
+            {icon}
+          </span>
+        )}
+        <span
+          {...slotProps.content}
+          className={cn(slotProps.content?.className, styles.content)}
+        >
+          {children}
+        </span>
+        {action && (
+          <span
+            {...slotProps.action}
+            className={cn(slotProps.action?.className, styles.action)}
+          >
+            {action}
+          </span>
+        )}
       </Component>
     </li>
   );

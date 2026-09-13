@@ -118,7 +118,7 @@
   }
   & .surface:not(.disabled).isClickable {
     &:hover:not(:has(.dropdownToggle:hover)) {
-      background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+      background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
       color: var(--color);
     }
   }

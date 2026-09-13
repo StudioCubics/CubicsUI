@@ -47,36 +47,65 @@ export type ListItemTypeHeaderProps = ComponentProps<"hr"> & {
   children?: ReactNode;
   renderLine?: boolean;
 };
-export type ListItemTypeItemProps = ListSharedProps & {
-  type?: "item";
-  /**Icon at the start of the list item */
-  icon?: ReactNode;
-  /** Action at the end of the list item for type collapsible the action is the drop down button */
-  action?: ReactNode;
-  /** If the list item should be styled to look disabled */
-  disabled?: boolean;
-  /** If the list item should be styled to look selected */
-  selected?: boolean;
-  /** An href can be passed and along with the LinkComponent prop a list item can be made to work like a link */
-  href?: ComponentProps<"a">["href"];
-  children: ReactNode;
-  onClick?: (e: MouseEvent) => void;
-};
+export type ListItemTypeItemProps = ListSharedProps &
+  ComponentProps<"div"> & {
+    type?: "item";
+    /** Classname of the surface of the input */
+    className?: string;
+    /**Icon at the start of the list item */
+    icon?: ReactNode;
+    /** Action at the end of the list item for type collapsible the action is the drop down button */
+    action?: ReactNode;
+    /** If the list item should be styled to look disabled */
+    disabled?: boolean;
+    /** If the list item should be styled to look selected */
+    selected?: boolean;
+    /** An href can be passed and along with the LinkComponent prop a list item can be made to work like a link */
+    href?: ComponentProps<"a">["href"];
+    children: ReactNode;
+    onClick?: (e: MouseEvent) => void;
+    slotProps?: {
+      root?: ComponentProps<"li">;
+      icon?: ComponentProps<"span">;
+      content?: ComponentProps<"span">;
+      action?: ComponentProps<"span">;
+    };
+  };
 export type ListItemTypeCollapsibleProps = Omit<
   ListItemTypeItemProps,
-  "action" | "type"
+  "action" | "type" | "slotProps"
 > & {
   type: "collapsible";
   /** A unique id in the whole list, will be used to persist state in localstorage */
   id: string;
-  /** If the collapsible list item should be collapsed initially or not */
+  /** If the sublist should be collapsed initially or not */
   collapsed?: boolean;
+  /** When the sublist is collapsed this will fire */
   onCollapsed?: () => void;
+
+  /** Custom drop down icon */
+  dropdownIcon?: ReactNode;
+  /** The sublist will be ordered `<ol/>` or unordered `<ul/>` */
   ordered?: boolean;
   /** the nested listitems */
   nodes?: ListItemProps[];
   /** Type of list to be used for the sublist */
   listType?: CSSProperties["listStyleType"];
+
+  slotProps?: {
+    /** The li element of the ListItem */
+    root?: ComponentProps<"li">;
+    /** The span containing the icon of the ListItem */
+    icon?: ComponentProps<"span">;
+    /** The span containing the content of the ListItem */
+    content?: ComponentProps<"span">;
+    /** The span containing the dropdownToggle */
+    action?: ComponentProps<"span">;
+    /** The dropdown toggle button */
+    dropdownToggle?: ComponentProps<"button">;
+    /** The list rendering the nodes its an `<ol/>` because `<ol/>` has more attributes than `<ul/>` */
+    sublist?: ComponentProps<"ol">;
+  };
 };
 export type ListItemProps =
   | ListItemTypeSeparatorProps

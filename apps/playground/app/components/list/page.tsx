@@ -328,6 +328,27 @@ export default function Page() {
         </div>
       </section>
 
+      <h2>
+        With custom <code>dropdownIcon</code>
+      </h2>
+      <p>Custom dropdownIcon set to "^" in collapsible type</p>
+      <section>
+        <div className="column" style={{ width: "260px" }}>
+          <List>
+            <ListItem children="Item one" />
+            <ListItem children="Item two" />
+            <ListItem
+              type="collapsible"
+              id="dropdownIcon-nested"
+              ordered
+              children="Nested code"
+              nodes={nestedNodes("listTypeListWide")}
+              dropdownIcon={"^"}
+            />
+          </List>
+        </div>
+      </section>
+
       <h2>listType</h2>
       <p>
         <code>listType</code> sets the CSS <code>list-style-type</code> for a
