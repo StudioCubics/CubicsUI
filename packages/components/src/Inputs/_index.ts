@@ -9,6 +9,9 @@ export * from "./Checkbox/Checkbox.types";
 export * from "./CloseButton/CloseButton";
 export * from "./CloseButton/CloseButton.types";
 
+export * from "./ComboBox/ComboBox";
+export * from "./ComboBox/ComboBox.types";
+
 export * from "./InputField/InputField";
 export * from "./InputField/InputField.types";
 
