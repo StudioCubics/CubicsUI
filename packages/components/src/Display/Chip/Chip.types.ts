@@ -1,5 +1,5 @@
 import type { PolymorphicComponentProps } from "@cubicsui/types";
-import type { ElementType } from "react";
+import type { ComponentProps, ElementType, MouseEvent, ReactNode } from "react";
 
 export interface ChipBaseProps {
   /** Visual style variant.
@@ -14,6 +14,15 @@ export interface ChipBaseProps {
    * @default "md"
    */
   size?: "sm" | "md" | "lg";
+
+  /** Renders a close button which fires the onClose function */
+  onClose?: (e: MouseEvent) => void;
+
+  icon?: ReactNode;
+
+  slotProps?: {
+    closeButton?: ComponentProps<"button">;
+  };
 }
 
 export type ChipProps<C extends ElementType = "span"> =
