@@ -53,7 +53,7 @@ export default function Page() {
       </ol>
       <h2>Typography</h2>
       <ol className={"column"}>
-        <Item href="/">TextOrList 🚧</Item>
+        <Item href="/components/textOrList">TextOrList 🚧</Item>
       </ol>
     </div>
   );
