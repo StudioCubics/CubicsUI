@@ -11,3 +11,4 @@ export interface LogoProps extends ComponentProps<"svg"> {
   textClass?: ComponentProps<"g">["className"];
   viewBox?: ComponentProps<"svg">["viewBox"];
 }
+

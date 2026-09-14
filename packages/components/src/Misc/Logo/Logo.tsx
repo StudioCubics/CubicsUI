@@ -19,6 +19,7 @@ export function Logo(props: LogoProps): ReactElement {
     <svg
       viewBox={onlyFavicon ? faviconViewBox : onlyText ? textViewBox : viewBox}
       xmlns="http://www.w3.org/2000/svg"
+
       {...rest}
     >
       {/* Favicon */}
@@ -28,7 +29,6 @@ export function Logo(props: LogoProps): ReactElement {
           transition: "all var(--transition-time) var(--transition-tf)",
           scale: onlyText ? "0" : "1",
           opacity: onlyText ? "0" : "1",
-          zIndex: 1,
         }}
       >
         {favicon}
@@ -40,7 +40,6 @@ export function Logo(props: LogoProps): ReactElement {
           transition: "all var(--transition-time) var(--transition-tf)",
           scale: onlyFavicon ? "0" : "1",
           opacity: onlyFavicon ? "0" : "1",
-          zIndex: 0,
         }}
       >
         {text}
