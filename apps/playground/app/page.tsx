@@ -42,6 +42,7 @@ export default function Page() {
       <h2>Misc</h2>
       <ol className={"column"}>
         <Item href="/components/ripple">Ripple 🚧</Item>
+        <Item href="/components/logo">Logo 🚧</Item>
       </ol>
       <h2>Providers</h2>
       <ol className={"column"}>
@@ -53,7 +54,7 @@ export default function Page() {
       </ol>
       <h2>Typography</h2>
       <ol className={"column"}>
-        <Item href="/components/textOrList">TextOrList 🚧</Item>
+        <Item href="/components/textOrList">TextOrList ✅</Item>
       </ol>
     </div>
   );
