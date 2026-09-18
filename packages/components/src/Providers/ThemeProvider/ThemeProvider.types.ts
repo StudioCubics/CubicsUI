@@ -33,13 +33,13 @@ export interface ThemeScriptProps {
    * @default false
    */
   enableColorScheme?: boolean;
+  /** Pass nonce to save yourself from CORS issues */
+  nonce?: string;
+  /** Props of the script tag */
+  scriptProps?: ComponentProps<"script">;
 }
 export interface ThemeProviderProps extends ThemeScriptProps {
   children: ReactNode;
   /** Disables transitions for all components when changing themes */
   disableTransitionOnChange?: boolean;
-  /** Pass nonce to save yourself from CORS issues */
-  nonce?: string;
-  /** Props of the script tag */
-  scriptProps?: ComponentProps<"script">;
 }

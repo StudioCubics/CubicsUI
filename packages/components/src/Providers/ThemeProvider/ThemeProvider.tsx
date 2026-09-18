@@ -16,11 +16,13 @@ import type {
   ThemeScriptProps,
 } from "./ThemeProvider.types";
 import { notImplemented, withDisabledTransitions } from "@cubicsui/utils";
-import { script } from "./script";
+import { ThemeScript } from "./ThemeScript";
 
 const IS_SERVER = typeof window === "undefined";
 const MEDIA = "(prefers-color-scheme: dark)";
-export const THEME_PROVIDER_DEFAULTS: Required<ThemeScriptProps> = {
+export const THEME_PROVIDER_DEFAULTS: Required<
+  Omit<ThemeScriptProps, "nonce" | "scriptProps">
+> = {
   attribute: "data-theme",
   storageKey: "themePreference",
   defaultTheme: "light",
@@ -154,14 +156,7 @@ export function ThemeProvider(props: ThemeProviderProps): ReactElement {
         systemEnabled: enableSystem,
       }}
     >
-      <script
-        {...scriptProps}
-        suppressHydrationWarning
-        nonce={typeof window === "undefined" ? nonce : ""}
-        dangerouslySetInnerHTML={{
-          __html: `(${script.toString()})(${JSON.stringify(scriptArgs)})`,
-        }}
-      />
+      <ThemeScript {...scriptArgs} nonce={nonce} scriptProps={scriptProps} />
       {children}
     </ThemeContext.Provider>
   );
