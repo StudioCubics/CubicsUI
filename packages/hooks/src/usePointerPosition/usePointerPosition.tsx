@@ -11,6 +11,10 @@ type Event = MouseEvent | undefined;
 export interface UsePointerPositionProps {
   includeTouch?: boolean;
   defaultPosition?: PositionMatrix;
+  /** The intensity multiplier of the effect movement has on the speed
+   * @default 10
+   */
+  intensity?: number;
 }
 
 export interface UsePointerPositionReturnType {
@@ -23,7 +27,11 @@ export interface UsePointerPositionReturnType {
 export function usePointerPosition(
   props: UsePointerPositionProps | void,
 ): UsePointerPositionReturnType {
-  const { includeTouch, defaultPosition } = props || {
+  const {
+    includeTouch = false,
+    defaultPosition,
+    intensity = 10,
+  } = props || {
     includeTouch: false,
   };
   const defaultPositionMatrix = {
@@ -37,12 +45,12 @@ export function usePointerPosition(
   const [pointerSpeed, setPointerSpeed] = useState(0);
   const pointerSpeedRef = useRef(0);
   const [prevEvent, setPrevEvent] = useState<Event>(undefined);
-  
+
   useEffect(() => {
     pointerPositionRef.current = pointerPosition;
     pointerSpeedRef.current = pointerSpeed;
   }, [pointerPosition, pointerSpeed]);
-  
+
   useEffect(() => {
     const updateMousePosition = (currentEvent: MouseEvent) => {
       const [x, y] = [currentEvent.clientX, currentEvent.clientY];
@@ -53,7 +61,7 @@ export function usePointerPosition(
         currentEvent.clientY - (prevEvent?.clientY ? prevEvent?.clientY : 0),
       );
       const movement = Math.sqrt(movementX * movementX + movementY * movementY);
-      const speed = Math.round(10 * movement);
+      const speed = Math.round(intensity * movement);
       setPointerSpeed(speed);
       setPointerPosition({ x, y });
       setPrevEvent(currentEvent);
@@ -62,7 +70,7 @@ export function usePointerPosition(
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
     };
-  }, [prevEvent]);
+  }, [prevEvent, intensity]);
   useEffect(() => {
     const updateTouchPosition = (currentEvent: TouchEvent) => {
       let x, y;
