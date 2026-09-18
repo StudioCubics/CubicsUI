@@ -53,9 +53,9 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
     "data-color": color,
     "data-size": size,
     style: {
-      ...style,
       width: typeof fixedWidth === "string" ? fixedWidth : undefined,
       height: typeof fixedHeight === "string" ? fixedHeight : undefined,
+      ...style,
     },
     ref: _ref,
     ...restProps,
