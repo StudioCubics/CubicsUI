@@ -41,6 +41,17 @@
     outline-color: transparent;
   }
 }
+/* Align styles */
+.root.align_left {
+  justify-content: flex-start;
+}
+/* Align styles */
+.root.align_center {
+  justify-content: center;
+}
+.root.align_right {
+  justify-content: flex-end;
+}
 .root.fullWidth {
   max-width: 100%;
   width: 100%;
