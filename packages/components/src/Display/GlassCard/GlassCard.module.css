@@ -8,17 +8,17 @@
   --reflection-intensity: 1;
   --mouse-x: -9999;
   --mouse-y: -9999;
+  --internal-reflection: color-mix(in srgb, var(--tint) 10%, transparent);
+  --source-light: color-mix(in srgb, var(--tint) 30%, transparent);
 
   isolation: isolate;
-  border-radius: var(--br, var(--br-md));
+  border-radius: var(--br);
   position: var(--position);
   box-shadow: inset 0px 0px 4px var(--shadow);
   backdrop-filter: blur(var(--blur-light));
 
   /* Border */
   &::after {
-    --internal-reflection: color-mix(in srgb, var(--tint) 10%, transparent);
-    --source-light: color-mix(in srgb, var(--tint) 30%, transparent);
     content: "";
     position: absolute;
     inset: 0;
