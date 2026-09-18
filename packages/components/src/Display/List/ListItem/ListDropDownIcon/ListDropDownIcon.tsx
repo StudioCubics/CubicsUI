@@ -4,10 +4,8 @@ import type { ComponentProps, ReactElement } from "react";
 import styles from "./ListDropDownIcon.module.css";
 import { cn } from "@cubicsui/utils";
 
-export function ListDropDownIcon(
-  props: ComponentProps<"svg"> & { collapsed: boolean },
-): ReactElement {
-  const { width = 24, height = width, collapsed, ...rest } = props;
+export function ListDropDownIcon(props: ComponentProps<"svg">): ReactElement {
+  const { width = 24, height = width, ...rest } = props;
   return (
     <svg
       fill="none"
@@ -17,7 +15,7 @@ export function ListDropDownIcon(
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className={cn("lucide", styles.root, collapsed && styles.collapsed)}
+      className={cn("lucide", styles.root)}
     >
       <path d="m6 15 6-6 6 6" />
     </svg>

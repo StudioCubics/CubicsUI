@@ -2,6 +2,7 @@
   display: flow-root list-item;
   list-style-position: outside;
   font-size: var(--fs);
+  border-radius: var(--br);
 }
 .surface {
   display: flex;
@@ -55,10 +56,11 @@
   position: relative;
   height: calc-size(auto, size);
   transition: all var(--transition-time) var(--transition-tf);
-  margin-block: calc(var(--size) * var(--gr));
-  padding-left: calc(var(--size) * var(--gr) * var(--gr));
+  margin-block: calc(var(--size) * 2);
+  padding-left: calc(var(--size) * 2 * var(--gr));
   border-radius: 0 0 var(--br) var(--br);
   list-style-type: none;
+  overflow: hidden;
 
   &::before {
     content: "";
@@ -70,7 +72,7 @@
     background: color-mix(in srgb, var(--color) 20%, transparent);
   }
 }
-.collapsed {
+.root[data-collapsed="true"] {
   & .sublist {
     height: 0;
     overflow: hidden;
@@ -78,7 +80,7 @@
   }
 }
 .separator {
-  margin-block: var(--size);
+  margin-block: calc(var(--size));
   margin-inline: calc(var(--size) * var(--gr));
   border-color: color-mix(in srgb, var(--color) 20%, transparent);
 }
@@ -113,12 +115,12 @@
 }
 .root[data-selected="true"] {
   & .surface {
-    background: color-mix(in srgb, var(--bg-selected) 80%, transparent);
+    background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
     color: var(--color-selected);
   }
   & .surface:not(.disabled).isClickable {
     &:hover:not(:has(.dropdownToggle:hover)) {
-      background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
+      background: color-mix(in srgb, var(--bg-selected) 20%, transparent);
       color: var(--color);
     }
   }

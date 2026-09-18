@@ -3,7 +3,7 @@
     transition: d var(--transition-time-fast) var(--transition-time);
   }
 }
-.root.collapsed {
+[data-collapsed="true"] .root {
   & path {
     d: path("m6 9 6 6 6-6");
   }

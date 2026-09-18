@@ -5,7 +5,6 @@ import { type ElementType, type MouseEvent, type ReactElement } from "react";
 import styles from "./ListItem.module.css";
 
 import { useList } from "../List";
-import { useLocalStorage, useMounted } from "@cubicsui/hooks";
 import { ListDropDownIcon } from "./ListDropDownIcon/ListDropDownIcon";
 import type {
   ListItemProps,
@@ -57,54 +56,55 @@ export function ListItemTypeCollapsible(
     children,
     selected: _selected,
     onClick,
-    collapsed: _collapsed = false,
+    onCollapsed,
+    defaultCollapsed, // no forced default — undefined means "defer to List"
     nodes,
     color,
     size,
     className,
     dropdownIcon,
+    onlyIcon = false,
     listType: _listType,
     LinkComponent: _LinkComponent,
     slotProps = {},
+    type,
     ...rest
   } = props;
-  const { LinkComponent, selectedWhen, listType } = useList();
-  const { mounted } = useMounted();
+  const {
+    LinkComponent,
+    selectedWhen,
+    listType,
+    getCollapsed,
+    toggleCollapsed,
+  } = useList();
   const isClickable = !disabled;
   const Component = (
     !!href ? (_LinkComponent ?? LinkComponent) : "div"
   ) as ElementType;
   const ListComponent: "ol" | "ul" = ordered ? "ol" : "ul";
   const selected = _selected || selectedWhen?.(props);
+  const collapsed = getCollapsed(id, defaultCollapsed);
 
-  const [collapsed, setCollapsed] = useLocalStorage(
-    `${id}-collapsed`,
-    _collapsed,
-    {
-      initializeWithValue: true,
-    },
-  );
   function handleClick(e: MouseEvent) {
     if (disabled) return;
     if (href || onClick) {
       onClick?.(e);
     } else {
-      setCollapsed(!collapsed);
+      toggleCollapsed(id, collapsed);
     }
   }
-  if (!mounted) return null;
+
   return (
     <li
       {...slotProps.root}
-      className={cn(
-        slotProps.root?.className,
-        styles.root,
-        collapsed && styles.collapsed,
-      )}
+      id={id}
+      className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
       data-slot={"list-item"}
       data-selected={selected}
+      data-collapsed={collapsed}
+      suppressHydrationWarning
     >
       <Component
         className={cn(
@@ -125,35 +125,40 @@ export function ListItemTypeCollapsible(
             {icon}
           </span>
         )}
-        <span
-          {...slotProps.content}
-          className={cn(slotProps.content?.className, styles.content)}
-        >
-          {children}
-        </span>
-        <span
-          {...slotProps.action}
-          className={cn(slotProps.action?.className, styles.action)}
-        >
-          <button
-            {...slotProps.dropdownToggle}
-            className={cn(
-              slotProps.dropdownToggle?.className,
-              styles.dropdownToggle,
-            )}
-            type="button"
-            disabled={disabled}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setCollapsed(!collapsed);
-            }}
+        {children !== false && children != null && !onlyIcon && (
+          <span
+            {...slotProps.content}
+            className={cn(slotProps.content?.className, styles.content)}
           >
-            {dropdownIcon ?? <ListDropDownIcon collapsed={collapsed} />}
-          </button>
-        </span>
+            {children}
+          </span>
+        )}
+        {!onlyIcon && (
+          <span
+            {...slotProps.action}
+            className={cn(slotProps.action?.className, styles.action)}
+          >
+            <button
+              {...slotProps.dropdownToggle}
+              className={cn(
+                slotProps.dropdownToggle?.className,
+                styles.dropdownToggle,
+              )}
+              type="button"
+              disabled={disabled}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleCollapsed(id, collapsed);
+                onCollapsed?.();
+              }}
+            >
+              {dropdownIcon ?? <ListDropDownIcon />}
+            </button>
+          </span>
+        )}
       </Component>
-      {!!nodes?.length && (
+      {!!nodes?.length && !onlyIcon && (
         <ListComponent
           className={cn(styles.sublist)}
           style={{ listStyleType: _listType || listType }}
@@ -181,10 +186,12 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     disabled,
     onClick,
     selected: _selected,
+    onlyIcon = false,
     color,
     size,
     className,
     LinkComponent: _LinkComponent,
+    type,
     slotProps = {},
     ...rest
   } = props;
@@ -228,13 +235,15 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
             {icon}
           </span>
         )}
-        <span
-          {...slotProps.content}
-          className={cn(slotProps.content?.className, styles.content)}
-        >
-          {children}
-        </span>
-        {action && (
+        {children !== false && children != null && !onlyIcon && (
+          <span
+            {...slotProps.content}
+            className={cn(slotProps.content?.className, styles.content)}
+          >
+            {children}
+          </span>
+        )}
+        {action && !onlyIcon && (
           <span
             {...slotProps.action}
             className={cn(slotProps.action?.className, styles.action)}
