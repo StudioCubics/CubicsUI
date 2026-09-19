@@ -15,10 +15,9 @@ import type {
   Theme,
   ThemeScriptProps,
 } from "./ThemeProvider.types";
-import { notImplemented, withDisabledTransitions } from "@cubicsui/utils";
+import { isServer, notImplemented, withDisabledTransitions } from "@cubicsui/utils";
 import { ThemeScript } from "./ThemeScript";
 
-const IS_SERVER = typeof window === "undefined";
 const MEDIA = "(prefers-color-scheme: dark)";
 export const THEME_PROVIDER_DEFAULTS: Required<
   Omit<ThemeScriptProps, "nonce" | "scriptProps">
@@ -49,7 +48,7 @@ function getInitialTheme(
   defaultTheme: Theme,
   enableSystem: boolean,
 ): Theme {
-  if (IS_SERVER) return defaultTheme;
+  if (isServer) return defaultTheme;
 
   try {
     const stored = localStorage.getItem(storageKey);
@@ -67,7 +66,7 @@ function getInitialTheme(
 
 function resolveTheme(theme: Theme, enableSystem: boolean): ResolvedTheme {
   if (theme === "system" && enableSystem) {
-    return !IS_SERVER && window.matchMedia(MEDIA).matches ? "dark" : "light";
+    return !isServer && window.matchMedia(MEDIA).matches ? "dark" : "light";
   }
   return theme as ResolvedTheme;
 }
@@ -129,7 +128,7 @@ export function ThemeProvider(props: ThemeProviderProps): ReactElement {
 
   // During in system mode, resolvedTheme sync with live OS changes.
   useEffect(() => {
-    if (!enableSystem || theme !== "system" || IS_SERVER) return;
+    if (!enableSystem || theme !== "system" || isServer) return;
     const mql = window.matchMedia(MEDIA);
     const handleChange = () => {
       setResolvedTheme(mql.matches ? "dark" : "light");

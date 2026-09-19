@@ -7,7 +7,11 @@ import {
   type ReactElement,
   type Context,
 } from "react";
-import { notImplemented, withDisabledTransitions } from "@cubicsui/utils";
+import {
+  isServer,
+  notImplemented,
+  withDisabledTransitions,
+} from "@cubicsui/utils";
 import type {
   ContrastContextProps,
   ContrastProviderProps,
@@ -16,7 +20,6 @@ import type {
 import { useLocalStorage } from "@cubicsui/hooks";
 import { script } from "./script";
 
-const IS_SERVER = typeof window === "undefined";
 export const CONTRAST_PROVIDER_DEFAULTS: Required<ContrastScriptProps> = {
   attribute: "data-contrast",
   storageKey: "contrastPreference",
@@ -58,7 +61,7 @@ export function ContrastProvider(props: ContrastProviderProps): ReactElement {
   );
 
   function applyContrast(value: boolean) {
-    if (IS_SERVER) return;
+    if (isServer) return;
     let d = document.documentElement;
     if (!!value) d.setAttribute(attribute, JSON.stringify(value));
     else d.removeAttribute(attribute);
