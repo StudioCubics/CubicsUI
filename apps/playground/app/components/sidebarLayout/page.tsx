@@ -36,7 +36,7 @@ export default function Page() {
   return (
     <main className="main">
       <h1>
-        <code>{"<Sidebar/>"}</code>
+        <code>{"<SidebarLayout/>"}</code>
       </h1>
 
       <h2>Default closesTo=&quot;shortened&quot; </h2>

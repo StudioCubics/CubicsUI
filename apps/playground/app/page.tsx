@@ -1,62 +1,13 @@
-import type { ReactNode } from "react";
+import { Button } from "@cubicsui/components";
 import Link from "next/link";
-import type { Route } from "next";
 
-function Item({ children, href }: { children: ReactNode; href: Route }) {
-  return (
-    <li>
-      <h3>
-        <Link href={href}>{children}</Link>
-      </h3>
-    </li>
-  );
-}
 export default function Page() {
   return (
-    <div className={"main"}>
-      <h1>Components</h1>
-      <h2>Display</h2>
-      <ol className={"column"}>
-        <Item href={"/components/card"}>Card ✅</Item>
-        <Item href={"/components/chip"}>Chip ✅</Item>
-        <Item href={"/components/glassCard"}>GlassCard ✅</Item>
-        <Item href={"/components/list"}>List ✅</Item>
-      </ol>
-      <h2>Inputs</h2>
-      <ol className={"column"}>
-        <Item href={"/components/button"}>Button ✅</Item>
-        <Item href={"/components/checkbox"}>Checkbox ✅</Item>
-        <Item href={"/components/closeButton"}>CloseButton ✅</Item>
-        <Item href={"/components/comboBox"}>ComboBox ✅</Item>
-        <Item href={"/components/passwordInput"}>PasswordInput ✅</Item>
-        <Item href={"/components/select"}>Select ✅</Item>
-        <Item href={"/components/switch"}>Switch ✅</Item>
-        <Item href={"/components/textAreaInput"}>TextAreaInput ✅</Item>
-        <Item href={"/components/textInput"}>TextInput ✅</Item>
-        <Item href={"/components/themeToggle"}>ThemeToggle ✅</Item>
-      </ol>
-      <h2>Layout</h2>
-      <ol className="column">
-        <Item href="/components/popover">Popover ✅</Item>
-        <Item href="/components/sidebar">Sidebar 🚧</Item>
-      </ol>
-      <h2>Misc</h2>
-      <ol className={"column"}>
-        <Item href="/components/ripple">Ripple 🚧</Item>
-        <Item href="/components/logo">Logo ✅</Item>
-      </ol>
-      <h2>Providers</h2>
-      <ol className={"column"}>
-        <Item href="/components/themeProvider">ThemeProvider ✅</Item>
-        <Item href="/components/contrastProvider">ContrastProvider ✅</Item>
-        <Item href="/components/pointerLightProvider">
-          PointerLightProvider ✅
-        </Item>
-      </ol>
-      <h2>Typography</h2>
-      <ol className={"column"}>
-        <Item href="/components/textOrList">TextOrList ✅</Item>
-      </ol>
-    </div>
+    <main className="main">
+      <h1>Welcome to CubicsUI Playground</h1>
+      <Link href="/components">
+        <Button>Get Started</Button>
+      </Link>
+    </main>
   );
 }

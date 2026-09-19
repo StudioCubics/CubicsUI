@@ -82,7 +82,7 @@ export function SidebarFooter() {
       </Popover>
 
       {sidebarOpen && (
-        <span style={{ textAlign: "center" }}>
+        <span style={{ textAlign: "center", fontSize: "var(--fs-xs)" }}>
           © {new Date().getFullYear()} CubicsUI
         </span>
       )}

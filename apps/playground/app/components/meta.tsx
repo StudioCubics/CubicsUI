@@ -8,9 +8,9 @@ export const componentsMeta: ListItemProps<Route>[] = [
     children: "Display",
     nodes: [
       { type: "separator" },
+      { children: "Card", href: "/components/card" },
       { children: "Chip", href: "/components/chip" },
       { children: "GlassCard", href: "/components/glassCard" },
-      { children: "Card", href: "/components/card" },
       { children: "List", href: "/components/list" },
     ],
   },
@@ -42,9 +42,8 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { type: "separator" },
       { children: "Popover", href: "/components/popover" },
       {
-        children: "Sidebar",
-        href: "/components/sidebar",
-        disabled: true,
+        children: "SidebarLayout",
+        href: "/components/sidebarLayout",
       },
     ],
   },
@@ -57,7 +56,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { type: "separator" },
       {
         children: "Ripple",
-        href: "/components/ripple",
         disabled: true,
       },
       { children: "Logo", href: "/components/logo" },
