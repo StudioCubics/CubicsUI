@@ -15,12 +15,12 @@ import {
 import type {
   ContrastContextProps,
   ContrastProviderProps,
-  ContrastScriptProps,
+  ContrastSharedProps,
 } from "./ContrastProvider.types";
 import { useLocalStorage } from "@cubicsui/hooks";
 import { script } from "./script";
 
-export const CONTRAST_PROVIDER_DEFAULTS: Required<ContrastScriptProps> = {
+export const CONTRAST_PROVIDER_DEFAULTS: Required<ContrastSharedProps> = {
   attribute: "data-contrast",
   storageKey: "contrastPreference",
   defaultContrast: false,

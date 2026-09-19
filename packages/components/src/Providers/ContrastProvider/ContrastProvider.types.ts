@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 
-export interface ContrastScriptProps {
+export interface ContrastSharedProps {
   /** The data attribute of the container that will be modified
    * @default "data-contrast"
    */
@@ -16,7 +16,7 @@ export interface ContrastScriptProps {
   defaultContrast?: boolean;
 }
 
-export interface ContrastProviderProps extends ContrastScriptProps {
+export interface ContrastProviderProps extends ContrastSharedProps {
   children?: ReactNode;
   /** Disables transitions for all components when changing contrast value */
   disableTransitionOnChange?: boolean;
@@ -31,3 +31,5 @@ export interface ContrastContextProps {
   /** Sets the current theme to the name */
   setContrast: (on: boolean) => void;
 }
+export interface ContrastScriptProps
+  extends ContrastSharedProps, ComponentProps<"script"> {}

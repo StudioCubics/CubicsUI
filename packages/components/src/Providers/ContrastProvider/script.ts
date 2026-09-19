@@ -1,9 +1,9 @@
-import type { ContrastScriptProps } from "./ContrastProvider.types";
+import type { ContrastSharedProps } from "./ContrastProvider.types";
 export const script = ({
   attribute,
   storageKey,
   defaultContrast,
-}: Required<ContrastScriptProps>): void => {
+}: Required<ContrastSharedProps>): void => {
   try {
     const stored = localStorage.getItem(storageKey);
     const value = stored !== null ? JSON.parse(stored) : defaultContrast;
