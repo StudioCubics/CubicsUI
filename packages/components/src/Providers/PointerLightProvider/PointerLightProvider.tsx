@@ -85,8 +85,15 @@ export function PointerLightProvider(
   useEffect(() => {
     const handleStorage = (e: StorageEvent) => {
       if (e.key !== storageKey) return;
-      const newC = Boolean(e.newValue) || defaultPointerLight;
-      setPointerLightState(newC);
+      try {
+        const newC =
+          e.newValue === null
+            ? defaultPointerLight
+            : (JSON.parse(e.newValue) as boolean);
+        setPointerLightState(newC);
+      } catch (err) {
+        setPointerLightState(defaultPointerLight);
+      }
     };
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
@@ -101,8 +108,8 @@ export function PointerLightProvider(
         resetPointerProps,
       }}
     >
-      {pointerLight && <PointerLight {...ptrLightProps} />}
       {children}
+      {pointerLight && <PointerLight {...ptrLightProps} />}
     </PointerLightContext.Provider>
   );
 }

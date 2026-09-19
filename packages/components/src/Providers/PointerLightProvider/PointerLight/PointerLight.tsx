@@ -1,6 +1,6 @@
 "use client";
 
-import { useMounted, usePointerPosition } from "@cubicsui/hooks";
+import { usePointerPosition } from "@cubicsui/hooks";
 import { cn, remap } from "@cubicsui/utils";
 import type { CSSProperties, ReactElement } from "react";
 import styles from "./PointerLight.module.css";
@@ -23,8 +23,7 @@ export function PointerLight(props: PointerLightProps): ReactElement | null {
     ...rest
   } = props;
   const { pointerPosition, pointerSpeed } = usePointerPosition();
-  const { mounted } = useMounted();
-  if (!mounted) return null;
+
   return (
     <div
       {...slotProps.root}
