@@ -1,6 +1,6 @@
 "use client";
 
-import { usePointerPosition } from "@cubicsui/hooks";
+import { useMounted, usePointerPosition } from "@cubicsui/hooks";
 import { cn, remap } from "@cubicsui/utils";
 import type { CSSProperties, ReactElement } from "react";
 import styles from "./PointerLight.module.css";
@@ -12,7 +12,7 @@ function getSpeedAdjustedSize(value: number, mouseSpeed: number) {
 }
 
 // TODO fix functionality
-export function PointerLight(props: PointerLightProps): ReactElement {
+export function PointerLight(props: PointerLightProps): ReactElement | null {
   const {
     colorA = POINTERLIGHT_DEFAULTS.colorA,
     colorB = POINTERLIGHT_DEFAULTS.colorB,
@@ -23,7 +23,8 @@ export function PointerLight(props: PointerLightProps): ReactElement {
     ...rest
   } = props;
   const { pointerPosition, pointerSpeed } = usePointerPosition();
-
+  const { mounted } = useMounted();
+  if (!mounted) return null;
   return (
     <div
       {...slotProps.root}
@@ -43,7 +44,7 @@ export function PointerLight(props: PointerLightProps): ReactElement {
           left: `${pointerPosition.x}px`,
           top: `${pointerPosition.y}px`,
           width: `${getSpeedAdjustedSize(25, pointerSpeed)}em`,
-          height: `${getSpeedAdjustedSize(20, pointerSpeed)}em`,
+          height: `${getSpeedAdjustedSize(12, pointerSpeed)}em`,
           opacity,
           ...style,
         }}
