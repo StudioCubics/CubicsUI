@@ -1,3 +1,8 @@
+import type { PolymorphicComponentProps } from "@cubicsui/types";
+import type { ElementType } from "react";
+
+export type CardProps<C extends ElementType = "div"> =
+  PolymorphicComponentProps<C, CardBaseProps>;
 /**
  * Props specific to the Card component.
  *
@@ -21,11 +26,26 @@ export interface CardBaseProps {
   /** Force a 1:1 aspect ratio. */
   square?: boolean;
 
+  /** How elevated the card should look, use when using a card on top of a card */
+  elevation?: "high" | "highest";
+
   /** These define the amount of padding around the card
    * @default "md"
    */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 
+  /** Color theme of the card. */
+  color?: "primary" | "secondary" | "tertiary" | "error" | "warn" | "success";
+
   /** Use this if no padding should be set around the card */
   disablePadding?: boolean;
+
+  /** Use this to remove background when using with GlassCard */
+  removeBg?: boolean;
+
+  /** The width will be of fixed length, any value that can be put in width */
+  fixedWidth?: string;
+
+  /** The height will be of fixed length, any value that can be put in width */
+  fixedHeight?: string;
 }

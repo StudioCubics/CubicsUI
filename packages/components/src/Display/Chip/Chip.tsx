@@ -5,6 +5,7 @@ import { type ElementType } from "react";
 import { cn } from "@cubicsui/utils";
 import type { ChipBaseProps, ChipProps } from "./Chip.types";
 import styles from "./Chip.module.css";
+import { XIcon } from "@cubicsui/icons";
 
 function ChipBase<C extends ElementType = "span">(props: ChipProps<C>) {
   const {
@@ -14,6 +15,10 @@ function ChipBase<C extends ElementType = "span">(props: ChipProps<C>) {
     color,
     size = "md",
     square,
+    icon,
+    children,
+    onClose,
+    slotProps = {},
     ...restProps
   } = props;
   const Component = (as || "span") as ElementType;
@@ -29,7 +34,21 @@ function ChipBase<C extends ElementType = "span">(props: ChipProps<C>) {
     ...restProps,
   };
 
-  return <Component {...componentProps} />;
+  return (
+    <Component {...componentProps}>
+      {icon}
+      {children}
+      {onClose && (
+        <button
+          {...slotProps.closeButton}
+          className={cn(slotProps.closeButton?.className, styles.closeButton)}
+          onClick={onClose}
+        >
+          <XIcon />
+        </button>
+      )}
+    </Component>
+  );
 }
 ChipBase.displayName = "Chip";
 

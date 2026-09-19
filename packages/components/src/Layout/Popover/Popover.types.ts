@@ -15,6 +15,12 @@ export interface PopoverBaseProps {
    * @default "top center"
    */
   transformOrigin?: PositionString;
+
+  /** Makes the popover be the width of the anchor */
+  anchorWidth?: boolean;
+
+  /** Runs when popover closes */
+  onClose?: () => void;
 }
 
 export type PopoverProps<C extends ElementType = "div"> =

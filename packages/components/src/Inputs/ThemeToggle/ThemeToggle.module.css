@@ -1,0 +1,30 @@
+.list {
+  --br: var(--br-md);
+  list-style-type: none;
+  padding: var(--gap);
+  & > li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    padding: var(--gap) calc(var(--gap) * var(--gr));
+    border-radius: var(--br);
+    text-wrap: nowrap;
+    font-size: var(--fs-md);
+    color: var(--color-on-background);
+    transition: all var(--transition-time) var(--transition-tf);
+
+    &:hover {
+      background-color: var(--color-surface-highest);
+      color: var(--color-on-surface);
+    }
+    & > svg {
+      width: 1em;
+      height: 1em;
+    }
+    &[data-active] {
+      background-color: var(--color-primary-container);
+      color: var(--color-on-primary-container);
+    }
+  }
+}

@@ -1,48 +1,90 @@
 .root {
-  position: relative;
-  &[data-size="xs"] {
-    padding: var(--gap);
-    border-radius: var(--br-sm);
-  }
-  &[data-size="sm"] {
-    padding: var(--gap-2);
-    border-radius: var(--br-sm);
-  }
-  &[data-size="md"] {
-    padding: var(--gap-4);
-    border-radius: var(--br-md);
-  }
-  &[data-size="lg"] {
-    padding: var(--gap-6);
-    border-radius: var(--br-lg);
-  }
-  &[data-size="xl"] {
-    padding: var(--gap-8);
-    border-radius: var(--br-xl);
-  }
+  --bg: var(--color-surface);
+  --br: var(--br-md);
+  --size: var(--gap-4);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  border-radius: var(--br);
+  color: var(--color, var(--color-on-background));
 }
-.square {
-  aspect-ratio: 1;
-}
-.fullWidth {
+.root.fullWidth {
   width: 100%;
 }
-.fullHeight {
+.root.fullHeight {
   height: 100%;
 }
-.fullScreen {
+.root.fullScreen {
   width: 100dvw;
   height: 100dvh;
 }
-
-.variant_outlined {
-  border: 1px solid var(--color-outline);
-  background: var(--color-surface);
+.surface {
+  padding: var(--size);
+  background: var(--bg);
+  position: relative;
+  border-radius: var(--br);
 }
-.variant_contained {
-  background: var(--color-surface-alpha);
-  backdrop-filter: blur(var(--blur-light));
+.removeBg {
+  --bg: transparent;
 }
-.disablePadding {
+.surface.square {
+  aspect-ratio: 1;
+}
+.surface.disablePadding {
   padding: 0;
+}
+.variant_outlined {
+  outline: var(--border-width) solid
+    color-mix(in srgb, currentColor 30%, transparent);
+}
+.elevation_high {
+  --bg: var(--color-surface-high);
+}
+.elevation_highest {
+  --bg: var(--color-surface-highest);
+}
+/* squares off the surface's bottom corners when a footer follows */
+.root:has([data-slot="card_footer"]) .surface {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+/* Sizes */
+.root[data-size="xs"] {
+  --size: var(--gap);
+  --br: var(--br-sm);
+}
+.root[data-size="sm"] {
+  --size: var(--gap-2);
+  --br: var(--br-sm);
+}
+.root[data-size="md"] {
+  --size: var(--gap-4);
+  --br: var(--br-md);
+}
+.root[data-size="lg"] {
+  --size: var(--gap-6);
+  --br: var(--br-lg);
+}
+.root[data-size="xl"] {
+  --size: var(--gap-8);
+  --br: var(--br-xl);
+}
+/* Card colors */
+.root[data-color="primary"] {
+  --color: var(--color-primary);
+}
+.root[data-color="secondary"] {
+  --color: var(--color-secondary);
+}
+.root[data-color="tertiary"] {
+  --color: var(--color-tertiary);
+}
+.root[data-color="error"] {
+  --color: var(--color-error);
+}
+.root[data-color="warn"] {
+  --color: var(--color-warn);
+}
+.root[data-color="success"] {
+  --color: var(--color-success);
 }

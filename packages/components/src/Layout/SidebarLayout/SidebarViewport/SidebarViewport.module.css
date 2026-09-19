@@ -1,0 +1,15 @@
+.root {
+  flex: 1 1 0%;
+  border-radius: var(--br);
+  overflow: auto;
+  contain: layout paint;
+  background: var(--bg);
+}
+.root.variant_outlined {
+  border: var(--border-width) solid var(--color-outline);
+}
+.closesTo_shortened {
+  &.type_float {
+    margin-left: calc(var(--sidebar-closed-width) + var(--size));
+  }
+}

@@ -3,7 +3,6 @@
   --bg: none;
   --color-hover: var(--color-on-background);
   --bg-hover: color-mix(in srgb, var(--color-on-background) 10%, transparent);
-  --border-color: var(--color-outline);
 
   --ff: var(--font-p);
   --fs: var(--fs-md);
@@ -36,20 +35,36 @@
 }
 
 .root.variant_outlined {
-  outline: var(--border-width) solid var(--border-color);
-  outline-offset: calc(-1 * var(--border-width));
+  border: var(--border-width) solid;
+  border-color: color-mix(in srgb, var(--color) 30%, transparent);
   &:not(:disabled):hover {
-    border-color: transparent;
+    outline-color: transparent;
   }
+}
+/* Align styles */
+.root.align_left {
+  justify-content: flex-start;
+}
+/* Align styles */
+.root.align_center {
+  justify-content: center;
+}
+.root.align_right {
+  justify-content: flex-end;
 }
 .root.fullWidth {
   max-width: 100%;
+  width: 100%;
 }
 /* Button of icon type */
 .root.iconButton {
   aspect-ratio: 1 / 1;
   padding: var(--size);
   height: auto;
+  & svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
 }
 
 /* Icons in the start and end containers */
@@ -71,9 +86,11 @@
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* When focused with keyboard state */
-.root:focus-visible {
-  outline: var(--focus-ring);
+/* For high contrast env */
+*[data-contrast="true"] .root {
+  &.variant_outlined {
+    border-color: var(--color);
+  }
 }
 
 /* Variant colors */

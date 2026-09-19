@@ -8,6 +8,7 @@ import styles from "./CloseButton.module.css";
 export function CloseButton(props: CloseButtonProps): ReactElement {
   const {
     className: className,
+    relative = false,
     style,
     margin,
     position = "top right",
@@ -19,8 +20,12 @@ export function CloseButton(props: CloseButtonProps): ReactElement {
     <Button
       {...rest}
       icon
-      style={{ margin, position: "absolute", ...style }}
-      className={cn(className, styles.root)}
+      style={{ margin, ...style }}
+      className={cn(
+        className,
+        styles.root,
+        relative ? styles.relative : styles.absolute,
+      )}
       data-pos-y={y}
       data-pos-x={x}
     >

@@ -26,6 +26,22 @@
   }
 }
 
+.closeButton {
+  cursor: pointer;
+  color: var(--color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--br);
+  &:hover {
+    background: color-mix(in srgb, var(--color) 20%, transparent);
+  }
+  & > svg {
+    width: 1.25em;
+    height: 1.25em;
+  }
+}
+
 /* Variant */
 .root.variant_outlined {
   --color: var(--color-on-background);

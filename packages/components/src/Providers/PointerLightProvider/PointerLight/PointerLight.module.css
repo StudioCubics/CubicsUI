@@ -1,0 +1,37 @@
+@property --cursor-color-a {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+@property --cursor-color-b {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+.root {
+  --cursor-color-a: var(--color-primary);
+  --cursor-color-b: var(--color-secondary);
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  isolation: isolate;
+  pointer-events: none;
+  overflow: hidden;
+}
+.main {
+  background: radial-gradient(
+    41.94% 82.95% at 50% 50%,
+    var(--cursor-color-a) 0%,
+    var(--cursor-color-b) 100%
+  );
+  filter: blur(90px);
+  opacity: 0.5;
+  position: absolute;
+  transition-property:
+    width, height, filter, opacity, --cursor-color-a, --cursor-color-b;
+  transition-duration: var(--transition-time-slow);
+  transition-timing-function: var(--transition-tf);
+  translate: -50% -50%;
+  border-radius: 50%;
+}

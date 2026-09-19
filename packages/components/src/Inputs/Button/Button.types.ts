@@ -7,6 +7,10 @@ export interface ButtonBaseProps {
   /** Renders an icon at the beginning of the button. */
   startIcon?: ReactNode;
 
+  /** Justifies the content of the button
+   * @default "center"
+   */
+  align?: "left" | "center" | "right";
   /** Renders an icon at the end of the button. */
   endIcon?: ReactNode;
 

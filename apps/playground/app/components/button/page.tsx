@@ -1,8 +1,6 @@
 import { Button } from "@cubicsui/components";
 import { CubicsUIFavicon } from "@cubicsui/icons";
-import Link from "next/link";
 import { AsLink } from "./asLink";
-
 export default function Page() {
   return (
     <main className="main">
@@ -286,6 +284,19 @@ export default function Page() {
         </div>
       </section>
 
+      <h2>Align button content</h2>
+      <section>
+        <Button align="left" startIcon={<CubicsUIFavicon />} fullWidth>
+          Align Left
+        </Button>
+        <Button align="center" startIcon={<CubicsUIFavicon />} fullWidth>
+          Align Center - Default
+        </Button>
+        <Button align="right" startIcon={<CubicsUIFavicon />} fullWidth>
+          Align Right
+        </Button>
+      </section>
+
       <h2>Full Width</h2>
       <section>
         <p>
@@ -327,6 +338,37 @@ export default function Page() {
         Button as a <code>{"<Link/>"}</code>
       </h2>
       <AsLink />
+      <h2>Background Check</h2>
+      <section className="rgb_bg">
+        <div className={"row"}>
+          <div className={"column"}>
+            <Button>Default</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="outlined">Outlined</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="contained">Contained</Button>
+          </div>
+        </div>
+      </section>
+      <section className="image_bg">
+        <div className={"row"}>
+          <div className={"column"}>
+            <Button>Default</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="outlined">Outlined</Button>
+          </div>
+          <hr />
+          <div className={"column"}>
+            <Button variant="contained">Contained</Button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

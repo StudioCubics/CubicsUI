@@ -1,6 +1,5 @@
 .root {
-  --tint: var(--color-primary);
-  --br: var(--br-md);
+  --tint: var(--color, var(--color-primary));
   --border-color: var(--color-outline);
   --pointer-color: color-mix(in srgb, var(--tint) 70%, transparent);
   --shadow: color-mix(in srgb, var(--tint) 15%, transparent);
@@ -9,6 +8,8 @@
   --reflection-intensity: 1;
   --mouse-x: -9999;
   --mouse-y: -9999;
+  --internal-reflection: color-mix(in srgb, var(--tint) 10%, transparent);
+  --source-light: color-mix(in srgb, var(--tint) 30%, transparent);
 
   isolation: isolate;
   border-radius: var(--br);
@@ -18,8 +19,6 @@
 
   /* Border */
   &::after {
-    --internal-reflection: color-mix(in srgb, var(--tint) 10%, transparent);
-    --source-light: color-mix(in srgb, var(--tint) 30%, transparent);
     content: "";
     position: absolute;
     inset: 0;
@@ -45,7 +44,7 @@
     content: "";
     inset: 0;
     position: absolute;
-    transition: opacity var(--transition-time);
+    transition: opacity var(--transition-time-slow);
     pointer-events: none;
     opacity: 1;
     padding: var(--border-width);
@@ -61,5 +60,3 @@
     z-index: -1;
   }
 }
-
-/* conic-gradient(from 0deg at 50% 50%, #073AFF79 0%, #446DF900 16%, #073AFFC7 33%, #073AFFC7 66%, #446DF900 84%, #073AFF79 100%) */

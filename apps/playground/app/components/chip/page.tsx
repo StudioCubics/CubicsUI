@@ -1,6 +1,7 @@
 import { Card, Chip } from "@cubicsui/components";
 import { CubicsUIFavicon } from "@cubicsui/icons";
 import { cn } from "@cubicsui/utils";
+import { OnClose } from "./onClose";
 
 export default function Page() {
   return (
@@ -70,6 +71,9 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <h2>With onClosed provided a close button will render</h2>
+      <OnClose />
 
       <h2>With SVG Icon as child</h2>
       <section>
