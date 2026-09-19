@@ -24,15 +24,17 @@ export default function Page() {
             <CardContent>
               <div className="column">
                 <List>
-                  <ListItem type="header" children="Some Header" />
-                  <ListItem children="Profile" />
-                  <ListItem children="Security" />
+                  <ListItem type="header">Some Header</ListItem>
+                  <ListItem>Profile</ListItem>
+                  <ListItem>Security</ListItem>
                   <ListItem
                     type="collapsible"
                     id="notifications"
-                    children="Notifications"
+
                     nodes={nestedListItems("notifications")}
-                  />
+                  >
+                    Notifications
+                  </ListItem>
                 </List>
                 <Button variant="contained" fullWidth>
                   Log Out
@@ -80,15 +82,15 @@ export default function Page() {
         <div className="column" style={{ width: "260px" }}>
           <h3>item</h3>
           <List>
-            <ListItem children="A plain item" />
+            <ListItem>A plain item</ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
           <h3>separator</h3>
           <List>
-            <ListItem children="Above" />
+            <ListItem>Above</ListItem>
             <ListItem type="separator" />
-            <ListItem children="Below" />
+            <ListItem>Below</ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
@@ -97,9 +99,10 @@ export default function Page() {
             <ListItem
               type="collapsible"
               id="t-col-1"
-              children="Expand me"
               nodes={nestedListItems("ExpandMe")}
-            />
+            >
+              Expand me
+            </ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
@@ -109,10 +112,12 @@ export default function Page() {
             divider line.
           </p>
           <List>
-            <ListItem type="header" children="Plain header" />
-            <ListItem children="Item below" />
-            <ListItem type="header" children="Header with line" renderLine />
-            <ListItem children="Another item" />
+            <ListItem type="header">Plain header</ListItem>
+            <ListItem>Item below</ListItem>
+            <ListItem type="header" renderLine>
+              Header with line
+            </ListItem>
+            <ListItem>Another item</ListItem>
           </List>
         </div>
       </section>
@@ -128,21 +133,22 @@ export default function Page() {
               </h3>
               <hr />
               <List size={size}>
-                <ListItem
-                  children="With Icon"
-                  icon={<CubicsUIFavicon />}
-                  href="#"
-                />
-                <ListItem children="First item" />
-                <ListItem type="header" children="Sized Header" />
-                <ListItem children="Second item" href="#" selected />
+                <ListItem icon={<CubicsUIFavicon />} href="#">
+                  With Icon
+                </ListItem>
+                <ListItem>First item</ListItem>
+                <ListItem type="header">Sized Header</ListItem>
+                <ListItem href="#" selected>
+                  Second item
+                </ListItem>
                 <ListItem
                   type="collapsible"
                   id={`size-${size}-3`}
-                  children="Collapsible"
                   nodes={nestedListItems(size)}
                   size={size}
-                />
+                >
+                  Collapsible
+                </ListItem>
               </List>
             </div>
           ))}
@@ -171,28 +177,30 @@ export default function Page() {
               <h3>{color}</h3>
               <hr />
               <List color={color}>
-                <ListItem
-                  children="With Icon"
-                  icon={<CubicsUIFavicon />}
-                  href="#"
-                />
-                <ListItem children="Selected item" href="#" selected />
-                <ListItem type="header" children="Colored Header" />
-                <ListItem children="Hover me" href="#" />
+                <ListItem icon={<CubicsUIFavicon />} href="#">
+                  With Icon
+                </ListItem>
+                <ListItem href="#" selected>
+                  Selected item
+                </ListItem>
+                <ListItem type="header">Colored Header</ListItem>
+                <ListItem href="#">Hover me</ListItem>
                 <ListItem
                   type="collapsible"
                   id={`color-other-${color}-3`}
-                  children="Collapsible Colored"
                   defaultCollapsed
                   nodes={nestedListItems(`otherColor-${color}`)}
                   color={"error"}
-                />
+                >
+                  Collapsible Colored
+                </ListItem>
                 <ListItem
                   type="collapsible"
                   id={`color-${color}-3`}
-                  children="Collapsible with expanded"
                   nodes={nestedListItems(color)}
-                />
+                >
+                  Collapsible with expanded
+                </ListItem>
               </List>
             </div>
           ))}
@@ -211,15 +219,18 @@ export default function Page() {
       <section>
         <div className="column" style={{ width: "260px" }}>
           <List>
-            <ListItem id="dis-1" children="Enabled item" />
-            <ListItem id="dis-2" children="Disabled item" disabled />
+            <ListItem id="dis-1">Enabled item</ListItem>
+            <ListItem id="dis-2" disabled>
+              Disabled item
+            </ListItem>
             <ListItem
               type="collapsible"
               id="dis-3"
-              children="Disabled collapsible"
               disabled
               nodes={nestedListItems("disabled")}
-            />
+            >
+              Disabled collapsible
+            </ListItem>
           </List>
         </div>
       </section>
@@ -228,16 +239,14 @@ export default function Page() {
       <section>
         <div className="column" style={{ width: "280px" }}>
           <List>
-            <ListItem icon={<span>★</span>} children="With icon" />
+            <ListItem icon={<span>★</span>}>With icon</ListItem>
             <ListItem
               icon={<span>⚙</span>}
-              children="With icon and action"
               action={<Button size="xs">Edit</Button>}
-            />
-            <ListItem
-              icon={<CubicsUIFavicon />}
-              children="With icon and action"
-            />
+            >
+              With icon and action
+            </ListItem>
+            <ListItem icon={<CubicsUIFavicon />}>With icon and action</ListItem>
           </List>
         </div>
       </section>
@@ -259,37 +268,40 @@ export default function Page() {
             <ListItem
               type="collapsible"
               id="persist-with-id-collapsible"
-              children="Persisted"
               nodes={nestedListItems("persistWithId")}
-            />
+            >
+              Persisted
+            </ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
           <h3>
             <code>id</code> + <code>persist={"{false}"}</code>
           </h3>
-          <p>Doesn't persist.</p>
+          <p>Doesn&apos;t persist.</p>
           <List id="persist-disabled" persist={false}>
             <ListItem
               type="collapsible"
               id="persist-disabled-collapsible"
-              children="Not persisted"
               nodes={nestedListItems("persistDisabled")}
-            />
+            >
+              Not persisted
+            </ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
           <h3>
             No <code>id</code>
           </h3>
-          <p>Doesn't persist.</p>
+          <p>Doesn&apos;t persist.</p>
           <List>
             <ListItem
               type="collapsible"
               id="persist-no-id-collapsible"
-              children="Not persisted"
               nodes={nestedListItems("persistNoId")}
-            />
+            >
+              Not persisted
+            </ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
@@ -297,15 +309,17 @@ export default function Page() {
             <code>persist</code> without <code>id</code>
           </h3>
           <p>
-            Persists, but the key isn't stable across client-side navigations.
+            Persists, but the key isn&apos;t stable across client-side
+            navigations.
           </p>
           <List persist>
             <ListItem
               type="collapsible"
               id="persist-no-id-flag-collapsible"
-              children="Unreliable"
               nodes={nestedListItems("persistNoIdFlag")}
-            />
+            >
+              Unreliable
+            </ListItem>
           </List>
         </div>
       </section>
@@ -320,8 +334,8 @@ export default function Page() {
       <section>
         <div className="column" style={{ width: "260px" }}>
           <List>
-            <ListItem href="#" children="Anchor link item" />
-            <ListItem children="No href, not clickable" />
+            <ListItem href="#">Anchor link item</ListItem>
+            <ListItem>No href, not clickable</ListItem>
           </List>
         </div>
       </section>
@@ -331,15 +345,15 @@ export default function Page() {
         <div className="column" style={{ width: "260px" }}>
           <h3>unordered (default)</h3>
           <List>
-            <ListItem children="Item one" />
-            <ListItem children="Item two" />
+            <ListItem>Item one</ListItem>
+            <ListItem>Item two</ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
           <h3>ordered</h3>
           <List ordered>
-            <ListItem children="Item one" />
-            <ListItem children="Item two" />
+            <ListItem>Item one</ListItem>
+            <ListItem>Item two</ListItem>
           </List>
         </div>
       </section>
@@ -347,20 +361,21 @@ export default function Page() {
       <h2>
         With custom <code>dropdownIcon</code>
       </h2>
-      <p>Custom dropdownIcon set to "^" in collapsible type</p>
+      <p>Custom dropdownIcon set to &quot;^&quot; in collapsible type</p>
       <section>
         <div className="column" style={{ width: "260px" }}>
           <List>
-            <ListItem children="Item one" />
-            <ListItem children="Item two" />
+            <ListItem>Item one</ListItem>
+            <ListItem>Item two</ListItem>
             <ListItem
               type="collapsible"
               id="dropdownIcon-nested"
               ordered
-              children="Nested code"
               nodes={nestedListItems("listTypeListWide")}
               dropdownIcon={"^"}
-            />
+            >
+              Nested code
+            </ListItem>
           </List>
         </div>
       </section>
@@ -370,35 +385,37 @@ export default function Page() {
         <code>listType</code> sets the CSS <code>list-style-type</code> for a
         list. Pass it to <code>List</code> to apply it to the whole list (and
         its sublists), or to a <code>collapsible</code> <code>ListItem</code> to
-        override it for just that item's sublist.
+        override it for just that item&apos;s sublist.
       </p>
       <section>
         <div className="column" style={{ width: "260px" }}>
           <h3>List-wide</h3>
           <List ordered listType="upper-roman">
-            <ListItem children="Item one" />
-            <ListItem children="Item two" />
+            <ListItem>Item one</ListItem>
+            <ListItem>Item two</ListItem>
             <ListItem
               type="collapsible"
               id="listtype-listwide"
               ordered
-              children="Sublist inherits upper-roman"
               nodes={nestedListItems("listTypeListWide")}
-            />
+            >
+              Sublist inherits upper-roman
+            </ListItem>
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
           <h3>Per collapsible sublist</h3>
           <List ordered>
-            <ListItem children="Item one" />
+            <ListItem>Item one</ListItem>
             <ListItem
               type="collapsible"
               id="listtype-override"
               ordered
               listType="lower-alpha"
-              children="Sublist uses lower-alpha"
               nodes={nestedListItems("listTypeOverride")}
-            />
+            >
+              Sublist uses lower-alpha
+            </ListItem>
           </List>
         </div>
       </section>
@@ -415,17 +432,19 @@ export default function Page() {
             <ListItem
               type="collapsible"
               id="collapse-initially-open"
-              children="Initially expanded"
               defaultCollapsed={false}
               nodes={nestedListItems("initiallyExpanded")}
-            />
+            >
+              Initially expanded
+            </ListItem>
             <ListItem
               type="collapsible"
               id="collapse-initially-closed"
-              children="Initially defaultCollapsed"
               defaultCollapsed={true}
               nodes={nestedListItems("initiallyCollapsed")}
-            />
+            >
+              Initially defaultCollapsed
+            </ListItem>
           </List>
         </div>
       </section>
@@ -439,22 +458,22 @@ export default function Page() {
         <div className="column" style={{ width: "260px" }}>
           <h3>On plain page background</h3>
           <List>
-            <ListItem children="Item" />
-            <ListItem children="Selected" selected />
+            <ListItem>Item</ListItem>
+            <ListItem selected>Selected</ListItem>
           </List>
         </div>
         <div className="column rgb_bg" style={{ width: "260px" }}>
           <h3>On RGB</h3>
           <List>
-            <ListItem children="Item" />
-            <ListItem children="Selected" selected />
+            <ListItem>Item</ListItem>
+            <ListItem selected>Selected</ListItem>
           </List>
         </div>
         <div className="column image_bg" style={{ width: "260px" }}>
           <h3>On image</h3>
           <List>
-            <ListItem children="Item" />
-            <ListItem children="Selected" selected />
+            <ListItem>Item</ListItem>
+            <ListItem selected>Selected</ListItem>
           </List>
         </div>
       </section>

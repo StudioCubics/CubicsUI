@@ -1,8 +1,6 @@
 import { Button } from "@cubicsui/components";
 import { CubicsUIFavicon } from "@cubicsui/icons";
-import Link from "next/link";
 import { AsLink } from "./asLink";
-
 export default function Page() {
   return (
     <main className="main">

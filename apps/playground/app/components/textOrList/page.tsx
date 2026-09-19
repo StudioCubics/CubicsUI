@@ -1,4 +1,4 @@
-import { Card, TextOrList } from "@cubicsui/components";
+import { TextOrList } from "@cubicsui/components";
 
 export default function Page() {
   return (

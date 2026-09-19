@@ -1,17 +1,16 @@
 "use client";
 
-import { Card, ThemeToggle } from "@cubicsui/components";
+import { Card, ThemeToggle, type Theme } from "@cubicsui/components";
 import { useState } from "react";
 
 export function Controlled() {
-  const themes = ["light", "system", "dark"] as const;
-  const [current, setCurrent] = useState<(typeof themes)[number]>("light");
+  const [current, setCurrent] = useState<"light" | "system" | "dark">("light");
 
   return (
     <Card className="column">
       <ThemeToggle
         variant="full"
-        currentTheme={current}
+        currentTheme={current as Theme}
         themeObject={{
           light: { text: "Light Mode", onClick: () => setCurrent("system") },
           system: { text: "System Mode", onClick: () => setCurrent("dark") },

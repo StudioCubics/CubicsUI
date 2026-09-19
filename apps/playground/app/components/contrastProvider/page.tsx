@@ -39,7 +39,7 @@ export default function RootLayout({
           <code>data-contrast</code> attribute of the component to true.
         </p>
         <h3>
-          Set <code>data-contrast="true"</code> in <code>{"<Card/>"}</code>
+          Set <code>data-contrast=&quot;true&quot;</code> in <code>{"<Card/>"}</code>
         </h3>
         <p> This will always be high contrast mode</p>
         <Card data-contrast={"true"} className="column">

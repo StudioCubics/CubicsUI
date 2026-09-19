@@ -39,7 +39,8 @@ export default function RootLayout({
           <code>data-theme</code> attribute of the component.
         </p>
         <h3>
-          Set <code>data-theme="light"</code> in <code>{"<Card/>"}</code>
+          Set <code>data-theme=&quot;light&quot;</code> in{" "}
+          <code>{"<Card/>"}</code>
         </h3>
         <p> This will always be light mode</p>
         <Card data-theme={"light"} className="column">
@@ -52,7 +53,8 @@ export default function RootLayout({
           <Checkbox label="Checkbox" color="primary" />
         </Card>
         <h3>
-          Set <code>data-theme="dark"</code> in <code>{"<Card/>"}</code>
+          Set <code>data-theme=&quot;dark&quot;</code> in{" "}
+          <code>{"<Card/>"}</code>
         </h3>
         <p> This will always be dark mode</p>
         <Card data-theme={"dark"} className="column">

@@ -98,9 +98,9 @@ export default function Page() {
       <section>
         <p>
           Passing <code>currentTheme</code> puts <code>{"<ThemeToggle/>"}</code>{" "}
-          in controlled mode. It no longer calls the internal ThemeProvider's{" "}
-          <code>setTheme</code>, you have to supply <code>onClick</code> for
-          each theme yourself.
+          in controlled mode. It no longer calls the internal
+          ThemeProvider&apos;s <code>setTheme</code>, you have to supply{" "}
+          <code>onClick</code> for each theme yourself.
         </p>
         <Controlled />
       </section>

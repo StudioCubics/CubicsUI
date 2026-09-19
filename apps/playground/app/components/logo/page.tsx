@@ -107,7 +107,7 @@ export default function Page() {
       <p>Checking arbitrary favicon/text props render correctly</p>
       <section>
         <div className={"column"}>
-          <h3>Play-button favicon + "LOGO" wordmark</h3>
+          <h3>Play-button favicon + &quot;LOGO&quot; wordmark</h3>
           <Logo {...altLogoBaseProps} height={50} />
           <Logo {...altLogoBaseProps} onlyFavicon height={50} />
           <Logo {...altLogoBaseProps} onlyText height={50} />
