@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, mergeRefs, notImplemented } from "@cubicsui/utils";
+import { cn, isServer, mergeRefs, notImplemented } from "@cubicsui/utils";
 import {
   createContext,
   useContext,
@@ -13,11 +13,9 @@ import {
 } from "react";
 import styles from "./List.module.css";
 import type { ListContextProps, ListProps } from "./List.types";
-import { useMarker, useMounted } from "@cubicsui/hooks";
+import { useMarker } from "@cubicsui/hooks";
 import { GlassCard } from "../GlassCard/GlassCard";
 import { ListScript } from "./ListScript";
-
-const IS_SERVER = typeof window === "undefined";
 
 export const ListContext: Context<ListContextProps | null> =
   createContext<ListContextProps | null>(null);
@@ -32,18 +30,14 @@ export function useList(): ListContextProps {
   return c;
 }
 
-function getInitialExplicitCollapsed(
-  storageKey: string,
+function getExplicitCollapsed(
+  storageKey: string | null,
 ): Record<string, boolean> {
-  if (IS_SERVER) return {};
-
+  if (isServer || !storageKey) return {};
   try {
     const stored = localStorage.getItem(storageKey);
     if (stored) return JSON.parse(stored) as Record<string, boolean>;
-  } catch (e) {
-    // Unsupported
-  }
-
+  } catch (_) {}
   return {};
 }
 
@@ -63,6 +57,7 @@ export function List(props: ListProps): ReactElement {
     LinkComponent = "a",
     GliderComponent = GlassCard,
     id,
+    persist,
     defaultCollapsedIds = [],
     scriptProps,
     nonce,
@@ -91,6 +86,8 @@ export function List(props: ListProps): ReactElement {
   const generatedId = useId();
   const listId = id ?? generatedId;
   const storageKey = `${listId}-collapsed`;
+  // Persist when an id is given, unless explicitly disabled with persist={false}
+  const canPersist = persist ?? id !== undefined;
   // Set of ids the List itself wants collapsed by default (lowest priority)
   const defaultCollapsedIdsSet = useMemo(
     () => new Set(defaultCollapsedIds),
@@ -98,25 +95,23 @@ export function List(props: ListProps): ReactElement {
   );
   const [explicitCollapsed, setExplicitCollapsed] = useState<
     Record<string, boolean>
-  >(() => getInitialExplicitCollapsed(storageKey));
-  const { mounted } = useMounted();
-
-  function getCollapsed(id: string, defaultCollapsed?: boolean): boolean {
-    if (id in explicitCollapsed) return explicitCollapsed[id];
-    if (defaultCollapsed !== undefined) return defaultCollapsed;
-    return defaultCollapsedIdsSet.has(id);
-  }
+  >(() => getExplicitCollapsed(canPersist ? storageKey : null));
 
   function toggleCollapsed(id: string, current: boolean) {
     setExplicitCollapsed((prev) => {
       const next = { ...prev, [id]: !current };
       try {
-        localStorage.setItem(storageKey, JSON.stringify(next));
+        if (canPersist) localStorage.setItem(storageKey, JSON.stringify(next));
       } catch (e) {
         // Unsupported
       }
       return next;
     });
+  }
+  function getCollapsed(id: string, defaultCollapsed?: boolean): boolean {
+    if (id in explicitCollapsed) return explicitCollapsed[id];
+    if (defaultCollapsed !== undefined) return defaultCollapsed;
+    return defaultCollapsedIdsSet.has(id);
   }
 
   const marker = renderGlider ? (
@@ -126,6 +121,11 @@ export function List(props: ListProps): ReactElement {
       className={cn(styles.marker, slotProps.glider?.className)}
     />
   ) : null;
+
+  useEffect(() => {
+    if (isServer) return;
+    setExplicitCollapsed(getExplicitCollapsed(canPersist ? storageKey : null));
+  }, [storageKey, canPersist]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -182,12 +182,15 @@ export function List(props: ListProps): ReactElement {
         className={cn(styles.root, className)}
         data-color={color}
         data-size={size}
-        style={{ ...style, listStyleType: listType }}
+        style={{
+          ...style,
+          listStyleType: (listType ?? ordered) ? "decimal" : undefined,
+        }}
         {...rest}
       >
         {children}
         {marker}
-        {!mounted && (
+        {canPersist && (
           <ListScript {...scriptProps} nonce={nonce} storageKey={storageKey} />
         )}
       </Component>

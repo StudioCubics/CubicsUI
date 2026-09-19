@@ -40,11 +40,17 @@ export interface ListOrderedProps extends ComponentProps<"ol"> {
 }
 export type ListProps = ListContextSharedProps & {
   children: ReactNode;
-  /** Unique id for this list, used as the localStorage key for collapsed state.
-   * If omitted, one is generated with React's useId() — see caveats around
-   * stability across reloads if the surrounding tree shape changes.
+  /** Unique id for this list, used as the localStorage key for collapsed state
+   * Providing an id enables persisting unless `persist` is set to false.
+   * If omitted, one is generated with React's useId()
    */
   id?: string;
+  /** Persist collapsed state to localStorage.
+   * Defaults to true when an `id` is provided, false otherwise.
+   * Setting `persist` without an `id` falls back to a useId() key, which is
+   * not stable across client-side navigations, so pass an `id` as well.
+   */
+  persist?: boolean;
   /** Ids of collapsible items collapsed by default before localStorage is read (SSR-safe) */
   defaultCollapsedIds?: string[];
   /** Toggles rendering of indicator not yet implemented */

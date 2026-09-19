@@ -60,7 +60,6 @@
   padding-left: calc(var(--size) * 2 * var(--gr));
   border-radius: 0 0 var(--br) var(--br);
   list-style-type: none;
-  overflow: hidden;
 
   &::before {
     content: "";
