@@ -28,6 +28,7 @@ export function PointerLight(props: PointerLightProps): ReactElement {
     <div
       {...slotProps.root}
       className={cn(styles.root, slotProps.root?.className)}
+      key="pointerlight"
       style={
         {
           "--cursor-color-a": colorA,
