@@ -17,9 +17,9 @@ export default function Page() {
       <h1>Components</h1>
       <h2>Display</h2>
       <ol className={"column"}>
+        <Item href={"/components/card"}>Card ✅</Item>
         <Item href={"/components/chip"}>Chip ✅</Item>
         <Item href={"/components/glassCard"}>GlassCard ✅</Item>
-        <Item href={"/components/card"}>Card ✅</Item>
         <Item href={"/components/list"}>List ✅</Item>
       </ol>
       <h2>Inputs</h2>
@@ -38,6 +38,7 @@ export default function Page() {
       <h2>Layout</h2>
       <ol className="column">
         <Item href="/components/popover">Popover ✅</Item>
+        <Item href="/components/sidebar">Sidebar 🚧</Item>
       </ol>
       <h2>Misc</h2>
       <ol className={"column"}>

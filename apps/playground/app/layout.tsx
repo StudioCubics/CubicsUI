@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Fira_Code, Outfit, Titillium_Web } from "next/font/google";
-import { Header } from "@/lib/ui/Layout/Header/Header";
 import {
   ContrastProvider,
   PointerLightProvider,
@@ -45,11 +44,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <ContrastProvider>
-            <PointerLightProvider>
-              <Header />
-              {children}
-            </PointerLightProvider>
+            <PointerLightProvider>{children}</PointerLightProvider>
           </ContrastProvider>
+          {/* {children} */}
         </ThemeProvider>
       </body>
     </html>

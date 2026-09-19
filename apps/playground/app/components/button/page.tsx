@@ -286,6 +286,19 @@ export default function Page() {
         </div>
       </section>
 
+      <h2>Align button content</h2>
+      <section>
+        <Button align="left" startIcon={<CubicsUIFavicon />} fullWidth>
+          Align Left
+        </Button>
+        <Button align="center" startIcon={<CubicsUIFavicon />} fullWidth>
+          Align Center - Default
+        </Button>
+        <Button align="right" startIcon={<CubicsUIFavicon />} fullWidth>
+          Align Right
+        </Button>
+      </section>
+
       <h2>Full Width</h2>
       <section>
         <p>

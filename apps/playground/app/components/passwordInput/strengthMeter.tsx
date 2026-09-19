@@ -21,7 +21,7 @@ export function StrengthMeter() {
       <div className={"column"}>
         <p>
           Set strength below to see the meter change, see{" "}
-          <Link href="/components/passwordStrengthMeter">
+          <Link href="#">
             <code>{"<PasswordStrengthMeter/>"}</code>
           </Link>{" "}
           to learn more

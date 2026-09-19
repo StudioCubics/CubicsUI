@@ -1,54 +1,9 @@
 import { Card, CardContent, CardHeader, Button } from "@cubicsui/components";
 import { List, ListItem } from "@cubicsui/components";
-import type { ListItemProps } from "@cubicsui/components";
 import { SelectedWhen } from "./selectedWhen";
 import { CubicsUIFavicon } from "@cubicsui/icons";
-
-const nestedNodes = (id: string): ListItemProps[] => {
-  return [
-    { children: "Nested item one" },
-    {
-      type: "collapsible",
-      id: `${id}-nested-2`,
-      children: "Nested item two",
-      nodes: [
-        {
-          children: "Nested item two one",
-        },
-        {
-          type: "header",
-          children: "Nested Header",
-        },
-        {
-          children: "Nested item two two",
-        },
-        {
-          type: "collapsible",
-          id: `${id}-nested-2-3`,
-          children: "Nested item two three",
-          nodes: [
-            {
-              children: "Nested item two three one",
-            },
-            {
-              type: "header",
-              children: "Header with line",
-              renderLine: true,
-            },
-            {
-              children: "Nested item two three two",
-            },
-          ],
-        },
-      ],
-    },
-    { type: "separator" },
-    {
-      children: "Nested item three",
-      disabled: true,
-    },
-  ] as ListItemProps[];
-};
+import { RenderGlider } from "./renderMarker";
+import { nestedListItems } from "@/lib/constants/nestedListItems";
 
 export default function Page() {
   return (
@@ -76,7 +31,7 @@ export default function Page() {
                     type="collapsible"
                     id="notifications"
                     children="Notifications"
-                    nodes={nestedNodes("notifications")}
+                    nodes={nestedListItems("notifications")}
                   />
                 </List>
                 <Button variant="contained" fullWidth>
@@ -89,14 +44,7 @@ export default function Page() {
       </section>
 
       <h2>ListItem without List</h2>
-      <p>
-        <code>ListItem</code> doesn't require a <code>List</code> ancestor —{" "}
-        <code>useList()</code> falls back to defaults when there's no provider.
-        This means <code>selectedWhen</code>, <code>color</code>, and{" "}
-        <code>size</code> from context are unavailable, and <code>href</code>{" "}
-        items have no fallback <code>LinkComponent</code> to render as, so avoid{" "}
-        <code>href</code> on a standalone <code>ListItem</code>.
-      </p>
+      <p>Dont do this!</p>
       <section>
         <ul>
           <ListItem>Only List Item no List</ListItem>
@@ -150,7 +98,7 @@ export default function Page() {
               type="collapsible"
               id="t-col-1"
               children="Expand me"
-              nodes={nestedNodes("ExpandMe")}
+              nodes={nestedListItems("ExpandMe")}
             />
           </List>
         </div>
@@ -192,7 +140,7 @@ export default function Page() {
                   type="collapsible"
                   id={`size-${size}-3`}
                   children="Collapsible"
-                  nodes={nestedNodes(size)}
+                  nodes={nestedListItems(size)}
                   size={size}
                 />
               </List>
@@ -235,15 +183,15 @@ export default function Page() {
                   type="collapsible"
                   id={`color-other-${color}-3`}
                   children="Collapsible Colored"
-                  collapsed
-                  nodes={nestedNodes(`otherColor-${color}`)}
+                  defaultCollapsed
+                  nodes={nestedListItems(`otherColor-${color}`)}
                   color={"error"}
                 />
                 <ListItem
                   type="collapsible"
                   id={`color-${color}-3`}
-                  children="Collapsible"
-                  nodes={nestedNodes(color)}
+                  children="Collapsible with expanded"
+                  nodes={nestedListItems(color)}
                 />
               </List>
             </div>
@@ -251,11 +199,12 @@ export default function Page() {
         </div>
       </section>
 
+      <h2>
+        With <code>renderGlider</code>
+      </h2>
+      <RenderGlider />
+
       <h2>Selected state</h2>
-      <p>
-        <code>selected</code> can be set individually per item, or derived from
-        the list via <code>selectedWhen</code>.
-      </p>
       <SelectedWhen />
 
       <h2>Disabled</h2>
@@ -269,7 +218,7 @@ export default function Page() {
               id="dis-3"
               children="Disabled collapsible"
               disabled
-              nodes={nestedNodes("disabled")}
+              nodes={nestedListItems("disabled")}
             />
           </List>
         </div>
@@ -292,9 +241,76 @@ export default function Page() {
           </List>
         </div>
       </section>
-
+      <h2>Persisting collapsed state</h2>
+      <p>
+        Collapsed state is saved to <code>localStorage</code> when the{" "}
+        <code>List</code> has an <code>id</code>, unless{" "}
+        <code>persist={"{false}"}</code> is set. Without an <code>id</code>,
+        nothing is persisted. Toggle the items, then reload the page and
+        navigate away and back to compare.
+      </p>
+      <section>
+        <div className="column" style={{ width: "260px" }}>
+          <h3>
+            With <code>id</code>
+          </h3>
+          <p>Persists.</p>
+          <List id="persist-with-id">
+            <ListItem
+              type="collapsible"
+              id="persist-with-id-collapsible"
+              children="Persisted"
+              nodes={nestedListItems("persistWithId")}
+            />
+          </List>
+        </div>
+        <div className="column" style={{ width: "260px" }}>
+          <h3>
+            <code>id</code> + <code>persist={"{false}"}</code>
+          </h3>
+          <p>Doesn't persist.</p>
+          <List id="persist-disabled" persist={false}>
+            <ListItem
+              type="collapsible"
+              id="persist-disabled-collapsible"
+              children="Not persisted"
+              nodes={nestedListItems("persistDisabled")}
+            />
+          </List>
+        </div>
+        <div className="column" style={{ width: "260px" }}>
+          <h3>
+            No <code>id</code>
+          </h3>
+          <p>Doesn't persist.</p>
+          <List>
+            <ListItem
+              type="collapsible"
+              id="persist-no-id-collapsible"
+              children="Not persisted"
+              nodes={nestedListItems("persistNoId")}
+            />
+          </List>
+        </div>
+        <div className="column" style={{ width: "260px" }}>
+          <h3>
+            <code>persist</code> without <code>id</code>
+          </h3>
+          <p>
+            Persists, but the key isn't stable across client-side navigations.
+          </p>
+          <List persist>
+            <ListItem
+              type="collapsible"
+              id="persist-no-id-flag-collapsible"
+              children="Unreliable"
+              nodes={nestedListItems("persistNoIdFlag")}
+            />
+          </List>
+        </div>
+      </section>
       <h2>
-        Links (<code>href</code> + <code>LinkComponent</code>)
+        Links <code>href + LinkComponent</code>
       </h2>
       <p>
         Renders as an anchor (or the supplied <code>LinkComponent</code>, e.g.
@@ -342,7 +358,7 @@ export default function Page() {
               id="dropdownIcon-nested"
               ordered
               children="Nested code"
-              nodes={nestedNodes("listTypeListWide")}
+              nodes={nestedListItems("listTypeListWide")}
               dropdownIcon={"^"}
             />
           </List>
@@ -367,7 +383,7 @@ export default function Page() {
               id="listtype-listwide"
               ordered
               children="Sublist inherits upper-roman"
-              nodes={nestedNodes("listTypeListWide")}
+              nodes={nestedListItems("listTypeListWide")}
             />
           </List>
         </div>
@@ -381,7 +397,7 @@ export default function Page() {
               ordered
               listType="lower-alpha"
               children="Sublist uses lower-alpha"
-              nodes={nestedNodes("listTypeOverride")}
+              nodes={nestedListItems("listTypeOverride")}
             />
           </List>
         </div>
@@ -389,8 +405,9 @@ export default function Page() {
 
       <h2>Collapsible nesting</h2>
       <p>
-        Collapsed state persists via <code>useLocalStorage</code> keyed by{" "}
-        <code>{"${id}-collapsed"}</code>. Reload the page to confirm it sticks.
+        Collapsed state persists to <code>localStorage</code> keyed by{" "}
+        <code>{"${id}-collapsed"}</code> of the <code>List</code>. Reload the
+        page to confirm it sticks.
       </p>
       <section>
         <div className="column" style={{ width: "280px" }}>
@@ -399,15 +416,15 @@ export default function Page() {
               type="collapsible"
               id="collapse-initially-open"
               children="Initially expanded"
-              collapsed={false}
-              nodes={nestedNodes("initiallyExpanded")}
+              defaultCollapsed={false}
+              nodes={nestedListItems("initiallyExpanded")}
             />
             <ListItem
               type="collapsible"
               id="collapse-initially-closed"
-              children="Initially collapsed"
-              collapsed={true}
-              nodes={nestedNodes("initiallyCollapsed")}
+              children="Initially defaultCollapsed"
+              defaultCollapsed={true}
+              nodes={nestedListItems("initiallyCollapsed")}
             />
           </List>
         </div>

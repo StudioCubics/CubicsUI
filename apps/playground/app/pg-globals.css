@@ -22,6 +22,10 @@
     border-radius: var(--br-sm);
     padding-inline: var(--gap);
   }
+  & .escapePadding {
+    margin-inline: -4.165%;
+    margin-block: calc(-1 * var(--gap-10));
+  }
 }
 
 .row {
