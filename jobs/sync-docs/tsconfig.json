@@ -1,0 +1,5 @@
+{
+  "extends": ["@cubicsui/tsconfig/tsconfig.node.json"],
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
