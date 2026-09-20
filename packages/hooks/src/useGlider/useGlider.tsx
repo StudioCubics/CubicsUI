@@ -2,33 +2,33 @@
 
 import { useEffect, useRef, type RefObject } from "react";
 
-type MarkerUpdater = (
-  marker: HTMLDivElement,
+type GliderUpdater = (
+  glider: HTMLDivElement,
   rootRect: DOMRect,
   scrollLeft: number,
   scrollTop: number,
 ) => void;
 
-export type UseMarkerReturnType = {
-  markerRef: RefObject<HTMLElement | null>;
+export type UseGliderReturnType = {
+  gliderRef: RefObject<HTMLElement | null>;
   rootRef: RefObject<HTMLElement | null>;
 };
 
-export function useMarker(
-  updater: MarkerUpdater,
+export function useGlider(
+  updater: GliderUpdater,
   deps: unknown[],
-): UseMarkerReturnType {
-  const markerRef = useRef<HTMLDivElement>(null);
+): UseGliderReturnType {
+  const gliderRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLOListElement>(null);
-  const updaterRef = useRef<MarkerUpdater>(updater);
+  const updaterRef = useRef<GliderUpdater>(updater);
 
   updaterRef.current = updater;
 
   useEffect(() => {
-    if (!rootRef.current || !markerRef.current) return;
+    if (!rootRef.current || !gliderRef.current) return;
 
-    const updateMarkerPosition = () => {
-      if (!rootRef.current || !markerRef.current) return;
+    const updateGliderPosition = () => {
+      if (!rootRef.current || !gliderRef.current) return;
 
       const rootRect = rootRef.current.getBoundingClientRect();
 
@@ -36,13 +36,13 @@ export function useMarker(
       const scrollLeft = rootRef.current.scrollLeft;
       const scrollTop = rootRef.current.scrollTop;
 
-      updaterRef.current(markerRef.current, rootRect, scrollLeft, scrollTop);
+      updaterRef.current(gliderRef.current, rootRect, scrollLeft, scrollTop);
     };
 
-    updateMarkerPosition();
+    updateGliderPosition();
 
     // Update marker position when container resizes
-    const resizeObserver = new ResizeObserver(updateMarkerPosition);
+    const resizeObserver = new ResizeObserver(updateGliderPosition);
     resizeObserver.observe(rootRef.current);
 
     return () => {
@@ -50,5 +50,5 @@ export function useMarker(
     };
   }, deps);
 
-  return { markerRef, rootRef };
+  return { gliderRef, rootRef };
 }

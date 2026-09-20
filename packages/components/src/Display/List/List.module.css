@@ -4,7 +4,8 @@
   --bg-hover: color-mix(in srgb, var(--color-on-surface) 10%, transparent);
   --bg-selected: var(--color-surface-dim);
   --color-selected: var(--color-on-background);
-  --marker-color: var(--color-primary);
+  --glider-color: var(--color-primary);
+
   --size: var(--gap);
   --br: var(--br-md);
   --fs: var(--fs-md);
@@ -19,8 +20,8 @@
   font-family: var(--font-h);
   color: color-mix(in srgb, var(--color) 50%, transparent);
 }
-.marker {
-  --color: var(--marker-color);
+.glider {
+  --color: var(--glider-color);
   width: 0;
   left: 0;
   opacity: 0;
@@ -67,41 +68,41 @@
     --bg-hover: var(--color-primary-container);
     --bg-selected: var(--color-primary-container);
     --color-selected: var(--color-on-primary-container);
-    --marker-color: var(--color-primary);
+    --glider-color: var(--color-primary);
   }
   &[data-color="secondary"] {
     --color: var(--color-secondary);
     --bg-hover: var(--color-secondary-container);
     --bg-selected: var(--color-secondary-container);
     --color-selected: var(--color-on-secondary-container);
-    --marker-color: var(--color-secondary);
+    --glider-color: var(--color-secondary);
   }
   &[data-color="tertiary"] {
     --color: var(--color-tertiary);
     --bg-hover: var(--color-tertiary-container);
     --bg-selected: var(--color-tertiary-container);
     --color-selected: var(--color-on-tertiary-container);
-    --marker-color: var(--color-tertiary);
+    --glider-color: var(--color-tertiary);
   }
   &[data-color="error"] {
     --color: var(--color-error);
     --bg-hover: var(--color-error-container);
     --bg-selected: var(--color-error-container);
     --color-selected: var(--color-on-error-container);
-    --marker-color: var(--color-error);
+    --glider-color: var(--color-error);
   }
   &[data-color="warn"] {
     --color: var(--color-warn);
     --bg-hover: var(--color-warn-container);
     --bg-selected: var(--color-warn-container);
     --color-selected: var(--color-on-warn-container);
-    --marker-color: var(--color-warn);
+    --glider-color: var(--color-warn);
   }
   &[data-color="success"] {
     --color: var(--color-success);
     --bg-hover: var(--color-success-container);
     --bg-selected: var(--color-success-container);
     --color-selected: var(--color-on-success-container);
-    --marker-color: var(--color-success);
+    --glider-color: var(--color-success);
   }
 }

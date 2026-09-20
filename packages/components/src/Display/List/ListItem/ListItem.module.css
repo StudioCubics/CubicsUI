@@ -70,13 +70,6 @@
     background: color-mix(in srgb, var(--color) 20%, transparent);
   }
 }
-.root[data-collapsed="true"] {
-  & .sublist {
-    height: 0;
-    overflow: hidden;
-    margin-block: 0;
-  }
-}
 .separator {
   margin-block: calc(var(--size));
   margin-inline: calc(var(--size) * var(--gr));
@@ -110,9 +103,19 @@
     height: 1em;
   }
 }
+/* Collapsed styles */
+.root[data-collapsed="true"] {
+  & .sublist {
+    height: 0;
+    overflow: hidden;
+    margin-block: 0;
+  }
+}
+/* Selected styles */
 .root[data-selected="true"] {
   & .surface {
     background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
+    backdrop-filter: blur(var(--blur-light));
     color: var(--color-selected);
   }
   & .surface:not(.disabled).isClickable {

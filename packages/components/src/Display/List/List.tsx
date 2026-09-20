@@ -13,7 +13,7 @@ import {
 } from "react";
 import styles from "./List.module.css";
 import type { ListContextProps, ListProps } from "./List.types";
-import { useMarker } from "@cubicsui/hooks";
+import { useGlider } from "@cubicsui/hooks";
 import { GlassCard } from "../GlassCard/GlassCard";
 import { ListScript } from "./ListScript";
 
@@ -65,20 +65,20 @@ export function List(props: ListProps): ReactElement {
   } = props;
   const Component: "ul" | "ol" = ordered ? "ol" : "ul";
   const [activeNode, setActiveNode] = useState<Element | null>(null);
-  const { markerRef, rootRef } = useMarker(
-    (marker, rootRect, scrollLeft, scrollTop) => {
+  const { gliderRef, rootRef } = useGlider(
+    (glider, rootRect, scrollLeft, scrollTop) => {
       if (!activeNode) return;
       const rect = activeNode.getBoundingClientRect();
       const computedStyle = window.getComputedStyle(activeNode);
       const borderRadius = computedStyle.borderRadius;
-      marker.style.position = "absolute";
-      marker.style.opacity = "1";
-      marker.style.scale = "1";
-      marker.style.width = `${rect.width}px`;
-      marker.style.height = `${rect.height}px`;
-      marker.style.left = `${rect.left - rootRect.left + scrollLeft}px`;
-      marker.style.top = `${rect.top - rootRect.top + scrollTop}px`;
-      marker.style.borderRadius = borderRadius;
+      glider.style.position = "absolute";
+      glider.style.opacity = "1";
+      glider.style.scale = "1";
+      glider.style.width = `${rect.width}px`;
+      glider.style.height = `${rect.height}px`;
+      glider.style.left = `${rect.left - rootRect.left + scrollLeft}px`;
+      glider.style.top = `${rect.top - rootRect.top + scrollTop}px`;
+      glider.style.borderRadius = borderRadius;
     },
     [activeNode],
   );
@@ -114,11 +114,11 @@ export function List(props: ListProps): ReactElement {
     return defaultCollapsedIdsSet.has(id);
   }
 
-  const marker = renderGlider ? (
+  const glider = renderGlider ? (
     <GliderComponent
       {...slotProps.glider}
-      ref={markerRef}
-      className={cn(styles.marker, slotProps.glider?.className)}
+      ref={gliderRef}
+      className={cn(styles.glider, slotProps.glider?.className)}
     />
   ) : null;
 
@@ -189,7 +189,7 @@ export function List(props: ListProps): ReactElement {
         {...rest}
       >
         {children}
-        {marker}
+        {glider}
         {canPersist && (
           <ListScript {...scriptProps} nonce={nonce} storageKey={storageKey} />
         )}
