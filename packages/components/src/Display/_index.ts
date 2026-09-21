@@ -15,3 +15,8 @@ export * from "./GlassCard/GlassCard";
 export * from "./List/List";
 export * from "./List/List.types";
 export * from "./List/ListItem/ListItem";
+
+export * from "./Tabs/Tabs";
+export * from "./Tabs/TabsBar/TabsBar";
+export * from "./Tabs/Tab/Tab";
+export * from "./Tabs/Tabs.types";

@@ -1,0 +1,39 @@
+.root {
+  cursor: pointer;
+  position: relative;
+  padding: var(--size) calc(1.618 * var(--size));
+  display: flex;
+  align-items: center;
+  gap: var(--size);
+  font-size: var(--fs);
+  font-family: var(--font-p);
+  color: var(--color);
+  text-wrap: nowrap;
+  border-radius: var(--br);
+  border: none;
+  background: transparent;
+  transition: all var(--transition-time) var(--transition-tf);
+  &:hover:not(.selected):not(.disabled) {
+    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+  }
+}
+.selected {
+  font-weight: bold;
+  color: var(--color-selected);
+  background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
+  &:hover {
+    background: color-mix(in srgb, var(--bg-selected) 20%, transparent);
+    color: var(--color);
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.adornment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}

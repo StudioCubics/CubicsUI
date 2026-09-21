@@ -1,0 +1,103 @@
+.root {
+  --bar-bg: var(--color-surface);
+  --color: var(--color-on-surface);
+  --bg-hover: color-mix(in srgb, var(--color-on-surface) 10%, transparent);
+  --bg-selected: var(--color-surface-dim);
+  --color-selected: var(--color-on-background);
+  --glider-color: var(--color-primary);
+
+  --size: var(--gap);
+  --br: var(--br-md);
+  --fs: var(--fs-md);
+
+  overflow: auto hidden;
+  display: flex;
+  margin-inline: auto;
+  max-width: 100%;
+  border-radius: var(--br);
+  backdrop-filter: blur(var(--blur-light));
+  isolation: isolate;
+  gap: var(--size);
+  position: relative;
+  padding: var(--size) calc(1.618 * var(--size));
+  background: color-mix(in srgb, var(--bar-bg) 40%, transparent);
+}
+.removeBg {
+  background: none;
+}
+.fullWidth {
+  width: 100%;
+  margin-inline:0;
+}
+.glider {
+  --color: var(--glider-color);
+  width: 0;
+  left: 0;
+  opacity: 0;
+  scale: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition:
+    inset var(--transition-time) var(--transition-tf),
+    opacity var(--transition-time) var(--transition-tf),
+    scale var(--transition-time) var(--transition-tf),
+    width var(--transition-time) var(--transition-tf);
+  border-radius: var(--br);
+  backdrop-filter: none;
+  background: none;
+}
+
+.root[data-color="primary"] {
+  --bar-bg: var(--color-primary-container);
+  --color: var(--color-primary);
+  --bg-hover: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  --bg-selected: var(--color-primary);
+  --color-selected: var(--color-on-primary-container);
+  --glider-color: var(--color-primary);
+}
+
+.root[data-color="secondary"] {
+  --bar-bg: var(--color-secondary-container);
+  --color: var(--color-secondary);
+  --bg-hover: color-mix(in srgb, var(--color-secondary) 10%, transparent);
+  --bg-selected: var(--color-secondary);
+  --color-selected: var(--color-on-secondary-container);
+  --glider-color: var(--color-secondary);
+}
+.root[data-color="tertiary"] {
+  --bar-bg: var(--color-tertiary-container);
+  --color: var(--color-tertiary);
+  --bg-hover: color-mix(in srgb, var(--color-tertiary) 10%, transparent);
+  --bg-selected: var(--color-tertiary);
+  --color-selected: var(--color-on-tertiary-container);
+  --glider-color: var(--color-tertiary);
+}
+.root[data-color="error"] {
+  --bar-bg: var(--color-error-container);
+  --color: var(--color-error);
+  --bg-hover: color-mix(in srgb, var(--color-error) 10%, transparent);
+  --bg-selected: var(--color-error);
+  --color-selected: var(--color-on-error-container);
+  --glider-color: var(--color-error);
+}
+
+.root[data-size="xs"] {
+  --size: calc(var(--gap) / 2);
+  --fs: var(--fs-xs);
+  --br: var(--br-sm);
+}
+.root[data-size="sm"] {
+  --size: calc(var(--gap) / 1.5);
+  --fs: var(--fs-sm);
+  --br: var(--br-sm);
+}
+.root[data-size="lg"] {
+  --size: calc(var(--gap) * 1.5);
+  --fs: var(--fs-lg);
+  --br: var(--br-lg);
+}
+.root[data-size="xl"] {
+  --size: var(--gap-2);
+  --fs: var(--fs-xl);
+  --br: var(--br-xl);
+}
