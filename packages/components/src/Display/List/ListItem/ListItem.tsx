@@ -167,7 +167,10 @@ export function ListItemTypeCollapsible(
           {nodes.map((n, i) => (
             <ListItem
               key={i}
-              {...(n.type == "collapsible" ? { dropdownIcon } : {})}
+              {...(n.type == "collapsible" && { dropdownIcon })}
+              {...((n.type == "item" || n.type == "collapsible") && {
+                disabled: n.disabled ?? disabled,
+              })}
               {...n}
             />
           ))}

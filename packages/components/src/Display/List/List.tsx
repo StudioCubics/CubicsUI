@@ -85,7 +85,7 @@ export function List(props: ListProps): ReactElement {
 
   const generatedId = useId();
   const listId = id ?? generatedId;
-  const storageKey = `${listId}-collapsed`;
+  const storageKey = `collapsedIds-${listId}`;
   // Persist when an id is given, unless explicitly disabled with persist={false}
   const canPersist = persist ?? id !== undefined;
   // Set of ids the List itself wants collapsed by default (lowest priority)

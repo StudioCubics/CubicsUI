@@ -1,5 +1,4 @@
 .root {
-  --bg: transparent;
   --color: var(--color-on-surface);
   --bg-hover: color-mix(in srgb, var(--color-on-surface) 10%, transparent);
   --bg-selected: var(--color-surface-dim);
