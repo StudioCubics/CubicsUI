@@ -28,14 +28,19 @@ export interface SidebarLayoutSharedProps {
   /** TODO add sidebarPosition functionality */
   sidebarPosition?: "left" | "right";
 }
-export interface SidebarLayoutContextProps extends Required<SidebarLayoutSharedProps> {
+export interface SidebarLayoutContextProps extends SidebarLayoutSharedProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
 }
 export interface SidebarLayoutProps extends SidebarLayoutSharedProps {
   children: ReactNode;
-  /** Props of the script tag */
-  scriptProps?: ComponentProps<"script">;
+  slotProps?: {
+    /** Props of the script tag */
+    script?: ComponentProps<"script">;
+    /** Props of the root container */
+    root?: ComponentProps<"div">;
+  };
+
   /** Pass nonce to save yourself from CORS issues */
   nonce?: string;
 }
@@ -48,4 +53,23 @@ export interface SidebarScriptProps extends ComponentProps<"script"> {
   defaultClosed?: boolean;
   /** id of the container element */
   containerId?: string;
+}
+
+export interface SidebarOverflowProps {
+  /** Enables effect for persisting scroll position in localStorage cause fucking chromium cant remember the scroll position of the viewport */
+  persistScrollPosition?: boolean;
+}
+export interface SidebarShowProps {
+  /** Shows the content of the sidebarBody only when the sidebar is open
+   * @default false
+   */
+  showOnClose?: boolean;
+}
+
+export interface SidebarHeaderProps extends ComponentProps<"div"> {
+  children?: ReactNode;
+  /** Brand logo or title of the sidebar */
+  logo?: ReactNode;
+  /** Custom sidebar toggle */
+  sidebarToggle?: ReactNode;
 }

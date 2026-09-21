@@ -1,16 +1,15 @@
 "use client";
 
 import type { ReactElement } from "react";
-import styles from "./SidebarHeader.module.css";
 import { cn } from "@cubicsui/utils";
-import type { SidebarHeaderProps } from "./SidebarHeader.types";
 import { useSidebarLayout } from "../SidebarLayout";
 import { SidebarToggle } from "./SidebarToggle";
 import { useMounted } from "@cubicsui/hooks";
+import type { SidebarHeaderProps } from "../SidebarLayout.types";
+import styles from "./SidebarHeader.module.css";
 
 export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
   const {
-    disablePadding,
     logo,
     sidebarToggle = <SidebarToggle />,
     children,

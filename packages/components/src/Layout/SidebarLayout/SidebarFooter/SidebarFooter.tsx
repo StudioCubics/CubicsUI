@@ -1,12 +1,14 @@
 "use client";
 
 import { cn } from "@cubicsui/utils";
-import type { ReactElement } from "react";
+import type { ComponentProps, ReactElement } from "react";
 import styles from "./SidebarFooter.module.css";
-import type { SidebarFooterProps } from "./SidebarFooter.types";
 import { useSidebarLayout } from "../SidebarLayout";
+import type { SidebarShowProps } from "../SidebarLayout.types";
 
-export function SidebarFooter(props: SidebarFooterProps): ReactElement {
+export function SidebarFooter(
+  props: ComponentProps<"div"> & SidebarShowProps,
+): ReactElement {
   const { className, children, showOnClose = false, ...rest } = props;
   const { sidebarOpen } = useSidebarLayout();
 

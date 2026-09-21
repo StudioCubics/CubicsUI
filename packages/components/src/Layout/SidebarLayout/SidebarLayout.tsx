@@ -14,8 +14,10 @@ import type {
   SidebarLayoutContextProps,
   SidebarLayoutProps,
 } from "./SidebarLayout.types";
+import styles from "./SidebarLayout.module.css";
+import { SidebarScript } from "./SidebarScript";
 
-const SIDEBAR_LAYOUT_DEFAULTS: Required<SidebarLayoutSharedProps> = {
+const SIDEBAR_LAYOUT_DEFAULTS: SidebarLayoutSharedProps = {
   id: "MAIN",
   defaultClosed: false,
   closesTo: "shortened",
@@ -24,8 +26,6 @@ const SIDEBAR_LAYOUT_DEFAULTS: Required<SidebarLayoutSharedProps> = {
   type: "flex",
   sidebarPosition: "left",
 };
-import styles from "./SidebarLayout.module.css";
-import { SidebarScript } from "./SidebarScript";
 
 function getInitialSidebarOpen(defaultClosed?: boolean): boolean {
   return defaultClosed ? !defaultClosed : true;
@@ -61,9 +61,10 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
     size = SIDEBAR_LAYOUT_DEFAULTS.size,
     type = SIDEBAR_LAYOUT_DEFAULTS.type,
     sidebarPosition = SIDEBAR_LAYOUT_DEFAULTS.sidebarPosition,
+    slotProps = {},
   } = props;
 
-  const storageKey = `${id}-sidebarOpen`;
+  const storageKey = `sidebarOpen-${id}`;
   const [sidebarOpen, setSidebarOpen] = useState(() =>
     getInitialSidebarOpen(defaultClosed),
   );
@@ -90,19 +91,28 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
   }
   return (
     <SidebarLayoutContext.Provider
-      value={{
-        sidebarOpen,
-        toggleSidebar,
-        sidebarPosition,
-        closesTo,
-        variant,
-        size,
-        type,
-        defaultClosed,
-        id,
-      }}
+      value={
+        {
+          sidebarOpen,
+          toggleSidebar,
+          sidebarPosition,
+          closesTo,
+          variant,
+          size,
+          type,
+          defaultClosed,
+          id,
+        } as Required<SidebarLayoutContextProps>
+      }
     >
+      <SidebarScript
+        {...slotProps.script}
+        storageKey={storageKey}
+        defaultClosed={defaultClosed}
+        containerId={id}
+      />
       <div
+        {...slotProps.root}
         suppressHydrationWarning
         id={id}
         data-size={size}
@@ -114,11 +124,6 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
         )}
       >
         {children}
-        <SidebarScript
-          storageKey={storageKey}
-          defaultClosed={defaultClosed}
-          containerId={id}
-        />
       </div>
     </SidebarLayoutContext.Provider>
   );

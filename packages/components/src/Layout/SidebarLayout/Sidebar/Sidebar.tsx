@@ -12,6 +12,7 @@ export function Sidebar(
 ): ReactElement {
   const { children, ...rest } = props;
   const { sidebarOpen, size, closesTo, variant, type } = useSidebarLayout();
+
   return (
     <div
       {...rest}

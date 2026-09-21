@@ -1,8 +1,8 @@
 .root {
   flex: 1 1 0%;
-  border-radius: var(--br);
   overflow: auto;
   contain: layout paint;
+  border-radius: var(--br);
   background: var(--bg);
 }
 .root.variant_outlined {
