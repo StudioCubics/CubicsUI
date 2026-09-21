@@ -37,71 +37,69 @@
     width var(--transition-time) var(--transition-tf);
 }
 /* Sizes */
-.root,
-.root [data-slot="list-item"] {
-  &[data-size="xs"] {
-    --size: calc(var(--gap)/2);
-    --br: var(--br-xs);
-    --fs: var(--fs-xs);
-  }
-  &[data-size="sm"] {
-    --size: var(--gap);
-    --br: var(--br-sm);
-    --fs: var(--fs-sm);
-  }
 
-  &[data-size="lg"] {
-    --size: var(--gap-2);
-    --br: var(--br-lg);
-    --fs: var(--fs-lg);
-  }
+.root[data-size="xs"] {
+  --size: calc(var(--gap)/2);
+  --br: var(--br-xs);
+  --fs: var(--fs-xs);
+}
+.root[data-size="sm"] {
+  --size: var(--gap);
+  --br: var(--br-sm);
+  --fs: var(--fs-sm);
+}
 
-  &[data-size="xl"] {
-    --size: var(--gap-3);
-    --br: var(--br-xl);
-    --fs: var(--fs-xl);
-  }
-  /* Colors */
-  &[data-color="primary"] {
-    --color: var(--color-primary);
-    --bg-hover: var(--color-primary-container);
-    --bg-selected: var(--color-primary-container);
-    --color-selected: var(--color-on-primary-container);
-    --glider-color: var(--color-primary);
-  }
-  &[data-color="secondary"] {
-    --color: var(--color-secondary);
-    --bg-hover: var(--color-secondary-container);
-    --bg-selected: var(--color-secondary-container);
-    --color-selected: var(--color-on-secondary-container);
-    --glider-color: var(--color-secondary);
-  }
-  &[data-color="tertiary"] {
-    --color: var(--color-tertiary);
-    --bg-hover: var(--color-tertiary-container);
-    --bg-selected: var(--color-tertiary-container);
-    --color-selected: var(--color-on-tertiary-container);
-    --glider-color: var(--color-tertiary);
-  }
-  &[data-color="error"] {
-    --color: var(--color-error);
-    --bg-hover: var(--color-error-container);
-    --bg-selected: var(--color-error-container);
-    --color-selected: var(--color-on-error-container);
-    --glider-color: var(--color-error);
-  }
-  &[data-color="warn"] {
-    --color: var(--color-warn);
-    --bg-hover: var(--color-warn-container);
-    --bg-selected: var(--color-warn-container);
-    --color-selected: var(--color-on-warn-container);
-    --glider-color: var(--color-warn);
-  }
-  &[data-color="success"] {
-    --color: var(--color-success);
-    --bg-hover: var(--color-success-container);
-    --bg-selected: var(--color-success-container);
-    --color-selected: var(--color-on-success-container);
-    --glider-color: var(--color-success);
-  }
+.root[data-size="lg"] {
+  --size: var(--gap-2);
+  --br: var(--br-lg);
+  --fs: var(--fs-lg);
+}
+
+.root[data-size="xl"] {
+  --size: var(--gap-3);
+  --br: var(--br-xl);
+  --fs: var(--fs-xl);
+}
+/* Colors */
+.root[data-color="primary"] {
+  --color: var(--color-primary);
+  --bg-hover: var(--color-primary-container);
+  --bg-selected: var(--color-primary-container);
+  --color-selected: var(--color-on-primary-container);
+  --glider-color: var(--color-primary);
+}
+.root[data-color="secondary"] {
+  --color: var(--color-secondary);
+  --bg-hover: var(--color-secondary-container);
+  --bg-selected: var(--color-secondary-container);
+  --color-selected: var(--color-on-secondary-container);
+  --glider-color: var(--color-secondary);
+}
+.root[data-color="tertiary"] {
+  --color: var(--color-tertiary);
+  --bg-hover: var(--color-tertiary-container);
+  --bg-selected: var(--color-tertiary-container);
+  --color-selected: var(--color-on-tertiary-container);
+  --glider-color: var(--color-tertiary);
+}
+.root[data-color="error"] {
+  --color: var(--color-error);
+  --bg-hover: var(--color-error-container);
+  --bg-selected: var(--color-error-container);
+  --color-selected: var(--color-on-error-container);
+  --glider-color: var(--color-error);
+}
+.root[data-color="warn"] {
+  --color: var(--color-warn);
+  --bg-hover: var(--color-warn-container);
+  --bg-selected: var(--color-warn-container);
+  --color-selected: var(--color-on-warn-container);
+  --glider-color: var(--color-warn);
+}
+.root[data-color="success"] {
+  --color: var(--color-success);
+  --bg-hover: var(--color-success-container);
+  --bg-selected: var(--color-success-container);
+  --color-selected: var(--color-on-success-container);
+  --glider-color: var(--color-success);
 }

@@ -108,6 +108,7 @@
 .root[data-collapsed="true"] {
   & .sublist {
     height: 0;
+    overflow: hidden;
     margin-block: 0;
   }
 }

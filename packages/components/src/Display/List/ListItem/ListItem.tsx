@@ -101,7 +101,6 @@ export function ListItemTypeCollapsible(
       className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
-      data-slot={"list-item"}
       data-selected={selected}
       data-collapsed={collapsed}
       suppressHydrationWarning
@@ -216,7 +215,6 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
       className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
-      data-slot={"list-item"}
       data-selected={selected}
     >
       <Component

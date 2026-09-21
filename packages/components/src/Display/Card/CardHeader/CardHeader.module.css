@@ -19,7 +19,7 @@
   min-width: 100%;
   width: 0;
   color: var(--color-on-background-low);
-  font-size: 0.8em;
+  font-size: 0.9em;
   line-height: var(--lh-snug);
   padding-top: 0.325em;
 }
