@@ -10,5 +10,6 @@ export * from "./useGlider/useGlider";
 export * from "./useIsomorphicLayoutEffect/useIsomorphicLayoutEffect";
 export * from "./useLocalStorage/useLocalStorage";
 export * from "./useMounted/useMounted";
+export * from "./usePersistScrollPosition/usePersistScrollPosition";
 export * from "./usePointerPosition/usePointerPosition";
 export * from "./useScreenSize/useScreenSize";
