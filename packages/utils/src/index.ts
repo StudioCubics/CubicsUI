@@ -4,6 +4,7 @@ export * from "./Code/_index";
 export * from "./Dates/_index";
 export * from "./Forms/_index";
 export * from "./HTML/_index";
+export * from "./Markdown/_index";
 export * from "./Numbers/_index";
 export * from "./React/_index";
 export * from "./Strings/_index";
