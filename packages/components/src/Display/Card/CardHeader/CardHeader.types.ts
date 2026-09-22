@@ -30,7 +30,7 @@ export interface CardHeaderProps {
   slotProps?: CardHeaderSlotProps;
 }
 export interface CardHeaderSlotProps {
-  root?: ComponentProps<"div">;
+  root?: ComponentProps<"header">;
   title?: ComponentProps<(typeof allowedTags)[number]>;
   action?: ComponentProps<"div">;
   desc?: ComponentProps<"div">;

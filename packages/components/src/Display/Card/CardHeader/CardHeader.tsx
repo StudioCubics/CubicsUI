@@ -7,7 +7,7 @@ export function CardHeader(props: CardHeaderProps): ReactElement {
   const { title, desc, action, as = "h3", slotProps = {} } = props;
   const TitleComponent = as;
   return (
-    <div
+    <header
       {...slotProps.root}
       data-slot={"card_header"}
       className={cn(slotProps.root?.className, styles.root)}
@@ -38,6 +38,6 @@ export function CardHeader(props: CardHeaderProps): ReactElement {
           {desc}
         </p>
       )}
-    </div>
+    </header>
   );
 }
