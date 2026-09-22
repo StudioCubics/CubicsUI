@@ -1,26 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { MDXTagTransformer } from "../../types.js";
-import { toCapitalised } from "@cubicsui/utils";
-
-// Maps file extensions to the language identifier used in markdown code fences
-const EXTENSION_TO_LANGUAGE: Record<string, string> = {
-  ".ts": "ts",
-  ".tsx": "tsx",
-  ".js": "js",
-  ".jsx": "jsx",
-  ".mjs": "js",
-  ".cjs": "js",
-  ".css": "css",
-  ".scss": "scss",
-  ".less": "less",
-  ".json": "json",
-  ".html": "html",
-  ".md": "md",
-  ".mdx": "mdx",
-  ".yml": "yaml",
-  ".yaml": "yaml",
-};
+import { EXTENSION_TO_LANGUAGE_IDENTIFIER } from "@cubicsui/utils";
 
 /**
  * Recursively lists all files in a directory, returning paths relative to
@@ -106,12 +87,14 @@ export const autoSandcubeTransformer: MDXTagTransformer = (
   mdxPath,
   _,
 ) => {
-  const relativeDirPath = attrs.dir;
-  if (!relativeDirPath) {
-    console.warn(`<auto-sandcube/> Missing required attrs in ${mdxPath}`);
+  const { dir, title } = attrs;
+  if (!dir || !title) {
+    console.warn(
+      `<auto-sandcube/> Missing required attrs in ${mdxPath},\n ${!attrs.dir && "dir"}\n ${!attrs.title && "title"}`,
+    );
     return "";
   }
-  const absoluteDirPath = path.resolve(path.dirname(mdxPath), relativeDirPath);
+  const absoluteDirPath = path.resolve(path.dirname(mdxPath), dir);
 
   if (
     !fs.existsSync(absoluteDirPath) ||
@@ -125,7 +108,7 @@ export const autoSandcubeTransformer: MDXTagTransformer = (
 
   // Pipe every config.json key through as a prop; only fall back on title if absent
   const sandcubeProps: Record<string, unknown> = {
-    title: toCapitalised(path.basename(absoluteDirPath)),
+    title,
     ...config,
   };
 
@@ -141,7 +124,8 @@ export const autoSandcubeTransformer: MDXTagTransformer = (
         "utf-8",
       );
       const ext = path.extname(relativeFilePath);
-      const language = EXTENSION_TO_LANGUAGE[ext] ?? ext.replace(".", "");
+      const language =
+        EXTENSION_TO_LANGUAGE_IDENTIFIER[ext] ?? ext.replace(".", "");
 
       const indentedContent = indentLines(content, "      ");
 

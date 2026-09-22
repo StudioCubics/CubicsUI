@@ -87,6 +87,8 @@ export function resolveTypeProps(
         const propType = checker.getTypeOfSymbolAtLocation(prop, decl!);
         typeStr = checker.typeToString(propType);
       }
+      // Strip typescript generics using regex fallback for fully resolved strings if necessary
+      typeStr = typeStr.replace(/<[^>]*>/g, "");
 
       const entry: PropEntry = {
         name: prop.getName(),

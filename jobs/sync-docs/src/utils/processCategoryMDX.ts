@@ -7,6 +7,7 @@ import type { Context } from "../types.js";
 import { getCategoryFromPath } from "./getCategoryFromPath.js";
 import { shortMdxPath, shortDestFile } from "./pathShorteners.js";
 import { dfName } from "../constants/global.js";
+import { upsertCategoryNode } from "./upsertCategoryNode.js";
 
 export function processCategoryMdx(mdxPath: string, context: Context): void {
   const raw = fs.readFileSync(mdxPath, "utf8");
@@ -33,6 +34,13 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
   });
 
   fs.writeFileSync(destFile, matter.stringify(transformedContent, frontmatter));
+
+  upsertCategoryNode(
+    category,
+    frontmatter.title,
+    context,
+    `/${context.pkg}/${toCamelCase(category)}`,
+  );
 
   console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
 }

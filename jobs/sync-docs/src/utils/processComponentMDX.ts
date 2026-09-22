@@ -8,6 +8,7 @@ import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
 import type { Context } from "../types.js";
 import { shortDestFile, shortMdxPath } from "./pathShorteners.js";
 import { dfName } from "../constants/global.js";
+import { upsertCategoryNode } from "./upsertCategoryNode.js";
 
 export function processComponentMdx(mdxPath: string, context: Context): void {
   const raw = fs.readFileSync(mdxPath, "utf8");
@@ -38,5 +39,11 @@ export function processComponentMdx(mdxPath: string, context: Context): void {
 
   fs.writeFileSync(destFile, matter.stringify(transformedContent, frontmatter));
 
+  const categoryNode = upsertCategoryNode(category, category, context);
+  categoryNode.nodes.push({
+    children: frontmatter.title,
+    href: `/${context.pkg}/${toCamelCase(category)}/${slug}`,
+  });
+  
   console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
 }
