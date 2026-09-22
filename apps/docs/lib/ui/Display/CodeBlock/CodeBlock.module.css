@@ -1,0 +1,25 @@
+.root {
+  --bg: var(--color-surface);
+  --size: var(--gap-2);
+  --br: var(--br-md);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  border-radius: var(--br);
+  overflow: hidden;
+}
+.header {
+  background: var(--bg);
+  padding: var(--size);
+}
+.main {
+  position: relative;
+  flex: 1;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

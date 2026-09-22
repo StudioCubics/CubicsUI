@@ -1,0 +1,13 @@
+.root {
+  overflow: hidden;
+  border-radius: var(--br-md);
+  background: var(--color-surface-highest);
+}
+.runner {
+  height: 30vh;
+  overflow: auto;
+  background: white;
+}
+[data-theme="dark"] .runner {
+  background: black;
+}

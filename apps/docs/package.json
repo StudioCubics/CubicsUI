@@ -1,0 +1,44 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@cubicsui/components": "workspace:^",
+    "@cubicsui/hooks": "workspace:^",
+    "@cubicsui/icons": "workspace:^",
+    "@cubicsui/utils": "workspace:^",
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@monaco-editor/react": "^4.7.0",
+    "@next/mdx": "^16.3.5",
+    "@types/mdx": "^2.0.14",
+    "next": "16.3.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-live": "^4.1.8",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "rehype-mdx-code-props": "^3.0.1",
+    "remark-mdx-frontmatter": "^5.2.0",
+    "sucrase": "^3.35.1"
+  },
+  "devDependencies": {
+    "@cubicsui/tsconfig": "workspace:^",
+    "@cubicsui/types": "workspace:^",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.5",
+    "monaco-editor": "^0.56.0",
+    "typescript": "^5",
+    "unist-util-visit": "^5.1.0"
+  }
+}

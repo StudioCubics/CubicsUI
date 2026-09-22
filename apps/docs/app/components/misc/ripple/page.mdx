@@ -1,0 +1,33 @@
+---
+title: Ripple
+category: Misc
+slug: ripple
+packageVersion: 0.0.0
+description: >-
+  Creates ripples on whatever parent is set to position:relative during
+  whichever event is bound to it
+---
+
+
+
+
+
+<section id="userippleprops">
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| **duration** | `number` | `750` | duration of the ripple in miliseconds |
+| **color** | `CSSProperties["color"]` | `"currentColor"` | color of the ripple |
+| **disabled** | `boolean` | `false` | disabled ripple effect |
+</section>
+
+
+
+
+<section id="useripplereturns">
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| **createRipple** | `(
+    event: TouchEvent \| MouseEvent \| ChangeEvent \| FocusEvent,
+  ) => void` | `—` | — |
+| **rippleElements** | `ReactElement[]` | `—` | — |
+</section>

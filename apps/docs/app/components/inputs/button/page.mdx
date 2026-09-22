@@ -1,0 +1,104 @@
+---
+title: Button
+category: Inputs
+slug: button
+packageVersion: 0.0.0
+description: A flexible button with multiple variants.
+---
+
+## Usage
+
+Here's how to use the button component,
+
+<Sandcube title="Button Playground">
+    <SandcubeFile path="/App.tsx">
+      ```tsx
+      import { content } from "./data";
+      import { Button } from "@cubicsui/components";
+      export default function Home() {
+        return (
+          <div>
+            <Button variant="contained">{content}</Button>
+          </div>
+        );
+      }
+
+      ```
+    </SandcubeFile>
+    <SandcubeFile path="/data.ts">
+      ```ts
+      export const content = "Button Content";
+
+      ```
+    </SandcubeFile>
+</Sandcube>
+
+```tsx
+    import { content } from "./data"
+    import { Button } from "@cubicsui/components";
+    export default function Home() {
+      return (
+        <div>
+          <Button>{content}</Button>
+        </div>
+      );
+    }
+```
+```tsx title="This is with a title"
+    import { content } from "./data"
+    import { Button } from "@cubicsui/components";
+    export default function Home() {
+      return (
+        <div>
+          <Button>{content}</Button>
+        </div>
+      );
+    }
+```
+```tsx icon="CubicsUI" title="This is with an icon"
+    import { content } from "./data"
+    import { Button } from "@cubicsui/components";
+    export default function Home() {
+      return (
+        <div>
+          <Button>{content}</Button>
+        </div>
+      );
+    }
+```
+
+## API
+
+### Props
+
+Props specific to the Button component.
+
+
+<section id="buttonbaseprops">
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| **startIcon** | `ReactNode` | `—` | Renders an icon at the beginning of the button. |
+| **align** | `"left" \| "center" \| "right"` | `"center"` | Justifies the content of the button |
+| **endIcon** | `ReactNode` | `—` | Renders an icon at the end of the button. |
+| **selected** | `boolean` | `—` | Marks the button as selected. |
+| **variant** | `"contained" \| "outlined"` | `"text"` | Visual style variant. |
+| **fullWidth** | `boolean` | `false` | Expands width to 100%. |
+| **icon** | `boolean` | `false` | When button is supposed to be an icon button, make sure to pass a square icon to not mess up the button's size |
+| **size** | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"` | Button size. |
+| **disabled** | `boolean` | `false` | Adds disabled styles to the button. Added this to make `<Link/>` have disabled style in Next.js. |
+| **color** | `"primary" \| "secondary" \| "tertiary" \| "error" \| "warn" \| "success"` | `—` | Color theme of the button. |
+| **slotProps** | `ButtonSlotProps` | `—` | Slot props for customizing internal elements. |
+</section>
+
+### SlotProps
+
+The slot props for the button
+
+
+<section id="buttonslotprops">
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| **ripple** | `UseRippleProps` | `—` | Props for the useRipple component |
+| **startIcon** | `ComponentProps` | `—` | Wrapper span for the start icon. |
+| **endIcon** | `ComponentProps` | `—` | Wrapper span for the end icon. |
+</section>
