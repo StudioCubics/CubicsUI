@@ -20,3 +20,6 @@ export * from "./Tabs/Tabs";
 export * from "./Tabs/TabsBar/TabsBar";
 export * from "./Tabs/Tab/Tab";
 export * from "./Tabs/Tabs.types";
+
+export * from "./Tooltip/Tooltip";
+export * from "./Tooltip/useTooltip";
