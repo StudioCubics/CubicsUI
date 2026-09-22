@@ -7,11 +7,11 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "display",
     children: "Display",
     nodes: [
-      { type: "separator" },
       { children: "Card", href: "/components/card" },
       { children: "Chip", href: "/components/chip" },
       { children: "GlassCard", href: "/components/glassCard" },
       { children: "List", href: "/components/list" },
+      { children: "Tabs", href: "/components/tabs" },
     ],
   },
 
@@ -20,7 +20,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "inputs",
     children: "Inputs",
     nodes: [
-      { type: "separator" },
       { children: "Button", href: "/components/button" },
       { children: "Checkbox", href: "/components/checkbox" },
       { children: "CloseButton", href: "/components/closeButton" },
@@ -39,7 +38,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "layout",
     children: "Layout",
     nodes: [
-      { type: "separator" },
       { children: "Popover", href: "/components/popover" },
       {
         children: "SidebarLayout",
@@ -53,7 +51,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "misc",
     children: "Misc",
     nodes: [
-      { type: "separator" },
       {
         children: "Ripple",
         disabled: true,
@@ -67,7 +64,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "providers",
     children: "Providers",
     nodes: [
-      { type: "separator" },
       { children: "ThemeProvider", href: "/components/themeProvider" },
       {
         children: "ContrastProvider",
@@ -84,9 +80,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
     type: "collapsible",
     id: "typography",
     children: "Typography",
-    nodes: [
-      { type: "separator" },
-      { children: "TextOrList", href: "/components/textOrList" },
-    ],
+    nodes: [{ children: "TextOrList", href: "/components/textOrList" }],
   },
 ];

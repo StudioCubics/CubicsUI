@@ -1,7 +1,7 @@
 "use client";
 
+import { componentsMeta } from "@/app/components/meta";
 import { List, ListItem, useSidebarLayout } from "@cubicsui/components";
-import { componentsMeta } from "./meta";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,7 +11,7 @@ export function SidebarList() {
 
   return (
     <List
-      id="MainSidebar"
+      id="MAIN"
       size="lg"
       renderGlider
       LinkComponent={Link}

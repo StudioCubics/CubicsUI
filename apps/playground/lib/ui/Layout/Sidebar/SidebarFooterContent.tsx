@@ -3,7 +3,6 @@
 import {
   Button,
   Card,
-  SidebarFooter as CuiSidebarFooter,
   GlassCard,
   List,
   ListItem,
@@ -17,7 +16,7 @@ import {
 import { useMounted } from "@cubicsui/hooks";
 import { PointerLightIcon, SettingsIcon } from "@cubicsui/icons";
 
-export function SidebarFooter() {
+export function SidebarFooterContent() {
   const { mounted } = useMounted();
   const { contrast, setContrast } = useContrast();
   const { pointerLight, setPointerLight } = usePointerLight();
@@ -25,7 +24,7 @@ export function SidebarFooter() {
   if (!mounted) return;
 
   return (
-    <CuiSidebarFooter showOnClose>
+    <>
       <ThemeToggle
         variant={sidebarOpen ? "full" : "icon"}
         slotProps={{
@@ -86,6 +85,6 @@ export function SidebarFooter() {
           © {new Date().getFullYear()} CubicsUI
         </span>
       )}
-    </CuiSidebarFooter>
+    </>
   );
 }

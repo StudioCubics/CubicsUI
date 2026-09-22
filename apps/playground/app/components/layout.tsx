@@ -2,13 +2,14 @@ import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
 import {
   Sidebar,
   SidebarBody,
+  SidebarFooter,
   SidebarHeader,
   SidebarLayout,
   SidebarViewport,
 } from "@cubicsui/components";
 import type { ReactNode } from "react";
-import { SidebarList } from "./list";
-import { SidebarFooter } from "@/lib/ui/Layout/SidebarFooter/SidebarFooter";
+import { SidebarFooterContent } from "@/lib/ui/Layout/Sidebar/SidebarFooterContent";
+import { SidebarList } from "@/lib/ui/Layout/Sidebar/SidebarList";
 
 export default function Layout(props: { children: ReactNode }) {
   const { children } = props;
@@ -20,9 +21,11 @@ export default function Layout(props: { children: ReactNode }) {
           <SidebarBody>
             <SidebarList />
           </SidebarBody>
-          <SidebarFooter />
+          <SidebarFooter showOnClose>
+            <SidebarFooterContent />
+          </SidebarFooter>
         </Sidebar>
-        <SidebarViewport>{children}</SidebarViewport>
+        <SidebarViewport persistScrollPosition>{children}</SidebarViewport>
       </SidebarLayout>
     </div>
   );

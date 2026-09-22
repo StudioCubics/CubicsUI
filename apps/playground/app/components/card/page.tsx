@@ -56,12 +56,20 @@ export default function Page() {
         <div className="row">
           {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
             <div className="column" key={size}>
-              <h3>
-                {size} {size === "md" && "(Default)"}
-              </h3>
-              <Card size={size} fixedWidth="220px">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
-                consectetur quia maiores veniam.
+              <h3>{size}</h3>
+              <Card size={size} fixedWidth="350px">
+                <CardHeader
+                  title="This is a card title"
+                  desc="This is a card desc"
+                  action={<Button size={size}>Action</Button>}
+                />
+                <CardContent>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+                  consectetur quia maiores veniam.
+                </CardContent>
+                <CardFooter>
+                  <Button size={size}>Footer Button</Button>
+                </CardFooter>
               </Card>
             </div>
           ))}
