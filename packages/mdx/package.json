@@ -1,0 +1,74 @@
+{
+  "name": "@cubicsui/mdx",
+  "description": "Package containing important mdx components and loader by Studio Cubics",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "version": "0.0.0",
+  "keywords": [
+    "@cubicsui",
+    "@studiocubics",
+    "cubics",
+    "studio",
+    "react",
+    "hooks"
+  ],
+  "author": {
+    "name": "Ishfaq Ahmed",
+    "email": "ishfaqahmed0837@gmail.com",
+    "url": "https://studio-cubics.vercel.app"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsdown --clean",
+    "dev": "tsdown --watch",
+    "lint": "eslint .",
+    "clean": "rimraf dist node_modules"
+  },
+  "peerDependencies": {
+    "@cubicsui/components": "workspace:^",
+    "@cubicsui/hooks": "workspace:^",
+    "@cubicsui/icons": "workspace:^",
+    "@cubicsui/utils": "workspace:^",
+    "react": ">= 19",
+    "react-dom": ">= 19"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "gray-matter": "^4.0.3",
+    "next-mdx-remote-client": "^2.1.12",
+    "react-live": "^4.1.8",
+    "rehype-mdx-code-props": "^3.0.1",
+    "rehype-slug": "^6.0.0",
+    "remark-flexible-toc": "^1.2.7",
+    "remark-gfm": "^4.0.1",
+    "sucrase": "^3.35.1"
+  },
+  "devDependencies": {
+    "@cubicsui/tsconfig": "workspace:^",
+    "@cubicsui/types": "workspace:^",
+    "@eslint/js": "^9.39.1",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "24.10.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "glob": "^13.0.6",
+    "globals": "^17.4.0",
+    "monaco-editor": "^0.56.0",
+    "tsdown": "^0.21.9",
+    "typescript": "^5",
+    "typescript-eslint": "^8.58.1"
+  }
+}

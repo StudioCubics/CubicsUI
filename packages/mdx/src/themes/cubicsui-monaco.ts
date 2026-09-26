@@ -13,7 +13,7 @@ type ThemeData = Parameters<Monaco["editor"]["defineTheme"]>[1];
 // Yellow      #846E15  strings, text content
 // Green       #4faa78  functions, methods
 // Cyan        #514faa  classes, types, support
-// Purple      #7a3bcb  instance reserved words (this/self/super) — italic
+// Purple      #7a3bcb  instance reserved words (this/self/super)
 // Pink        #de599c  keywords, storage types
 // ─────────────────────────────────────────────────────────────────────────────
 
