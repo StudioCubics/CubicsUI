@@ -7,7 +7,6 @@ import type { Context } from "./types.js";
 import { processCategoryMdx } from "./utils/processCategoryMDX.js";
 import { processComponentMdx } from "./utils/processComponentMDX.js";
 import { getDocDetails } from "./utils/getDocDetails.js";
-import { writeFileSync } from "fs";
 
 async function main() {
   console.log("Initialising!\n");
@@ -63,10 +62,9 @@ async function main() {
     docDetails,
     program,
     checker,
-    componentsMeta: [],
   };
 
-  console.log(`\nSyncing docs -> ${docDetails.docRoot}\n`);
+  console.log(`\nSyncing docs -> ${docDetails.docBaseUrl}\n`);
 
   const mdxFiles = await glob("**/*.mdx", {
     cwd: pkgDetails.docSrcPath,
@@ -82,12 +80,7 @@ async function main() {
       processComponentMdx(mdxPath, context);
     }
   }
-  const metaOutPath = path.join(docDetails.docRoot, "meta.tsx");
-  const metaContent = `import type { ListItemProps } from "@cubicsui/components";
 
-export const ${pkg}Meta: ListItemProps[] = ${JSON.stringify(context.componentsMeta, null, 2)};
-`;
-  writeFileSync(metaOutPath, metaContent);
   console.log(`\nDone in ${performance.now() - t0} ms\n`);
 }
 

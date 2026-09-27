@@ -6,8 +6,8 @@ import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
 import type { Context } from "../types.js";
 import { getCategoryFromPath } from "./getCategoryFromPath.js";
 import { shortMdxPath, shortDestFile } from "./pathShorteners.js";
-import { dfName } from "../constants/global.js";
-import { upsertCategoryNode } from "./upsertCategoryNode.js";
+import { banner, dfName } from "../constants/global.js";
+import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
 
 export function processCategoryMdx(mdxPath: string, context: Context): void {
   const raw = fs.readFileSync(mdxPath, "utf8");
@@ -16,8 +16,8 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
 
   const category = getCategoryFromPath(mdxPath, context);
 
-  const transformedContent = transformKnownMDXTags(content, mdxPath, context);
-
+  let transformedContent = transformKnownMDXTags(content, mdxPath, context);
+  transformedContent = transformKnownJSDocTags(transformedContent, context);
   const frontmatter = {
     title: category,
     slug: toCamelCase(category),
@@ -25,7 +25,10 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
     ...existingFrontmatter,
   };
 
-  const destDir = path.join(context.docDetails.docRoot, toCamelCase(category));
+  const destDir = path.join(
+    context.docDetails.docBaseUrl,
+    toCamelCase(category),
+  );
 
   const destFile = path.join(destDir, `${dfName}.mdx`);
 
@@ -33,14 +36,9 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
     recursive: true,
   });
 
-  fs.writeFileSync(destFile, matter.stringify(transformedContent, frontmatter));
+  transformedContent = `${banner}${transformedContent}`;
 
-  upsertCategoryNode(
-    category,
-    frontmatter.title,
-    context,
-    `/${context.pkg}/${toCamelCase(category)}`,
-  );
+  fs.writeFileSync(destFile, matter.stringify(transformedContent, frontmatter));
 
   console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
 }

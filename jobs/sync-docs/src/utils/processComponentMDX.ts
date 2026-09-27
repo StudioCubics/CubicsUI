@@ -7,8 +7,7 @@ import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
 import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
 import type { Context } from "../types.js";
 import { shortDestFile, shortMdxPath } from "./pathShorteners.js";
-import { dfName } from "../constants/global.js";
-import { upsertCategoryNode } from "./upsertCategoryNode.js";
+import { banner, dfName } from "../constants/global.js";
 
 export function processComponentMdx(mdxPath: string, context: Context): void {
   const raw = fs.readFileSync(mdxPath, "utf8");
@@ -27,7 +26,7 @@ export function processComponentMdx(mdxPath: string, context: Context): void {
     ...existingFrontmatter,
   };
   const destDir = path.join(
-    context.docDetails.docRoot,
+    context.docDetails.docBaseUrl,
     toCamelCase(category),
     slug,
   );
@@ -37,13 +36,9 @@ export function processComponentMdx(mdxPath: string, context: Context): void {
     recursive: true,
   });
 
+  transformedContent = `${banner}${transformedContent}`;
+
   fs.writeFileSync(destFile, matter.stringify(transformedContent, frontmatter));
 
-  const categoryNode = upsertCategoryNode(category, category, context);
-  categoryNode.nodes.push({
-    children: frontmatter.title,
-    href: `/${context.pkg}/${toCamelCase(category)}/${slug}`,
-  });
-  
   console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
 }

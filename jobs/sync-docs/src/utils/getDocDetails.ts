@@ -3,22 +3,20 @@ import { repoRoot } from "../constants/global.js";
 
 export interface DocDetails {
   /**
-   * Base output path inside the docs content tree.
-   * Example: "/docs/components"
-   */
-  docBasePath: string;
-
-  /**
    * Absolute filesystem path where generated MDX files are written.
-   * Example: ".../apps/cubicsui-com/docs/content/docs/components"
+   * Example: ".../apps/docs/content/{components}"
    */
-  docRoot: string;
+  docBaseUrl: string;
+  /** Relative path inside the doc that can be used to link Links inside the markdown
+   * Example: "/docs/${pkg}"
+   */
+  docPath: string;
 }
 /**
  * Builds documentation output paths for a given package.
  */
 export function getDocDetails(pkg: string): DocDetails {
-  const docBasePath = `apps/docs/app/${pkg}`;
-  const docRoot = path.resolve(repoRoot, docBasePath);
-  return { docBasePath, docRoot };
+  const docPath = `/docs/${pkg}`;
+  const docBaseUrl = path.resolve(repoRoot, `apps/docs/content${docPath}`);
+  return { docBaseUrl, docPath };
 }

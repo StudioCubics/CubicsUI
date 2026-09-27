@@ -88,8 +88,10 @@ export function resolveTypeProps(
         typeStr = checker.typeToString(propType);
       }
       // Strip typescript generics using regex fallback for fully resolved strings if necessary
-      typeStr = typeStr.replace(/<[^>]*>/g, "");
-
+      typeStr = typeStr
+        .replace(/<[^>]*>/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
       const entry: PropEntry = {
         name: prop.getName(),
         type: typeStr,
@@ -136,6 +138,7 @@ function buildPropsTable(
       mainDescription,
       "\n",
       `<section id="${typeName.toLowerCase()}">`,
+      "\n",
       "| Prop | Type | Default | Description |",
       "|------|------|---------|-------------|",
       ...rows,

@@ -58,7 +58,9 @@ function buildUrl(
 ): string {
   const { pkgDetails, docDetails } = context;
   const rel = path.relative(pkgDetails.docSrcPath, absFilePath);
-  const withoutExt = rel.replace(/\.(tsx?|jsx?)$/, "");
+  const withoutExt = rel
+    .replace(/\.(tsx?|jsx?|ts?|js?)$/, "")
+    .replace(/\.types$/, "");
   const parts = withoutExt.split(path.sep);
   // Drop the last segment if it matches the parent folder (e.g. Ripple/Ripple → Ripple)
   if (
@@ -68,10 +70,9 @@ function buildUrl(
     parts.pop();
   }
   const urlPath = parts.map((p) => p.toLowerCase()).join("/");
-  // Append symbol anchor
-  return `${docDetails.docBasePath}/${urlPath}#${symbolName.toLowerCase()}`;
-}
 
+  return `${docDetails.docPath}/${urlPath}#${symbolName.toLowerCase()}`;
+}
 export const linkTransformer: JSDocTagTransformer = (
   symbolName,
   label,

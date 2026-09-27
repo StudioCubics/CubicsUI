@@ -52,9 +52,6 @@ export interface Context {
 
   /** TypeScript type checker used for symbol/type inspection */
   checker: ts.TypeChecker;
-
-  /** Builds the meta file for the paths and children etc to make a sidebar link  */
-  componentsMeta: ComponentMetaNode[];
 }
 
 /**
