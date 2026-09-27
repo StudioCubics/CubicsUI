@@ -6,14 +6,14 @@ import rehypeSlug from "rehype-slug";
 import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
-import { components } from "../mdxComponents";
+import { components } from "../components";
 import type { ListItemProps } from "@cubicsui/components";
 import type {
-  Frontmatter,
-  LoaderProps,
-  PageTreeMeta,
-  Scope,
-} from "./loader.types";
+  MDXFrontmatter,
+  MDXLoaderProps,
+  MDXMeta,
+  MDXScope,
+} from "./mdxLoader.types";
 
 /** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
 function walkPageSlugs(contentRoot: string): string[] {
@@ -35,14 +35,14 @@ function walkPageSlugs(contentRoot: string): string[] {
   return slugs;
 }
 
-export function loader(props: LoaderProps) {
+export function mdxLoader(props: MDXLoaderProps) {
   const { contentRoot, readSource, readMeta } = props;
   // Slugs are computed once, at loader init time, by walking the filesystem.
   const pageSlugs = walkPageSlugs(contentRoot);
 
   async function getPage(
     param: string | string[] | undefined,
-    options: EvaluateOptions<Scope> = {},
+    options: EvaluateOptions<MDXScope> = {},
   ) {
     const slug = typeof param === "string" ? param : param?.join("/");
     let source: string;
@@ -51,7 +51,7 @@ export function loader(props: LoaderProps) {
     } catch {
       return;
     }
-    const opts: EvaluateOptions<Scope> = {
+    const opts: EvaluateOptions<MDXScope> = {
       ...options,
       mdxOptions: {
         ...options?.mdxOptions,
@@ -61,7 +61,7 @@ export function loader(props: LoaderProps) {
       parseFrontmatter: options.parseFrontmatter ?? true,
       vfileDataIntoScope: "toc",
     };
-    const evaluatedPage = await evaluate<Frontmatter, Scope>({
+    const evaluatedPage = await evaluate<MDXFrontmatter, MDXScope>({
       source,
       options: opts,
       components,
@@ -90,21 +90,21 @@ export function loader(props: LoaderProps) {
 
   /** Calls the app's `readMeta`, defaulting to `undefined` if absent/missing/throws */
   async function safeReadMeta(
-    folderPath: string,
-  ): Promise<PageTreeMeta | undefined> {
+    relFolderPath: string,
+  ): Promise<MDXMeta | undefined> {
     if (!readMeta) return undefined;
     try {
-      return await readMeta(folderPath);
+      return await readMeta(relFolderPath ? `${relFolderPath}/meta` : "meta");
     } catch {
       return undefined;
     }
   }
 
   /** Reads frontmatter only (no MDX compile) — cheap, for tree labels */
-  async function readFrontmatter(slug: string): Promise<Partial<Frontmatter>> {
+  async function readFrontmatter(slug: string): Promise<Partial<MDXFrontmatter>> {
     try {
       const source = await readSource(`${slug}/page.mdx`);
-      return matter(source).data as Partial<Frontmatter>;
+      return matter(source).data as Partial<MDXFrontmatter>;
     } catch {
       return {};
     }

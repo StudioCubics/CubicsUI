@@ -1,11 +1,11 @@
 import type { ListItemProps, TocItem } from "@cubicsui/components";
 
-export type Scope = {
+export type MDXScope = {
   readingTime?: string;
   toc?: TocItem[];
 };
 
-export type Frontmatter = {
+export type MDXFrontmatter = {
   /** Title of the page */
   title: string;
   /** Category this component belongs to */
@@ -21,7 +21,7 @@ export type Frontmatter = {
 };
 
 /** Shape a folder's `meta.tsx` must default-export */
-export interface PageTreeMeta {
+export interface MDXMeta {
   /** Ids (file/folder names) in display order for this folder.
    * Any id not present here is excluded from the tree. */
   order: string[];
@@ -29,7 +29,7 @@ export interface PageTreeMeta {
   pages?: Record<string, Partial<Omit<ListItemProps, "type" | "children">>>;
 }
 
-export interface LoaderProps {
+export interface MDXLoaderProps {
   /**
    * Path to the content root, relative to `process.cwd()`
    * Used only to walk the filesystem at init time and
@@ -65,5 +65,5 @@ export interface LoaderProps {
    * });
    * ```
    */
-  readMeta?: (relFolderPath: string) => Promise<PageTreeMeta>;
+  readMeta?: (relFolderPath: string) => Promise<MDXMeta>;
 }

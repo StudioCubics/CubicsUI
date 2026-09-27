@@ -37,15 +37,24 @@ export function CodeBlock(props: CodeBlockProps) {
   return (
     <div className={styles.root}>
       {/* Header div */}
-      <div className={cn(styles.header)}>
-        <span className={cn(styles.icon)}></span>
-        {title}
-      </div>
+      {(icon || title) && (
+        <div className={cn(styles.header)}>
+          <span className={cn(styles.icon)}></span>
+          {title}
+        </div>
+      )}
       {/* Main div */}
       <div className={cn(styles.main)}>
         {/* Overlay div */}
         <div className={cn(styles.overlay)}>
-          <CopyButton textToCopy={code} title={title} />
+          <div className={cn(styles.overlayActions)}>
+            <CopyButton
+              textToCopy={code}
+              size="sm"
+              variant="outlined"
+              title={title}
+            />
+          </div>
         </div>
         <MonacoEditor
           id={id}
