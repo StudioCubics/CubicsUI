@@ -11,7 +11,9 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "Chip", href: "/components/chip" },
       { children: "GlassCard", href: "/components/glassCard" },
       { children: "List", href: "/components/list" },
+      { children: "TableOfContents", disabled: true, icon: "🚧" },
       { children: "Tabs", href: "/components/tabs" },
+      { children: "Tooltip", disabled: true, icon: "🚧" },
     ],
   },
 
@@ -24,6 +26,16 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "Checkbox", href: "/components/checkbox" },
       { children: "CloseButton", href: "/components/closeButton" },
       { children: "ComboBox", href: "/components/comboBox" },
+      {
+        children: "CopyButton",
+        disabled: true,
+        icon: "🚧",
+      },
+      {
+        children: "InputField",
+        disabled: true,
+        icon: "🚧",
+      },
       { children: "PasswordInput", href: "/components/passwordInput" },
       { children: "Select", href: "/components/select" },
       { children: "Switch", href: "/components/switch" },
@@ -38,6 +50,16 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "layout",
     children: "Layout",
     nodes: [
+      {
+        children: "PageLayout",
+        disabled: true,
+        icon: "🚧",
+      },
+      {
+        children: "PageLayoutTOC",
+        disabled: true,
+        icon: "🚧",
+      },
       { children: "Popover", href: "/components/popover" },
       {
         children: "SidebarLayout",
@@ -51,11 +73,12 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "misc",
     children: "Misc",
     nodes: [
+      { children: "Logo", href: "/components/logo" },
       {
         children: "Ripple",
         disabled: true,
+        icon: "🚧",
       },
-      { children: "Logo", href: "/components/logo" },
     ],
   },
 
@@ -64,7 +87,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "providers",
     children: "Providers",
     nodes: [
-      { children: "ThemeProvider", href: "/components/themeProvider" },
       {
         children: "ContrastProvider",
         href: "/components/contrastProvider",
@@ -73,6 +95,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
         children: "PointerLightProvider",
         href: "/components/pointerLightProvider",
       },
+      { children: "ThemeProvider", href: "/components/themeProvider" },
     ],
   },
 
@@ -80,6 +103,9 @@ export const componentsMeta: ListItemProps<Route>[] = [
     type: "collapsible",
     id: "typography",
     children: "Typography",
-    nodes: [{ children: "TextOrList", href: "/components/textOrList" }],
+    nodes: [
+      { children: "PageHeader", href: "/components/pageHeader" },
+      { children: "TextOrList", href: "/components/textOrList" },
+    ],
   },
 ];

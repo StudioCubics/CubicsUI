@@ -19,11 +19,11 @@ export default function Page() {
       <h2>Composed example</h2>
       <section>
         <div className="column image_bg">
-          <Card fixedWidth="320px" elevation="high">
+          <Card fixedWidth="min(100%, 300px)">
             <CardHeader
               title={<>Create your account</>}
               desc="Takes less than a minute"
-              action={<Button size="xs">Get Help!</Button>}
+              actions={<Button size="xs">Get Help!</Button>}
             />
             <CardContent>
               <div className="column">
@@ -53,15 +53,15 @@ export default function Page() {
         card.
       </p>
       <section>
-        <div className="row">
+        <div className="grid">
           {(["xs", "sm", "md", "lg", "xl"] as const).map((size) => (
             <div className="column" key={size}>
               <h3>{size}</h3>
-              <Card size={size} fixedWidth="350px">
+              <Card size={size} fixedWidth="min(100%, 300px)">
                 <CardHeader
                   title="This is a card title"
                   desc="This is a card desc"
-                  action={<Button size={size}>Action</Button>}
+                  actions={<Button size={size}>Actions</Button>}
                 />
                 <CardContent>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
@@ -81,7 +81,7 @@ export default function Page() {
           Controls the color of the card, the color for content is always{" "}
           <code>--color-on-surface</code>,
         </p>
-        <div className="row">
+        <div className="grid">
           {(
             [
               "primary",
@@ -94,11 +94,11 @@ export default function Page() {
           ).map((color) => (
             <div className="column" key={color}>
               <h3>{color}</h3>
-              <Card color={color} fixedWidth="350px">
+              <Card color={color} fixedWidth="min(100%, 300px)">
                 <CardHeader
                   title="This is a card title"
                   desc="This is a card desc"
-                  action={<Button color={color}>Action</Button>}
+                  actions={<Button color={color}>Actions</Button>}
                 />
                 <CardContent>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
@@ -113,7 +113,7 @@ export default function Page() {
         </div>
         <hr />
         <h3>Outlined colors</h3>
-        <div className="row">
+        <div className="grid">
           {(
             [
               "primary",
@@ -126,11 +126,15 @@ export default function Page() {
           ).map((color) => (
             <div className="column" key={color}>
               <h3>{color}</h3>
-              <Card variant="outlined" color={color} fixedWidth="350px">
+              <Card
+                variant="outlined"
+                color={color}
+                fixedWidth="min(100%, 300px)"
+              >
                 <CardHeader
                   title="This is a card title"
                   desc="This is a card desc"
-                  action={<Button color={color}>Action</Button>}
+                  actions={<Button color={color}>Actions</Button>}
                 />
                 <CardContent>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
@@ -232,9 +236,9 @@ export default function Page() {
           <CardHeader
             title={<>This is a card Title</>}
             desc="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi consectetur quia maiores veniam, ab dolorum delectus."
-            action={
+            actions={
               <Button size="sm" variant="outlined">
-                Some Action
+                Some Actions
               </Button>
             }
           />
@@ -244,7 +248,7 @@ export default function Page() {
           <Card fixedWidth="220px">
             <CardHeader
               title={<>A surprisingly long card title that should wrap</>}
-              action={<Button size="xs">Edit</Button>}
+              actions={<Button size="xs">Edit</Button>}
             />
           </Card>
         </div>
@@ -254,11 +258,11 @@ export default function Page() {
         <code>{"<CardContent/>"}</code>
       </h2>
       <section>
-        <Card fixedWidth="300px">
+        <Card fixedWidth="min(100%, 300px)">
           <CardHeader
             title={<>Login</>}
             desc="Enter your email and password to Login to your account"
-            action={
+            actions={
               <>
                 <Button size="sm" variant="outlined">
                   Register
@@ -282,7 +286,7 @@ export default function Page() {
           <h3>
             With <code>overflowMargin</code>
           </h3>
-          <Card fixedWidth="300px">
+          <Card fixedWidth="min(100%, 300px)">
             <CardHeader
               title={<>Image bleed</>}
               desc="Content edge-to-edge, ignoring card padding"
@@ -327,11 +331,11 @@ export default function Page() {
       <section>
         <h3>On image translucent footer over page background</h3>
         <div className="column image_bg">
-          <Card fixedWidth="300px">
+          <Card fixedWidth="min(100%, 300px)">
             <CardHeader
               title={<>Register</>}
               desc="Enter your email and password to Register an account"
-              action={
+              actions={
                 <>
                   <Button size="sm" variant="outlined">
                     Login
@@ -363,7 +367,7 @@ export default function Page() {
 
         <div className="column">
           <h3>On plain surface</h3>
-          <Card fixedWidth="300px">
+          <Card fixedWidth="min(100%, 300px)">
             <CardHeader
               title={<>Sign in</>}
               desc="Footer over a flat page background"
@@ -389,7 +393,7 @@ export default function Page() {
                 </Button>
               </CardFooter>
             </Card>
-            <Card fixedWidth="320px" size="xl">
+            <Card fixedWidth="min(100%, 300px)" size="xl">
               <CardContent>Large card</CardContent>
               <CardFooter>
                 <Button fullWidth size="xl">
@@ -402,7 +406,7 @@ export default function Page() {
 
         <h3>Footer + outlined variant</h3>
         <div className="column image_bg">
-          <Card fixedWidth="280px" variant="outlined">
+          <Card fixedWidth="min(100%, 300px)" variant="outlined">
             <CardContent>Outlined card with a footer below it.</CardContent>
             <CardFooter>
               <Button fullWidth variant="outlined">
@@ -418,7 +422,7 @@ export default function Page() {
           With <code>overflowMargin</code>
         </h3>
         <div className="column image_bg">
-          <Card fixedWidth="280px">
+          <Card fixedWidth="min(100%, 300px)">
             <CardContent>
               Card with a overflowMargin footer below it.
             </CardContent>

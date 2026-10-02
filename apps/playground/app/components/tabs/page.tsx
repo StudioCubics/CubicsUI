@@ -94,7 +94,6 @@ export default function Page() {
               <h3>
                 {size} {size === "md" && "(Default)"}
               </h3>
-              <hr />
               <Tabs defaultTab="b">
                 <TabsBar size={size}>
                   <Tab value="a">First</Tab>
@@ -120,7 +119,6 @@ export default function Page() {
               style={{ width: "320px" }}
             >
               <h3>{color ?? "default"}</h3>
-              <hr />
               <Tabs defaultTab="b">
                 <TabsBar color={color}>
                   <Tab value="a">First</Tab>
