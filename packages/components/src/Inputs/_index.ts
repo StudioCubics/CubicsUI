@@ -20,7 +20,6 @@ export * from "./InputField/InputField.types";
 
 export * from "./PasswordInput/PasswordInput";
 export * from "./PasswordInput/PasswordStrengthMeter/PasswordStrengthMeter";
-export * from "./PasswordInput/PasswordStrengthMeter/PasswordStrengthMeter.types";
 export * from "./PasswordInput/PasswordVisibilityIcon/PasswordVisibilityIcon";
 export * from "./PasswordInput/PasswordInput.types";
 
