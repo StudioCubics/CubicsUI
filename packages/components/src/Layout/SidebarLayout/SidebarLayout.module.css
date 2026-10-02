@@ -18,7 +18,7 @@
   position: relative;
 }
 .closesTo_full.type_flex {
-  &:not(.root[data-open="true"]) {
+  &[data-open="false"] {
     gap: 0;
   }
 }

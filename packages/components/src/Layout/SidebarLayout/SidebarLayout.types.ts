@@ -25,8 +25,10 @@ export interface SidebarLayoutSharedProps {
    * @default "flex"
    */
   type?: "float" | "flex";
-  /** TODO add sidebarPosition functionality */
-  sidebarPosition?: "left" | "right";
+  /** Side of the sidebar, when using `type="flex"` make sure to place the sidebar after the viewport if you want the sidebar to be at the right side.
+   * @default "left"
+   */
+  side?: "left" | "right";
 }
 export interface SidebarLayoutContextProps extends SidebarLayoutSharedProps {
   sidebarOpen: boolean;
@@ -66,6 +68,7 @@ export interface SidebarShowProps {
   showOnClose?: boolean;
 }
 
+export type SidebarProps = ComponentProps<"aside"> & { children: ReactNode };
 export interface SidebarHeaderProps extends ComponentProps<"div"> {
   children?: ReactNode;
   /** Brand logo or title of the sidebar */
@@ -73,3 +76,8 @@ export interface SidebarHeaderProps extends ComponentProps<"div"> {
   /** Custom sidebar toggle */
   sidebarToggle?: ReactNode;
 }
+
+export type SidebarBodyProps = ComponentProps<"div"> &
+  SidebarShowProps &
+  SidebarOverflowProps;
+export type SidebarViewportProps = ComponentProps<"div"> & SidebarOverflowProps;

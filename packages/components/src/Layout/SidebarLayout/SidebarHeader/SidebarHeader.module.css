@@ -54,15 +54,30 @@
   & .header {
     padding: calc(var(--size));
   }
-  &:not(.root[data-open="true"]) {
+  &[data-open="false"] {
     & .header {
       position: relative;
       padding: 0;
     }
     & .sidebarToggle {
       position: absolute;
-      left: calc(100% + var(--size));
-      top: calc(var(--size));
+      left: calc(100% + var(--size) * 2 * var(--gr));
+      top: calc(var(--size) * 2);
+    }
+  }
+}
+.root.side_right {
+  &[data-open="true"] {
+    & .header {
+      flex-direction: row-reverse;
+    }
+  }
+  &[data-open="false"] {
+    &.closesTo_full {
+      & .sidebarToggle {
+        right: calc(100% + var(--size) * 2 * var(--gr));
+        left: unset;
+      }
     }
   }
 }

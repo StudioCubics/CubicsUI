@@ -1,15 +1,13 @@
 "use client";
 
-import { type ComponentProps, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import { cn, mergeRefs } from "@cubicsui/utils";
 import styles from "./SidebarViewport.module.css";
 import { useSidebarLayout } from "../SidebarLayout";
 import { usePersistScrollPosition } from "@cubicsui/hooks";
-import type { SidebarOverflowProps } from "../SidebarLayout.types";
+import type { SidebarViewportProps } from "../SidebarLayout.types";
 
-export function SidebarViewport(
-  props: ComponentProps<"div"> & SidebarOverflowProps,
-): ReactElement {
+export function SidebarViewport(props: SidebarViewportProps): ReactElement {
   const {
     children,
     className,
@@ -17,7 +15,7 @@ export function SidebarViewport(
     persistScrollPosition = false,
     ...rest
   } = props;
-  const { closesTo, variant, type, id } = useSidebarLayout();
+  const { closesTo, variant, type, side, id } = useSidebarLayout();
   const { containerRef } = usePersistScrollPosition({
     id: id ?? "",
     disabled: !persistScrollPosition,
@@ -34,6 +32,7 @@ export function SidebarViewport(
         closesTo && styles[`closesTo_${closesTo}`],
         variant && styles[`variant_${variant}`],
         type && styles[`type_${type}`],
+        side && styles[`side_${side}`],
       )}
     >
       {children}

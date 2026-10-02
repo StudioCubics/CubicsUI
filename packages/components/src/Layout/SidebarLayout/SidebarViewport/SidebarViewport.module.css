@@ -8,8 +8,13 @@
 .root.variant_outlined {
   border: var(--border-width) solid var(--color-outline);
 }
-.closesTo_shortened {
+.root.closesTo_shortened {
   &.type_float {
-    margin-left: calc(var(--sidebar-closed-width) + var(--size));
+    &.side_left {
+      margin-left: calc(var(--sidebar-closed-width) + var(--size));
+    }
+    &.side_right {
+      margin-right: calc(var(--sidebar-closed-width) + var(--size));
+    }
   }
 }

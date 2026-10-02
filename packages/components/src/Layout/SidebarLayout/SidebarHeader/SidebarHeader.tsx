@@ -14,9 +14,10 @@ export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
     sidebarToggle = <SidebarToggle />,
     children,
     className,
+
     ...rest
   } = props;
-  const { sidebarOpen, closesTo } = useSidebarLayout();
+  const { sidebarOpen, closesTo, side } = useSidebarLayout();
   const { mounted } = useMounted();
   return (
     <div
@@ -28,6 +29,7 @@ export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
         className,
         styles.root,
         closesTo && styles[`closesTo_${closesTo}`],
+        side && styles[`side_${side}`],
       )}
     >
       <span className={cn(styles.header)}>

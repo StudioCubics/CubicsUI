@@ -1,18 +1,13 @@
 "use client";
 
 import { cn, mergeRefs } from "@cubicsui/utils";
-import type { ComponentProps, ReactElement } from "react";
+import type { ReactElement } from "react";
 import styles from "./SidebarBody.module.css";
 import { useSidebarLayout } from "../SidebarLayout";
 import { usePersistScrollPosition } from "@cubicsui/hooks";
-import type {
-  SidebarOverflowProps,
-  SidebarShowProps,
-} from "../SidebarLayout.types";
+import type { SidebarBodyProps } from "../SidebarLayout.types";
 
-export function SidebarBody(
-  props: ComponentProps<"div"> & SidebarShowProps & SidebarOverflowProps,
-): ReactElement {
+export function SidebarBody(props: SidebarBodyProps): ReactElement {
   const {
     ref,
     children,
