@@ -1,4 +1,8 @@
+export * from "./PageLayoutTOC/PageLayoutTOC";
+export * from "./PageLayoutTOC/PageLayoutTOC.types";
+
 export * from "./Popover/Popover";
+export * from "./Popover/Popover.types";
 
 export * from "./SidebarLayout/SidebarLayout";
 export * from "./SidebarLayout/SidebarViewport/SidebarViewport";
