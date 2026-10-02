@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.titleBar {
+  padding-inline: var(--gap-3);
+}
+.body {
+  flex: 1;
+  overflow: hidden auto;
+  padding-block: var(--gap-2);
+}
+.footer {
+  padding-top: var(--gap-2);
+  padding-bottom: 3dvh;
+  display: flex;
+  justify-content: center;
+}

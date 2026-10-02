@@ -1,3 +1,6 @@
+export * from "./PageLayout/PageLayout";
+export * from "./PageLayout/PageLayout.types";
+
 export * from "./PageLayoutTOC/PageLayoutTOC";
 export * from "./PageLayoutTOC/PageLayoutTOC.types";
 
