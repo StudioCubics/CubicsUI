@@ -118,6 +118,90 @@ export default function Page() {
           </div>
         </div>
       </section>
+      <h2>Side</h2>
+      <section>
+        <div className={"column"}>
+          <h3>side=&quot;right&quot; closesTo=&quot;shortened&quot;</h3>
+          <div style={{ height: demoHeight }}>
+            <SidebarLayout id="side-right-shortened-flex" side="right">
+              <SidebarViewport>
+                <DemoViewportContent label="side=right, type=flex" />
+              </SidebarViewport>
+              <Sidebar>
+                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarBody>
+                  <DemoNav />
+                </SidebarBody>
+                <SidebarFooter>Footer content</SidebarFooter>
+              </Sidebar>
+            </SidebarLayout>
+          </div>
+        </div>
+        <div className={"column"}>
+          <h3>side=&quot;right&quot; closesTo=&quot;shortened&quot;</h3>
+          <div style={{ height: demoHeight }}>
+            <SidebarLayout
+              id="side-right-shortened-float"
+              side="right"
+              type="float"
+            >
+              <SidebarViewport>
+                <DemoViewportContent label="side=right, type=float" />
+              </SidebarViewport>
+              <Sidebar>
+                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarBody>
+                  <DemoNav />
+                </SidebarBody>
+                <SidebarFooter>Footer content</SidebarFooter>
+              </Sidebar>
+            </SidebarLayout>
+          </div>
+        </div>
+        <div className={"column"}>
+          <h3>side=&quot;right&quot; closesTo=&quot;full&quot;</h3>
+          <div style={{ height: demoHeight }}>
+            <SidebarLayout
+              closesTo="full"
+              id="side-right-full-flex"
+              side="right"
+            >
+              <SidebarViewport>
+                <DemoViewportContent label="side=right, type=flex" />
+              </SidebarViewport>
+              <Sidebar>
+                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarBody>
+                  <DemoNav />
+                </SidebarBody>
+                <SidebarFooter>Footer content</SidebarFooter>
+              </Sidebar>
+            </SidebarLayout>
+          </div>
+        </div>
+        <div className={"column"}>
+          <h3>side=&quot;right&quot; closesTo=&quot;full&quot;</h3>
+          <div style={{ height: demoHeight }}>
+            <SidebarLayout
+              closesTo="full"
+              id="side-right-full-float"
+              side="right"
+              type="float"
+            >
+              <SidebarViewport>
+                <DemoViewportContent label="side=right, type=float" />
+              </SidebarViewport>
+              <Sidebar>
+                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarBody>
+                  <DemoNav />
+                </SidebarBody>
+                <SidebarFooter>Footer content</SidebarFooter>
+              </Sidebar>
+            </SidebarLayout>
+          </div>
+        </div>
+      </section>
 
       <h2>Variants</h2>
       <section>
