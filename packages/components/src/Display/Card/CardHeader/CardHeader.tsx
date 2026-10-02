@@ -1,43 +1,8 @@
 import type { ReactElement } from "react";
-import type { CardHeaderProps } from "./CardHeader.types";
-import { cn } from "@cubicsui/utils";
-import styles from "./CardHeader.module.css";
+import { PageHeader } from "../../../Typography/PageHeader/PageHeader";
+import type { PageHeaderProps } from "../../../Typography/PageHeader/PageHeader.types";
 
-export function CardHeader(props: CardHeaderProps): ReactElement {
-  const { title, desc, action, as = "h3", slotProps = {} } = props;
-  const TitleComponent = as;
-  return (
-    <header
-      {...slotProps.root}
-      data-slot={"card_header"}
-      className={cn(slotProps.root?.className, styles.root)}
-    >
-      {/* Title */}
-      <TitleComponent
-        {...slotProps.title}
-        className={cn(slotProps.title?.className, styles.title)}
-      >
-        {title}
-      </TitleComponent>
-
-      {/* Action */}
-      {action && (
-        <div
-          {...slotProps.action}
-          className={cn(slotProps.action?.className, styles.action)}
-        >
-          {action}
-        </div>
-      )}
-      {/* Description */}
-      {desc && (
-        <p
-          {...slotProps.desc}
-          className={cn(slotProps.desc?.className, styles.desc)}
-        >
-          {desc}
-        </p>
-      )}
-    </header>
-  );
+export function CardHeader(props: PageHeaderProps): ReactElement {
+  const { as = "h3", ...rest } = props;
+  return <PageHeader {...rest} as={as} data-slot={"card_header"} />;
 }

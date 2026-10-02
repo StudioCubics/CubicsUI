@@ -184,7 +184,7 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     href,
     children,
     icon,
-    action,
+    actions: action,
     disabled,
     onClick,
     selected: _selected,

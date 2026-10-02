@@ -1,0 +1,24 @@
+.markerContainer {
+  isolation: isolate;
+  margin-right: -16px;
+}
+
+.color1 {
+  stop-color: var(--color-on-background);
+}
+.color2 {
+  stop-color: var(--color-primary);
+}
+.clipPath {
+  transition:
+    y var(--transition-time) ease,
+    height var(--transition-time) ease;
+}
+.shadow {
+  fill: none;
+  opacity: 0.5;
+  filter: blur(var(--blur-light));
+}
+.marker {
+  fill: none;
+}

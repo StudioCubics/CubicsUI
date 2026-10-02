@@ -20,7 +20,7 @@
   gap: var(--size);
   position: relative;
   padding: var(--size) calc(1.618 * var(--size));
-  background: color-mix(in srgb, var(--bar-bg) 40%, transparent);
+  background: color-mix(in srgb, var(--bar-bg) 20%, transparent);
 }
 .removeBg {
   background: none;

@@ -1,5 +1,5 @@
 import type { PolymorphicComponentProps } from "@cubicsui/types";
-import type { ElementType } from "react";
+import type { ComponentProps, ElementType } from "react";
 
 export type CardProps<C extends ElementType = "div"> =
   PolymorphicComponentProps<C, CardBaseProps>;
@@ -49,3 +49,14 @@ export interface CardBaseProps {
   /** The height will be of fixed length, any value that can be put in width */
   fixedHeight?: string;
 }
+
+interface CardOverflowProps {
+  /**Overflows card's padding with negative margin */
+  overflowMargin?: boolean;
+}
+
+export interface CardContentProps
+  extends ComponentProps<"div">, CardOverflowProps {}
+
+export interface CardFooterProps
+  extends ComponentProps<"div">, CardOverflowProps {}
