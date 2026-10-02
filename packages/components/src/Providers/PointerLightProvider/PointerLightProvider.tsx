@@ -24,12 +24,10 @@ export const POINTERLIGHT_PROVIDER_DEFAULTS: Required<PointerLightScriptProps> =
     storageKey: "pointerLightPreference",
     defaultPointerLight: true,
   };
-export const POINTERLIGHT_DEFAULTS: Required<
-  Omit<PointerLightPropsBase, "slotProps">
-> = {
+export const POINTERLIGHT_DEFAULTS: Omit<PointerLightPropsBase, "slotProps"> = {
   colorA: "var(--color-primary)",
   colorB: "var(--color-secondary)",
-  opacity: 0.35,
+  opacity: undefined,
 };
 export const PointerLightContext: Context<PointerLightContextProps | null> =
   createContext<PointerLightContextProps | null>(null);
