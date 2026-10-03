@@ -1,11 +1,15 @@
 "use client";
 
-import { componentsMeta } from "@/app/components/meta";
-import { List, ListItem, useSidebarLayout } from "@cubicsui/components";
+import {
+  List,
+  ListItem,
+  useSidebarLayout,
+  type ListItemProps,
+} from "@cubicsui/components";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function SidebarList() {
+export function SidebarList({ tree }: { tree: ListItemProps[] }) {
   const { sidebarOpen } = useSidebarLayout();
   const pathname = usePathname();
 
@@ -20,19 +24,8 @@ export function SidebarList() {
         return pathname === i.href;
       }}
     >
-      {componentsMeta.map((cm, i) => {
-        switch (cm.type) {
-          case "header":
-            if (sidebarOpen) return <ListItem key={i} {...cm} />;
-            break;
-
-          case "separator":
-            if (sidebarOpen) return <ListItem key={i} {...cm} />;
-            break;
-
-          default:
-            return <ListItem key={i} {...cm} />;
-        }
+      {tree.map((cm, i) => {
+        return <ListItem key={i} {...cm} />;
       })}
     </List>
   );

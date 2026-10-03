@@ -324,6 +324,24 @@ h6 {
   font-family: var(--font-h);
   font-weight: 500;
 }
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.74em;
+}
+h3 {
+  font-size: 1.52em;
+}
+h4 {
+  font-size: 1.32em;
+}
+h5 {
+  font-size: 1.15em;
+}
+h6 {
+  font-size: 1em;
+}
 p {
   font-family: var(--font-p);
 }

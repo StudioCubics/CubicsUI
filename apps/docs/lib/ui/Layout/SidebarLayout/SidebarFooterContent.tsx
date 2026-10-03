@@ -56,7 +56,7 @@ export function SidebarFooterContent() {
         >
           <List>
             <ListItem
-              action={
+              actions={
                 <Switch
                   checked={contrast}
                   onChange={(_, v) => setContrast(v)}
@@ -67,7 +67,7 @@ export function SidebarFooterContent() {
             </ListItem>
             <ListItem
               icon={<PointerLightIcon />}
-              action={
+              actions={
                 <Switch
                   checked={pointerLight}
                   onChange={(_, v) => setPointerLight(v)}
