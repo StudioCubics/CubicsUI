@@ -14,6 +14,7 @@ import type {
   MDXMeta,
   MDXScope,
 } from "./mdxLoader.types";
+import { toCapitalised } from "@cubicsui/utils";
 
 /** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
 function walkPageSlugs(contentRoot: string): string[] {
@@ -101,7 +102,9 @@ export function mdxLoader(props: MDXLoaderProps) {
   }
 
   /** Reads frontmatter only (no MDX compile) — cheap, for tree labels */
-  async function readFrontmatter(slug: string): Promise<Partial<MDXFrontmatter>> {
+  async function readFrontmatter(
+    slug: string,
+  ): Promise<Partial<MDXFrontmatter>> {
     try {
       const source = await readSource(`${slug}/page.mdx`);
       return matter(source).data as Partial<MDXFrontmatter>;
@@ -138,7 +141,7 @@ export function mdxLoader(props: MDXLoaderProps) {
           id: slug,
           nodes,
           href: child.isPage ? `${baseHref}/${slug}` : undefined,
-          children: frontmatter.title ?? id,
+          children: frontmatter.title ?? toCapitalised(id),
           ...extraProps,
         } as ListItemProps);
       } else {
