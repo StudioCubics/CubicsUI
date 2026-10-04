@@ -2,7 +2,7 @@
   --bar-bg: var(--color-surface);
   --color: var(--color-on-surface);
   --bg-hover: color-mix(in srgb, var(--color-on-surface) 10%, transparent);
-  --bg-selected: var(--color-surface-dim);
+  --bg-selected: var(--color-surface-bright);
   --color-selected: var(--color-on-background);
   --glider-color: var(--color-primary);
 

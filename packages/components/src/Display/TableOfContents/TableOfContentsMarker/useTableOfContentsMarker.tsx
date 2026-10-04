@@ -1,22 +1,16 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
-import type { TableOfContentsTree } from "../TableOfContents.types";
+import type {
+  TableOfContentsTree,
+  UseTableOfContentsMarkerReturn,
+} from "../TableOfContents.types";
 
-export interface UseTableOfContentsMarkerProps {
-  path: string;
-  shadowPath: string;
-  viewBox: { h: number; w: number };
-  listRef: RefObject<HTMLOListElement | null>;
-  navRef: RefObject<HTMLElement | null>;
-  activeIds: Set<string>;
-  markerRect: DOMRect | null;
-}
 export function useTableOfContentsMarker(
   tree: TableOfContentsTree,
   scrollContainerRef: RefObject<HTMLElement | null>,
   rootMargin = "0px",
   threshold = 1,
   shadowOffset = 6, // positive = right, negative = left
-): UseTableOfContentsMarkerProps {
+): UseTableOfContentsMarkerReturn {
   const [path, setPath] = useState("");
   const [shadowPath, setShadowPath] = useState("");
   const [viewBox, setViewBox] = useState({ h: 0, w: 32 });

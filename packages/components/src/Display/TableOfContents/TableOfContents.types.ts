@@ -24,3 +24,13 @@ export interface TableOfContentsProps {
 
   withNumbering?: boolean;
 }
+
+export interface UseTableOfContentsMarkerReturn {
+  path: string;
+  shadowPath: string;
+  viewBox: { h: number; w: number };
+  listRef: RefObject<HTMLOListElement | null>;
+  navRef: RefObject<HTMLElement | null>;
+  activeIds: Set<string>;
+  markerRect: DOMRect | null;
+}
