@@ -1,4 +1,5 @@
 import type { ListItemProps } from "@cubicsui/components";
+import { XIcon } from "@cubicsui/icons";
 import type { Route } from "next";
 
 export const componentsMeta: ListItemProps<Route>[] = [
@@ -16,7 +17,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "Tooltip", disabled: true, icon: "🚧" },
     ],
   },
-
   {
     type: "collapsible",
     id: "inputs",
@@ -37,6 +37,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
         icon: "🚧",
       },
       { children: "PasswordInput", href: "/components/passwordInput" },
+      { children: "Rolodex", href: "/components/rolodex" },
       { children: "Select", href: "/components/select" },
       { children: "Switch", href: "/components/switch" },
       { children: "TextAreaInput", href: "/components/textAreaInput" },
@@ -44,7 +45,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "ThemeToggle", href: "/components/themeToggle" },
     ],
   },
-
   {
     type: "collapsible",
     id: "layout",
@@ -67,7 +67,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
       },
     ],
   },
-
   {
     type: "collapsible",
     id: "misc",
@@ -81,7 +80,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
       },
     ],
   },
-
   {
     type: "collapsible",
     id: "providers",
@@ -98,7 +96,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "ThemeProvider", href: "/components/themeProvider" },
     ],
   },
-
   {
     type: "collapsible",
     id: "typography",
@@ -108,4 +105,13 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "TextOrList", href: "/components/textOrList" },
     ],
   },
+];
+export const hooksMeta: ListItemProps<Route>[] = [
+  { children: "usePointerPosition", href: "/hooks/usePointerPosition" },
+];
+export const utilsMeta: ListItemProps<Route>[] = [
+  { children: "cn()", href: "/utils/cn" },
+];
+export const iconsMeta: ListItemProps<Route>[] = [
+  { icon: <XIcon />, children: "XIcon", href: "/icons/xicon" },
 ];

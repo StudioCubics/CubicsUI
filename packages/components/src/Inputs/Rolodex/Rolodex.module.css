@@ -1,0 +1,110 @@
+.root {
+  --br: var(--br-md);
+  --button-height: 1rem;
+  display: inline-block;
+  width: 100%;
+}
+
+.trigger {
+  cursor: pointer;
+  border-radius: var(--br);
+  &:focus-visible {
+    outline: var(--focus-ring);
+  }
+}
+
+/* Clicks go to the wrapper, not the node inside (avoids nested interactive elements) */
+.trigger > *,
+.item > * {
+  pointer-events: none;
+  inline-size: 100%;
+}
+
+.popover {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  border-radius: var(--br);
+  overflow: visible;
+  isolation: isolate;
+  scale: 1 0.75;
+  translate: 0 -50%;
+  opacity: 0;
+  transition:
+    opacity var(--transition-time) var(--transition-tf),
+    scale var(--transition-time) var(--transition-tf),
+    translate var(--transition-time) var(--transition-tf),
+    display var(--transition-time) var(--transition-tf) allow-discrete,
+    overlay var(--transition-time) var(--transition-tf) allow-discrete;
+}
+.popover:focus-visible {
+  outline: var(--focus-ring);
+}
+.popover:popover-open {
+  scale: 1 1;
+  translate: 0 -50%;
+  opacity: 1;
+}
+@starting-style {
+  .popover:popover-open {
+    scale: 1 0.75;
+    opacity: 0;
+    translate: 0 -50%;
+  }
+}
+
+.step {
+  block-size: var(--button-height);
+  border: 0;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+  &:first-child {
+    top: 0;
+  }
+  &:last-child {
+    bottom: 0;
+  }
+}
+.viewport {
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(var(--blur-heavy));
+  border-radius: var(--br);
+}
+
+.item {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%; /* the item's own height is natural, so it's centered with -50% in its inline translate */
+  cursor: pointer;
+}
+
+.popover[data-ready] {
+  /* No transitions until the measured layout is applied, so items don't fly in on open */
+  & .item {
+    transition:
+      scale var(--transition-time) var(--transition-tf),
+      translate var(--transition-time) var(--transition-tf),
+      opacity var(--transition-time) var(--transition-tf);
+  }
+  /* Grows or shrinks to the active item's height, only after the first layout */
+  & .highlight {
+    transition: height var(--transition-time) var(--transition-tf);
+  }
+}
+/* Centered in the viewport, same place the active item sits */
+.viewport > .highlight {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  translate: 0 -50%;
+  pointer-events: none;
+  backdrop-filter: none;
+  z-index: 3;
+}

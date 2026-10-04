@@ -23,6 +23,9 @@ export * from "./PasswordInput/PasswordStrengthMeter/PasswordStrengthMeter";
 export * from "./PasswordInput/PasswordVisibilityIcon/PasswordVisibilityIcon";
 export * from "./PasswordInput/PasswordInput.types";
 
+export * from "./Rolodex/Rolodex";
+export * from "./Rolodex/Rolodex.types";
+
 export * from "./Select/Select";
 export * from "./Select/Select.types";
 
