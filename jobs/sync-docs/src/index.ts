@@ -7,6 +7,7 @@ import type { Context } from "./types.js";
 import { processCategoryMdx } from "./utils/processCategoryMDX.js";
 import { processComponentMdx } from "./utils/processComponentMDX.js";
 import { getDocDetails } from "./utils/getDocDetails.js";
+import { processPkgMDX } from "./utils/processPkgMDX.js";
 
 async function main() {
   console.log("Initialising!\n");
@@ -73,11 +74,16 @@ async function main() {
 
   for (const mdxPath of mdxFiles) {
     const basename = path.basename(mdxPath);
-
-    if (basename === "_category.mdx") {
-      processCategoryMdx(mdxPath, context);
-    } else {
-      processComponentMdx(mdxPath, context);
+    switch (basename) {
+      case "_pkg.mdx":
+        processPkgMDX(mdxPath, context);
+        break;
+      case "_category.mdx":
+        processCategoryMdx(mdxPath, context);
+        break;
+      default:
+        processComponentMdx(mdxPath, context);
+        break;
     }
   }
 

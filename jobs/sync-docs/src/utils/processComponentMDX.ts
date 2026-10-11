@@ -7,7 +7,8 @@ import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
 import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
 import type { Context } from "../types.js";
 import { shortDestFile, shortMdxPath } from "./pathShorteners.js";
-import { banner, dfName } from "../constants/global.js";
+import { dfName } from "../constants/global.js";
+import { finaliseMDX } from "./finaliseMDX.js";
 
 export function processComponentMdx(mdxPath: string, context: Context): void {
   const raw = fs.readFileSync(mdxPath, "utf8");
@@ -36,9 +37,9 @@ export function processComponentMdx(mdxPath: string, context: Context): void {
     recursive: true,
   });
 
-  transformedContent = `${banner}${transformedContent}`;
+  transformedContent = finaliseMDX(transformedContent, frontmatter);
 
-  fs.writeFileSync(destFile, matter.stringify(transformedContent, frontmatter));
+  fs.writeFileSync(destFile, transformedContent);
 
   console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
 }
