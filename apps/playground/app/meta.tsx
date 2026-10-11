@@ -1,6 +1,14 @@
 import type { ListItemProps } from "@cubicsui/components";
-import { XIcon } from "@cubicsui/icons";
+import {
+  BrushIcon,
+  CodeXMLIcon,
+  ComponentIcon,
+  FishingHookIcon,
+  ToolCaseIcon,
+  XIcon,
+} from "@cubicsui/icons";
 import type { Route } from "next";
+import type { ReactNode } from "react";
 
 export const componentsMeta: ListItemProps<Route>[] = [
   {
@@ -115,3 +123,49 @@ export const utilsMeta: ListItemProps<Route>[] = [
 export const iconsMeta: ListItemProps<Route>[] = [
   { icon: <XIcon />, children: "XIcon", href: "/icons/xicon" },
 ];
+export type CubicsUISiteMapValue = {
+  icon: ReactNode;
+  label: string;
+  pkg: string;
+  meta: ListItemProps<Route>[];
+};
+export type CubicsUISiteMap = Record<string, CubicsUISiteMapValue>;
+
+export const siteMap: CubicsUISiteMap = {
+  components: {
+    icon: <ComponentIcon width="1em" />,
+    label: "Components",
+    pkg: "@cubicsui/components",
+    meta: componentsMeta,
+  },
+  hooks: {
+    icon: <FishingHookIcon width="1em" />,
+    label: "Hooks",
+    pkg: "@cubicsui/hooks",
+    meta: hooksMeta,
+  },
+  icons: {
+    icon: <BrushIcon width="1em" />,
+    label: "Icons",
+    pkg: "@cubicsui/icons",
+    meta: iconsMeta,
+  },
+  mdx: {
+    icon: <CodeXMLIcon width="1em" />,
+    label: "MDX",
+    pkg: "@cubicsui/mdx",
+    meta: [],
+  },
+  types: {
+    icon: <BrushIcon width="1em" />,
+    label: "Types",
+    pkg: "@cubicsui/types",
+    meta: [],
+  },
+  utils: {
+    icon: <ToolCaseIcon width="1em" />,
+    label: "Utilities",
+    pkg: "@cubicsui/utils",
+    meta: utilsMeta,
+  },
+};

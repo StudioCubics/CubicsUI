@@ -7,6 +7,7 @@ import {
 } from "@cubicsui/components";
 import "./globals.css";
 import "./pg-globals.css";
+import { PlaygroundSidebar } from "@/lib/ui/Layout/Sidebar/PlaygroundSidebar";
 
 export const firaCode = Fira_Code({
   variable: "--font-code",
@@ -45,10 +46,11 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <ContrastProvider>
-            <PointerLightProvider>{children}</PointerLightProvider>
+            <PointerLightProvider>
+              <PlaygroundSidebar>{children}</PlaygroundSidebar>
+            </PointerLightProvider>
           </ContrastProvider>
         </ThemeProvider>
-          {/* {children} */}
       </body>
     </html>
   );
