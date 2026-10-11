@@ -6,10 +6,10 @@ import {
   type CSSProperties,
   type ReactElement,
 } from "react";
-import type { PasswordStrengthMeterProps } from "./PasswordStrengthMeter.types";
 import { cn } from "@cubicsui/utils";
 import { TextOrList } from "../../../Typography/TextOrList/TextOrList";
 import styles from "./PasswordStrengthMeter.module.css";
+import type { PasswordStrengthMeterProps } from "../PasswordInput.types";
 
 export function PasswordStrengthMeter(
   props: PasswordStrengthMeterProps,

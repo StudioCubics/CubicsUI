@@ -4,6 +4,7 @@ export * from "./Button/Button.types";
 export * from "./Checkbox/Checkbox";
 export * from "./Checkbox/CheckboxGroupControl";
 export * from "./Checkbox/CheckboxProvider";
+export * from "./Checkbox/CheckboxIcons/CheckboxIcons";
 export * from "./Checkbox/Checkbox.types";
 
 export * from "./CloseButton/CloseButton";
@@ -12,14 +13,18 @@ export * from "./CloseButton/CloseButton.types";
 export * from "./ComboBox/ComboBox";
 export * from "./ComboBox/ComboBox.types";
 
+export * from "./CopyButton/CopyButton";
+
 export * from "./InputField/InputField";
 export * from "./InputField/InputField.types";
 
 export * from "./PasswordInput/PasswordInput";
 export * from "./PasswordInput/PasswordStrengthMeter/PasswordStrengthMeter";
-export * from "./PasswordInput/PasswordStrengthMeter/PasswordStrengthMeter.types";
 export * from "./PasswordInput/PasswordVisibilityIcon/PasswordVisibilityIcon";
 export * from "./PasswordInput/PasswordInput.types";
+
+export * from "./Rolodex/Rolodex";
+export * from "./Rolodex/Rolodex.types";
 
 export * from "./Select/Select";
 export * from "./Select/Select.types";

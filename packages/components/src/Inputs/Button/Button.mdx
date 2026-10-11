@@ -1,0 +1,53 @@
+---
+description: "A flexible button with multiple variants."
+---
+
+## Usage
+
+Here's how to use the button component,
+
+<auto-sandcube dir="./playground" title="Button Playground" />
+
+```tsx
+    import { content } from "./data"
+    import { Button } from "@cubicsui/components";
+    export default function Home() {
+      return (
+        <div>
+          <Button>{content}</Button>
+        </div>
+      );
+    }
+```
+```tsx title="This is with a title"
+    import { content } from "./data"
+    import { Button } from "@cubicsui/components";
+    export default function Home() {
+      return (
+        <div>
+          <Button>{content}</Button>
+        </div>
+      );
+    }
+```
+```tsx icon="CubicsUI" title="This is with an icon"
+    import { content } from "./data"
+    import { Button } from "@cubicsui/components";
+    export default function Home() {
+      return (
+        <div>
+          <Button>{content}</Button>
+        </div>
+      );
+    }
+```
+
+## API
+
+### Props
+
+<auto-type-table path="./Button.types.ts" name="ButtonBaseProps" />
+
+### SlotProps
+
+<auto-type-table path="./Button.types.ts" name="ButtonSlotProps" />

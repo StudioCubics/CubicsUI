@@ -1,0 +1,29 @@
+.root {
+  --size: var(--gap);
+  list-style-type: none;
+  position: relative;
+}
+
+.content {
+  display: flex;
+}
+.item {
+  margin-left: calc((var(--depth) - 1) * var(--size) * 2);
+  padding: var(--size);
+  color: var(--color-on-background-low);
+  transition: all var(--transition-time) var(--transition-tf);
+}
+.item[data-active="true"] {
+  color: var(--color-on-background);
+  padding-left: calc(var(--size) * 1.5);
+  font-weight: bold;
+}
+.withNumbering {
+  &::before {
+    content: attr(data-numbering raw-string);
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-right: var(--size);
+    opacity: 0.6;
+  }
+}

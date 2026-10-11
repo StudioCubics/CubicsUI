@@ -52,7 +52,7 @@ export interface ButtonBaseProps {
 
   /**
    * Slot props for customizing internal elements.
-   * @link ButtonSlotProps
+   * {@link ButtonSlotProps}
    */
   slotProps?: ButtonSlotProps;
 }
@@ -64,7 +64,7 @@ export type ButtonProps<C extends ElementType = "button"> =
 export interface ButtonSlotProps {
   /**
    * Props for the useRipple component
-   * @link UseRippleProps
+   * {@link UseRippleProps}
    */
   ripple?: UseRippleProps;
 

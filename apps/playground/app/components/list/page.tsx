@@ -235,18 +235,20 @@ export default function Page() {
         </div>
       </section>
 
-      <h2>Icon and action</h2>
+      <h2>Icon and actions</h2>
       <section>
         <div className="column" style={{ width: "280px" }}>
           <List>
             <ListItem icon={<span>★</span>}>With icon</ListItem>
             <ListItem
               icon={<span>⚙</span>}
-              action={<Button size="xs">Edit</Button>}
+              actions={<Button size="xs">Edit</Button>}
             >
-              With icon and action
+              With icon and actions
             </ListItem>
-            <ListItem icon={<CubicsUIFavicon />}>With icon and action</ListItem>
+            <ListItem icon={<CubicsUIFavicon />}>
+              With icon and actions
+            </ListItem>
           </List>
         </div>
       </section>

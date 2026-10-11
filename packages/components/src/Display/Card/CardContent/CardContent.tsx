@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
-import type { CardContentProps } from "./CardContent.types";
 import { cn } from "@cubicsui/utils";
 import styles from "./CardContent.module.css";
+import type { CardContentProps } from "../Card.types";
 
 /** Optional to use if the content needs to overflow the padding set by card */
 export function CardContent(props: CardContentProps): ReactElement {

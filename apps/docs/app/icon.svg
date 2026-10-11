@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <style>
+    /* Default (light mode) fill color */
+    path {
+      fill: #0f0f10;
+    }
+
+    /* Dark mode fill color */
+    @media (prefers-color-scheme: dark) {
+      path {
+        fill: white;
+      }
+    }
+  </style>
+  <path fillRule="evenodd" clipRule="evenodd"
+    d="M0 45.8089C0 48.1236 1.87644 50 4.19114 50H45.8089C48.1236 50 50 48.1236 50 45.8089V4.19114C50 1.87643 48.1236 0 45.8089 0H4.19114C1.87643 0 0 1.87644 0 4.19114V45.8089ZM4.19391 45.8061V4.19391H45.8061V24H28.1911C25.8764 24 24 25.8764 24 28.1911V45.8061H4.19391ZM33.8393 40.1607V45.8061H28.1939V40.1607H33.8393ZM45.8061 45.8061H38.0332V40.1579C38.0332 37.8432 36.1568 35.9668 33.8421 35.9668H28.1939V28.1939H45.8061V45.8061Z" />
+</svg>

@@ -1,0 +1,33 @@
+{
+  "name": "@cubicsui/sync-docs",
+  "private": true,
+  "version": "0.0.0",
+  "keywords": [
+    "@cubicsui",
+    "@studiocubics",
+    "cubics",
+    "studio",
+    "docs"
+  ],
+  "author": {
+    "name": "Studio Cubics",
+    "email": "studiocubics7@gmail.com",
+    "url": "https://studio-cubics.vercel.app"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsx --tsconfig ./tsconfig.json ./src/index.ts"
+  },
+  "dependencies": {
+    "@cubicsui/utils": "workspace:^"
+  },
+  "devDependencies": {
+    "@cubicsui/tsconfig": "workspace:^",
+    "@types/node": "^26.6.2",
+    "glob": "^13.0.6",
+    "gray-matter": "^4.0.3",
+    "react-docgen-typescript": "^2.4.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5"
+  }
+}

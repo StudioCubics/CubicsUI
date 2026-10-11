@@ -12,9 +12,10 @@ import { List } from "../../Display/List/List";
 import type { ListItemProps } from "../../Display/List/List.types";
 import { ListItem } from "../../Display/List/ListItem/ListItem";
 import { Card } from "../../Display/Card/Card";
-import { Chip } from "../../Display/Chip/Chip";
 import { useComboBox } from "./useComboBox";
+import { ComboBoxChips } from "./ComboBoxChips";
 
+// TODO add overriding chips and options react nodes
 export function ComboBox<T, Multiple extends boolean | undefined = false>(
   props: ComboBoxProps<T, Multiple>,
 ): ReactElement {
@@ -87,13 +88,14 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
   const optionsToListItem: ListItemProps[] = options.map((o): ListItemProps => {
     switch (o.type) {
       case "header":
-        return { type: "header", children: o.label };
+        return { ...o, type: "header", children: o.label };
       case "separator":
-        return { type: "separator" };
+        return { ...o, type: "separator" };
       case "item":
       case undefined: {
         const selectableIndex = selectableOptions.indexOf(o);
         return {
+          ...o,
           type: "item",
           icon: o.icon,
           disabled: o.disabled,
@@ -120,35 +122,14 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
       <>
         {beforeSurface}
         {multiple && !!selected.length && (
-          <div className={cn(styles.chips)}>
-            {selected.map((val, i) => {
-              const opt = options.find(
-                (o) =>
-                  (o.type === "item" || o.type === undefined) &&
-                  getOptionKey(o) === val,
-              );
-              const optLabel =
-                opt && opt.type == "item" ? opt.label : String(val);
-              const optIcon = opt && opt.type == "item" ? opt.icon : undefined;
-              return (
-                <Chip
-                  variant="outlined"
-                  key={i}
-                  size={size === "xs" || size === "xl" ? "md" : size}
-                  onClose={(e) => {
-                    e.stopPropagation();
-                    removeChip(val);
-                  }}
-                  icon={optIcon}
-                >
-                  {optLabel}
-                  {name && (
-                    <input type="hidden" name={name} value={String(val)} />
-                  )}
-                </Chip>
-              );
-            })}
-          </div>
+          <ComboBoxChips
+            name={name}
+            size={size}
+            selected={selected}
+            options={options}
+            getOptionKey={getOptionKey}
+            removeChip={removeChip}
+          />
         )}
       </>
     ),

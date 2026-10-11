@@ -101,7 +101,6 @@ export function ListItemTypeCollapsible(
       className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
-      data-slot={"list-item"}
       data-selected={selected}
       data-collapsed={collapsed}
       suppressHydrationWarning
@@ -167,7 +166,10 @@ export function ListItemTypeCollapsible(
           {nodes.map((n, i) => (
             <ListItem
               key={i}
-              {...(n.type == "collapsible" ? { dropdownIcon } : {})}
+              {...(n.type == "collapsible" && { dropdownIcon })}
+              {...((n.type == "item" || n.type == "collapsible") && {
+                disabled: n.disabled ?? disabled,
+              })}
               {...n}
             />
           ))}
@@ -182,7 +184,7 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     href,
     children,
     icon,
-    action,
+    actions: action,
     disabled,
     onClick,
     selected: _selected,
@@ -213,7 +215,6 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
       className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
-      data-slot={"list-item"}
       data-selected={selected}
     >
       <Component

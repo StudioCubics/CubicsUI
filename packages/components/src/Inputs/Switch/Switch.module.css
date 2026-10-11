@@ -13,12 +13,12 @@
   --border-color: var(--color-on-background-low);
 
   --fs: var(--fs-md);
-  --br: var(--br-md);
+  --br: var(--br-lg);
   --size: 28px;
   --track-width: calc(var(--size) * var(--gr));
   --track-height: var(--size);
   --track-border-width: var(--border-width);
-  --thumb-width: 55%;
+  --thumb-width: 60%;
 
   display: flex;
   flex-direction: column;
@@ -100,14 +100,13 @@
 
 .trackIcons {
   position: absolute;
-  width: var(--thumb-width);
   height: 100%;
   left: 50%;
   top: 50%;
   translate: 0 -50%;
   animation: turnOnSwitch var(--transition-time) var(--transition-tf) forwards;
 }
-
+/* TODO fix this garbage */
 .thumbIcons,
 .trackIcons {
   display: grid;
@@ -206,19 +205,19 @@
   --br: var(--br-sm);
 }
 .root[data-size="sm"] {
-  --fs: var(--fs-sm);
+  --fs: var(--fs-md);
   --size: 24px;
-  --br: var(--br-sm);
+  --br: var(--br-md);
 }
 .root[data-size="lg"] {
   --fs: var(--fs-lg);
   --size: 32px;
-  --br: var(--br-lg);
+  --br: var(--br-xl);
 }
 .root[data-size="xl"] {
   --fs: var(--fs-xl);
   --size: 36px;
-  --br: var(--br-lg);
+  --br: var(--br-xl);
 }
 
 /* Colors */

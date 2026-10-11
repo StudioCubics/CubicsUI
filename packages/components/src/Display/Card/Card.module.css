@@ -2,11 +2,13 @@
   --bg: var(--color-surface);
   --br: var(--br-md);
   --size: var(--gap-4);
+  --fs: var(--fs-md);
   display: flex;
   flex-direction: column;
   isolation: isolate;
   border-radius: var(--br);
   color: var(--color, var(--color-on-background));
+  font-size: var(--fs);
 }
 .root.fullWidth {
   width: 100%;
@@ -52,22 +54,22 @@
 .root[data-size="xs"] {
   --size: var(--gap);
   --br: var(--br-sm);
+  --fs: var(--fs-xs);
 }
 .root[data-size="sm"] {
   --size: var(--gap-2);
   --br: var(--br-sm);
-}
-.root[data-size="md"] {
-  --size: var(--gap-4);
-  --br: var(--br-md);
+  --fs: var(--fs-sm);
 }
 .root[data-size="lg"] {
   --size: var(--gap-6);
   --br: var(--br-lg);
+  --fs: var(--fs-lg);
 }
 .root[data-size="xl"] {
   --size: var(--gap-8);
   --br: var(--br-xl);
+  --fs: var(--fs-xl);
 }
 /* Card colors */
 .root[data-color="primary"] {

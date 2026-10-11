@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactElement } from "react";
 import { cn } from "@cubicsui/utils";
-import styles from "./CheckboxIcon.module.css";
+import styles from "./CheckboxIcons.module.css";
 
 export function CheckIconAnimated(props: ComponentProps<"svg">): ReactElement {
   const { width = 24, height = width, ...rest } = props;

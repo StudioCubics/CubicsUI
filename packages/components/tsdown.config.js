@@ -18,8 +18,6 @@ export default defineConfig({
       "react-dom",
       "@types/react",
       "@types/react-dom",
-      "@studiocubics/utils",
-      "@studiocubics/hooks",
       /\.module\.css$/,
     ],
   },

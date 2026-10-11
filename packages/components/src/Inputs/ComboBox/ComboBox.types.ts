@@ -84,24 +84,47 @@ export interface ComboBoxSlotProps extends InputFieldSlotProps {
   list?: ListProps;
 }
 export type UseComboBoxReturns<T> = {
+  /** Value of the input element */
   inputValue: string;
+  /** To set the value of the input element */
   setInputValue: SetState<string>;
+  /** If the options popover is shown or not */
   popoverActive: boolean;
+  /** Open or close the options popover */
   setPopoverActive: SetState<boolean>;
+  /** The index of the element that is selected when navigating with keyboard */
   activeIndex?: number;
+  /** The ref of the input element */
   inputRef: RefObject<HTMLInputElement | null>;
+  /** The selected options */
   selected: T[];
+  /** Get the key that identifies the option */
   getOptionKey: (o: ComboBoxOption<T>) => T;
+  /** Handles an option being selected */
   handleSelect: (option: ComboBoxOption<T>, inputId: string) => void;
+  /** Handles removing a chip */
   removeChip: (val: T) => void;
+  /** Handles changes to the input element */
   handleInputChange: (raw: string) => void;
+  /** The function use to filter the options */
   filterOptions: (items: { type?: string; children?: unknown }[]) => {
     type?: string;
     children?: unknown;
   }[];
+  /** Filters selectable options */
   filterSelectableOptions: () => ComboBoxOption<T>[];
+  /** Attach to the input element to handle arrow and enter navigation */
   handleKeyDown: (
     e: React.KeyboardEvent<HTMLInputElement>,
     inputId: string,
   ) => void;
+};
+
+export type ComboBoxChipsProps<T> = Pick<
+  UseComboBoxReturns<T>,
+  "selected" | "getOptionKey" | "removeChip"
+> & {
+  options: ComboBoxOption<T>[];
+  name: ComboBoxProps<T>["name"];
+  size: ComboBoxProps<T>["size"];
 };

@@ -76,9 +76,11 @@
 }
 
 /* Hover Styles */
-.root:not(:disabled):hover {
-  color: var(--color-hover);
-  background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+@media (hover: hover) {
+  .root:not(:disabled):hover {
+    color: var(--color-hover);
+    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+  }
 }
 /* Disabled styles */
 .root:disabled,

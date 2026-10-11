@@ -27,7 +27,7 @@ export function Hook() {
       >
         <CardHeader
           title={"Pointer will turn to error color when hovering on this"}
-          action={
+          actions={
             <Button size="sm" color="error" variant="contained">
               Delete
             </Button>
@@ -50,7 +50,7 @@ export function Hook() {
       >
         <CardHeader
           title={"Pointer will dissapear when hovering on this"}
-          action={
+          actions={
             <Button size="sm" variant="contained">
               Magic
             </Button>

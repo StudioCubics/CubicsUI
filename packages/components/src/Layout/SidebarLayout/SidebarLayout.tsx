@@ -8,41 +8,30 @@ import {
   type Context,
   useState,
 } from "react";
-import { cn, isServer, notImplemented } from "@cubicsui/utils";
+import { cn, isServer } from "@cubicsui/utils";
 import type {
-  SidebarLayoutSharedProps,
   SidebarLayoutContextProps,
   SidebarLayoutProps,
 } from "./SidebarLayout.types";
+import styles from "./SidebarLayout.module.css";
+import { SidebarScript } from "./SidebarScript";
 
-const SIDEBAR_LAYOUT_DEFAULTS: Required<SidebarLayoutSharedProps> = {
+const SIDEBAR_LAYOUT_DEFAULTS = {
   id: "MAIN",
   defaultClosed: false,
   closesTo: "shortened",
   variant: "contained",
   size: "md",
   type: "flex",
-  sidebarPosition: "left",
-};
-import styles from "./SidebarLayout.module.css";
-import { SidebarScript } from "./SidebarScript";
+  side: "left",
+} satisfies Omit<SidebarLayoutProps, "children">;
 
 function getInitialSidebarOpen(defaultClosed?: boolean): boolean {
   return defaultClosed ? !defaultClosed : true;
 }
 
-export const SidebarLayoutContext: Context<SidebarLayoutContextProps> =
-  createContext<SidebarLayoutContextProps>({
-    sidebarOpen: false,
-    toggleSidebar: notImplemented,
-    defaultClosed: SIDEBAR_LAYOUT_DEFAULTS.defaultClosed,
-    id: SIDEBAR_LAYOUT_DEFAULTS.id,
-    closesTo: SIDEBAR_LAYOUT_DEFAULTS.closesTo,
-    variant: SIDEBAR_LAYOUT_DEFAULTS.variant,
-    size: SIDEBAR_LAYOUT_DEFAULTS.size,
-    type: SIDEBAR_LAYOUT_DEFAULTS.type,
-    sidebarPosition: SIDEBAR_LAYOUT_DEFAULTS.sidebarPosition,
-  });
+export const SidebarLayoutContext: Context<SidebarLayoutContextProps | null> =
+  createContext<SidebarLayoutContextProps | null>(null);
 
 export function useSidebarLayout(): SidebarLayoutContextProps {
   const c = useContext(SidebarLayoutContext);
@@ -60,10 +49,11 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
     variant = SIDEBAR_LAYOUT_DEFAULTS.variant,
     size = SIDEBAR_LAYOUT_DEFAULTS.size,
     type = SIDEBAR_LAYOUT_DEFAULTS.type,
-    sidebarPosition = SIDEBAR_LAYOUT_DEFAULTS.sidebarPosition,
+    side = SIDEBAR_LAYOUT_DEFAULTS.side,
+    slotProps = {},
   } = props;
 
-  const storageKey = `${id}-sidebarOpen`;
+  const storageKey = `sidebarOpen-${id}`;
   const [sidebarOpen, setSidebarOpen] = useState(() =>
     getInitialSidebarOpen(defaultClosed),
   );
@@ -90,19 +80,28 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
   }
   return (
     <SidebarLayoutContext.Provider
-      value={{
-        sidebarOpen,
-        toggleSidebar,
-        sidebarPosition,
-        closesTo,
-        variant,
-        size,
-        type,
-        defaultClosed,
-        id,
-      }}
+      value={
+        {
+          sidebarOpen,
+          toggleSidebar,
+          side,
+          closesTo,
+          variant,
+          size,
+          type,
+          defaultClosed,
+          id,
+        } as Required<SidebarLayoutContextProps>
+      }
     >
+      <SidebarScript
+        {...slotProps.script}
+        storageKey={storageKey}
+        defaultClosed={defaultClosed}
+        containerId={id}
+      />
       <div
+        {...slotProps.root}
         suppressHydrationWarning
         id={id}
         data-size={size}
@@ -114,11 +113,6 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
         )}
       >
         {children}
-        <SidebarScript
-          storageKey={storageKey}
-          defaultClosed={defaultClosed}
-          containerId={id}
-        />
       </div>
     </SidebarLayoutContext.Provider>
   );

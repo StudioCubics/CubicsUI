@@ -1,0 +1,40 @@
+.root {
+  --size: var(--gap-2);
+  --br: var(--br-md);
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  border-radius: var(--br);
+  overflow: hidden;
+}
+.header {
+  background: var(--color-surface-highest);
+  padding: var(--size);
+  font-family: var(--font-h);
+  font-size: var(--fs-sm);
+  color: var(--color-on-surface);
+}
+.main {
+  position: relative;
+  flex: 1;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  z-index: 2;
+  padding: var(--size);
+  pointer-events: none;
+}
+.overlayActions {
+  pointer-events: all;
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  gap: var(--size);
+  & > * {
+    color: var(--color-on-background-low);
+  }
+}

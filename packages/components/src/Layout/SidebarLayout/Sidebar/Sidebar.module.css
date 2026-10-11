@@ -1,7 +1,7 @@
 .root {
-  width: var(--sidebar-closed-width);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: var(--size);
   height: 100%;
   border-radius: var(--br);
@@ -14,12 +14,23 @@
 .root[data-open="true"] {
   width: var(--sidebar-open-width);
 }
+.root[data-open="false"] {
+  width: var(--sidebar-closed-width);
+}
 .type_float {
   position: absolute;
   height: 100%;
-  left: 0;
-  &:not(.root[data-open="true"]) {
-    right: 110%;
+  &.side_left {
+    left: 0;
+    &[data-open="false"] {
+      right: 110%;
+    }
+  }
+  &.side_right {
+    right: 0;
+    &[data-open="false"] {
+      right: 0;
+    }
   }
 }
 .type_flex {
@@ -27,7 +38,7 @@
 }
 /* ClosesTo */
 .closesTo_full {
-  &:not(.root[data-open="true"]) {
+  &[data-open="false"] {
     --sidebar-closed-width: 0;
     border: none;
   }

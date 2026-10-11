@@ -84,8 +84,8 @@ export type ListItemTypeItemProps<H extends ListDefaultHrefType = string> =
       className?: string;
       /**Icon at the start of the list item */
       icon?: ReactNode;
-      /** Action at the end of the list item for type collapsible the action is the drop down button */
-      action?: ReactNode;
+      /** Actions at the end of the list item for type collapsible the action is the drop down button */
+      actions?: ReactNode;
       /** If the list item should be styled to look disabled */
       disabled?: boolean;
       /** If the list item should be styled to look selected */
