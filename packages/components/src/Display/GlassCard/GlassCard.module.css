@@ -8,8 +8,8 @@
   --reflection-intensity: 1;
   --mouse-x: -9999;
   --mouse-y: -9999;
-  --internal-reflection: color-mix(in srgb, var(--tint) 10%, transparent);
-  --source-light: color-mix(in srgb, var(--tint) 30%, transparent);
+  --internal-reflection: color-mix(in srgb, var(--tint) 20%, transparent);
+  --source-light: color-mix(in srgb, var(--tint) 40%, transparent);
 
   isolation: isolate;
   border-radius: var(--br);

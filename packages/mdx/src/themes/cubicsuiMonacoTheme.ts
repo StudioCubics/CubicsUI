@@ -4,7 +4,7 @@ import type { Monaco } from "@monaco-editor/react";
 type ThemeData = Parameters<Monaco["editor"]["defineTheme"]>[1];
 
 // ─── Palette (Light) ──────────────────────────────────────────────────────────
-// Background  #e6dbde  main editor background
+// Background  #f5f0f1  main editor background
 // CurrentLine #828288  current-line highlight / comments (shared)
 // Selection   #e6dbde  text selection
 // Foreground  #313133  default text
@@ -13,7 +13,7 @@ type ThemeData = Parameters<Monaco["editor"]["defineTheme"]>[1];
 // Yellow      #846E15  strings, text content
 // Green       #4faa78  functions, methods
 // Cyan        #514faa  classes, types, support
-// Purple      #7a3bcb  instance reserved words (this/self/super)
+// Purple      #7a3bcb  instance reserved words (this/self/super) — italic
 // Pink        #de599c  keywords, storage types
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -22,7 +22,7 @@ export const cubicsuiLightTheme: ThemeData = {
   inherit: true,
   colors: {
     // ── Editor chrome ──────────────────────────────────────────────────────
-    "editor.background": "#e6dbde",
+    "editor.background": "#f5f0f1",
     "editor.foreground": "#313133",
     "editor.selectionBackground": "#e6dbde",
     "editor.lineHighlightBackground": "#eedde2",
@@ -40,11 +40,11 @@ export const cubicsuiLightTheme: ThemeData = {
     "editorWarning.foreground": "#A34D14",
 
     // ── Widgets ───────────────────────────────────────────────────────────
-    "editorSuggestWidget.background": "#e6dbde",
+    "editorSuggestWidget.background": "#f5f0f1",
     "editorSuggestWidget.foreground": "#313133",
     "editorSuggestWidget.selectedBackground": "#e6dbde",
-    "editorWidget.background": "#e6dbde",
-    "editorHoverWidget.background": "#e6dbde",
+    "editorWidget.background": "#f5f0f1",
+    "editorHoverWidget.background": "#f5f0f1",
     "editorHoverWidget.border": "#828288",
 
     // ── Diff editor ───────────────────────────────────────────────────────
@@ -58,7 +58,7 @@ export const cubicsuiLightTheme: ThemeData = {
     errorForeground: "#b3261e",
 
     // ── Input ─────────────────────────────────────────────────────────────
-    "input.background": "#e6dbde",
+    "input.background": "#f5f0f1",
     "input.border": "#828288",
     "input.foreground": "#313133",
     "input.placeholderForeground": "#828288",
@@ -195,7 +195,7 @@ export const cubicsuiLightTheme: ThemeData = {
 };
 
 // ─── Palette (Dark) ───────────────────────────────────────────────────────────
-// Background   #272731  main editor background
+// Background   #0f0f13  main editor background
 // CurrentLine  #19191d  current-line highlight
 // Selection    #19191d  text selection
 // Foreground   #d9d9da  default text
@@ -214,7 +214,7 @@ export const cubicsuiDarkTheme: ThemeData = {
   inherit: true,
   colors: {
     // ── Editor chrome ──────────────────────────────────────────────────────
-    "editor.background": "#272731",
+    "editor.background": "#0f0f13",
     "editor.foreground": "#d9d9da",
     "editor.selectionBackground": "#19191d",
     "editor.selectionHighlightBackground": "#272731",
@@ -243,7 +243,7 @@ export const cubicsuiDarkTheme: ThemeData = {
     "editorGutter.addedBackground": "#50FA7B80",
     "editorGutter.deletedBackground": "#e6949080",
     "editorGutter.modifiedBackground": "#9a97e680",
-    "editorOverviewRuler.border": "#272731",
+    "editorOverviewRuler.border": "#0f0f13",
     "editorOverviewRuler.addedForeground": "#50FA7B80",
     "editorOverviewRuler.deletedForeground": "#e6949080",
     "editorOverviewRuler.modifiedForeground": "#9a97e680",
@@ -251,14 +251,14 @@ export const cubicsuiDarkTheme: ThemeData = {
     "editorOverviewRuler.warningForeground": "#FFB86C80",
 
     // ── Widgets ───────────────────────────────────────────────────────────
-    "editorHoverWidget.background": "#272731",
+    "editorHoverWidget.background": "#0f0f13",
     "editorHoverWidget.border": "#8c8c93",
     "editorSuggestWidget.background": "#19191d",
     "editorSuggestWidget.foreground": "#d9d9da",
     "editorSuggestWidget.selectedBackground": "#19191d",
     "editorWidget.background": "#19191d",
     "editorGroup.border": "#bc9de6",
-    "editorGroupHeader.tabsBackground": "#272731",
+    "editorGroupHeader.tabsBackground": "#0f0f13",
 
     // ── Diff editor ───────────────────────────────────────────────────────
     "diffEditor.insertedTextBackground": "#50FA7B20",
@@ -272,8 +272,8 @@ export const cubicsuiDarkTheme: ThemeData = {
     "progressBar.background": "#e6a8c7",
 
     // ── Input ─────────────────────────────────────────────────────────────
-    "input.background": "#272731",
-    "input.border": "#272731",
+    "input.background": "#0f0f13",
+    "input.border": "#0f0f13",
     "input.foreground": "#d9d9da",
     "input.placeholderForeground": "#8c8c93",
 

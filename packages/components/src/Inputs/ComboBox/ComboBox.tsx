@@ -4,10 +4,9 @@ import { useId, type ReactElement } from "react";
 import { InputField } from "../InputField/InputField";
 import type { InputFieldProps } from "../InputField/InputField.types";
 import type { ComboBoxOption, ComboBoxProps } from "./ComboBox.types";
-import { cn, mergeRefs } from "@cubicsui/utils";
+import { cn, mergeEvents, mergeRefs } from "@cubicsui/utils";
 import { Popover } from "../../Layout/Popover/Popover";
 import styles from "./ComboBox.module.css";
-import { eventWithRipple } from "../../Misc/Ripple/Ripple";
 import { List } from "../../Display/List/List";
 import type { ListItemProps } from "../../Display/List/List.types";
 import { ListItem } from "../../Display/List/ListItem/ListItem";
@@ -169,7 +168,7 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
               popoverTarget={`popover-${inputId}`}
               disabled={disabled}
               onClick={(_) => {
-                eventWithRipple(createRipple);
+                mergeEvents(createRipple);
                 setPopoverActive(!popoverActive);
                 inputRef.current?.focus();
                 inputRef.current?.select();
@@ -178,7 +177,6 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
                 inputRef.current?.focus();
                 inputRef.current?.select();
               }}
-              onTouchStart={eventWithRipple(createRipple)}
             ></button>
 
             <input

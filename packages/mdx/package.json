@@ -36,14 +36,14 @@
     "clean": "rimraf dist node_modules"
   },
   "peerDependencies": {
-    "@cubicsui/components": "workspace:^",
-    "@cubicsui/hooks": "workspace:^",
-    "@cubicsui/icons": "workspace:^",
-    "@cubicsui/utils": "workspace:^",
     "react": ">= 19",
     "react-dom": ">= 19"
   },
   "dependencies": {
+    "@cubicsui/components": "workspace:^",
+    "@cubicsui/hooks": "workspace:^",
+    "@cubicsui/icons": "workspace:^",
+    "@cubicsui/utils": "workspace:^",
     "@monaco-editor/react": "^4.7.0",
     "gray-matter": "^4.0.3",
     "next-mdx-remote-client": "^2.1.12",

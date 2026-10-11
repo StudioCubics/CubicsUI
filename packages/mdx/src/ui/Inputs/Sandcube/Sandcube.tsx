@@ -1,14 +1,8 @@
 import { Children, isValidElement, type ReactNode } from "react";
 import { extractText } from "@cubicsui/utils";
 import type { SandcubeFileProps } from "./SandcubeFile";
-import { SandcubeClient, type SandcubeClientFile } from "./SandcubeClient";
-
-export interface SandcubeProps {
-  children: ReactNode;
-  title?: string;
-  // Path of the file that renders the demo
-  entry?: string;
-}
+import { SandcubeClient } from "./SandcubeClient";
+import type { SandcubeClientFile, SandcubeProps } from "./Sandcube.types";
 
 export function Sandcube({ children, title, entry }: SandcubeProps) {
   // Runs on the server, where the fenced code is still a plain element tree

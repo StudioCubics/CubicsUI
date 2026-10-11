@@ -58,8 +58,14 @@ export interface SidebarScriptProps extends ComponentProps<"script"> {
 }
 
 export interface SidebarOverflowProps {
-  /** Enables effect for persisting scroll position in localStorage cause fucking chromium cant remember the scroll position of the viewport */
+  /** Enables effect for persisting scroll position in localStorage cause chromium cant remember the scroll position of the viewport
+   * @default false
+   */
   persistScrollPosition?: boolean;
+}
+export interface SidebarBgProps {
+  /** Removes the background surface */
+  removeBg?: boolean;
 }
 export interface SidebarShowProps {
   /** Shows the content of the sidebarBody only when the sidebar is open
@@ -68,7 +74,9 @@ export interface SidebarShowProps {
   showOnClose?: boolean;
 }
 
-export type SidebarProps = ComponentProps<"aside"> & { children: ReactNode };
+export type SidebarProps = ComponentProps<"aside"> & {
+  children: ReactNode;
+} & SidebarBgProps;
 export interface SidebarHeaderProps extends ComponentProps<"div"> {
   children?: ReactNode;
   /** Brand logo or title of the sidebar */
@@ -80,4 +88,6 @@ export interface SidebarHeaderProps extends ComponentProps<"div"> {
 export type SidebarBodyProps = ComponentProps<"div"> &
   SidebarShowProps &
   SidebarOverflowProps;
-export type SidebarViewportProps = ComponentProps<"div"> & SidebarOverflowProps;
+export type SidebarViewportProps = ComponentProps<"div"> &
+  SidebarOverflowProps &
+  SidebarBgProps;

@@ -1,8 +1,7 @@
 "use client";
 
 import { useId, type ReactElement } from "react";
-import { cn } from "@cubicsui/utils";
-import { eventWithRipple } from "../../Misc/Ripple/Ripple";
+import { cn, mergeEvents } from "@cubicsui/utils";
 import { InputField } from "../InputField/InputField";
 import type { SelectProps } from "./Select.types";
 import type { InputFieldProps } from "../InputField/InputField.types";
@@ -65,8 +64,7 @@ export function Select(props: SelectProps): ReactElement {
         <select
           id={id}
           className={cn(className, styles.input)}
-          onTouchStart={eventWithRipple(createRipple, onTouchStart)}
-          onClick={eventWithRipple(createRipple, onClick)}
+          onClick={mergeEvents(createRipple, onClick)}
           aria-invalid={!!error}
           size={htmlSize}
           multiple={multiple}

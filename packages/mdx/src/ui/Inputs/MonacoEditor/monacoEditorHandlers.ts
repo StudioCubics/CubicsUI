@@ -1,7 +1,7 @@
 import {
   cubicsuiDarkTheme,
   cubicsuiLightTheme,
-} from "../../../themes/cubicsui-monaco";
+} from "../../../themes/cubicsuiMonacoTheme";
 import type { Monaco } from "@monaco-editor/react";
 import { registerJsxTokenizer } from "./monacoJSXTokenizer";
 

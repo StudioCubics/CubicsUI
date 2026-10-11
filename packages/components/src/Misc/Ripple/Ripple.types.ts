@@ -38,4 +38,3 @@ export interface Ripple {
   y: number;
   blur: number;
 }
-export type RippleEventHandler<T = unknown> = (event: T) => void;

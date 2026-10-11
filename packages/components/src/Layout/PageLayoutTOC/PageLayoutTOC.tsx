@@ -38,6 +38,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
     >
       <SidebarViewport
         {...slotProps.sidebarViewport}
+        removeBg
         className={cn(slotProps.sidebarViewport?.className, styles.content)}
         ref={mergeRefs(slotProps.sidebarViewport?.ref, scrollContainerRef)}
       >
@@ -55,7 +56,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
         </div>
       </SidebarViewport>
       {!!tree.length && (
-        <Sidebar>
+        <Sidebar removeBg>
           <SidebarHeader
             sidebarToggle={
               <SidebarToggle>

@@ -1,37 +1,14 @@
 "use client";
 
-import { Editor, type EditorProps } from "@monaco-editor/react";
-import {
-  Tab,
-  Tabs,
-  TabsBar,
-  type TabProps,
-  type TabsBarProps,
-  type TabsProps,
-} from "@cubicsui/components";
-import { type ComponentProps, type CSSProperties } from "react";
+import { Editor } from "@monaco-editor/react";
+import { Tab, Tabs, TabsBar } from "@cubicsui/components";
 import {
   handleEditorBeforeMount,
   handleEditorOnMount,
 } from "./monacoEditorHandlers";
 import { useTheme } from "@cubicsui/components";
-
-export type MonacoEditorProps = {
-  name?: string;
-  id?: string;
-  height?: CSSProperties["height"];
-  tabsMgr?: {
-    activeFile?: string;
-    visibleFiles?: string[];
-    setActiveFile?: (path: string) => void;
-  };
-  slotProps?: {
-    root?: ComponentProps<"div">;
-    tabs?: TabsProps;
-    tabsBar?: TabsBarProps;
-    tab?: TabProps;
-  };
-} & EditorProps;
+import type { MonacoEditorProps } from "./MonacoEditor.types";
+import styles from "./MonacoEditor.module.css";
 
 export function MonacoEditor(props: MonacoEditorProps) {
   const { resolvedTheme } = useTheme();
@@ -42,13 +19,13 @@ export function MonacoEditor(props: MonacoEditorProps) {
     id && activeFile ? `${id}-${activeFile}` : id ? id : activeFile;
 
   return (
-    <div {...slotProps.root} style={{ ...slotProps.root?.style, height }}>
+    <div {...slotProps.root}>
       <Tabs
         {...slotProps.tabs}
         defaultTab={slotProps.tabs?.defaultTab ?? tabsMgr?.activeFile}
       >
         {tabsMgr?.visibleFiles && tabsMgr.visibleFiles.length > 1 && (
-          <TabsBar size="sm" renderGlider {...slotProps.tabsBar}>
+          <TabsBar renderGlider {...slotProps.tabsBar}>
             {tabsMgr?.visibleFiles.map((file) => (
               <Tab
                 {...slotProps.tab}
@@ -66,12 +43,17 @@ export function MonacoEditor(props: MonacoEditorProps) {
           path={modelPath}
           onMount={handleEditorOnMount}
           beforeMount={handleEditorBeforeMount}
+          height={height}
+          className={styles.editor}
           {...rest}
           options={{
             minimap: { enabled: false },
             fontFamily: "var(--font-code)",
             fontSize: 14,
             fontLigatures: true,
+            scrollbar: {
+              alwaysConsumeMouseWheel: false,
+            },
             ...rest.options,
           }}
         />

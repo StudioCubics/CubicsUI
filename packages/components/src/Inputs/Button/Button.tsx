@@ -2,8 +2,8 @@
 
 import type { PolymorphicComponentType } from "@cubicsui/types";
 import { type ElementType, type ReactElement } from "react";
-import { eventWithRipple, useRipple } from "../../Misc/Ripple/Ripple";
-import { cn } from "@cubicsui/utils";
+import { useRipple } from "../../Misc/Ripple/Ripple";
+import { cn, mergeEvents } from "@cubicsui/utils";
 import type { ButtonBaseProps, ButtonProps } from "./Button.types";
 import styles from "./Button.module.css";
 
@@ -41,7 +41,7 @@ function ButtonBase<C extends ElementType = "button">(
       variant && styles[`variant_${variant}`],
       align && styles[`align_${align}`],
     ),
-    onClick: eventWithRipple(createRipple, onClick),
+    onClick: mergeEvents(createRipple, onClick),
     "data-color": color,
     "data-size": size,
     disabled,

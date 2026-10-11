@@ -5,35 +5,10 @@ import * as CubicsUI from "@cubicsui/components";
 import { useMemo, useState, type ComponentType } from "react";
 import { LiveError, LivePreview, LiveProvider } from "react-live";
 import { transform } from "sucrase";
-import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
+import { MonacoEditor } from "../MonacoEditor/MonacoEditor";
 import { useMounted } from "@cubicsui/hooks";
 import styles from "./Sandcube.module.css";
-
-export interface SandcubeClientFile {
-  path: string;
-  code: string;
-  hidden?: boolean;
-  readOnly?: boolean;
-}
-
-export interface SandcubeClientProps {
-  files: SandcubeClientFile[];
-  title?: string;
-  // Path of the file that renders the demo
-  entry?: string;
-}
-
-interface SandcubeFileState {
-  code: string;
-  // Not shown in the tabs
-  hidden: boolean;
-  // Not editable in the editor
-  readOnly: boolean;
-  // Original code, for reset / "modified" indicators
-  initialCode: string;
-}
-
-type SandcubeFiles = Record<string, SandcubeFileState>;
+import type { SandcubeClientProps, SandcubeFiles } from "./Sandcube.types";
 
 // Packages available to every demo by default
 const baseImports: Record<string, unknown> = {

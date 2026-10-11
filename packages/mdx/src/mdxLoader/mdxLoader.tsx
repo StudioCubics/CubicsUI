@@ -7,7 +7,7 @@ import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
 import { components } from "../components";
-import type { ListItemProps } from "@cubicsui/components";
+import type { ListDefaultHrefType, ListItemProps } from "@cubicsui/components";
 import type {
   MDXFrontmatter,
   MDXLoaderProps,
@@ -113,18 +113,18 @@ export function mdxLoader(props: MDXLoaderProps) {
     }
   }
 
-  async function buildNodes(
+  async function buildNodes<T extends ListDefaultHrefType>(
     node: TrieNode,
     pathSegments: string[],
     baseHref: string,
-  ): Promise<ListItemProps[]> {
+  ): Promise<ListItemProps<T>[]> {
     const folderPath = pathSegments.join("/");
     const meta = await safeReadMeta(folderPath);
     // No meta.tsx (or it threw) → fall back to every child, alphabetically.
     // With meta.tsx → only ids listed in `order`, in that order.
     const ids = meta?.order ?? Array.from(node.children.keys()).sort();
 
-    const items: ListItemProps[] = [];
+    const items: ListItemProps<T>[] = [];
     for (const id of ids) {
       const child = node.children.get(id);
       if (!child) continue; // id in order but no matching file/folder
@@ -143,7 +143,7 @@ export function mdxLoader(props: MDXLoaderProps) {
           href: child.isPage ? `${baseHref}/${slug}` : undefined,
           children: frontmatter.title ?? toCapitalised(id),
           ...extraProps,
-        } as ListItemProps);
+        } as ListItemProps<T>);
       } else {
         // Leaf → actual page.
         const frontmatter = await readFrontmatter(slug);
@@ -152,7 +152,7 @@ export function mdxLoader(props: MDXLoaderProps) {
           href: `${baseHref}/${slug}`,
           children: frontmatter.title ?? id,
           ...extraProps,
-        } as ListItemProps);
+        } as ListItemProps<T>);
       }
     }
     return items;
@@ -164,7 +164,9 @@ export function mdxLoader(props: MDXLoaderProps) {
    * `readMeta` is provided and resolves for that folder).
    * @param baseHref - URL prefix prepended to each page's href, e.g. `"/docs"`.
    */
-  async function getPageTree(baseHref: string): Promise<ListItemProps[]> {
+  async function getPageTree<T extends ListDefaultHrefType>(
+    baseHref: string,
+  ): Promise<ListItemProps<T>[]> {
     const trie = buildTrie(pageSlugs);
     return buildNodes(trie, [], baseHref);
   }

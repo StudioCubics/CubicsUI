@@ -13,6 +13,7 @@ export function SidebarViewport(props: SidebarViewportProps): ReactElement {
     className,
     ref,
     persistScrollPosition = false,
+    removeBg = false,
     ...rest
   } = props;
   const { closesTo, variant, type, side, id } = useSidebarLayout();
@@ -29,6 +30,7 @@ export function SidebarViewport(props: SidebarViewportProps): ReactElement {
       className={cn(
         className,
         styles.root,
+        removeBg && styles.removeBg,
         closesTo && styles[`closesTo_${closesTo}`],
         variant && styles[`variant_${variant}`],
         type && styles[`type_${type}`],

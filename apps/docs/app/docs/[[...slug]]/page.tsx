@@ -9,7 +9,6 @@ export default async function Page({ params }: PageProps<"/docs/[[...slug]]">) {
   if (!source) notFound();
   const { content, frontmatter, scope, error } = source;
   if (error) throw error;
-  console.log("toc", frontmatter.toc);
 
   if (frontmatter.toc)
     return (

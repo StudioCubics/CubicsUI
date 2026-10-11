@@ -1,9 +1,8 @@
 "use client";
 
 import { useId, useState, type ReactElement } from "react";
-import { cn } from "@cubicsui/utils";
+import { cn, mergeEvents } from "@cubicsui/utils";
 import { InputField } from "../InputField/InputField";
-import { eventWithRipple } from "../../Misc/Ripple/Ripple";
 import type { InputFieldProps } from "../InputField/InputField.types";
 import type { PasswordInputProps } from "./PasswordInput.types";
 import { PasswordStrengthMeter } from "./PasswordStrengthMeter/PasswordStrengthMeter";
@@ -74,8 +73,7 @@ export function PasswordInput(props: PasswordInputProps): ReactElement {
               type={showPass ? "text" : "password"}
               id={inputId}
               className={cn(className, styles.input)}
-              onTouchStart={eventWithRipple(createRipple, onTouchStart)}
-              onClick={eventWithRipple(createRipple, onClick)}
+              onClick={mergeEvents(createRipple, onClick)}
               aria-invalid={!!error}
               aria-describedby={descriptionId}
               size={htmlSize}

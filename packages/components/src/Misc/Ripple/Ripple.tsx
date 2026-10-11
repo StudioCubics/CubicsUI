@@ -6,32 +6,11 @@ import type {
   FocusEvent,
   MouseEvent,
   RefObject,
-  SyntheticEvent,
   TouchEvent,
 } from "react";
 import { useCallback, useState } from "react";
-import type {
-  Ripple,
-  RippleEventHandler,
-  UseRippleProps,
-  UseRippleReturns,
-} from "./Ripple.types";
+import type { Ripple, UseRippleProps, UseRippleReturns } from "./Ripple.types";
 import styles from "./Ripple.module.css";
-
-/**
- * Utitlity function to augment the trigger event with any other function
- */
-export function eventWithRipple<
-  E extends SyntheticEvent<HTMLElement> = SyntheticEvent<HTMLElement>,
->(
-  createRipple: (event: E) => void,
-  ...handlers: (RippleEventHandler<E> | undefined)[]
-) {
-  return (event: E): void => {
-    createRipple?.(event);
-    for (const h of handlers) h?.(event);
-  };
-}
 
 /**
  * Use to add ripples to any components triggered by any event

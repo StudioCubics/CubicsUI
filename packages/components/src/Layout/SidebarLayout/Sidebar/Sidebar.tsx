@@ -7,7 +7,7 @@ import styles from "./Sidebar.module.css";
 import type { SidebarProps } from "../SidebarLayout.types";
 
 export function Sidebar(props: SidebarProps): ReactElement {
-  const { children, ...rest } = props;
+  const { children, removeBg = false, ...rest } = props;
   const { sidebarOpen, size, side, closesTo, variant, type } =
     useSidebarLayout();
 
@@ -20,6 +20,7 @@ export function Sidebar(props: SidebarProps): ReactElement {
       data-open={sidebarOpen}
       className={cn(
         styles.root,
+        removeBg && styles.removeBg,
         closesTo && styles[`closesTo_${closesTo}`],
         variant && styles[`variant_${variant}`],
         type && styles[`type_${type}`],

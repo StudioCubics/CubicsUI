@@ -2,8 +2,7 @@
 
 import { useId, type ReactElement } from "react";
 import { InputField } from "../InputField/InputField";
-import { eventWithRipple } from "../../Misc/Ripple/Ripple";
-import { cn } from "@cubicsui/utils";
+import { cn, mergeEvents } from "@cubicsui/utils";
 import type { TextInputProps } from "./TextInput.types";
 import type { InputFieldProps } from "../InputField/InputField.types";
 import styles from "./TextInput.module.css";
@@ -63,8 +62,7 @@ export function TextInput(props: TextInputProps): ReactElement {
             type={type}
             id={inputId}
             className={cn(className, styles.input)}
-            onTouchStart={eventWithRipple(createRipple, onTouchStart)}
-            onClick={eventWithRipple(createRipple, onClick)}
+            onClick={mergeEvents(createRipple, onClick)}
             aria-invalid={!!error}
             aria-describedby={descriptionId}
             size={htmlSize}

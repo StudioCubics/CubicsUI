@@ -5,6 +5,9 @@
   border-radius: var(--br);
   background: var(--bg);
 }
+.removeBg {
+  background: none;
+}
 .root.variant_outlined {
   border: var(--border-width) solid var(--color-outline);
 }
