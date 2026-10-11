@@ -28,13 +28,18 @@
         "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       }
+    },
+    "./registry": {
+      "import": {
+        "types": "./dist/registry.d.mts",
+        "default": "./dist/registry.mjs"
+      }
     }
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "lint": "eslint .",
-    "clean": "rimraf dist node_modules"
+    "generate": "node ./generateRegistry.mjs",
+    "build": "pnpm generate && tsdown",
+    "dev": "pnpm generate && tsdown --watch"
   },
   "peerDependencies": {
     "react": ">= 19",

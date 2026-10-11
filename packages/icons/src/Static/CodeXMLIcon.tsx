@@ -1,6 +1,6 @@
-import type { ComponentProps } from "react";
-
-export function CodeXMLIcon(props: ComponentProps<"svg">) {
+export function CodeXMLIcon(
+  props: React.ComponentProps<"svg">,
+): React.ReactElement {
   const { width = 24, height = width, ...rest } = props;
   return (
     <svg
