@@ -15,3 +15,9 @@ export * from "./SidebarLayout/SidebarBody/SidebarBody";
 export * from "./SidebarLayout/SidebarHeader/SidebarHeader";
 export * from "./SidebarLayout/SidebarHeader/SidebarToggle";
 export * from "./SidebarLayout/SidebarLayout.types";
+
+export * from "./Table/Table";
+export * from "./Table/TableCell/TableCell";
+export * from "./Table/DataTable";
+export * from "./Table/TableHeader";
+export * from "./Table/Table.types";

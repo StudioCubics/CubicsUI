@@ -4,10 +4,11 @@ import {
   useCallback,
   useEffect,
   type KeyboardEvent,
+  type ToggleEvent,
 } from "react";
-import type { RolodexProps, UseRolodexReturn } from "./Rolodex.types";
+import type { RolodexProps, UseRolodexContextReturn } from "./Rolodex.types";
 
-export function useRolodexContext(props: RolodexProps): UseRolodexReturn {
+export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn {
   const {
     items,
     defaultValue,
@@ -16,6 +17,7 @@ export function useRolodexContext(props: RolodexProps): UseRolodexReturn {
     gap = 8,
     wheelStep = 100,
     onChange,
+    onClose,
   } = props;
   const [value, setValue] = useState(defaultValue ?? items[0]?.id);
   const [open, setOpen] = useState(false);
@@ -112,7 +114,15 @@ export function useRolodexContext(props: RolodexProps): UseRolodexReturn {
       shift(1);
     }
   }
-
+  // Runs for every way the popover can open or close (outside click, Escape, hidePopover())
+  function onPopoverToggle(e: ToggleEvent<HTMLDivElement>) {
+    const isOpen = e.newState === "open";
+    setOpen(isOpen);
+    if (!isOpen) {
+      delete e.currentTarget.dataset.ready;
+      if (activeItem) onClose?.(activeItem.id);
+    }
+  }
   // Non-passive listener so the page doesn't scroll behind the list
   useEffect(() => {
     const el = popoverRef.current;
@@ -158,5 +168,6 @@ export function useRolodexContext(props: RolodexProps): UseRolodexReturn {
     heightAt,
     offsetOf,
     onPopoverKeyDown,
+    onPopoverToggle,
   };
 }

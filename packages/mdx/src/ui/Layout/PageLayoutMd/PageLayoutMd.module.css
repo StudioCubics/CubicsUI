@@ -93,19 +93,6 @@
     border-radius: var(--radius, 6px);
   }
 
-  & table {
-    margin-top: var(--gap-3);
-    margin-bottom: var(--gap-7);
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  & th,
-  & td {
-    padding: var(--gap-3) var(--gap-5);
-    border: 1px solid var(--border-color, currentColor);
-  }
-
   & > *:first-child {
     margin-top: 0;
   }

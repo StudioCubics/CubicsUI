@@ -17,6 +17,7 @@ export function CopyButton(
     <Tooltip title={copied ? "Copied" : "Copy"} renderArrow>
       <Button
         {...rest}
+        icon
         onClick={(e) => {
           handleCopy();
           rest.onClick?.(e);

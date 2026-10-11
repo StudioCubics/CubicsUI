@@ -133,7 +133,7 @@ export function List(props: ListProps): ReactElement {
 
     const updateActiveNode = () => {
       const selectedNodes = root.querySelectorAll<HTMLElement>(
-        "li[data-selected='true']",
+        "[data-selected='true']",
       );
       const selectedNode =
         selectedNodes.length > 0

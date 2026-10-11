@@ -6,15 +6,13 @@ import type { Route } from "next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { PkgSelectorCard } from "../../Display/PkgSelectorCard";
-import { useEffect } from "react";
 
 export function SidebarBodyContent() {
   const pathname = usePathname();
   const router = useRouter();
-  const curr = pathname.split("/")[1];
-  useEffect(() => {
-    if (!curr) router.replace("/components");
-  }, [curr]);
+  const slug = pathname.split("/")[1];
+  const curr = Object.keys(siteMap).includes(slug) ? slug : "components";
+
   return (
     <div>
       <Rolodex

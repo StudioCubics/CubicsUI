@@ -17,6 +17,9 @@
 .root[data-open="false"] {
   width: var(--sidebar-closed-width);
 }
+.removeBg {
+  --bg: none;
+}
 .type_float {
   position: absolute;
   height: 100%;

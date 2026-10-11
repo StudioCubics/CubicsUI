@@ -12,7 +12,7 @@
   background: transparent;
   color: var(--color);
 }
-.surface:not(.disabled).isClickable {
+.surface:not(.disabled) {
   cursor: pointer;
   &:hover:not(:has(.dropdownToggle:hover)) {
     background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
@@ -114,13 +114,12 @@
   }
 }
 /* Selected styles */
-.root[data-selected="true"] {
-  & .surface {
-    background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
-    backdrop-filter: blur(var(--blur-light));
-    color: var(--color-selected);
-  }
-  & .surface:not(.disabled).isClickable {
+.surface[data-selected="true"] {
+  background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
+  backdrop-filter: blur(var(--blur-light));
+  color: var(--color-selected);
+
+  &:not(.disabled) {
     &:hover:not(:has(.dropdownToggle:hover)) {
       background: color-mix(in srgb, var(--bg-selected) 20%, transparent);
       color: var(--color);

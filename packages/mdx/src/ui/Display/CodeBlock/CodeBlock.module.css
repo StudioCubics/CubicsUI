@@ -5,7 +5,8 @@
   flex-direction: column;
   isolation: isolate;
   border-radius: var(--br);
-  overflow: hidden;
+  overflow: clip;
+  margin-block: var(--gap-10);
 }
 .header {
   background: var(--color-surface-highest);
@@ -25,8 +26,8 @@
   justify-content: flex-end;
   align-items: flex-end;
   z-index: 2;
-  padding: var(--size);
   pointer-events: none;
+  padding: var(--size);
 }
 .overlayActions {
   pointer-events: all;
@@ -34,6 +35,8 @@
   width: fit-content;
   height: fit-content;
   gap: var(--size);
+  position: sticky;
+  bottom: var(--size);
   & > * {
     color: var(--color-on-background-low);
   }

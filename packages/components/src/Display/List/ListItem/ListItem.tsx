@@ -77,7 +77,6 @@ export function ListItemTypeCollapsible(
     getCollapsed,
     toggleCollapsed,
   } = useList();
-  const isClickable = !disabled;
   const Component = (
     !!href ? (_LinkComponent ?? LinkComponent) : "div"
   ) as ElementType;
@@ -101,17 +100,12 @@ export function ListItemTypeCollapsible(
       className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
-      data-selected={selected}
       data-collapsed={collapsed}
       suppressHydrationWarning
     >
       <Component
-        className={cn(
-          className,
-          styles.surface,
-          disabled && styles.disabled,
-          isClickable && styles.isClickable,
-        )}
+        className={cn(className, styles.surface, disabled && styles.disabled)}
+        data-selected={selected}
         onClick={handleClick}
         href={href}
         {...rest}
@@ -215,7 +209,6 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
       className={cn(slotProps.root?.className, styles.root)}
       data-color={color}
       data-size={size}
-      data-selected={selected}
     >
       <Component
         className={cn(
@@ -224,6 +217,7 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
           disabled && styles.disabled,
           isClickable && styles.isClickable,
         )}
+        data-selected={selected}
         onClick={handleClick}
         href={href}
         {...rest}
