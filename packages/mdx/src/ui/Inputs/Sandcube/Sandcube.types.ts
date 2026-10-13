@@ -12,9 +12,9 @@ export interface SandcubeClientFile {
   path: string;
   /** The main codeblock */
   code: string;
-  /** If the file should be hidden in the tabs or not this file still exists in the context but wont show up in the tabs */
+  /** Not shown in the tabs */
   hidden?: boolean;
-  /** If the file should not be editable */
+  /** Not editable in the editor */
   readOnly?: boolean;
 }
 
