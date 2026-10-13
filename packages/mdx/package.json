@@ -30,7 +30,7 @@
     }
   },
   "scripts": {
-    "build": "tsdown --clean",
+    "build": "tsdown",
     "dev": "tsdown --watch",
     "lint": "eslint .",
     "clean": "rimraf dist node_modules"

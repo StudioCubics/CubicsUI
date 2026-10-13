@@ -8,9 +8,13 @@ export interface SandcubeProps {
   entry?: string;
 }
 export interface SandcubeClientFile {
+  /** The relative path from the root */
   path: string;
+  /** The main codeblock */
   code: string;
+  /** If the file should be hidden in the tabs or not this file still exists in the context but wont show up in the tabs */
   hidden?: boolean;
+  /** If the file should not be editable */
   readOnly?: boolean;
 }
 

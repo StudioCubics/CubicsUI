@@ -1,4 +1,5 @@
 import type { ListItemProps, TocItem } from "@cubicsui/components";
+import type { MDXComponents } from "next-mdx-remote-client";
 
 export type MDXScope = {
   readingTime?: string;
@@ -30,6 +31,8 @@ export interface MDXMeta {
 }
 
 export interface MDXLoaderProps {
+  /** Any components that need to overide the default components like `{ a: Link }` for using `next/link` instead of anchor tag */
+  components?: MDXComponents;
   /**
    * Path to the content root, relative to `process.cwd()`
    * Used only to walk the filesystem at init time and

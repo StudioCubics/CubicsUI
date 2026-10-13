@@ -1,4 +1,8 @@
-import { evaluate, type EvaluateOptions } from "next-mdx-remote-client/rsc";
+import {
+  evaluate,
+  type EvaluateOptions,
+  type MDXComponents,
+} from "next-mdx-remote-client/rsc";
 import remarkFlexibleToc from "remark-flexible-toc";
 import remarkGfm from "remark-gfm";
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
@@ -6,7 +10,7 @@ import rehypeSlug from "rehype-slug";
 import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
-import { components } from "../components";
+import { defaultComponents } from "../components";
 import type { ListDefaultHrefType, ListItemProps } from "@cubicsui/components";
 import type {
   MDXFrontmatter,
@@ -36,8 +40,27 @@ function walkPageSlugs(contentRoot: string): string[] {
   return slugs;
 }
 
+/** Loads the mdx files from the contentRoot
+ * ```tsx
+ * import { components } from "@/lib/mdx/components";
+ * import { mdxLoader } from "@cubicsui/mdx";
+ *
+ * export const mdxSource = mdxLoader({
+ *   components,
+ *   contentRoot: "content/docs",
+ *   readSource: async (relPath) => {
+ *     const mod = await import(`@/content/docs/${relPath}`);
+ *     return mod.default;
+ *   },
+ *   readMeta: async (metaPath) => {
+ *     const mod = await import(`@/content/docs/${metaPath}`);
+ *     return mod.default;
+ *   },
+ * });
+ * ```
+ */
 export function mdxLoader(props: MDXLoaderProps) {
-  const { contentRoot, readSource, readMeta } = props;
+  const { contentRoot, components = {}, readSource, readMeta } = props;
   // Slugs are computed once, at loader init time, by walking the filesystem.
   const pageSlugs = walkPageSlugs(contentRoot);
 
@@ -65,7 +88,7 @@ export function mdxLoader(props: MDXLoaderProps) {
     const evaluatedPage = await evaluate<MDXFrontmatter, MDXScope>({
       source,
       options: opts,
-      components,
+      components: { ...defaultComponents, ...components },
     });
 
     return evaluatedPage;
@@ -170,6 +193,10 @@ export function mdxLoader(props: MDXLoaderProps) {
     const trie = buildTrie(pageSlugs);
     return buildNodes(trie, [], baseHref);
   }
+  /** Returns params for Next's `generateStaticParams`. The root page (`""`) maps to an empty slug array. */
+  function getStaticParams() {
+    return pageSlugs.map((slug) => ({ slug: slug ? slug.split("/") : [] }));
+  }
 
-  return { getPage, getPageTree };
+  return { getPage, getPageTree, getStaticParams };
 }

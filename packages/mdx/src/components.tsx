@@ -5,7 +5,7 @@ import { SandcubeFile } from "./ui/Inputs/Sandcube/SandcubeFile";
 import { PageLayoutMd } from "./ui/Layout/PageLayoutMd/PageLayoutMd";
 import { Table, TableCell } from "@cubicsui/components";
 
-export const components: MDXComponents = {
+export const defaultComponents: MDXComponents = {
   pre: CodeBlock,
   td: (props) => <TableCell {...props} />,
   th: (props) => <TableCell as="th" {...props} />,
@@ -14,7 +14,3 @@ export const components: MDXComponents = {
   SandcubeFile,
   wrapper: PageLayoutMd,
 };
-
-export function useMDXComponents(): MDXComponents {
-  return components;
-}

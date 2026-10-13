@@ -147,7 +147,7 @@ export function SandcubeClient({
       <MonacoEditor
         id={title}
         height={"30vh"}
-        value={files[activeFile]?.code}
+        defaultValue={files[activeFile]?.code}
         onChange={(value) =>
           setFiles((prev) => ({
             ...prev,
