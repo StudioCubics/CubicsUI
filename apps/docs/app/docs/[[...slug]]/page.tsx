@@ -3,6 +3,12 @@ import { notFound } from "next/navigation";
 import { PageLayoutTOC } from "@cubicsui/components";
 import { mdxSource } from "../source";
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return mdxSource.getStaticParams();
+}
+
 export default async function Page({ params }: PageProps<"/docs/[[...slug]]">) {
   const { slug } = await params;
   const source = await mdxSource.getPage(slug);

@@ -1,1 +1,3 @@
-export const content = "Button Content";
+import { dataChild } from "./data2";
+
+export const content = dataChild;
