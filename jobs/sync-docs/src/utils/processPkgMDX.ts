@@ -16,15 +16,15 @@ export function processPkgMDX(mdxPath: string, context: Context) {
   let transformedContent = transformKnownMDXTags(content, mdxPath, context);
   transformedContent = transformKnownJSDocTags(transformedContent, context);
   const frontmatter = {
-    slug: context.pkg,
+    id: context.pkg,
     packageVersion: context.pkgDetails.version,
     pkg: context.pkgDetails.name,
     ...existingFrontmatter,
   };
 
-  const destFile = path.join(context.docDetails.docBaseUrl, `${dfName}.mdx`);
+  const destFile = path.join(context.docBaseUrl, `${dfName}.mdx`);
 
-  fs.mkdirSync(context.docDetails.docBaseUrl, {
+  fs.mkdirSync(context.docBaseUrl, {
     recursive: true,
   });
 

@@ -6,7 +6,6 @@ import ts from "typescript";
 import type { Context } from "./types.js";
 import { processCategoryMdx } from "./utils/processCategoryMDX.js";
 import { processComponentMdx } from "./utils/processComponentMDX.js";
-import { getDocDetails } from "./utils/getDocDetails.js";
 import { processPkgMDX } from "./utils/processPkgMDX.js";
 
 async function main() {
@@ -16,7 +15,8 @@ async function main() {
   const pkg = "components";
   const pkgDir = path.resolve(repoRoot, "packages");
   const pkgDetails = getPackageDetails(pkg, pkgDir);
-  const docDetails = getDocDetails(pkg);
+  const docPath = `/docs/${pkg}`;
+  const docBaseUrl = path.resolve(repoRoot, `apps/docs/content${docPath}`);
 
   const t1 = performance.now();
   console.log(`Initialised Details in ${t1 - t0} ms`);
@@ -60,12 +60,13 @@ async function main() {
     pkg,
     pkgDir,
     pkgDetails,
-    docDetails,
+    docBaseUrl,
+    docPath,
     program,
     checker,
   };
 
-  console.log(`\nSyncing docs -> ${docDetails.docBaseUrl}\n`);
+  console.log(`\nSyncing docs -> ${docBaseUrl}\n`);
 
   const mdxFiles = await glob("**/*.mdx", {
     cwd: pkgDetails.docSrcPath,

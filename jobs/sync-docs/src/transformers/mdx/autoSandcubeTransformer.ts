@@ -1,143 +1,122 @@
 import fs from "fs";
 import path from "path";
 import type { MDXTagTransformer } from "../../types.js";
-import { EXTENSION_TO_LANGUAGE_IDENTIFIER } from "@cubicsui/utils";
+import {
+  cn,
+  EXTENSION_TO_LANGUAGE_IDENTIFIER,
+  indentLines,
+  toJsxAttrs,
+} from "@cubicsui/utils";
 
-/**
- * Recursively lists all files in a directory, returning paths relative to
- * that directory with forward slashes (skips dotfiles).
- */
+const HIDDEN_FILE_REGEX = /^[^/\\]+\.hidden\.[^./\\]+$/;
+const READ_ONLY_FILE_REGEX = /^[^/\\]+\.readOnly\.[^./\\]+$/;
+
+export interface AutoSandcubeTransformerAttrs {
+  title: string;
+  src: string;
+  [key: string]: unknown;
+}
+
 function listFilesRecursive(
   dirPath: string,
   baseDir: string = dirPath,
 ): string[] {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
-  return entries
-    .filter((entry) => !entry.name.startsWith("."))
-    .flatMap((entry) => {
-      const entryPath = path.join(dirPath, entry.name);
-      if (entry.isDirectory()) {
-        return listFilesRecursive(entryPath, baseDir);
-      }
-      return [path.relative(baseDir, entryPath).split(path.sep).join("/")];
-    });
-}
-
-/**
- * Reads optional config.json from the example dir, if present.
- * Returns {} on missing file or parse failure (with a warning on failure).
- * Untyped on purpose every key gets piped through as a prop, whatever it is.
- */
-function readConfig(
-  absoluteDirPath: string,
-  mdxPath: string,
-): Record<string, unknown> {
-  const configPath = path.join(absoluteDirPath, "config.json");
-  if (!fs.existsSync(configPath)) return {};
-
-  try {
-    const parsed = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-    if (
-      typeof parsed !== "object" ||
-      parsed === null ||
-      Array.isArray(parsed)
-    ) {
-      console.warn(
-        `<auto-sandcube/> config.json must be a JSON object in ${mdxPath}`,
-      );
-      return {};
+  return entries.flatMap((entry) => {
+    const entryPath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      return listFilesRecursive(entryPath, baseDir);
     }
-    return parsed as Record<string, unknown>;
-  } catch (err) {
-    console.warn(
-      `<auto-sandcube/> Failed to parse config.json in ${mdxPath}: ${err}`,
-    );
-    return {};
-  }
-}
-/**
- * Indents every non-empty line of a multi-line string by the given prefix.
- * Used to keep fenced code block content aligned with its surrounding
- * markdown indentation, so markdown's dedent-on-fence-indent behavior
- * doesn't strip the original file's relative indentation.
- */
-function indentLines(content: string, indent: string): string {
-  return content
-    .split("\n")
-    .map((line) => (line.length > 0 ? indent + line : line))
-    .join("\n");
+    return [path.relative(baseDir, entryPath).split(path.sep).join("/")];
+  });
 }
 
 /**
- * Serializes a props object into a JSX attribute string.
- * Strings become "value", everything else (number/boolean/object/array) becomes {expr}.
+ * Transforms this
+ *
+ * `<auto-sandcube src="./playground" title="Button Playground" />`
+ *
+ * to this
+ *
+ * ```tsx
+ * <Sandcube title="Button Playground">
+ *     <SandcubeFile path="/App.tsx">
+ *       ```tsx
+ *       import { content } from "./data";
+ *       import { Button } from "@cubicsui/components";
+ *       export default function Home() {
+ *         return (
+ *           <div>
+ *             <Button variant="contained">{content}</Button>
+ *           </div>
+ *         );
+ *       }
+ *
+ *       ```
+ *     </SandcubeFile>
+ *     <SandcubeFile path="/data.ts">
+ *       ```ts
+ *       export const content = "Button Content";
+ *
+ *       ```
+ *     </SandcubeFile>
+ * </Sandcube>
+ * ```
+ * @param {AutoSandcubeTransformerAttrs} attrs
  */
-function toJsxAttrs(props: Record<string, unknown>): string {
-  return Object.entries(props)
-    .map(([key, value]) =>
-      typeof value === "string"
-        ? `${key}="${value}"`
-        : `${key}={${JSON.stringify(value)}}`,
-    )
-    .join(" ");
-}
-
 export const autoSandcubeTransformer: MDXTagTransformer = (
   attrs,
   mdxPath,
   _,
 ) => {
-  const { dir, title } = attrs;
-  if (!dir || !title) {
+  if (!attrs.src || !attrs.title) {
     console.warn(
-      `<auto-sandcube/> Missing required attrs in ${mdxPath},\n ${!attrs.dir && "dir"}\n ${!attrs.title && "title"}`,
+      `<auto-sandcube/> Missing required attrs in ${mdxPath}: ${cn(attrs.src, attrs.title)}`,
     );
     return "";
   }
-  const absoluteDirPath = path.resolve(path.dirname(mdxPath), dir);
-
+  const { src, title, baseDir } = attrs;
+  const absoluteSrcPath = path.resolve(path.dirname(mdxPath), src);
   if (
-    !fs.existsSync(absoluteDirPath) ||
-    !fs.statSync(absoluteDirPath).isDirectory()
+    !fs.existsSync(absoluteSrcPath) ||
+    !fs.statSync(absoluteSrcPath).isDirectory()
   ) {
-    console.warn(`<auto-sandcube/> Directory not found: ${absoluteDirPath}`);
+    console.warn(`<auto-sandcube/> Source not found: ${absoluteSrcPath}`);
     return "";
   }
 
-  const config = readConfig(absoluteDirPath, mdxPath);
+  function parser(rootDir: string, relativeFilePath: string) {
+    const content = fs.readFileSync(
+      path.join(rootDir, relativeFilePath),
+      "utf-8",
+    );
+    const ext = path.extname(relativeFilePath);
+    const language =
+      EXTENSION_TO_LANGUAGE_IDENTIFIER[ext] ?? ext.replace(".", "");
 
-  // Pipe every config.json key through as a prop; only fall back on title if absent
-  const sandcubeProps: Record<string, unknown> = {
-    title,
-    ...config,
-  };
-
-  // config.json is metadata only, exclude it from the rendered file list
-  const relativeFilePaths = listFilesRecursive(absoluteDirPath).filter(
-    (p) => p !== "config.json",
-  );
-
-  const sandcubeFiles = relativeFilePaths
-    .map((relativeFilePath) => {
-      const content = fs.readFileSync(
-        path.join(absoluteDirPath, relativeFilePath),
-        "utf-8",
-      );
-      const ext = path.extname(relativeFilePath);
-      const language =
-        EXTENSION_TO_LANGUAGE_IDENTIFIER[ext] ?? ext.replace(".", "");
-
-      const indentedContent = indentLines(content, "      ");
-
-      return `    <SandcubeFile path="/${relativeFilePath}">
+    const indentedContent = indentLines(content, "      ");
+    const SCFileProps = toJsxAttrs({
+      path: `/${relativeFilePath}`,
+      hidden: HIDDEN_FILE_REGEX.test(relativeFilePath),
+      readOnly: READ_ONLY_FILE_REGEX.test(relativeFilePath),
+    });
+    return `    <SandcubeFile ${SCFileProps}>
       \`\`\`${language}
 ${indentedContent}
       \`\`\`
     </SandcubeFile>`;
-    })
+  }
+
+  const children = listFilesRecursive(absoluteSrcPath, baseDir)
+    .filter((p) => p !== "config.json")
+    .map((p) => parser(absoluteSrcPath, p))
     .join("\n");
 
-  return `<Sandcube ${toJsxAttrs(sandcubeProps)}>
-${sandcubeFiles}
+  const SCProps = toJsxAttrs({
+    title,
+  });
+
+  return `<Sandcube ${SCProps}>
+${children}
 </Sandcube>`;
 };

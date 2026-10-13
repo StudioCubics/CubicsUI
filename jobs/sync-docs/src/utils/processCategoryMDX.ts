@@ -21,15 +21,12 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
   transformedContent = transformKnownJSDocTags(transformedContent, context);
   const frontmatter = {
     title: category,
-    slug: toCamelCase(category),
+    id: toCamelCase(category),
     packageVersion: context.pkgDetails.version,
     ...existingFrontmatter,
   };
 
-  const destDir = path.join(
-    context.docDetails.docBaseUrl,
-    toCamelCase(category),
-  );
+  const destDir = path.join(context.docBaseUrl, toCamelCase(category));
 
   const destFile = path.join(destDir, `${dfName}.mdx`);
 

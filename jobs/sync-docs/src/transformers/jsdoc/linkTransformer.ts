@@ -56,7 +56,7 @@ function buildUrl(
   symbolName: string,
   context: Context,
 ): string {
-  const { pkgDetails, docDetails } = context;
+  const { pkgDetails, docPath } = context;
   const rel = path.relative(pkgDetails.docSrcPath, absFilePath);
   const withoutExt = rel
     .replace(/\.(tsx?|jsx?|ts?|js?)$/, "")
@@ -71,7 +71,7 @@ function buildUrl(
   }
   const urlPath = parts.map((p) => p.toLowerCase()).join("/");
 
-  return `${docDetails.docPath}/${urlPath}#${symbolName.toLowerCase()}`;
+  return `${docPath}/${urlPath}#${symbolName.toLowerCase()}`;
 }
 export const linkTransformer: JSDocTagTransformer = (
   symbolName,
@@ -79,9 +79,6 @@ export const linkTransformer: JSDocTagTransformer = (
   context,
 ) => {
   const url = resolveSymbolToDocsUrl(symbolName, context);
-
-  // \n before {@link} breaks the markdown table row — the caller must strip it,
-  // but we return a space-prefixed link so it stays inline
   return url
     ? ` [${label}](${url})`
     : ` [${label}](#${symbolName.toLowerCase()})`;
