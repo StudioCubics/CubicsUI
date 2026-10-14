@@ -1,16 +1,13 @@
 .root {
   & h1 {
-    margin-top: var(--gap-5);
-    margin-bottom: var(--gap-14);
+    margin-block: var(--gap-10);
   }
   & h2 {
-    margin-top: var(--gap-3);
-    margin-bottom: var(--gap-10);
+    margin-block: var(--gap-6);
   }
   & h3,
   & p {
-    margin-top: var(--gap);
-    margin-bottom: var(--gap-7);
+    margin-block: var(--gap-4);
   }
 
   & p {
@@ -51,16 +48,9 @@
     opacity: 0.85;
   }
 
-  & pre {
-    margin-top: var(--gap-3);
-    margin-bottom: var(--gap-7);
-    padding: var(--gap-5);
-    overflow-x: auto;
-    border-radius: var(--radius, 6px);
-  }
-
   & code {
     letter-spacing: 0;
+    background: var(--color-surface);
   }
 
   & p code,
@@ -87,10 +77,12 @@
   }
 
   & img {
-    margin-top: var(--gap-3);
-    margin-bottom: var(--gap-7);
+    margin-block: var(--gap-4);
     max-width: 100%;
-    border-radius: var(--radius, 6px);
+    border-radius: var(--br, 6px);
+  }
+  & table {
+    margin-block: var(--gap-4);
   }
 
   & > *:first-child {

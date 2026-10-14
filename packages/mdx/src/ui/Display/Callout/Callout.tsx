@@ -2,6 +2,13 @@ import { GlassCard } from "@cubicsui/components";
 import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ComponentType, ReactNode } from "react";
 import styles from "./Callout.module.css";
+import {
+  CircleXIcon,
+  InfoIcon,
+  LightBulbIcon,
+  TriangleAlertIcon,
+  TrophyIcon,
+} from "@cubicsui/icons";
 
 export interface CalloutProps {
   type?: "info" | "warn" | "success" | "error" | "idea";

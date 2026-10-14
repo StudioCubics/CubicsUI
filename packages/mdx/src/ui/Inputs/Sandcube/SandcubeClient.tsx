@@ -154,6 +154,17 @@ export function SandcubeClient({
             [activeFile]: { ...prev[activeFile], code: value ?? "" },
           }))
         }
+        loading={
+          <pre
+            style={{
+              width: "100%",
+              height: "100%",
+              padding: "var(--gap-3) var(--gap-5)",
+            }}
+          >
+            {files[activeFile].code}
+          </pre>
+        }
         options={{ readOnly: files[activeFile]?.readOnly }}
         tabsMgr={{ activeFile, visibleFiles, setActiveFile }}
       />

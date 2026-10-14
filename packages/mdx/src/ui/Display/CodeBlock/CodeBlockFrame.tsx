@@ -10,7 +10,6 @@ type CodeBlockFrameProps = {
   children: ReactNode;
 };
 
-/** Shared header + copy overlay layout for every code block variant */
 export function CodeBlockFrame(props: CodeBlockFrameProps) {
   const { icon, title, code, children } = props;
   return (

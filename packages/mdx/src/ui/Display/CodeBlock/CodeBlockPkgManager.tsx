@@ -8,7 +8,7 @@ import {
 } from "@cubicsui/utils";
 import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
 import { CodeBlockFrame } from "./CodeBlockFrame";
-import { getCodeHeight } from "./Codeblock.utils";
+import { getCodeHeight } from "./CodeBlock.utils";
 
 type PkgManagerCodeBlockProps = {
   id: string;
@@ -42,6 +42,9 @@ export function CodeBlockPkgManager(props: PkgManagerCodeBlockProps) {
           scrollBeyondLastLine: false,
           foldingHighlight: false,
           lineNumbers: "off",
+          renderLineHighlight: "none",
+          scrollbar: { vertical: "hidden" },
+          hideCursorInOverviewRuler: true,
         }}
       />
     </CodeBlockFrame>

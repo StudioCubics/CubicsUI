@@ -8,7 +8,8 @@ import {
 import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
 import { CodeBlockFrame } from "./CodeBlockFrame";
 import { CodeBlockPkgManager } from "./CodeBlockPkgManager";
-import { getCodeHeight } from "./Codeblock.utils";
+import { getCodeHeight } from "./CodeBlock.utils";
+import styles from "./CodeBlock.module.css";
 
 export function CodeBlock(props: CodeBlockProps) {
   const { icon, id: _id, title, children } = props;
@@ -43,9 +44,14 @@ export function CodeBlock(props: CodeBlockProps) {
         id={id}
         defaultValue={code}
         height={getCodeHeight(code)}
+        className={styles.editor}
+        loading={<pre>{code}</pre>}
         options={{
           readOnly: true,
           scrollBeyondLastLine: false,
+          renderLineHighlight: "none",
+          scrollbar: { vertical: "hidden" },
+          hideCursorInOverviewRuler: true,
         }}
       />
     </CodeBlockFrame>

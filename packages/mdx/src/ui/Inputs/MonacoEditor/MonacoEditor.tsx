@@ -9,17 +9,26 @@ import {
 import { useTheme } from "@cubicsui/components";
 import type { MonacoEditorProps } from "./MonacoEditor.types";
 import styles from "./MonacoEditor.module.css";
+import { cn } from "@cubicsui/utils";
 
 export function MonacoEditor(props: MonacoEditorProps) {
   const { resolvedTheme } = useTheme();
-  const { name, id, height, slotProps = {}, tabsMgr, ...rest } = props;
+  const {
+    name,
+    id,
+    height,
+    slotProps = {},
+    className,
+    tabsMgr,
+    ...rest
+  } = props;
 
   const activeFile = tabsMgr?.activeFile;
   const modelPath =
     id && activeFile ? `${id}-${activeFile}` : id ? id : activeFile;
 
   return (
-    <div {...slotProps.root}>
+    <>
       <Tabs
         {...slotProps.tabs}
         defaultTab={slotProps.tabs?.defaultTab ?? tabsMgr?.activeFile}
@@ -44,12 +53,15 @@ export function MonacoEditor(props: MonacoEditorProps) {
           onMount={handleEditorOnMount}
           beforeMount={handleEditorBeforeMount}
           height={height}
-          className={styles.editor}
+          className={cn(className, styles.editor)}
           {...rest}
           options={{
             minimap: { enabled: false },
             fontFamily: "var(--font-code)",
             fontSize: 14,
+            padding: {
+              top: 12,
+            },
             fontLigatures: true,
             scrollbar: {
               alwaysConsumeMouseWheel: false,
@@ -58,6 +70,6 @@ export function MonacoEditor(props: MonacoEditorProps) {
           }}
         />
       </Tabs>
-    </div>
+    </>
   );
 }

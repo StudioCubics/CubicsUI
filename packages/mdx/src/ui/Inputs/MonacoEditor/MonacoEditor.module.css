@@ -1,5 +1,4 @@
 .editor {
   & :global(.monaco-editor) {
-    padding-block: var(--gap-3);
   }
 }
