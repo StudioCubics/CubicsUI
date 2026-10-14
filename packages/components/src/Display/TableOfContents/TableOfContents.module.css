@@ -10,11 +10,13 @@
 .item {
   margin-left: calc((var(--depth) - 1) * var(--size) * 2);
   padding: var(--size);
-  color: var(--color-on-background-low);
+  color: var(--color-on-background);
+  opacity: 0.5;
   transition: all var(--transition-time) var(--transition-tf);
 }
 .item[data-active="true"] {
   color: var(--color-on-background);
+  opacity: 0.8;
   padding-left: calc(var(--size) * 1.5);
   font-weight: bold;
 }
