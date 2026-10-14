@@ -39,11 +39,12 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
       <SidebarViewport
         {...slotProps.sidebarViewport}
         removeBg
-        className={cn(slotProps.sidebarViewport?.className, styles.content)}
+        className={cn(slotProps.sidebarViewport?.className, styles.viewport)}
         ref={mergeRefs(slotProps.sidebarViewport?.ref, scrollContainerRef)}
       >
         <PageHeader
           {...slotProps.title}
+          className={cn(styles.title, slotProps.title?.className)}
           title={title}
           desc={desc}
           actions={actions}
