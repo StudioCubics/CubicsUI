@@ -9,6 +9,7 @@ import {
 } from "@cubicsui/components";
 import { Polymorphic } from "./polymorphic";
 import Image from "next/image";
+import { CubicsUIFavicon } from "@cubicsui/icons";
 
 export default function Page() {
   return (
@@ -61,14 +62,14 @@ export default function Page() {
                 <CardHeader
                   title="This is a card title"
                   desc="This is a card desc"
-                  actions={<Button size={size}>Actions</Button>}
+                  actions={<Button>Actions</Button>}
                 />
                 <CardContent>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
                   consectetur quia maiores veniam.
                 </CardContent>
                 <CardFooter>
-                  <Button size={size}>Footer Button</Button>
+                  <Button>Footer Button</Button>
                 </CardFooter>
               </Card>
             </div>
@@ -147,6 +148,48 @@ export default function Page() {
             </div>
           ))}
         </div>
+        <hr />
+        <h3>Colored colors</h3>
+        <div className="grid">
+          {(
+            [
+              "primary",
+              "secondary",
+              "tertiary",
+              "error",
+              "warn",
+              "success",
+            ] as const
+          ).map((color) => (
+            <div className="column" key={color}>
+              <h3>{color}</h3>
+              <Card
+                variant="colored"
+                color={color}
+                fixedWidth="min(100%, 300px)"
+              >
+                <CardHeader
+                  title="This is a card title"
+                  desc="This is a card desc"
+                  actions={
+                    <Button variant="contained" color={color}>
+                      Actions
+                    </Button>
+                  }
+                />
+                <CardContent>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+                  consectetur quia maiores veniam.
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outlined" color={color}>
+                    Footer Button
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          ))}
+        </div>
       </section>
 
       <h2>Variants</h2>
@@ -162,6 +205,12 @@ export default function Page() {
         <div className="column">
           <h3>outlined</h3>
           <Card variant="outlined" fixedWidth="220px">
+            Bordered surface, useful on already-colored backgrounds.
+          </Card>
+        </div>
+        <div className="column">
+          <h3>colored</h3>
+          <Card variant="colored" fixedWidth="220px">
             Bordered surface, useful on already-colored backgrounds.
           </Card>
         </div>
@@ -198,6 +247,13 @@ export default function Page() {
 
       <h2>Layout props</h2>
       <section>
+        <div className="column">
+          <h3>centered</h3>
+          <Card disablePadding centered fixedWidth="70px" fixedHeight="70px">
+            <CubicsUIFavicon />
+            Henlo
+          </Card>
+        </div>
         <div className="column">
           <h3>square</h3>
           <Card square fixedWidth="180px">

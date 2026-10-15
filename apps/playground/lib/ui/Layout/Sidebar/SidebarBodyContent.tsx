@@ -35,7 +35,8 @@ export function SidebarBodyContent() {
         renderGlider
         LinkComponent={Link}
         selectedWhen={(i) => {
-          if (i.type && i.type !== "item") return false;
+          if (i.type && i.type !== "item" && i.type !== "collapsible")
+            return false;
           return pathname === i.href;
         }}
       >

@@ -13,6 +13,16 @@ import type { ReactNode } from "react";
 export const componentsMeta: ListItemProps<Route>[] = [
   {
     type: "collapsible",
+    id: "globalStyles",
+    children: "Global Styles",
+    href: "/components/globalStyles",
+    nodes: [
+      { children: "Typography", href: "/components/globalStyles/typography" },
+      { children: "Colors", href: "/components/globalStyles/colors" },
+    ],
+  },
+  {
+    type: "collapsible",
     id: "display",
     children: "Display",
     nodes: [
@@ -45,7 +55,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
         icon: "🚧",
       },
       { children: "PasswordInput", href: "/components/passwordInput" },
-      { children: "Rolodex", href: "/components/rolodex" },
+      { children: "Rolodex", href: "/components/rolodex", icon: "🚧" },
       { children: "Select", href: "/components/select" },
       { children: "Switch", href: "/components/switch" },
       { children: "TextAreaInput", href: "/components/textAreaInput" },

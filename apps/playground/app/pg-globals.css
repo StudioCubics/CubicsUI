@@ -5,31 +5,39 @@
   padding-inline: 4.165%;
   padding-block: var(--gap-10);
 
-  & > section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-5);
-    padding-inline: 4.165%;
-    padding-bottom: var(--gap-5);
-    border-bottom: var(--border-width) solid var(--color-outline);
-    &:last-child {
-      border-bottom: none;
-    }
-  }
   & code {
     color: var(--color-on-surface);
     background: var(--color-surface);
     border-radius: var(--br-sm);
     padding-inline: var(--gap);
+    overflow: auto;
   }
   & .escapePadding {
     margin-inline: -4.165%;
     margin-block: calc(-1 * var(--gap-10));
   }
 }
-
+section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-5);
+  padding-inline: 4.165%;
+  padding-bottom: var(--gap-5);
+  border-bottom: var(--border-width) solid var(--color-outline);
+  &:last-child {
+    border-bottom: none;
+  }
+}
+.row_separator {
+  padding-bottom: var(--gap-3);
+  border-bottom: var(--border-width) solid var(--color-outline);
+  &:last-child {
+    border-bottom: none;
+  }
+}
 .row {
   display: flex;
+  flex-direction: row;
   gap: var(--gap-5);
   flex-wrap: wrap;
 }

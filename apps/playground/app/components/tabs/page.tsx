@@ -348,10 +348,24 @@ export default function Page() {
         <code>fullWidth</code> on <code>{"<TabsBar/>"}</code>
       </h2>
       <section>
-        <Tabs defaultTab="two">
+        <Tabs>
           <TabsBar fullWidth>
             {Array.from({ length: 50 }).map((_, i) => (
               <Tab key={i} value={`Tab-${i + 1}`}>
+                {`Tab ${i + 1}`}
+              </Tab>
+            ))}
+          </TabsBar>
+        </Tabs>
+      </section>
+      <h2>
+        <code>disableCentering</code> on <code>{"<Tab/>"}</code>
+      </h2>
+      <section>
+        <Tabs>
+          <TabsBar fullWidth>
+            {Array.from({ length: 50 }).map((_, i) => (
+              <Tab key={i} value={`Tab-${i + 1}`} disableCentering>
                 {`Tab ${i + 1}`}
               </Tab>
             ))}
