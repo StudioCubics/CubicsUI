@@ -10,17 +10,17 @@ import type { TabBaseProps, TabProps } from "../Tabs.types";
 function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
   const {
     as,
+    ref,
     className,
+    onClick,
+    value,
     startAdornment,
     endAdornment,
     disabled,
     href,
-    onClick,
-    value,
-    onTouchStart,
     children,
     slotProps = {},
-    ref,
+    disableCentering = false,
     LinkComponent = "a",
     ...restProps
   } = props;
@@ -36,7 +36,7 @@ function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
     if (tabRef.current)
       tabRef.current.scrollIntoView({
         block: "nearest",
-        inline: "center",
+        inline: disableCentering ? "nearest" : "center",
         behavior: "smooth",
       });
     setActiveTab(value);

@@ -41,6 +41,8 @@ export interface TabBaseProps {
   endAdornment?: ReactNode;
   /** If a tab should be disabled */
   disabled?: boolean;
+  /** Disables the centering of the tab when selected */
+  disableCentering?: boolean;
   /** If a tab has href it is automatically an `<a/>` or `LinkComponent` or else it will be whatever is passed to `as` or "div" by default */
   href?: ComponentProps<"a">["href"];
   /** Component like `Link` from next/link can be passed to use that instead of `<a/>` */
