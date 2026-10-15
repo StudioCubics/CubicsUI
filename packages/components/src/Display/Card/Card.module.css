@@ -2,13 +2,16 @@
   --bg: var(--color-surface);
   --br: var(--br-md);
   --size: var(--gap-4);
-  --fs: var(--fs-md);
   display: flex;
   flex-direction: column;
   isolation: isolate;
   border-radius: var(--br);
   color: var(--color, var(--color-on-background));
-  font-size: var(--fs);
+  font-size: var(--fs-md);
+}
+.root.centered {
+  justify-content: center;
+  align-items: center;
 }
 .root.fullWidth {
   width: 100%;
@@ -25,6 +28,8 @@
   background: var(--bg);
   position: relative;
   border-radius: var(--br);
+  display: flex;
+  flex-direction: column;
 }
 .removeBg {
   --bg: transparent;
@@ -39,6 +44,10 @@
   outline: var(--border-width) solid
     color-mix(in srgb, currentColor 30%, transparent);
 }
+.variant_colored {
+  --bg: var(--color-on-background);
+  --color: var(--color-surface);
+}
 .elevation_high {
   --bg: var(--color-surface-high);
 }
@@ -46,7 +55,7 @@
   --bg: var(--color-surface-highest);
 }
 /* squares off the surface's bottom corners when a footer follows */
-.root:has([data-slot="card_footer"]) .surface {
+.root:has([data-slot="card_footer"]) > .surface {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -54,39 +63,59 @@
 .root[data-size="xs"] {
   --size: var(--gap);
   --br: var(--br-sm);
-  --fs: var(--fs-xs);
 }
 .root[data-size="sm"] {
   --size: var(--gap-2);
   --br: var(--br-sm);
-  --fs: var(--fs-sm);
 }
 .root[data-size="lg"] {
   --size: var(--gap-6);
   --br: var(--br-lg);
-  --fs: var(--fs-lg);
 }
 .root[data-size="xl"] {
   --size: var(--gap-8);
   --br: var(--br-xl);
-  --fs: var(--fs-xl);
 }
 /* Card colors */
 .root[data-color="primary"] {
   --color: var(--color-primary);
+  &.variant_colored {
+    --bg: var(--color-primary);
+    --color: var(--color-on-primary);
+  }
 }
 .root[data-color="secondary"] {
   --color: var(--color-secondary);
+  &.variant_colored {
+    --bg: var(--color-secondary);
+    --color: var(--color-on-secondary);
+  }
 }
 .root[data-color="tertiary"] {
   --color: var(--color-tertiary);
+  &.variant_colored {
+    --bg: var(--color-tertiary);
+    --color: var(--color-on-tertiary);
+  }
 }
 .root[data-color="error"] {
   --color: var(--color-error);
+  &.variant_colored {
+    --bg: var(--color-error);
+    --color: var(--color-on-error);
+  }
 }
 .root[data-color="warn"] {
   --color: var(--color-warn);
+  &.variant_colored {
+    --bg: var(--color-warn);
+    --color: var(--color-on-warn);
+  }
 }
 .root[data-color="success"] {
   --color: var(--color-success);
+  &.variant_colored {
+    --bg: var(--color-success);
+    --color: var(--color-on-success);
+  }
 }

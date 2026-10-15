@@ -1,4 +1,3 @@
-/* CardFooter.module.css */
 .root {
   background: color-mix(in srgb, var(--bg) 30%, transparent);
   padding: var(--size);

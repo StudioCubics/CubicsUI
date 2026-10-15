@@ -12,7 +12,7 @@ export interface CardBaseProps {
   /** Visual style variant.
    * @default "contained"
    */
-  variant?: "contained" | "outlined";
+  variant?: "contained" | "outlined" | "colored";
 
   /** Expands width to 100%. */
   fullWidth?: boolean;
@@ -48,6 +48,9 @@ export interface CardBaseProps {
 
   /** The height will be of fixed length, any value that can be put in width */
   fixedHeight?: string;
+
+  /** Center the content inside the card, this will not center inside `<CardContent/>` only when using like `<Card>{content}</Card>` */
+  centered?: boolean;
 }
 
 interface CardOverflowProps {
