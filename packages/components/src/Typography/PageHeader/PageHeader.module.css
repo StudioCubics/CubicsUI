@@ -1,6 +1,7 @@
 .root {
   display: grid;
   grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     "title action"
     "desc  action";
@@ -18,8 +19,8 @@
   grid-area: desc;
   min-width: 100%;
   width: 0;
-  color: var(--color-on-background-low);
-  font-size: 0.9em;
+  color: var(--color);
+  opacity: 0.8;
   line-height: var(--lh-snug);
   padding-top: 0.325em;
 }
@@ -31,4 +32,22 @@
   flex-direction: column;
   align-items: flex-end;
   gap: calc(var(--size) / var(--gr));
+}
+h1.title ~ .desc {
+  font-size: var(--fs-h3);
+}
+h2.title ~ .desc {
+  font-size: var(--fs-h4);
+}
+h3.title ~ .desc {
+  font-size: var(--fs-h6);
+}
+h4.title ~ .desc {
+  font-size: var(--fs-body);
+}
+h5.title ~ .desc {
+  font-size: var(--fs-body);
+}
+h6.title ~ .desc {
+  font-size: var(--fs-body2);
 }

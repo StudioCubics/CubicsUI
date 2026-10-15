@@ -1,3 +1,4 @@
+/* ______ Custom properties ______ */
 :root,
 [data-theme="light"] {
   color-scheme: light;
@@ -34,13 +35,13 @@
   --color-on-success-container: #1f331d;
 
   /* Surface colors */
-  --color-background: #f5f0f1;
+  --color-background: hsl(348, 20%, 90%);
   --color-on-background: #313133;
   --color-on-background-low: #818181;
-  --color-surface: #e6dbde;
+  --color-surface: hsl(347, 18%, 95%);
   --color-on-surface: #4b4b4b;
-  --color-surface-high: #d9c9ce;
-  --color-surface-highest: #ccbdc2;
+  --color-surface-high: hsl(345, 15%, 95%);
+  --color-surface-highest: hsl(330, 20%, 98%);
   --color-surface-dim: #bfb1b6;
   --color-surface-bright: #f7f7f7;
   --color-input-surface: color-mix(
@@ -50,12 +51,28 @@
   );
 
   /* Alpha Colors */
-  --color-primary-alpha: color-mix(var(--color-primary) 20%, transparent);
-  --color-secondary-alpha: color-mix(var(--color-secondary) 20%, transparent);
-  --color-tertiary-alpha: color-mix(var(--color-tertiary) 20%, transparent);
-  --color-error-alpha: color-mix(var(--color-error) 20%, transparent);
-  --color-warn-alpha: color-mix(var(--color-warn) 20%, transparent);
-  --color-success-alpha: color-mix(var(--color-success) 20%, transparent);
+  --color-primary-alpha: color-mix(
+    in srgb,
+    var(--color-primary) 20%,
+    transparent
+  );
+  --color-secondary-alpha: color-mix(
+    in srgb,
+    var(--color-secondary) 20%,
+    transparent
+  );
+  --color-tertiary-alpha: color-mix(
+    in srgb,
+    var(--color-tertiary) 20%,
+    transparent
+  );
+  --color-error-alpha: color-mix(in srgb, var(--color-error) 20%, transparent);
+  --color-warn-alpha: color-mix(in srgb, var(--color-warn) 20%, transparent);
+  --color-success-alpha: color-mix(
+    in srgb,
+    var(--color-success) 20%,
+    transparent
+  );
 
   /* Misc Colors */
   --color-outline: #c8c8cc;
@@ -99,19 +116,34 @@
   --font-c: "Fira Code", monospace;
 
   /* Font Sizes */
-  --fs-xs: 12px;
-  --fs-sm: 14px;
-  --fs-md: 16px;
-  --fs-lg: 18px;
-  --fs-xl: 20px;
-  --fs-2xl: 24px;
-  --fs-3xl: 30px;
-  --fs-4xl: 36px;
-  --fs-5xl: 48px;
-  --fs-6xl: 60px;
-  --fs-7xl: 72px;
-  --fs-8xl: 96px;
-  --fs-9xl: 128px;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 1.875rem;
+  --fs-4xl: 2.25rem;
+  --fs-5xl: 3rem;
+  --fs-6xl: 3.75rem;
+  --fs-7xl: 4.5rem;
+  --fs-8xl: 6rem;
+  --fs-9xl: 8rem;
+
+  /* Responsive font sizes(mobile min @375px, fluid, desktop max @1280px+) */
+  --fs-caption: var(--fs-xs);
+  --fs-code: var(--fs-sm);
+  --fs-body2: var(--fs-sm);
+  --fs-body: var(--fs-md);
+  --fs-subtitle: clamp(var(--fs-md), 0.948rem + 0.22vw, var(--fs-lg));
+  --fs-h6: clamp(var(--fs-sm), 0.823rem + 0.22vw, var(--fs-md));
+  --fs-h5: clamp(var(--fs-md), 0.948rem + 0.22vw, var(--fs-lg));
+  --fs-h4: clamp(var(--fs-lg), 1.075rem + 0.22vw, var(--fs-xl));
+  --fs-h3: clamp(var(--fs-xl), 1.144rem + 0.44vw, var(--fs-2xl));
+  --fs-h2: clamp(var(--fs-xl), 0.991rem + 1.1vw, var(--fs-3xl)); /* 20 → 30 */
+  --fs-h1: clamp(var(--fs-2xl), 1.189rem + 1.33vw, var(--fs-4xl)); /* 24 → 36 */
+  --fs-display: clamp(var(--fs-4xl), 1.938rem + 1.33vw, var(--fs-5xl));
+  --fs-display-lg: clamp(var(--fs-5xl), 2.381rem + 2.65vw, var(--fs-7xl));
 
   /* Line Heights */
   --lh-none: 1;
@@ -136,7 +168,7 @@
   --z-drawer: 999;
   --z-modal: 9999;
   --border-width: 2px;
-  --icon-stroke-width: 2.3px;
+  --icon-stroke-width: 2px;
   --gr: 1.618;
   --focus-ring: var(--border-width) dashed var(--color-focus);
   --pointer-light-size: 250px;
@@ -191,12 +223,28 @@
   );
 
   /* Alpha Colors */
-  --color-primary-alpha: color-mix(var(--color-primary) 20%, transparent);
-  --color-secondary-alpha: color-mix(var(--color-secondary) 20%, transparent);
-  --color-tertiary-alpha: color-mix(var(--color-tertiary) 20%, transparent);
-  --color-error-alpha: color-mix(var(--color-error) 20%, transparent);
-  --color-warn-alpha: color-mix(var(--color-warn) 20%, transparent);
-  --color-success-alpha: color-mix(var(--color-success) 20%, transparent);
+  --color-primary-alpha: color-mix(
+    in srgb,
+    var(--color-primary) 20%,
+    transparent
+  );
+  --color-secondary-alpha: color-mix(
+    in srgb,
+    var(--color-secondary) 20%,
+    transparent
+  );
+  --color-tertiary-alpha: color-mix(
+    in srgb,
+    var(--color-tertiary) 20%,
+    transparent
+  );
+  --color-error-alpha: color-mix(in srgb, var(--color-error) 20%, transparent);
+  --color-warn-alpha: color-mix(in srgb, var(--color-warn) 20%, transparent);
+  --color-success-alpha: color-mix(
+    in srgb,
+    var(--color-success) 20%,
+    transparent
+  );
 
   /* Misc Colors */
   --color-outline: #6666665b;
@@ -240,13 +288,13 @@
   --color-on-success-container: #0f1f0d;
 
   /* Surface colors - boosted contrast */
-  --color-background: #ffffff;
+  --color-background: hsl(343, 19%, 84%);
   --color-on-background: #000000;
   --color-on-background-low: #454545;
-  --color-surface: #f0e9eb;
+  --color-surface: hsl(343, 22%, 90%);
   --color-on-surface: #1a1a1a;
-  --color-surface-high: #e0d3d7;
-  --color-surface-highest: #cbb9be;
+  --color-surface-high: hsl(342, 17%, 94%);
+  --color-surface-highest: hsl(343, 15%, 99%);
   --color-surface-dim: #a89a9e;
   --color-surface-bright: #ffffff;
 
@@ -307,7 +355,8 @@
 [data-locale="ar"] {
   direction: rtl;
 }
-/* Overrides */
+
+/* ______ Ovverides ______ */
 * {
   margin: 0;
   padding: 0;
@@ -315,6 +364,8 @@
   scrollbar-width: thin;
   scrollbar-color: var(--color-surface);
 }
+
+/* ______ Element defaults ______ */
 h1,
 h2,
 h3,
@@ -325,25 +376,26 @@ h6 {
   font-weight: 500;
 }
 h1 {
-  font-size: 2em;
+  font-size: var(--fs-h1);
 }
 h2 {
-  font-size: 1.74em;
+  font-size: var(--fs-h2);
 }
 h3 {
-  font-size: 1.52em;
+  font-size: var(--fs-h3);
 }
 h4 {
-  font-size: 1.32em;
+  font-size: var(--fs-h4);
 }
 h5 {
-  font-size: 1.15em;
+  font-size: var(--fs-h5);
 }
 h6 {
-  font-size: 1em;
+  font-size: var(--fs-h6);
 }
 p {
   font-family: var(--font-p);
+  font-size: var(--fs-body);
 }
 strong {
   font-family: inherit;
@@ -401,37 +453,87 @@ code {
   font-family: var(--font-c);
   font-size: inherit;
 }
-
-/* ≥600px */
-/* @media (min-width: 600px) {
-  :root {
-  }
-} */
-
-/* ≥900px */
-/* @media (min-width: 900px) {
-  :root {
-  }
-} */
-
-/* ≥1281px */
-/* @media (min-width: 1281px) {
-  :root {
-  }
-} */
-
-/* ≥1536px */
-/* @media (min-width: 1536px) {
-  :root {
-  }
-} */
-
+/* ______ Custom classes ______ */
+.display,
+.display-lg {
+  font-family: var(--font-h);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.display {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+}
+.display-lg {
+  font-size: var(--fs-display-lg);
+  line-height: var(--lh-none);
+}
+.h1 {
+  font-family: var(--font-h);
+  font-weight: 500;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+}
+.h2 {
+  font-family: var(--font-h);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+}
+.h3 {
+  font-family: var(--font-h);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+}
+.h4 {
+  font-family: var(--font-h);
+  font-weight: 500;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+}
+.h5 {
+  font-family: var(--font-h);
+  font-weight: 500;
+  font-size: var(--fs-h5);
+  line-height: var(--lh-normal);
+}
+.h6 {
+  font-family: var(--font-h);
+  font-weight: 500;
+  font-size: var(--fs-h6);
+  line-height: var(--lh-normal);
+}
+.subtitle {
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-normal);
+  font-weight: 500;
+}
+.body {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+}
+.body2 {
+  font-size: var(--fs-body2);
+  line-height: var(--lh-relaxed);
+}
+.caption {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+  color: var(--color-on-background-low);
+}
+.code {
+  font-family: var(--font-c);
+  font-size: var(--fs-code);
+  line-height: var(--lh-normal);
+}
 .lucide {
   stroke-width: var(--icon-stroke-width);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-/* Scroll Bar Styles(not mozilla) */
+
+/* ______ Scroll Bar Styles(not mozilla) ______ */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -447,7 +549,6 @@ code {
   background: var(--color-surface);
   -webkit-box-shadow: inset 0 0 6px var(--color-shadow);
 }
-
 ::-webkit-scrollbar-thumb:window-inactive {
   background: transparent;
 }
