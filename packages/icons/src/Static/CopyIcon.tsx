@@ -1,6 +1,6 @@
-export function CopyIcon(
-  props: React.ComponentProps<"svg">,
-): React.ReactElement {
+import type { ComponentProps, ReactElement } from "react";
+
+export function CopyIcon(props: ComponentProps<"svg">): ReactElement {
   const { width = 24, height = width, ...rest } = props;
   return (
     <svg

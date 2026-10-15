@@ -15,6 +15,7 @@ export * from "./InfoIcon";
 export * from "./LightBulbIcon";
 export * from "./PanelLeftIcon";
 export * from "./PointerLightIcon";
+export * from "./QuoteIcon";
 export * from "./SettingsIcon";
 export * from "./ToolCaseIcon";
 export * from "./TriangleAlertIcon";
