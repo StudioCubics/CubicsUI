@@ -212,7 +212,7 @@
 .root[data-size="lg"] {
   --fs: var(--fs-lg);
   --size: 32px;
-  --br: var(--br-xl);
+  --br: var(--br-lg);
 }
 .root[data-size="xl"] {
   --fs: var(--fs-xl);
