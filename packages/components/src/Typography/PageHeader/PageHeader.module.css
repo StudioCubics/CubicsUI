@@ -20,7 +20,7 @@
   min-width: 100%;
   width: 0;
   color: var(--color);
-  opacity: 0.8;
+  opacity: 0.6;
   line-height: var(--lh-snug);
   padding-top: 0.325em;
 }
@@ -43,11 +43,11 @@ h3.title ~ .desc {
   font-size: var(--fs-h6);
 }
 h4.title ~ .desc {
-  font-size: var(--fs-body);
+  font-size: var(--fs-body2);
 }
 h5.title ~ .desc {
-  font-size: var(--fs-body);
+  font-size: var(--fs-body2);
 }
 h6.title ~ .desc {
-  font-size: var(--fs-body2);
+  font-size: var(--fs-code);
 }
