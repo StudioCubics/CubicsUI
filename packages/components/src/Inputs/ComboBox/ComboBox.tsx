@@ -3,8 +3,8 @@
 import { useId, type ReactElement } from "react";
 import { InputField } from "../InputField/InputField";
 import type { InputFieldProps } from "../InputField/InputField.types";
-import type { ComboBoxOption, ComboBoxProps } from "./ComboBox.types";
-import { cn, mergeEvents, mergeRefs } from "@cubicsui/utils";
+import type { ComboBoxProps } from "./ComboBox.types";
+import { cn, mergeRefs } from "@cubicsui/utils";
 import { Popover } from "../../Layout/Popover/Popover";
 import styles from "./ComboBox.module.css";
 import { List } from "../../Display/List/List";
@@ -13,6 +13,7 @@ import { ListItem } from "../../Display/List/ListItem/ListItem";
 import { Card } from "../../Display/Card/Card";
 import { useComboBox } from "./useComboBox";
 import { ComboBoxChips } from "./ComboBoxChips";
+import { normalizeOptions } from "./ComboBox.utils";
 
 // TODO add overriding chips and options react nodes
 export function ComboBox<T, Multiple extends boolean | undefined = false>(
@@ -101,7 +102,9 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
           selected: o.selected ?? selected.includes(getOptionKey(o)),
           className: cn(
             o.className,
-            selectableIndex === activeIndex && styles.activeOption,
+            selectableIndex >= 0 &&
+              selectableIndex === activeIndex &&
+              styles.activeOption,
           ),
           onClick: (e) => {
             o.onClick?.(e);
@@ -167,8 +170,8 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
               type="button"
               popoverTarget={`popover-${inputId}`}
               disabled={disabled}
-              onClick={(_) => {
-                mergeEvents(createRipple);
+              onClick={(e) => {
+                createRipple(e);
                 setPopoverActive(!popoverActive);
                 inputRef.current?.focus();
                 inputRef.current?.select();
@@ -208,12 +211,4 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
       }}
     </InputField>
   );
-}
-function normalizeOptions<T>(
-  aosOptions: (string | ComboBoxOption<T>)[],
-): ComboBoxOption<T>[] {
-  return aosOptions.map((a) => {
-    if (typeof a === "string") return { type: "item", label: a };
-    return a;
-  });
 }

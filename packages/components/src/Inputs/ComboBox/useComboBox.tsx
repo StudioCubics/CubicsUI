@@ -62,7 +62,7 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
     setSelected(multiple ? (valueProp as T[]) : [valueProp as T]);
   }, [valueProp, multiple]);
 
-  // Resync internal state on native form reset. Only applies when uncontrolled —
+  // Resync internal state on native form reset. Only applies when uncontrolled
   // if `value` is provided, the parent owns resetting it.
   useEffect(() => {
     const form = inputRef.current?.form;
@@ -212,7 +212,6 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
     inputId: string,
   ) {
     const selectable = filterSelectableOptions();
-    if (!selectable.length) return;
 
     switch (e.key) {
       case "ArrowDown":
@@ -232,9 +231,25 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
         setActiveIndex((i) => (i - 1 + selectable.length) % selectable.length);
         break;
       case "Enter":
-        if (popoverActive && activeIndex >= 0) {
+        // A keyboard-highlighted option takes priority over free text
+        if (popoverActive && activeIndex >= 0 && selectable[activeIndex]) {
           e.preventDefault();
           handleSelect(selectable[activeIndex], inputId);
+          break;
+        }
+        if (multiple && freeSolo) {
+          const key = resolveTypedToken(inputValue);
+          if (key !== undefined) {
+            e.preventDefault(); // don't submit the surrounding form
+            const limitReached =
+              limitSelections !== undefined &&
+              selected.length >= limitSelections;
+            if (!selected.includes(key) && !limitReached) {
+              emitChange([...selected, key]);
+            }
+            setInputValue("");
+            setActiveIndex(-1);
+          }
         }
         break;
     }

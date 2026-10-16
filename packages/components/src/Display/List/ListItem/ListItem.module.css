@@ -113,8 +113,9 @@
     margin-block: 0;
   }
 }
-/* Selected styles */
-.surface[data-selected="true"] {
+
+/* Selected styles, where makes it have less specificity */
+.surface:where([data-selected="true"]) {
   background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
   backdrop-filter: blur(var(--blur-light));
   color: var(--color-selected);
