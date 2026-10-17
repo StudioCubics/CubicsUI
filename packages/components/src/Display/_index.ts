@@ -18,6 +18,9 @@ export * from "./List/List.types";
 
 export * from "./TableOfContents/TableOfContents";
 export * from "./TableOfContents/TableOfContents.types";
+export * from "./TableOfContents/TableOfContentsMarker/TableOfContentsMarker";
+export * from "./TableOfContents/TableOfContentsMarker/useTableOfContentsMarker";
+export * from "./TableOfContents/useTableOfContentsTree";
 
 export * from "./Tabs/Tabs";
 export * from "./Tabs/TabsBar/TabsBar";

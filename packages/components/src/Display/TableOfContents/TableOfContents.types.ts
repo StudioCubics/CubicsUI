@@ -34,3 +34,16 @@ export interface UseTableOfContentsMarkerReturn {
   activeIds: Set<string>;
   markerRect: DOMRect | null;
 }
+export interface UseTableOfContentsOptions {
+  /** Heading selector inside the container
+   * @default "h1, h2, h3, h4, h5, h6"
+   */
+  selector?: string;
+}
+
+export interface UseTableOfContentsReturn<T extends HTMLElement> {
+  /** Attach to the container holding the headings */
+  ref: RefObject<T | null>;
+  /** Flat tree to pass to <TableOfContents tree={...} /> */
+  tree: TableOfContentsTree;
+}
