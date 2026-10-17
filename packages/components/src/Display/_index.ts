@@ -9,6 +9,9 @@ export * from "./Chip/Chip.types";
 
 export * from "./GlassCard/GlassCard";
 
+export * from "./LabeledValue/LabeledValue";
+export * from "./LabeledValue/LabeledValue.types";
+
 export * from "./List/List";
 export * from "./List/ListItem/ListItem";
 export * from "./List/List.types";

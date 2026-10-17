@@ -1,0 +1,107 @@
+.root {
+  --size: var(--gap-3);
+  --fs: var(--fs-md);
+  --color: var(--color-on-background-low);
+  --divider-color: var(--color-outline);
+  display: flex;
+  padding-block: calc(var(--size) / 2);
+  font-size: var(--fs);
+}
+.label {
+  padding-right: var(--size);
+  color: var(--color);
+  font-size: 0.9em;
+  overflow: hidden;
+}
+.content {
+  font-size: initial;
+  flex: 1;
+  padding-left: var(--size);
+}
+.removeDivider > .content {
+  border-left: none;
+}
+.disableLabelWidth {
+  & > .label {
+    min-width: 0;
+    flex: 0 1 min-content;
+  }
+  & > .content {
+    flex: 1 1 max-content;
+  }
+}
+.enableEvenWidth {
+  & > .label {
+    flex: 0 1 50%;
+  }
+  & > .content {
+    flex-basis: 1 0 50%;
+  }
+}
+.clampLabel {
+  & > .label {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+}
+.scrollOverflowLabel {
+  & > .label {
+    transition: max-width var(--transition-time) var(--transition-tf);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+@container (max-width:600px) {
+  .root {
+    flex-direction: column;
+    align-items: stretch;
+    & > label {
+      padding-right: 0;
+      padding-bottom: calc(var(--size) / 2);
+    }
+    & > .content {
+      padding-top: calc(var(--size) / 2);
+      padding-left: 0;
+    }
+  }
+}
+.root[data-size="xs"] {
+  --size: var(--gap);
+  --fs: var(--fs-xs);
+}
+.root[data-size="sm"] {
+  --size: var(--gap-2);
+  --fs: var(--fs-sm);
+}
+.root[data-size="lg"] {
+  --size: var(--gap-4);
+  --fs: var(--fs-lg);
+}
+.root[data-size="xl"] {
+  --size: var(--gap-5);
+  --fs: var(--fs-xl);
+}
+.root[data-color="primary"] {
+  --color: var(--color-primary);
+  --divider-color: var(--color-primary-alpha);
+}
+.root[data-color="secondary"] {
+  --color: var(--color-secondary);
+  --divider-color: var(--color-secondary-alpha);
+}
+.root[data-color="tertiary"] {
+  --color: var(--color-tertiary);
+  --divider-color: var(--color-tertiary-alpha);
+}
+.root[data-color="error"] {
+  --color: var(--color-error);
+  --divider-color: var(--color-error-alpha);
+}
+.root[data-color="warn"] {
+  --color: var(--color-warn);
+  --divider-color: var(--color-warn-alpha);
+}
+.root[data-color="success"] {
+  --color: var(--color-success);
+  --divider-color: var(--color-success-alpha);
+}
