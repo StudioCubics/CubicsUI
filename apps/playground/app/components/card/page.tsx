@@ -211,7 +211,7 @@ export default function Page() {
         <div className="column">
           <h3>colored</h3>
           <Card variant="colored" fixedWidth="220px">
-            Bordered surface, useful on already-colored backgrounds.
+            Colored surface for colorful cards
           </Card>
         </div>
       </section>

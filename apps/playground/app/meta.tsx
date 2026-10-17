@@ -11,6 +11,7 @@ import type { Route } from "next";
 import type { ReactNode } from "react";
 
 export const componentsMeta: ListItemProps<Route>[] = [
+  // Global Styles
   {
     type: "collapsible",
     id: "globalStyles",
@@ -21,6 +22,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "Colors", href: "/components/globalStyles/colors" },
     ],
   },
+  // Display
   {
     type: "collapsible",
     id: "display",
@@ -29,12 +31,17 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "Card", href: "/components/card" },
       { children: "Chip", href: "/components/chip" },
       { children: "GlassCard", href: "/components/glassCard" },
+      {
+        children: "LabeledValue",
+        href: "/components/labeledValue",
+      },
       { children: "List", href: "/components/list" },
       { children: "TableOfContents", disabled: true, icon: "🚧" },
       { children: "Tabs", href: "/components/tabs" },
       { children: "Tooltip", disabled: true, icon: "🚧" },
     ],
   },
+  // Inputs
   {
     type: "collapsible",
     id: "inputs",
@@ -63,6 +70,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "ThemeToggle", href: "/components/themeToggle" },
     ],
   },
+  // Layout
   {
     type: "collapsible",
     id: "layout",
@@ -80,24 +88,17 @@ export const componentsMeta: ListItemProps<Route>[] = [
       },
       { children: "Popover", href: "/components/popover" },
       {
+        children: "SectionWrapper",
+        href: "/components/sectionWrapper",
+      },
+      {
         children: "SidebarLayout",
         href: "/components/sidebarLayout",
       },
+      { children: "Table", href: "/components/table", icon: "🚧" },
     ],
   },
-  {
-    type: "collapsible",
-    id: "misc",
-    children: "Misc",
-    nodes: [
-      { children: "Logo", href: "/components/logo" },
-      {
-        children: "Ripple",
-        disabled: true,
-        icon: "🚧",
-      },
-    ],
-  },
+  // Providers
   {
     type: "collapsible",
     id: "providers",
@@ -114,6 +115,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "ThemeProvider", href: "/components/themeProvider" },
     ],
   },
+  // Typography
   {
     type: "collapsible",
     id: "typography",
@@ -121,6 +123,20 @@ export const componentsMeta: ListItemProps<Route>[] = [
     nodes: [
       { children: "PageHeader", href: "/components/pageHeader" },
       { children: "TextOrList", href: "/components/textOrList" },
+    ],
+  },
+  // Misc
+  {
+    type: "collapsible",
+    id: "misc",
+    children: "Misc",
+    nodes: [
+      { children: "Logo", href: "/components/logo" },
+      {
+        children: "Ripple",
+        disabled: true,
+        icon: "🚧",
+      },
     ],
   },
 ];

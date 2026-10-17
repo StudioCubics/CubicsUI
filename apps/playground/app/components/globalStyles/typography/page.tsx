@@ -1,4 +1,4 @@
-import { Select } from "@cubicsui/components";
+import { PageHeader, Select } from "@cubicsui/components";
 import { CssVarValue } from "../CssVarValue";
 import styles from "./page.module.css";
 import { cn } from "@cubicsui/utils";
@@ -37,7 +37,7 @@ function TypographyDisplay({ fm, fs }: { fm?: string; fs?: string }) {
 export default function Page() {
   return (
     <main className="main">
-      <h1>Typography</h1>
+      <PageHeader title="Typography" />
       <h2>Font family</h2>
       <section>
         <h3>Header font</h3>
