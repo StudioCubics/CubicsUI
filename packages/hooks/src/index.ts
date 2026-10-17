@@ -13,3 +13,4 @@ export * from "./useMounted/useMounted";
 export * from "./usePersistScrollPosition/usePersistScrollPosition";
 export * from "./usePointerPosition/usePointerPosition";
 export * from "./useScreenSize/useScreenSize";
+export * from "./useScrollLongText/useScrollLongText";
