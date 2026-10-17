@@ -8,7 +8,10 @@ export default defineConfig({
   sourcemap: true,
   clean: false,
   dts: true,
-  minify: true,
+  minify: {
+    compress: { keepNames: { function: true, class: true } },
+    mangle: { keepNames: true },
+  },
   treeshake: true,
   unbundle: true,
   deps: {
