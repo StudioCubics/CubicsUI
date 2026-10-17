@@ -7,6 +7,9 @@ export * from "./PageLayoutTOC/PageLayoutTOC.types";
 export * from "./Popover/Popover";
 export * from "./Popover/Popover.types";
 
+export * from "./SectionWrapper/SectionWrapper";
+export * from "./SectionWrapper/SectionWrapper.types";
+
 export * from "./SidebarLayout/SidebarLayout";
 export * from "./SidebarLayout/SidebarViewport/SidebarViewport";
 export * from "./SidebarLayout/Sidebar/Sidebar";
