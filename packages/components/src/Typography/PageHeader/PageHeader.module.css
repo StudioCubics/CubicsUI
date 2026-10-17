@@ -1,4 +1,5 @@
 .root {
+  --ff: var(--font-h);
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: auto 1fr;
@@ -14,6 +15,7 @@
   align-items: center;
   gap: calc(var(--size) / var(--gr));
   text-wrap: balance;
+  font-family: var(--ff);
 }
 .desc {
   grid-area: desc;
@@ -23,6 +25,7 @@
   opacity: 0.6;
   line-height: var(--lh-snug);
   padding-top: 0.325em;
+  font-family: var(--ff);
 }
 .action {
   grid-area: action;

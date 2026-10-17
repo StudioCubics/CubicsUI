@@ -16,15 +16,12 @@ export function PageHeader(props: PageHeaderProps): ReactElement {
   const TitleComponent = as;
   return (
     <header {...rest} className={cn(className, styles.root)}>
-      {/* Title */}
       <TitleComponent
         {...slotProps.title}
         className={cn(slotProps.title?.className, styles.title)}
       >
         {title}
       </TitleComponent>
-
-      {/* Action */}
       {actions && (
         <div
           {...slotProps.action}
@@ -33,7 +30,6 @@ export function PageHeader(props: PageHeaderProps): ReactElement {
           {actions}
         </div>
       )}
-      {/* Description */}
       {desc && (
         <p
           {...slotProps.desc}
