@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import type {
   TableOfContentsTree,
