@@ -1,3 +1,4 @@
+export * from "./useActiveNodeGlider/useActiveNodeGlider";
 export * from "./useAnchorElement/useAnchorElement";
 export * from "./useCookies/useCookies";
 export * from "./useCopyAction/useCopyAction";
