@@ -80,42 +80,42 @@
 .root[data-color="primary"] {
   --color: var(--color-primary);
   &.variant_colored {
-    --bg: var(--color-primary);
-    --color: var(--color-on-primary);
+    --bg: var(--color-primary-container);
+    --color: var(--color-on-primary-container);
   }
 }
 .root[data-color="secondary"] {
   --color: var(--color-secondary);
   &.variant_colored {
-    --bg: var(--color-secondary);
-    --color: var(--color-on-secondary);
+    --bg: var(--color-secondary-container);
+    --color: var(--color-on-secondary-container);
   }
 }
 .root[data-color="tertiary"] {
   --color: var(--color-tertiary);
   &.variant_colored {
-    --bg: var(--color-tertiary);
-    --color: var(--color-on-tertiary);
+    --bg: var(--color-tertiary-container);
+    --color: var(--color-on-tertiary-container);
   }
 }
 .root[data-color="error"] {
   --color: var(--color-error);
   &.variant_colored {
-    --bg: var(--color-error);
-    --color: var(--color-on-error);
+    --bg: var(--color-error-container);
+    --color: var(--color-on-error-container);
   }
 }
 .root[data-color="warn"] {
   --color: var(--color-warn);
   &.variant_colored {
-    --bg: var(--color-warn);
-    --color: var(--color-on-warn);
+    --bg: var(--color-warn-container);
+    --color: var(--color-on-warn-container);
   }
 }
 .root[data-color="success"] {
   --color: var(--color-success);
   &.variant_colored {
-    --bg: var(--color-success);
-    --color: var(--color-on-success);
+    --bg: var(--color-success-container);
+    --color: var(--color-on-success-container);
   }
 }
