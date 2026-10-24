@@ -2,8 +2,8 @@
   --bar-bg: var(--color-surface);
   --color: var(--color-on-surface);
   --bg-hover: color-mix(in srgb, var(--color-on-surface) 10%, transparent);
-  --bg-selected: var(--color-surface-bright);
-  --color-selected: var(--color-on-background);
+  --bg-active: var(--color-surface-bright);
+  --color-active: var(--color-on-background);
   --glider-color: var(--color-primary);
 
   --size: var(--gap);
@@ -27,7 +27,7 @@
 }
 .fullWidth {
   width: 100%;
-  margin-inline:0;
+  margin-inline: 0;
 }
 .glider {
   --color: var(--glider-color);
@@ -51,8 +51,8 @@
   --bar-bg: var(--color-primary-container);
   --color: var(--color-primary);
   --bg-hover: color-mix(in srgb, var(--color-primary) 10%, transparent);
-  --bg-selected: var(--color-primary);
-  --color-selected: var(--color-on-primary-container);
+  --bg-active: var(--color-primary);
+  --color-active: var(--color-on-primary-container);
   --glider-color: var(--color-primary);
 }
 
@@ -60,24 +60,24 @@
   --bar-bg: var(--color-secondary-container);
   --color: var(--color-secondary);
   --bg-hover: color-mix(in srgb, var(--color-secondary) 10%, transparent);
-  --bg-selected: var(--color-secondary);
-  --color-selected: var(--color-on-secondary-container);
+  --bg-active: var(--color-secondary);
+  --color-active: var(--color-on-secondary-container);
   --glider-color: var(--color-secondary);
 }
 .root[data-color="tertiary"] {
   --bar-bg: var(--color-tertiary-container);
   --color: var(--color-tertiary);
   --bg-hover: color-mix(in srgb, var(--color-tertiary) 10%, transparent);
-  --bg-selected: var(--color-tertiary);
-  --color-selected: var(--color-on-tertiary-container);
+  --bg-active: var(--color-tertiary);
+  --color-active: var(--color-on-tertiary-container);
   --glider-color: var(--color-tertiary);
 }
 .root[data-color="error"] {
   --bar-bg: var(--color-error-container);
   --color: var(--color-error);
   --bg-hover: color-mix(in srgb, var(--color-error) 10%, transparent);
-  --bg-selected: var(--color-error);
-  --color-selected: var(--color-on-error-container);
+  --bg-active: var(--color-error);
+  --color-active: var(--color-on-error-container);
   --glider-color: var(--color-error);
 }
 

@@ -13,16 +13,16 @@
   border: none;
   background: transparent;
   transition: all var(--transition-time) var(--transition-tf);
-  &[data-selected="false"]:hover:not(.disabled) {
+  &[data-active="false"]:hover:not(.disabled) {
     background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
   }
 }
 
-.root[data-selected="true"] {
-  color: var(--color-selected);
-  background: color-mix(in srgb, var(--bg-selected) 30%, transparent);
+.root[data-active="true"] {
+  color: var(--color-active);
+  background: color-mix(in srgb, var(--bg-active) 30%, transparent);
   &:hover {
-    background: color-mix(in srgb, var(--bg-selected) 20%, transparent);
+    background: color-mix(in srgb, var(--bg-active) 20%, transparent);
     color: var(--color);
   }
 }
