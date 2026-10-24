@@ -3,7 +3,7 @@
 import { useEffect, useState, type RefObject } from "react";
 import { useDelayedAction } from "../useDelayedAction/useDelayedAction";
 
-export interface UseCopyActionReturnType {
+export interface UseCopyActionReturn {
   copied: boolean;
   handleCopy: () => Promise<void>;
 }
@@ -16,7 +16,7 @@ export function useCopyAction({
   text,
   ref,
   delay = 2000,
-}: UseCopyActionProps): UseCopyActionReturnType {
+}: UseCopyActionProps): UseCopyActionReturn {
   const [copied, setCopied] = useState(false);
   const delayedAction = useDelayedAction();
 

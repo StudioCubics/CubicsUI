@@ -17,7 +17,7 @@ export interface UsePointerPositionProps {
   intensity?: number;
 }
 
-export interface UsePointerPositionReturnType {
+export interface UsePointerPositionReturn {
   pointerPosition: PositionMatrix;
   pointerSpeed: number;
   pointerSpeedRef: RefObject<number>;
@@ -26,7 +26,7 @@ export interface UsePointerPositionReturnType {
 
 export function usePointerPosition(
   props: UsePointerPositionProps | void,
-): UsePointerPositionReturnType {
+): UsePointerPositionReturn {
   const {
     includeTouch = false,
     defaultPosition,

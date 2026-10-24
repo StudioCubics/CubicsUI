@@ -3,7 +3,7 @@
 import { type MouseEvent, useMemo, useState } from "react";
 import { type SetState } from "@cubicsui/types";
 
-export interface UseAnchorElementReturnType<T extends HTMLElement> {
+export interface UseAnchorElementReturn<T extends HTMLElement> {
   open: boolean;
   anchorEl: T | null;
   handleClick: (event: MouseEvent<T>) => void;
@@ -13,7 +13,7 @@ export interface UseAnchorElementReturnType<T extends HTMLElement> {
 
 export function useAnchorElement<
   T extends HTMLElement,
->(): UseAnchorElementReturnType<T> {
+>(): UseAnchorElementReturn<T> {
   const [anchorEl, setAnchorEl] = useState<T | null>(null);
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
   const handleClick = (event: MouseEvent<T>): void => {

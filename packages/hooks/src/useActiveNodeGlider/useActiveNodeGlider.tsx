@@ -7,10 +7,21 @@ export interface UseActiveNodeGliderReturn extends UseGliderReturn {
   activeNode: Element | null;
 }
 
+export interface UseActiveNodeGliderOptions {
+  /** Attributes (besides data-active) that trigger a re-resolve when mutated */
+  observeAttributes?: string[];
+  /** Maps the raw active node to the node the glider should actually target */
+  resolveActiveNode?: (
+    activeNode: Element,
+    root: HTMLElement,
+  ) => Element | null;
+}
+
 /** Glider that returns active node along with it */
 export function useActiveNodeGlider(
-  element: string,
+  options: UseActiveNodeGliderOptions = {},
 ): UseActiveNodeGliderReturn {
+  const { observeAttributes, resolveActiveNode } = options;
   const [activeNode, setActiveNode] = useState<Element | null>(null);
   const { gliderRef, rootRef } = useGlider(
     (glider, rootRect, scrollLeft, scrollTop) => {
@@ -48,26 +59,17 @@ export function useActiveNodeGlider(
         setActiveNode(null);
         return;
       }
-      let parent: HTMLElement | null =
-        newActiveNode.parentElement?.closest(element) ?? null;
-      let outermostCollapsedAncestor: HTMLElement | null = null;
-      while (parent && parent !== root) {
-        if (parent.dataset.collapsed === "true") {
-          outermostCollapsedAncestor = parent;
-        }
-        parent = parent.parentElement?.closest(element) ?? null;
-      }
-      setActiveNode(outermostCollapsedAncestor ?? newActiveNode);
+      setActiveNode(resolveActiveNode?.(newActiveNode, root) ?? newActiveNode);
     };
     updateActiveNode();
     const observer = new MutationObserver(updateActiveNode);
     observer.observe(root, {
       subtree: true,
       attributes: true,
-      attributeFilter: ["data-active", "data-expanded"],
+      attributeFilter: ["data-active", ...(observeAttributes ?? [])],
     });
 
     return () => observer.disconnect();
-  }, [rootRef]);
+  }, [rootRef, observeAttributes, resolveActiveNode]);
   return { gliderRef, rootRef, setActiveNode, activeNode };
 }
