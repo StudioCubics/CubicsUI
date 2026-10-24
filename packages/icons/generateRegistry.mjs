@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const src = join(dirname(fileURLToPath(import.meta.url)), "src");
-const groups = ["Brand", "Static"];
+const groups = ["Brand", "Static", "Animated"];
 
 const entries = groups
   .flatMap((group) =>
