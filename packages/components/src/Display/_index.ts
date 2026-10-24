@@ -1,3 +1,7 @@
+export * from "./Accordion/Accordion";
+export * from "./Accordion/AccordionItem/AccordionItem";
+export * from "./Accordion/Accordion.types";
+
 export * from "./Card/Card";
 export * from "./Card/CardHeader/CardHeader";
 export * from "./Card/CardContent/CardContent";

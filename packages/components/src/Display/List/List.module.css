@@ -1,8 +1,8 @@
 .root {
   --color: var(--color-on-surface);
   --bg-hover: color-mix(in srgb, var(--color-on-surface) 10%, transparent);
-  --bg-selected: var(--color-surface-bright);
-  --color-selected: var(--color-on-background);
+  --bg-active: var(--color-surface-bright);
+  --color-active: var(--color-on-background);
   --glider-color: var(--color-primary);
 
   --size: var(--gap);
@@ -21,10 +21,6 @@
 }
 .glider {
   --color: var(--glider-color);
-  width: 0;
-  left: 0;
-  opacity: 0;
-  scale: 0;
   background: none;
   backdrop-filter: none;
   pointer-events: none;
@@ -64,42 +60,42 @@
 .root[data-color="primary"] {
   --color: var(--color-primary);
   --bg-hover: var(--color-primary-container);
-  --bg-selected: var(--color-primary-container);
-  --color-selected: var(--color-on-primary-container);
+  --bg-active: var(--color-primary-container);
+  --color-active: var(--color-on-primary-container);
   --glider-color: var(--color-primary);
 }
 .root[data-color="secondary"] {
   --color: var(--color-secondary);
   --bg-hover: var(--color-secondary-container);
-  --bg-selected: var(--color-secondary-container);
-  --color-selected: var(--color-on-secondary-container);
+  --bg-active: var(--color-secondary-container);
+  --color-active: var(--color-on-secondary-container);
   --glider-color: var(--color-secondary);
 }
 .root[data-color="tertiary"] {
   --color: var(--color-tertiary);
   --bg-hover: var(--color-tertiary-container);
-  --bg-selected: var(--color-tertiary-container);
-  --color-selected: var(--color-on-tertiary-container);
+  --bg-active: var(--color-tertiary-container);
+  --color-active: var(--color-on-tertiary-container);
   --glider-color: var(--color-tertiary);
 }
 .root[data-color="error"] {
   --color: var(--color-error);
   --bg-hover: var(--color-error-container);
-  --bg-selected: var(--color-error-container);
-  --color-selected: var(--color-on-error-container);
+  --bg-active: var(--color-error-container);
+  --color-active: var(--color-on-error-container);
   --glider-color: var(--color-error);
 }
 .root[data-color="warn"] {
   --color: var(--color-warn);
   --bg-hover: var(--color-warn-container);
-  --bg-selected: var(--color-warn-container);
-  --color-selected: var(--color-on-warn-container);
+  --bg-active: var(--color-warn-container);
+  --color-active: var(--color-on-warn-container);
   --glider-color: var(--color-warn);
 }
 .root[data-color="success"] {
   --color: var(--color-success);
   --bg-hover: var(--color-success-container);
-  --bg-selected: var(--color-success-container);
-  --color-selected: var(--color-on-success-container);
+  --bg-active: var(--color-success-container);
+  --color-active: var(--color-on-success-container);
   --glider-color: var(--color-success);
 }

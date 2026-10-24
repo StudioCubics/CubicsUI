@@ -115,14 +115,14 @@
 }
 
 /* Selected styles, where makes it have less specificity */
-.surface:where([data-selected="true"]) {
-  background: color-mix(in srgb, var(--bg-selected) 50%, transparent);
+.surface:where([data-active="true"]) {
+  background: color-mix(in srgb, var(--bg-active) 50%, transparent);
   backdrop-filter: blur(var(--blur-light));
-  color: var(--color-selected);
+  color: var(--color-active);
 
   &:not(.disabled) {
     &:hover:not(:has(.dropdownToggle:hover)) {
-      background: color-mix(in srgb, var(--bg-selected) 20%, transparent);
+      background: color-mix(in srgb, var(--bg-active) 20%, transparent);
       color: var(--color);
     }
   }

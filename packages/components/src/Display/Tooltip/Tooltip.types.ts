@@ -9,7 +9,7 @@ export interface TooltipProps extends SafePositionOptions {
   children: ReactElement<{ ref?: Ref<HTMLElement | null> }>;
 }
 
-export type UseTooltipReturnType = {
+export type UseTooltipReturn = {
   showTooltip: boolean;
   position: Position;
   anchorRef: Ref<HTMLElement | null>;
@@ -17,7 +17,7 @@ export type UseTooltipReturnType = {
   updatePosition: () => void;
 };
 
-export type GetArrowDirectionReturnType =
+export type GetArrowDirectionReturn =
   | "top"
   | "bottom"
   | "left"

@@ -6,7 +6,7 @@ import { InputField } from "../InputField/InputField";
 import type { InputFieldProps } from "../InputField/InputField.types";
 import type { PasswordInputProps } from "./PasswordInput.types";
 import { PasswordStrengthMeter } from "./PasswordStrengthMeter/PasswordStrengthMeter";
-import { PasswordVisibilityIcon } from "./PasswordVisibilityIcon/PasswordVisibilityIcon";
+import { PasswordVisibilityIcon } from "@cubicsui/icons";
 import styles from "./PasswordInput.module.css";
 
 export function PasswordInput(props: PasswordInputProps): ReactElement {
@@ -83,6 +83,7 @@ export function PasswordInput(props: PasswordInputProps): ReactElement {
               <button
                 {...visibilityToggle}
                 aria-pressed={showPass}
+                data-hidden={!showPass}
                 aria-controls={inputId}
                 type="button"
                 aria-label="Show password"
@@ -92,7 +93,7 @@ export function PasswordInput(props: PasswordInputProps): ReactElement {
                   visibilityToggle?.className,
                 )}
               >
-                <PasswordVisibilityIcon closed={showPass} />
+                <PasswordVisibilityIcon />
               </button>
             )}
           </span>

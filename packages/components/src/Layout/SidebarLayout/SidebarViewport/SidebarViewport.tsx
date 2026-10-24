@@ -8,14 +8,8 @@ import { usePersistScrollPosition } from "@cubicsui/hooks";
 import type { SidebarViewportProps } from "../SidebarLayout.types";
 
 export function SidebarViewport(props: SidebarViewportProps): ReactElement {
-  const {
-    children,
-    className,
-    ref,
-    persistScrollPosition = false,
-    removeBg = false,
-    ...rest
-  } = props;
+  const { children, className, ref, persistScrollPosition, removeBg, ...rest } =
+    props;
   const { closesTo, variant, type, side, id } = useSidebarLayout();
   const { containerRef } = usePersistScrollPosition({
     id: id ?? "",

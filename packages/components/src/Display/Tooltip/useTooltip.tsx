@@ -5,11 +5,11 @@ import {
   type SafePositionOptions,
 } from "@cubicsui/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { UseTooltipReturnType } from "./Tooltip.types";
+import type { UseTooltipReturn } from "./Tooltip.types";
 
 export function useTooltip(
   options: SafePositionOptions = {},
-): UseTooltipReturnType {
+): UseTooltipReturn {
   const [showTooltip, setShowTooltip] = useState(false);
   const [position, setPosition] = useState<Position>({ x: -9999, y: -9999 });
   const anchorRef = useRef<HTMLElement>(null);

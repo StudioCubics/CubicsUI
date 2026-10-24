@@ -25,11 +25,10 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
     elevation,
     style,
     color,
-    ref: _ref,
     children,
     ...restProps
   } = props;
-  const Component = (as || "div") as ElementType;
+  const Component = (as ?? "div") as ElementType;
 
   // Split out the footer so it can render outside the opaque surface,
   // letting its backdrop-filter see through to whatever is behind the card.
@@ -59,7 +58,6 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
       height: fixedHeight,
       ...style,
     },
-    ref: _ref,
     ...restProps,
   };
   if (footer)

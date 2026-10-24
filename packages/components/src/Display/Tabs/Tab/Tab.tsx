@@ -27,7 +27,7 @@ function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
   const { activeTab, setActiveTab } = useTabs();
   const tabRef = useRef<HTMLButtonElement>(null);
 
-  const selected = activeTab == value;
+  const active = activeTab == value;
 
   const Component = href ? LinkComponent : as || "div";
 
@@ -49,7 +49,7 @@ function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
       styles.root,
       disabled ? styles.disabled : undefined,
     ),
-    "data-selected": selected,
+    "data-active": active,
     value,
     onClick: handleClick,
     disabled,
