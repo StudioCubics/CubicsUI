@@ -2,6 +2,8 @@
   --size: var(--gap);
   list-style-type: none;
   position: relative;
+  min-width: 0;
+  flex: 1;
 }
 
 .content {
@@ -10,15 +12,19 @@
 .item {
   margin-left: calc((var(--depth) - 1) * var(--size) * 2);
   padding: var(--size);
-  color: var(--color-on-background);
-  opacity: 0.5;
+  color: var(--color-on-background-low);
   transition: all var(--transition-time) var(--transition-tf);
+  &:hover {
+    color: var(--color-on-background);
+  }
 }
 .item[data-active="true"] {
   color: var(--color-on-background);
   opacity: 0.8;
   padding-left: calc(var(--size) * 1.5);
-  font-weight: bold;
+  &:hover {
+    opacity: 1;
+  }
 }
 .withNumbering {
   &::before {
