@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactElement, ReactNode } from "react";
-import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList";
+import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
 export interface CheckboxProps extends Omit<
   ComponentProps<"input">,

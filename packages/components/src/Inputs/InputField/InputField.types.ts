@@ -3,7 +3,7 @@ import type {
   UseRippleProps,
   UseRippleReturns,
 } from "../../Misc/Ripple/Ripple.types";
-import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList";
+import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
 export interface InputFieldSharedProps {
   /** Label for the input containing helpful info */

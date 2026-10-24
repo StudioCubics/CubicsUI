@@ -66,33 +66,34 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
         const parsed = JSON.parse(stored) as boolean;
         setSidebarOpen((prev) => (prev === parsed ? prev : parsed));
       }
-    } catch (_) {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    } catch {
+      // Unsupported
+    }
   }, [storageKey]);
 
-  async function toggleSidebar() {
+  function toggleSidebar() {
     setSidebarOpen((prev) => {
       try {
         localStorage.setItem(storageKey, JSON.stringify(!prev));
-      } catch (_) {}
+      } catch {
+        // Unsupported
+      }
       return !prev;
     });
   }
   return (
     <SidebarLayoutContext.Provider
-      value={
-        {
-          sidebarOpen,
-          toggleSidebar,
-          side,
-          closesTo,
-          variant,
-          size,
-          type,
-          defaultClosed,
-          id,
-        } as Required<SidebarLayoutContextProps>
-      }
+      value={{
+        sidebarOpen,
+        toggleSidebar,
+        side,
+        closesTo,
+        variant,
+        size,
+        type,
+        defaultClosed,
+        id,
+      }}
     >
       <SidebarScript
         {...slotProps.script}

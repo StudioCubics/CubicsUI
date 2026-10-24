@@ -3,7 +3,7 @@ import type {
   InputFieldSharedProps,
   InputFieldSlotProps,
 } from "../InputField/InputField.types";
-import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList";
+import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
 export interface PasswordInputProps
   extends

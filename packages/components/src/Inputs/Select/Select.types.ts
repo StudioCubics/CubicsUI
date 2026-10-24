@@ -34,4 +34,4 @@ export interface SelectProps
   slotProps?: SelectSlotProps;
 }
 
-export interface SelectSlotProps extends InputFieldSlotProps {}
+export type SelectSlotProps = InputFieldSlotProps;

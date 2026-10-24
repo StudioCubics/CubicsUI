@@ -27,7 +27,6 @@ export function TextInput(props: TextInputProps): ReactElement {
     className,
     type = "text",
     htmlSize,
-    onTouchStart,
     onClick,
     ...inputProps
   } = props;

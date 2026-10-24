@@ -7,7 +7,7 @@ import { cn, mergeRefs } from "@cubicsui/utils";
 import type { PolymorphicComponentType } from "@cubicsui/types";
 import type { TabBaseProps, TabProps } from "../Tabs.types";
 
-function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
+function TabBase<C extends ElementType = "button">(props: TabProps<C>) {
   const {
     as,
     ref,
@@ -23,7 +23,7 @@ function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
     disableCentering = false,
     LinkComponent = "a",
     ...restProps
-  } = props;
+  } = props as TabProps<"button">;
   const { activeTab, setActiveTab } = useTabs();
   const tabRef = useRef<HTMLButtonElement>(null);
 
@@ -43,23 +43,21 @@ function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
     onClick?.(e);
   }
 
-  const componentProps = {
-    className: cn(
-      className,
-      styles.root,
-      disabled ? styles.disabled : undefined,
-    ),
-    "data-active": active,
-    value,
-    onClick: handleClick,
-    disabled,
-    href: !disabled ? href : undefined,
-    ref: mergeRefs(ref, tabRef),
-    ...restProps,
-  };
-
   return (
-    <Component {...componentProps}>
+    <Component
+      {...restProps}
+      className={cn(
+        className,
+        styles.root,
+        disabled ? styles.disabled : undefined,
+      )}
+      data-active={active}
+      value={value}
+      onClick={handleClick}
+      disabled={disabled}
+      href={!disabled ? href : undefined}
+      ref={mergeRefs(ref, tabRef)}
+    >
       {startAdornment && (
         <span
           {...slotProps.startAdornment}

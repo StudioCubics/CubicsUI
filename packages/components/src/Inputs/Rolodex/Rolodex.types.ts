@@ -33,10 +33,10 @@ export interface UseRolodexContextReturn {
   visible: number;
   half: number;
   open: boolean;
-  openList(): void;
+  openList: () => void;
   setOpen: SetState<boolean>;
   shift: (by: number) => void;
-  distance(from: number, d: number): number;
+  distance: (from: number, d: number) => number;
   heightAt: (i: number) => number;
   offsetOf: (i: number) => number;
   onPopoverKeyDown: (e: KeyboardEvent<HTMLDivElement>) => void;

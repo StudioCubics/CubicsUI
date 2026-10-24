@@ -16,7 +16,7 @@ function GlassCardBase<C extends ElementType = "div">(
   props: GlassCardProps<C>,
 ) {
   const { as, id, children, className, ref, ...restProps } = props;
-  const Component = (as || "div") as ElementType;
+  const Component: ElementType = as || "div";
   const { pointerPosition } = usePointerPosition();
   const cardRef = useRef<HTMLDivElement>(null);
 

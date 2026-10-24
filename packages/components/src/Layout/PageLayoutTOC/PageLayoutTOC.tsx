@@ -14,6 +14,7 @@ import { SidebarToggle } from "../SidebarLayout/SidebarHeader/SidebarToggle";
 import { SidebarViewport } from "../SidebarLayout/SidebarViewport/SidebarViewport";
 import { PageHeader } from "../../Typography/PageHeader/PageHeader";
 
+// TODO nuke this and make with PageLayout instead of SidebarLayout
 export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
   const {
     tree = [],
@@ -22,7 +23,6 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
     actions,
     size = "lg",
     children,
-    className,
     slotProps = {},
     LinkComponent,
     ...rest
@@ -34,6 +34,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
       side="right"
       closesTo="full"
       slotProps={slotProps}
+      size={size}
       {...rest}
     >
       <SidebarViewport

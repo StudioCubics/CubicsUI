@@ -36,18 +36,10 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
 
     id,
     className,
-    onTouchStart,
-    onClick,
-    value: _value,
-    defaultValue: _defaultValue,
-    onChange: _onChange,
     multiple,
     options: _options = [],
-    limitSelections,
-    freeSolo,
     disabled,
     name,
-    chipSeparator,
     ...inputProps
   } = props;
   const fallbackId = useId();

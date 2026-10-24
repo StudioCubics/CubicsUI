@@ -11,7 +11,6 @@ export function SectionWrapper(props: SectionWrapperProps): ReactElement {
     title,
     subtitle,
     noBorders,
-    keepFirstBorder,
     TitleElement = "h4",
     color,
     size = "md",

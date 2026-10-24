@@ -71,7 +71,7 @@ export function PointerLightProvider(
     setPointerLightState(value);
     try {
       localStorage.setItem(storageKey, JSON.stringify(value));
-    } catch (e) {
+    } catch {
       // Unsupported
     }
   }
@@ -89,7 +89,7 @@ export function PointerLightProvider(
             ? defaultPointerLight
             : (JSON.parse(e.newValue) as boolean);
         setPointerLightState(newC);
-      } catch (err) {
+      } catch {
         setPointerLightState(defaultPointerLight);
       }
     };

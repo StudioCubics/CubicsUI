@@ -41,8 +41,7 @@ export function Checkbox(props: CheckboxProps): ReactElement {
     indeterminateIcon = <DashIconAnimated />,
     slotProps = {},
     onChange,
-    onTouchStart,
-    onClick,
+
     ...rest
   } = props;
 
@@ -83,7 +82,7 @@ export function Checkbox(props: CheckboxProps): ReactElement {
       isRegistered.current = true;
       group.register(name, c);
     }
-  }, [group, skipGroup, name, indeterminate]);
+  }, [group, skipGroup, name, indeterminate, disabled]);
 
   // Set indeterminate state
   useEffect(() => {
@@ -97,7 +96,7 @@ export function Checkbox(props: CheckboxProps): ReactElement {
     if (!isRegistered.current || !inputRef.current || !name || disabled) return;
     inputRef.current.checked = group.values[name];
     setCurrentState(group.values[name] ? "checked" : "unchecked");
-  }, [group.values, name]);
+  }, [group.values, name, disabled]);
 
   // Native form reset restores input.checked to defaultChecked but does not
   // fire onChange, so currentState never changes, this effect handles that

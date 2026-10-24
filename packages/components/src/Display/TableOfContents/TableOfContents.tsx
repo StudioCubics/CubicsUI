@@ -20,23 +20,21 @@ export function TableOfContents(props: TableOfContentsProps): ReactElement {
     withNumbering = false,
     scrollContainerRef,
   } = props;
-  const contentsMarker = useTableOfContentsMarker(
-    tree,
-    scrollContainerRef ?? { current: null },
-  );
+  const contentsMarker = useTableOfContentsMarker(tree, scrollContainerRef);
+  const { navRef, listRef, activeIds } = contentsMarker;
   return (
-    <Card as="nav" removeBg ref={mergeRefs(contentsMarker.navRef)}>
+    <Card as="nav" removeBg ref={mergeRefs(navRef)}>
       {title && <CardHeader as="h5" title={title} />}
       <CardContent className={cn(styles.content)}>
         <TableOfContentsMarker {...contentsMarker} />
-        <ListComponent ref={contentsMarker.listRef} className={cn(styles.root)}>
+        <ListComponent ref={listRef} className={cn(styles.root)}>
           {tree?.map((t) => (
             <li
               key={t.numbering.join("")}
               style={{ "--depth": t.depth } as React.CSSProperties}
               className={cn(styles.item, withNumbering && styles.withNumbering)}
               data-numbering={t.numbering.filter((_, i) => i != 0).join(".")}
-              data-active={contentsMarker.activeIds.has(t.href.slice(1))}
+              data-active={activeIds.has(t.href.slice(1))}
             >
               <LinkComponent href={t.href}>{t.value}</LinkComponent>
             </li>

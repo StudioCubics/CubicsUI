@@ -8,7 +8,9 @@ import {
 } from "react";
 import type { RolodexProps, UseRolodexContextReturn } from "./Rolodex.types";
 
-export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn {
+export function useRolodexContext(
+  props: RolodexProps,
+): UseRolodexContextReturn {
   const {
     items,
     defaultValue,
@@ -61,7 +63,6 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
     [items, count, activeIndex, onChange],
   );
   const shiftRef = useRef(shift);
-  shiftRef.current = shift;
 
   function heightAt(i: number) {
     return heights[((i % count) + count) % count] ?? 0;
@@ -138,7 +139,7 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, []);
+  }, [wheelStep]);
 
   // The popover is position: fixed, so close it if the page moves underneath
   useEffect(() => {

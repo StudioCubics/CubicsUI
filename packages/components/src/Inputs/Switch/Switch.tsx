@@ -70,13 +70,20 @@ export function Switch(props: SwitchProps): ReactElement {
 
   return (
     <div
+      {...slotProps.root}
       className={cn(styles.root)}
       data-color={error ? "error" : color}
       data-size={size}
       data-error={!!error}
     >
-      <div className={cn(styles.inputWrapper)}>
-        <div className={cn(styles.switch)}>
+      <div
+        {...slotProps.inputWrapper}
+        className={cn(slotProps.inputWrapper?.className, styles.inputWrapper)}
+      >
+        <div
+          {...slotProps.switch}
+          className={cn(slotProps.switch?.className, styles.switch)}
+        >
           <input
             {...inputProps}
             id={id}
@@ -90,33 +97,49 @@ export function Switch(props: SwitchProps): ReactElement {
             {...(checked !== undefined ? { checked } : { defaultChecked })}
           />
           <span
-            className={cn(styles.track)}
-            onClick={() => {
+            {...slotProps.track}
+            className={cn(slotProps.track?.className, styles.track)}
+            onClick={(e) => {
               inputRef.current?.click();
+              slotProps.track?.onClick?.(e);
             }}
             aria-hidden="true"
           >
             <RenderSwitchIcons
-              className={styles.trackIcons}
               icons={trackIcons}
+              {...slotProps.trackIcons}
+              className={cn(slotProps.trackIcons?.className, styles.trackIcons)}
             />
-            <span ref={thumbRef} className={cn(styles.thumb)}>
+            <span
+              {...slotProps.thumb}
+              ref={mergeRefs(thumbRef, slotProps.thumb?.ref)}
+              className={cn(slotProps.thumb?.className, styles.thumb)}
+            >
               <RenderSwitchIcons
-                className={styles.thumbIcons}
                 icons={thumbIcons}
+                {...slotProps.thumbIcons}
+                className={cn(
+                  slotProps.thumbIcons?.className,
+                  styles.thumbIcons,
+                )}
               />
             </span>
           </span>
         </div>
         {label && (
-          <label htmlFor={id} className={cn(styles.label)}>
+          <label
+            {...slotProps.label}
+            htmlFor={id}
+            className={cn(slotProps.label?.className, styles.label)}
+          >
             {label}
           </label>
         )}
       </div>
       <TextOrList
-        className={cn(styles.helperText)}
         text={error ?? helperText}
+        {...slotProps.helperText}
+        className={cn(slotProps.helperText?.className, styles.helperText)}
       />
     </div>
   );

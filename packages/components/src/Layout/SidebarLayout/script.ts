@@ -14,7 +14,8 @@ export const script = ({
     ] as const;
 
     const stored = localStorage.getItem(storageKey);
-    const value = stored !== null ? JSON.parse(stored) : !defaultClosed;
+    const value =
+      stored !== null ? (JSON.parse(stored) as boolean) : !defaultClosed;
 
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -36,5 +37,7 @@ export const script = ({
       if (!el) return;
       el.setAttribute("data-open", String(value));
     });
-  } catch (e) {}
+  } catch {
+    // Unsupported
+  }
 };

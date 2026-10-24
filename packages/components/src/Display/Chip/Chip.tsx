@@ -14,28 +14,25 @@ function ChipBase<C extends ElementType = "span">(props: ChipProps<C>) {
     variant = "contained",
     color,
     size = "md",
-    square,
     icon,
     children,
     onClose,
     slotProps = {},
     ...restProps
   } = props;
-  const Component = (as || "span") as ElementType;
-
-  const componentProps = {
-    className: cn(
-      className,
-      styles.root,
-      variant && styles[`variant_${variant}`],
-    ),
-    "data-color": color,
-    "data-size": size,
-    ...restProps,
-  };
+  const Component: ElementType = as || "span";
 
   return (
-    <Component {...componentProps}>
+    <Component
+      {...restProps}
+      className={cn(
+        className,
+        styles.root,
+        variant && styles[`variant_${variant}`],
+      )}
+      data-color={color}
+      data-size={size}
+    >
       {icon}
       {children}
       {onClose && (

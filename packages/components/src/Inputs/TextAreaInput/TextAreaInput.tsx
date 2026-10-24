@@ -26,7 +26,6 @@ export function TextAreaInput(props: TextAreaInputProps): ReactElement {
     id,
     className,
     disableResize,
-    onTouchStart,
     onClick,
     ...textareaProps
   } = props;

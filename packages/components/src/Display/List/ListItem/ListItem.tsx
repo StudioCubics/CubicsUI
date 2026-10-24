@@ -67,7 +67,6 @@ export function ListItemTypeCollapsible(
     listType: _listType,
     LinkComponent: _LinkComponent,
     slotProps = {},
-    type,
     ...rest
   } = props;
   const {
@@ -78,7 +77,7 @@ export function ListItemTypeCollapsible(
     toggleCollapsed,
   } = useList();
   const Component = (
-    !!href ? (_LinkComponent ?? LinkComponent) : "div"
+    href ? (_LinkComponent ?? LinkComponent) : "div"
   ) as ElementType;
   const ListComponent: "ol" | "ul" = ordered ? "ol" : "ul";
   const active = _selected || selectedWhen?.(props);
@@ -192,14 +191,13 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     size,
     className,
     LinkComponent: _LinkComponent,
-    type,
     slotProps = {},
     ...rest
   } = props;
   const { LinkComponent, selectedWhen } = useList();
   const isClickable = !!href || !!onClick;
   const Component = (
-    !!href ? (_LinkComponent ?? LinkComponent) : "div"
+    href ? (_LinkComponent ?? LinkComponent) : "div"
   ) as ElementType;
   const active = _selected || selectedWhen?.(props);
 

@@ -23,13 +23,13 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
     defaultValue,
     onChange,
     multiple,
-    options: _options = [],
     freeSolo,
+    options: _options = [],
     limitSelections,
     chipSeparator = ",",
   } = props;
 
-  const options = (props.options ?? []) as unknown as ComboBoxOption<T>[];
+  const options = (_options ?? []) as unknown as ComboBoxOption<T>[];
   const [inputValue, setInputValue] = useState(() => {
     if (multiple) return "";
     const initial = valueProp ?? defaultValue;

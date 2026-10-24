@@ -48,7 +48,15 @@ export function useTooltip(
 
   useEffect(() => {
     if (!showTooltip) return;
+    const updatePosition = () => {
+      const safePos = calculateSafePosition(
+        tooltipRef.current,
+        anchorRef.current,
+        options,
+      );
 
+      setPosition(safePos);
+    };
     // Initial position calculation
     updatePosition();
 
@@ -60,7 +68,7 @@ export function useTooltip(
       window.removeEventListener("scroll", updatePosition);
       window.removeEventListener("resize", updatePosition);
     };
-  }, [showTooltip]);
+  }, [showTooltip, options]);
 
   return { showTooltip, position, anchorRef, tooltipRef, updatePosition };
 }

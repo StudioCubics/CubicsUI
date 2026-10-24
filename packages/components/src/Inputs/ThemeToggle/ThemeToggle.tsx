@@ -41,7 +41,8 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
       ...themeObject.light,
       onClick: (e) => {
         if (!isControlled) {
-          systemEnabled ? setTheme("system") : setTheme("dark");
+          if (systemEnabled) setTheme("system");
+          else setTheme("dark");
         }
         themeObject.light?.onClick?.(e);
       },
@@ -51,9 +52,8 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
       ...themeObject.system,
       onClick: (e) => {
         if (!isControlled) {
-          resolveSystem && resolvedTheme == "dark"
-            ? setTheme("light")
-            : setTheme("dark");
+          if (resolveSystem && resolvedTheme == "dark") setTheme("light");
+          else setTheme("dark");
         }
         themeObject.system?.onClick?.(e);
       },

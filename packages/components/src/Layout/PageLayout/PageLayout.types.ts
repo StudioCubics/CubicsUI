@@ -16,8 +16,7 @@ export interface PageLayoutBaseProps extends Omit<
     titleBar?: ComponentProps<"div">;
   };
 }
-const defaultElement = "div";
-type DefaultElement = typeof defaultElement;
+type DefaultElement = "div";
 
 export type PageLayoutProps<C extends ElementType = DefaultElement> =
   PolymorphicComponentProps<C, PageLayoutBaseProps>;

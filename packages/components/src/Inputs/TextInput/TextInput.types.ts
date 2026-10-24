@@ -32,4 +32,4 @@ export interface TextInputProps
    */
   slotProps?: TextInputSlotProps;
 }
-export interface TextInputSlotProps extends InputFieldSlotProps {}
+export type TextInputSlotProps = InputFieldSlotProps;

@@ -22,14 +22,6 @@ export function TabsBar(props: TabsBarProps): ReactElement {
   } = props;
 
   const { gliderRef, rootRef } = useActiveNodeGlider();
-  const glider = renderGlider ? (
-    <GliderComponent
-      {...slotProps.glider}
-      data-slot={"glider"}
-      ref={gliderRef}
-      className={cn(styles.glider, slotProps.glider?.className)}
-    />
-  ) : null;
 
   return (
     <nav
@@ -45,7 +37,14 @@ export function TabsBar(props: TabsBarProps): ReactElement {
       ref={rootRef}
     >
       {children}
-      {glider}
+      {renderGlider ? (
+        <GliderComponent
+          {...slotProps.glider}
+          data-slot={"glider"}
+          ref={gliderRef}
+          className={cn(styles.glider, slotProps.glider?.className)}
+        />
+      ) : null}
     </nav>
   );
 }

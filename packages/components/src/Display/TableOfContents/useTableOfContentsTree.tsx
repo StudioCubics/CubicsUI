@@ -77,9 +77,12 @@ export function useTableOfContentsTree<T extends HTMLElement = HTMLElement>(
 
   const update = useCallback(() => {
     if (!ref.current) return;
-    const next = buildTree(ref.current, selector);
-    if (JSON.stringify(tree) === JSON.stringify(next)) return;
-    setTree(next);
+    setTree((prev) => {
+      if (!ref.current) return prev;
+      const next = buildTree(ref.current, selector);
+      if (JSON.stringify(prev) === JSON.stringify(next)) return prev;
+      return next;
+    });
   }, [selector]);
 
   useEffect(() => {

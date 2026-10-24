@@ -10,8 +10,6 @@ export interface SectionWrapperProps extends Omit<
   subtitle?: ReactNode;
   /** Removes border top from the section */
   noBorders?: boolean;
-  /** Keeps the border top even if this is the first SectionWrapper child */
-  keepFirstBorder?: boolean;
   /** Color of the title and subtitle */
   color?: "primary" | "secondary" | "tertiary" | "error";
   /** Size of the gaps and spacing between elements inside */

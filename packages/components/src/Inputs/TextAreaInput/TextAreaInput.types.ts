@@ -27,4 +27,4 @@ export interface TextAreaInputProps
   slotProps?: TextAreaInputSlotProps;
 }
 
-export interface TextAreaInputSlotProps extends InputFieldSlotProps {}
+export type TextAreaInputSlotProps = InputFieldSlotProps;

@@ -8,7 +8,7 @@ import type {
 
 export function useTableOfContentsMarker(
   tree: TableOfContentsTree,
-  scrollContainerRef: RefObject<HTMLElement | null>,
+  scrollContainerRef?: RefObject<HTMLElement | null>,
   shadowOffset = 6, // positive = right, negative = left
 ): UseTableOfContentsMarkerReturn {
   const [path, setPath] = useState("");
@@ -32,7 +32,7 @@ export function useTableOfContentsMarker(
 
     const measure = () => {
       const listRect = list.getBoundingClientRect();
-      const items = Array.from(list.querySelectorAll("li")) as HTMLLIElement[];
+      const items: HTMLLIElement[] = Array.from(list.querySelectorAll("li"));
 
       if (!items.length) {
         setPath("");
@@ -135,7 +135,7 @@ export function useTableOfContentsMarker(
   useEffect(() => {
     if (!tree.length) return;
 
-    const root = scrollContainerRef.current; // null, fall back to window
+    const root = scrollContainerRef?.current; // null, fall back to window
     const scrollTarget: HTMLElement | Window = root ?? window;
     let frame = 0;
 

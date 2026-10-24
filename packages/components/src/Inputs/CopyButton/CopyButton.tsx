@@ -14,13 +14,14 @@ export function CopyButton(
   const { textToCopy, title, ...rest } = props;
   const { copied, handleCopy } = useCopyAction({ text: textToCopy });
   return (
-    <Tooltip title={copied ? "Copied" : "Copy"} renderArrow>
+    <Tooltip title={title ?? (copied ? "Copied" : "Copy")} renderArrow>
       <Button
         {...rest}
         icon
         onClick={(e) => {
-          handleCopy();
-          rest.onClick?.(e);
+          void handleCopy().finally(() => {
+            rest.onClick?.(e);
+          });
         }}
       >
         {!copied ? <CopyIcon /> : <CheckIconAnimated />}

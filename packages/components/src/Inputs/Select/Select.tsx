@@ -30,7 +30,6 @@ export function Select(props: SelectProps): ReactElement {
     className,
     htmlSize,
     multiple,
-    onTouchStart,
     onClick,
     children,
     ...selectProps

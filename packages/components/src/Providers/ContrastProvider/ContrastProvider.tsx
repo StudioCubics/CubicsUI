@@ -60,18 +60,11 @@ export function ContrastProvider(props: ContrastProviderProps): ReactElement {
     defaultContrast,
   );
 
-  function applyContrast(value: boolean) {
-    if (isServer) return;
-    let d = document.documentElement;
-    if (!!value) d.setAttribute(attribute, JSON.stringify(value));
-    else d.removeAttribute(attribute);
-  }
-
   function setContrast(value: boolean) {
     setContrastState(value);
     try {
       localStorage.setItem(storageKey, JSON.stringify(value));
-    } catch (e) {
+    } catch {
       // Unsupported
     }
   }
@@ -88,12 +81,19 @@ export function ContrastProvider(props: ContrastProviderProps): ReactElement {
   }, [storageKey, defaultContrast]);
 
   useEffect(() => {
+    function applyContrast(value: boolean) {
+      if (isServer) return;
+      const d = document.documentElement;
+      if (value) d.setAttribute(attribute, JSON.stringify(value));
+      else d.removeAttribute(attribute);
+    }
+
     if (disableTransitionOnChange) {
       withDisabledTransitions(() => applyContrast(contrast), { nonce });
     } else {
       applyContrast(contrast);
     }
-  }, [applyContrast, contrast, disableTransitionOnChange, nonce]);
+  }, [contrast, disableTransitionOnChange, nonce, attribute]);
 
   return (
     <ContrastContext.Provider

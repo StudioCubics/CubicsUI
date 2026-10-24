@@ -30,7 +30,6 @@ export function PasswordInput(props: PasswordInputProps): ReactElement {
     htmlSize,
     disableVisibilityToggle,
     enableStrengthMeter,
-    onTouchStart,
     onClick,
     ...inputProps
   } = props;

@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList";
+import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
 export interface SwitchProps extends Omit<
   ComponentProps<"input">,
@@ -54,6 +54,13 @@ export interface SwitchProps extends Omit<
   slotProps?: {
     root?: ComponentProps<"div">;
     inputWrapper?: ComponentProps<"div">;
+    switch?: ComponentProps<"div">;
+    track?: ComponentProps<"span">;
+    trackIcons?: RenderSwitchIconsProps;
+    thumb?: ComponentProps<"span">;
+    thumbIcons?: RenderSwitchIconsProps;
+    label?: ComponentProps<"label">;
+    helperText?: TextOrListProps;
   };
 }
 export type SwitchIcons = { on?: ReactNode; off?: ReactNode } | ReactNode;
