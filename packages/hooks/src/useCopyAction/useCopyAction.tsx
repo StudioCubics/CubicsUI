@@ -23,8 +23,12 @@ export function useCopyAction({
   async function handleCopy(): Promise<void> {
     const t = text || ref?.current?.innerText;
     if (typeof window == "undefined" || t === undefined) return;
-    await navigator.clipboard.writeText(t);
-    setCopied(true);
+    try {
+      await navigator.clipboard.writeText(t);
+      setCopied(true);
+    } catch {
+      setCopied(false);
+    }
   }
   useEffect(() => {
     if (copied) {

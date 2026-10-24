@@ -50,7 +50,9 @@ export interface UseDisclosureGroupReturn {
   toggleCollapsed: (id: string, current: boolean) => void;
 }
 
-/** Track collapsed children of a collapsible item group or collapsible item group type thing, or any children whose initial state is not collapsed  */
+/** Tracks collapsed state for a keyed group of items (accordion, collapsible list, tree).
+ * Resolves each item's state from an explicit toggle, its own default, `defaultCollapsedIds`,
+ * then `fallbackCollapsed`. Supports exclusive mode and optional localStorage persistence. */
 export function useDisclosureGroup(
   componentName: string,
   props: UseDisclosureGroupProps,
