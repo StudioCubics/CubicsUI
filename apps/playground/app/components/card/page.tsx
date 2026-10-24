@@ -6,10 +6,42 @@ import {
   CardHeader,
   PasswordInput,
   TextInput,
+  type CardProps,
 } from "@cubicsui/components";
 import { Polymorphic } from "./polymorphic";
 import Image from "next/image";
 import { CubicsUIFavicon } from "@cubicsui/icons";
+
+function CardSample(props: CardProps) {
+  return (
+    <Card {...props}>
+      <CardHeader
+        title={<>Create your account</>}
+        desc="Takes less than a minute"
+        actions={<Button size="xs">Get Help!</Button>}
+      />
+      <CardContent>
+        <div className="column">
+          <TextInput label="Full name" fullWidth />
+          <TextInput label="Enter email address" type="email" fullWidth />
+          <PasswordInput
+            label="Enter Password"
+            enableStrengthMeter
+            fullWidth
+            slotProps={{ strengthMeter: { score: 2 } }}
+          />
+          <Button fullWidth variant="contained">
+            Sign up
+          </Button>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button fullWidth>Google</Button>
+        <Button fullWidth>linkedIn</Button>
+      </CardFooter>
+    </Card>
+  );
+}
 
 export default function Page() {
   return (
@@ -20,32 +52,30 @@ export default function Page() {
       <h2>Composed example</h2>
       <section>
         <div className="column image_bg">
-          <Card fixedWidth="min(100%, 300px)">
-            <CardHeader
-              title={<>Create your account</>}
-              desc="Takes less than a minute"
-              actions={<Button size="xs">Get Help!</Button>}
-            />
-            <CardContent>
-              <div className="column">
-                <TextInput label="Full name" fullWidth />
-                <TextInput label="Enter email address" type="email" fullWidth />
-                <PasswordInput
-                  label="Enter Password"
-                  enableStrengthMeter
-                  fullWidth
-                  slotProps={{ strengthMeter: { score: 2 } }}
-                />
-                <Button fullWidth variant="contained">
-                  Sign up
-                </Button>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button fullWidth>Google</Button>
-              <Button fullWidth>linkedIn</Button>
-            </CardFooter>
-          </Card>
+          <CardSample fixedWidth="min(100%, 300px)" />
+        </div>
+      </section>
+      <h2>Variants</h2>
+      <section>
+        <div className="column">
+          <h3>
+            contained {"("}Default{")"}
+          </h3>
+          <CardSample variant="contained" fixedWidth="min(100%, 300px)" />
+        </div>
+        <div className="column">
+          <h3>outlined</h3>
+          <CardSample variant="outlined" fixedWidth="min(100%, 300px)" />
+        </div>
+        <div className="column">
+          <h3>
+            colored {"("}primary{")"}
+          </h3>
+          <CardSample
+            variant="colored"
+            color="primary"
+            fixedWidth="min(100%, 300px)"
+          />
         </div>
       </section>
       <h2>Sizes</h2>
@@ -192,29 +222,6 @@ export default function Page() {
         </div>
       </section>
 
-      <h2>Variants</h2>
-      <section>
-        <div className="column">
-          <h3>
-            contained {"("}Default{")"}
-          </h3>
-          <Card variant="contained" fixedWidth="220px">
-            Solid surface background, no border.
-          </Card>
-        </div>
-        <div className="column">
-          <h3>outlined</h3>
-          <Card variant="outlined" fixedWidth="220px">
-            Bordered surface, useful on already-colored backgrounds.
-          </Card>
-        </div>
-        <div className="column">
-          <h3>colored</h3>
-          <Card variant="colored" fixedWidth="220px">
-            Colored surface for colorful cards
-          </Card>
-        </div>
-      </section>
       <h2>
         <code>removeBg</code> Removes the surface background
       </h2>

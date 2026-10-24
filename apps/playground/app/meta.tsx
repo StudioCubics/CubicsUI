@@ -28,6 +28,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
     id: "display",
     children: "Display",
     nodes: [
+      { children: "Accordion", href: "/components/accordion" },
       { children: "Card", href: "/components/card" },
       { children: "Chip", href: "/components/chip" },
       { children: "GlassCard", href: "/components/glassCard" },
