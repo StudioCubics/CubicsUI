@@ -28,6 +28,8 @@
   },
   "scripts": {
     "build": "tsc",
+    "lint": "biome lint",
+    "format": "biome format --write",
     "clean": "rimraf dist node_modules"
   },
   "devDependencies": {

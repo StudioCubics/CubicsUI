@@ -35,16 +35,18 @@
   },
   "scripts": {
     "build": "tsdown",
+    "lint": "biome lint",
+    "format": "biome format --write",
     "clean": "rimraf dist node_modules"
   },
-  "dependencies": {
-    "@cubicsui/types": "workspace:^"
-  },
   "peerDependencies": {
-    "react": ">= 19"
+    "react": ">= 19",
+    "react-dom": ">= 19"
   },
   "devDependencies": {
+    "@cubicsui/biome": "workspace:^",
     "@cubicsui/tsconfig": "workspace:^",
+    "@cubicsui/types": "workspace:^",
     "@types/react": "^19",
     "tsdown": "^0.21.9"
   }

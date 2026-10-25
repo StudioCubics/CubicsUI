@@ -31,7 +31,8 @@
   },
   "scripts": {
     "build": "tsdown",
-    "lint": "eslint .",
+    "lint": "biome lint",
+    "format": "biome format --write",
     "clean": "rimraf dist node_modules"
   },
   "dependencies": {
@@ -42,17 +43,14 @@
     "react-dom": ">= 19"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
+    "@cubicsui/biome": "workspace:^",
     "@cubicsui/tsconfig": "workspace:^",
     "@cubicsui/types": "workspace:^",
     "@types/node": "24.10.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",
     "tsdown": "^0.21.9",
-    "typescript": "^5",
-    "typescript-eslint": "^8.58.1"
+    "typescript": "^5"
   }
 }
