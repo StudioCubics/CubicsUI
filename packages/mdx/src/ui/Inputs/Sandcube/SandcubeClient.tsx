@@ -1,12 +1,12 @@
 "use client";
 
-import * as React from "react";
 import * as CubicsUI from "@cubicsui/components";
-import { useMemo, useState, type ComponentType } from "react";
+import { useMounted } from "@cubicsui/hooks";
+import * as React from "react";
+import { type ComponentType, useMemo, useState } from "react";
 import { LiveError, LivePreview, LiveProvider } from "react-live";
 import { transform } from "sucrase";
 import { MonacoEditor } from "../MonacoEditor/MonacoEditor";
-import { useMounted } from "@cubicsui/hooks";
 import styles from "./Sandcube.module.css";
 import type { SandcubeClientProps, SandcubeFiles } from "./Sandcube.types";
 
@@ -124,7 +124,7 @@ export function SandcubeClient({
       return { Demo: Component, compileError: null };
     } catch (e) {
       return {
-        Demo: () => null,
+        Demo: <></>,
         compileError: e instanceof Error ? e.message : String(e),
       };
     }

@@ -1,22 +1,22 @@
-import { Children, isValidElement } from "react";
-import type { CodeBlockProps } from "./CodeBlock.types";
 import {
   extractText,
   LANGUAGE_IDENTIFIER_TO_EXTENSION,
   toCamelCase,
 } from "@cubicsui/utils";
+import { Children, isValidElement } from "react";
 import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
+import styles from "./CodeBlock.module.css";
+import type { CodeBlockProps } from "./CodeBlock.types";
+import { getCodeHeight } from "./CodeBlock.utils";
 import { CodeBlockFrame } from "./CodeBlockFrame";
 import { CodeBlockPkgManager } from "./CodeBlockPkgManager";
-import { getCodeHeight } from "./CodeBlock.utils";
-import styles from "./CodeBlock.module.css";
 
 export function CodeBlock(props: CodeBlockProps) {
   const { icon, id: _id, title, children } = props;
   const codeElement = Children.only(children);
   if (
     !isValidElement<{ className?: string; title?: string }>(codeElement) ||
-    codeElement.type != "code"
+    codeElement.type !== "code"
   )
     throw new Error(
       "Something is wrong with code element that should've been rendered here!",

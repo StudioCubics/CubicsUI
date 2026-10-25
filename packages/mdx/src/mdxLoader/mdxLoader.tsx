@@ -1,24 +1,20 @@
-import {
-  evaluate,
-  type EvaluateOptions,
-  type MDXComponents,
-} from "next-mdx-remote-client/rsc";
-import remarkFlexibleToc from "remark-flexible-toc";
-import remarkGfm from "remark-gfm";
+import fs from "node:fs";
+import path from "node:path";
+import type { ListDefaultHrefType, ListItemProps } from "@cubicsui/components";
+import { toCapitalised } from "@cubicsui/utils";
+import matter from "gray-matter";
+import { type EvaluateOptions, evaluate } from "next-mdx-remote-client/rsc";
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
-import matter from "gray-matter";
-import fs from "fs";
-import path from "path";
+import remarkFlexibleToc from "remark-flexible-toc";
+import remarkGfm from "remark-gfm";
 import { defaultComponents } from "../components";
-import type { ListDefaultHrefType, ListItemProps } from "@cubicsui/components";
 import type {
   MDXFrontmatter,
   MDXLoaderProps,
   MDXMeta,
   MDXScope,
 } from "./mdxLoader.types";
-import { toCapitalised } from "@cubicsui/utils";
 
 /** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
 function walkPageSlugs(contentRoot: string): string[] {
@@ -102,10 +98,12 @@ export function mdxLoader(props: MDXLoaderProps) {
     for (const slug of slugs) {
       let node = root;
       for (const seg of slug.split("/")) {
-        if (!node.children.has(seg)) {
-          node.children.set(seg, { isPage: false, children: new Map() });
+        let child = node.children.get(seg);
+        if (!child) {
+          child = { isPage: false, children: new Map() };
+          node.children.set(seg, child);
         }
-        node = node.children.get(seg)!;
+        node = child;
       }
       node.isPage = true;
     }

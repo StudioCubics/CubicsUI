@@ -64,7 +64,8 @@ export function registerJsxTokenizer(monaco: Monaco) {
     const lang = monaco.languages
       .getLanguages()
       .find((l: { id: string }) => l.id === id) as
-      { loader?: () => Promise<BuiltIn> } | undefined;
+      | { loader?: () => Promise<BuiltIn> }
+      | undefined;
 
     lang?.loader?.().then(({ language }) => {
       const tokenizer = language.tokenizer;
