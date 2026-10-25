@@ -1,7 +1,7 @@
 "use client";
 
+import type { SetState } from "@cubicsui/types";
 import { type MouseEvent, useMemo, useState } from "react";
-import { type SetState } from "@cubicsui/types";
 
 export interface UseAnchorElementReturn<T extends HTMLElement> {
   open: boolean;

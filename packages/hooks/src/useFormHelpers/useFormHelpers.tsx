@@ -8,7 +8,7 @@ export type FormHelpersProps = {
   initialError?: string | Error;
 };
 
-export function useFormHelpers(props: FormHelpersProps | void): {
+export function useFormHelpers(props: FormHelpersProps | undefined): {
   loading: boolean;
   error: string | Error | null;
   setLoading: SetState<boolean>;

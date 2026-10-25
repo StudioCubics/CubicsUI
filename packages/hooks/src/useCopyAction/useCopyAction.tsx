@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type RefObject } from "react";
+import { type RefObject, useEffect, useState } from "react";
 import { useDelayedAction } from "../useDelayedAction/useDelayedAction";
 
 export interface UseCopyActionReturn {
@@ -21,8 +21,8 @@ export function useCopyAction({
   const delayedAction = useDelayedAction();
 
   async function handleCopy(): Promise<void> {
-    const t = text || ref?.current?.innerText;
-    if (typeof window == "undefined" || t === undefined) return;
+    const t = text || ref?.current?.textContent;
+    if (typeof window === "undefined" || t === undefined) return;
     try {
       await navigator.clipboard.writeText(t);
       setCopied(true);

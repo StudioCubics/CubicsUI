@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useEventCallback } from "../useEventCallback/useEventCallback";
 import { useEventListener } from "../useEventListener/useEventListener";
 
@@ -139,9 +139,9 @@ export function useLocalStorage<T>(
     window.dispatchEvent(new StorageEvent("local-storage", { key }));
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Refresh storedValue if key changes
   useEffect(() => {
     setStoredValue(readValue());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   const handleStorageChange = useCallback(
@@ -158,7 +158,6 @@ export function useLocalStorage<T>(
   useEventListener("storage", handleStorageChange);
 
   // this is a custom event, triggered in writeValueToLocalStorage
-  // See: useLocalStorage()
   useEventListener("local-storage", handleStorageChange);
 
   return [storedValue, setValue, removeValue];

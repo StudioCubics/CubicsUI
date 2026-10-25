@@ -92,7 +92,7 @@ export function useDisclosureGroup(
       try {
         if (canPersist)
           localStorage.setItem(storageKey, JSON.stringify(toPersist));
-      } catch (e) {
+      } catch {
         // Unsupported
       }
       return next;
