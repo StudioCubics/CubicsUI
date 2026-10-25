@@ -31,7 +31,7 @@
   flex-direction: column;
   container-type: inline-size;
 }
-@container (min-width:600px) {
+@container (min-width: 600px) {
   .root {
     grid-template-columns: 0.4fr 1fr;
     &.noHeader {

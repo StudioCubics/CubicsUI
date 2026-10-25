@@ -59,7 +59,9 @@ interface CardOverflowProps {
 }
 
 export interface CardContentProps
-  extends ComponentProps<"div">, CardOverflowProps {}
+  extends ComponentProps<"div">,
+    CardOverflowProps {}
 
 export interface CardFooterProps
-  extends ComponentProps<"div">, CardOverflowProps {}
+  extends ComponentProps<"div">,
+    CardOverflowProps {}

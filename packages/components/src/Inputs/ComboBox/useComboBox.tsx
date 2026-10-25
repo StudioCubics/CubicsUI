@@ -5,9 +5,14 @@ import type {
   UseComboBoxReturns,
 } from "./ComboBox.types";
 
-export function useComboBox<T, Multiple extends boolean | undefined>(
+function getOptionKey<T>(o: ComboBoxOption<T>): T {
+  return o.type === "separator" || o.type === "header"
+    ? (undefined as T)
+    : ((o.value ?? o.label) as T);
+}
+export function useComboBox<T, M extends boolean | undefined>(
   props: Pick<
-    ComboBoxProps<T, Multiple>,
+    ComboBoxProps<T, M>,
     | "value"
     | "defaultValue"
     | "onChange"
@@ -19,7 +24,7 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
   >,
 ): UseComboBoxReturns<T> {
   const {
-    value: valueProp,
+    value,
     defaultValue,
     onChange,
     multiple,
@@ -32,12 +37,12 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
   const options = (_options ?? []) as unknown as ComboBoxOption<T>[];
   const [inputValue, setInputValue] = useState(() => {
     if (multiple) return "";
-    const initial = valueProp ?? defaultValue;
+    const initial = value ?? defaultValue;
     if (initial === undefined) return "";
     const match = options.find(
       (o) =>
         (o.type === "item" || o.type === undefined) &&
-        getOptionKey(o) === initial,
+        getOptionKey<T>(o) === initial,
     );
     return match && match.type !== "separator" && match.type !== "header"
       ? match.label
@@ -49,7 +54,7 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
 
   // Internal selection state, kept in sync with a controlled `value` prop
   const [selected, setSelected] = useState<T[]>(() => {
-    const initial = valueProp ?? defaultValue;
+    const initial = value ?? defaultValue;
     return multiple
       ? ((initial as T[] | undefined) ?? [])
       : initial !== undefined
@@ -57,16 +62,18 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
         : [];
   });
 
+  // helper: value if provided, otherwise fall back to label as identity
+
   useEffect(() => {
-    if (valueProp === undefined) return;
-    setSelected(multiple ? (valueProp as T[]) : [valueProp as T]);
-  }, [valueProp, multiple]);
+    if (value === undefined) return;
+    setSelected(multiple ? (value as T[]) : [value as T]);
+  }, [value, multiple]);
 
   // Resync internal state on native form reset. Only applies when uncontrolled
   // if `value` is provided, the parent owns resetting it.
   useEffect(() => {
     const form = inputRef.current?.form;
-    if (!form || valueProp !== undefined) return;
+    if (!form || value !== undefined) return;
 
     function handleReset() {
       if (multiple) {
@@ -78,7 +85,7 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
         const match = options.find(
           (o) =>
             (o.type === "item" || o.type === undefined) &&
-            getOptionKey(o) === initial,
+            getOptionKey<T>(o) === initial,
         );
         setInputValue(
           match && match.type !== "separator" && match.type !== "header"
@@ -92,17 +99,11 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
 
     form.addEventListener("reset", handleReset);
     return () => form.removeEventListener("reset", handleReset);
-  }, [defaultValue, multiple, valueProp]);
-  // helper: value if provided, otherwise fall back to label as identity
-  function getOptionKey(o: ComboBoxOption<T>): T {
-    return o.type === "separator" || o.type === "header"
-      ? (undefined as T)
-      : ((o.value ?? o.label) as T);
-  }
+  }, [options, defaultValue, multiple, value]);
 
   function emitChange(next: T[]) {
     setSelected(next);
-    onChange?.((multiple ? next : next[0]) as Multiple extends true ? T[] : T);
+    onChange?.((multiple ? next : next[0]) as M extends true ? T[] : T);
   }
 
   function handleSelect(option: ComboBoxOption<T>, inputId: string) {
@@ -112,7 +113,7 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
       option.disabled
     )
       return;
-    const key = getOptionKey(option);
+    const key = getOptionKey<T>(option);
     if (multiple) {
       const exists = selected.includes(key);
       if (exists) {
@@ -146,7 +147,7 @@ export function useComboBox<T, Multiple extends boolean | undefined>(
         (o.type === "item" || o.type === undefined) &&
         o.label.toLowerCase() === trimmed.toLowerCase(),
     );
-    if (match) return getOptionKey(match);
+    if (match) return getOptionKey<T>(match);
     return freeSolo ? (trimmed as unknown as T) : undefined;
   }
 

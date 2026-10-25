@@ -1,13 +1,13 @@
 "use client";
 
-import { useId, useState, type ReactElement } from "react";
+import { PasswordVisibilityIcon } from "@cubicsui/icons";
 import { cn, mergeEvents } from "@cubicsui/utils";
+import { type ReactElement, useId, useState } from "react";
 import { InputField } from "../InputField/InputField";
 import type { InputFieldProps } from "../InputField/InputField.types";
+import styles from "./PasswordInput.module.css";
 import type { PasswordInputProps } from "./PasswordInput.types";
 import { PasswordStrengthMeter } from "./PasswordStrengthMeter/PasswordStrengthMeter";
-import { PasswordVisibilityIcon } from "@cubicsui/icons";
-import styles from "./PasswordInput.module.css";
 
 export function PasswordInput(props: PasswordInputProps): ReactElement {
   const {
@@ -38,7 +38,7 @@ export function PasswordInput(props: PasswordInputProps): ReactElement {
   const fallbackId = useId();
   const inputId = id ?? fallbackId;
   const descriptionId =
-    !!error || !!helperText ? `${inputId}-description` : undefined;
+    error || helperText ? `${inputId}-description` : undefined;
 
   const inputFieldProps: InputFieldProps = {
     label,
@@ -83,6 +83,7 @@ export function PasswordInput(props: PasswordInputProps): ReactElement {
                 {...visibilityToggle}
                 aria-pressed={showPass}
                 data-hidden={!showPass}
+                data-open={showPass}
                 aria-controls={inputId}
                 type="button"
                 aria-label="Show password"

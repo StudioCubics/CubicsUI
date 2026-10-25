@@ -126,19 +126,18 @@
   & .off {
     opacity: 1;
   }
-}
-/* When both trackIcons and thumbIcons exist trackIcons should only fade not slide */
-.root:has(.trackIcons):has(.thumbIcons) .trackIcons {
+} /* When both trackIcons and thumbIcons exist trackIcons should only fade not slide */
+.root:where(:has(.trackIcons):has(.thumbIcons)) .trackIcons {
   animation: none;
 }
 /* Not disabled */
-.root:has(.input:not(:disabled)) {
-  & .switch:hover .thumb {
+.root:where(:has(.input:not(:disabled))) {
+  & :where(.switch:hover) .thumb {
     scale: 1;
   }
 }
 /* Disabled */
-.root:has(.input:disabled) {
+.root:where(:has(.input:disabled)) {
   opacity: 0.3;
   & .input,
   & .label {
@@ -146,14 +145,13 @@
   }
 }
 /* Errored */
-.root[data-error="true"],
-.root:has(.input:user-invalid) {
+.root:where([data-error="true"], :has(.input:user-invalid)) {
   & .helperText {
     color: var(--color-error);
   }
 }
 /* Focused state */
-.root:has(.input:focus-visible) {
+.root:where(:has(.input:focus-visible)) {
   & .label {
     font-weight: bold;
   }
@@ -162,7 +160,7 @@
   }
 }
 /* isOn */
-.root:has(.input:checked) {
+.root:where(:has(.input:checked)) {
   --track-border-width: 0;
   & .track {
     background-color: var(--track-bg-checked);
@@ -187,13 +185,13 @@
       opacity: 0;
     }
   }
-  &:has(.trackIcons):has(.thumbIcons) .trackIcons {
+  &:where(:has(.trackIcons):has(.thumbIcons)) .trackIcons {
     animation: none;
     left: 0;
   }
 }
 /* For high contrast env */
-*[data-contrast="true"] .root {
+:where([data-contrast="true"]) .root {
   & .track {
     border-color: var(--border-color);
   }

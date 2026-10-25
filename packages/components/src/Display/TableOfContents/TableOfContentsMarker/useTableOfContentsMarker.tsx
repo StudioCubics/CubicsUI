@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import type {
   TableOfContentsTree,
   UseTableOfContentsMarkerReturn,
@@ -25,6 +25,7 @@ export function useTableOfContentsMarker(
   /**
    * Measure list, build paths + item rects.
    * Re-runs whenever the list or any item changes size (wrapping, bold, fonts...)
+   * biome-ignore lint/correctness/useExhaustiveDependencies: This should rerender when tree changes
    */
   useEffect(() => {
     const list = listRef.current;
@@ -124,7 +125,9 @@ export function useTableOfContentsMarker(
 
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(list);
-    list.querySelectorAll("li").forEach((li) => resizeObserver.observe(li));
+    list.querySelectorAll("li").forEach((li) => {
+      resizeObserver.observe(li);
+    });
 
     return () => resizeObserver.disconnect();
   }, [tree, shadowOffset]);

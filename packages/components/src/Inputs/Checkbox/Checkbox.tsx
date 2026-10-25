@@ -1,22 +1,22 @@
 "use client";
 
+import { cn, mergeRefs } from "@cubicsui/utils";
 import {
+  type ChangeEvent,
+  type ReactElement,
   useEffect,
   useId,
   useRef,
   useState,
-  type ChangeEvent,
-  type ReactElement,
 } from "react";
-import { cn, mergeRefs } from "@cubicsui/utils";
+import { TextOrList } from "../../Typography/TextOrList/TextOrList";
+import styles from "./Checkbox.module.css";
 import type { CheckboxCurrentState, CheckboxProps } from "./Checkbox.types";
-import { useCheckbox } from "./CheckboxProvider";
 import {
   CheckIconAnimated,
   DashIconAnimated,
 } from "./CheckboxIcons/CheckboxIcons";
-import { TextOrList } from "../../Typography/TextOrList/TextOrList";
-import styles from "./Checkbox.module.css";
+import { useCheckbox } from "./CheckboxProvider";
 
 export function Checkbox(props: CheckboxProps): ReactElement {
   const {
@@ -57,8 +57,8 @@ export function Checkbox(props: CheckboxProps): ReactElement {
   const group = useCheckbox();
   const fallbackId = useId();
   const id = _id ?? fallbackId;
-  const isChecked = currentState == "checked";
-  const isIndeterminate = currentState == "indeterminate";
+  const isChecked = currentState === "checked";
+  const isIndeterminate = currentState === "indeterminate";
   const stringLabel = typeof label === "string" ? label : undefined;
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {

@@ -1,15 +1,15 @@
 import type {
-  ElementType,
-  ComponentProps,
-  ReactNode,
-  CSSProperties,
-  MouseEvent,
-} from "react";
-import type { GlassCardProps } from "../GlassCard/GlassCard";
-import type {
   UseDisclosureGroupProps,
   UseDisclosureGroupReturn,
 } from "@cubicsui/hooks";
+import type {
+  ComponentProps,
+  CSSProperties,
+  ElementType,
+  MouseEvent,
+  ReactNode,
+} from "react";
+import type { GlassCardProps } from "../GlassCard/GlassCard";
 
 export interface ListScriptProps extends ComponentProps<"script"> {
   storageKey: string;
@@ -79,36 +79,39 @@ export type ListItemTypeHeaderProps = ComponentProps<"hr"> & {
   children?: ReactNode;
   renderLine?: boolean;
 };
-export type ListItemTypeItemProps<H extends ListDefaultHrefType = string> =
-  ListSharedProps &
-    ComponentProps<"div"> & {
-      type?: "item";
-      /** Classname of the surface of the input */
-      className?: string;
-      /**Icon at the start of the list item */
-      icon?: ReactNode;
-      /** Actions at the end of the list item for type collapsible the action is the drop down button */
-      actions?: ReactNode;
-      /** If the list item should be styled to look disabled */
-      disabled?: boolean;
-      /** If the list item should be styled to look selected */
-      selected?: boolean;
-      /** An href can be passed and along with the LinkComponent prop a list item can be made to work like a link */
-      href?: H;
-      /** Renders only the icon in a square, useful for sidebar shortened */
-      onlyIcon?: boolean;
-      children: ReactNode;
-      onClick?: (e: MouseEvent) => void;
-      slotProps?: {
-        root?: ComponentProps<"li">;
-        icon?: ComponentProps<"span">;
-        content?: ComponentProps<"span">;
-        action?: ComponentProps<"span">;
-      };
+export type ListItemTypeItemProps<
+  H extends ListDefaultHrefType = string,
+  C extends ElementType = "div",
+> = ListSharedProps &
+  ComponentProps<C> & {
+    type?: "item";
+    /** Classname of the surface of the input */
+    className?: string;
+    /**Icon at the start of the list item */
+    icon?: ReactNode;
+    /** Actions at the end of the list item for type collapsible the action is the drop down button */
+    actions?: ReactNode;
+    /** If the list item should be styled to look disabled */
+    disabled?: boolean;
+    /** If the list item should be styled to look selected */
+    selected?: boolean;
+    /** An href can be passed and along with the LinkComponent prop a list item can be made to work like a link */
+    href?: H;
+    /** Renders only the icon in a square, useful for sidebar shortened */
+    onlyIcon?: boolean;
+    children: ReactNode;
+    onClick?: (e: MouseEvent) => void;
+    slotProps?: {
+      root?: ComponentProps<"li">;
+      icon?: ComponentProps<"span">;
+      content?: ComponentProps<"span">;
+      action?: ComponentProps<"span">;
     };
+  };
 export type ListItemTypeCollapsibleProps<
   H extends ListDefaultHrefType = string,
-> = Omit<ListItemTypeItemProps<H>, "action" | "type" | "slotProps"> & {
+  C extends ElementType = "div",
+> = Omit<ListItemTypeItemProps<H, C>, "action" | "type" | "slotProps"> & {
   type: "collapsible";
   /** A unique id in the whole list; used as the Set entry the parent List
    * persists to localStorage, and as the DOM id the expanded script targets */
@@ -141,8 +144,13 @@ export type ListItemTypeCollapsibleProps<
     sublist?: ComponentProps<"ol">;
   };
 };
-export type ListItemProps<H extends ListDefaultHrefType = string> =
+export type ListItemProps<
+  // This is for passing Route from next js to get autocomplete while building the ListItems
+  H extends ListDefaultHrefType = string,
+  // This is the default element type to be used for autocomplete
+  C extends ElementType = "div",
+> =
   | ListItemTypeSeparatorProps
   | ListItemTypeHeaderProps
-  | ListItemTypeItemProps<H>
-  | ListItemTypeCollapsibleProps<H>;
+  | ListItemTypeItemProps<H, C>
+  | ListItemTypeCollapsibleProps<H, C>;

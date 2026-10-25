@@ -1,10 +1,10 @@
 "use client";
 
+import { useScrollLongText } from "@cubicsui/hooks";
 import { cn, mergeRefs } from "@cubicsui/utils";
 import type { ReactElement } from "react";
-import type { LabeledValueProps } from "./LabeledValue.types";
 import styles from "./LabeledValue.module.css";
-import { useScrollLongText } from "@cubicsui/hooks";
+import type { LabeledValueProps } from "./LabeledValue.types";
 
 export function LabeledValue(props: LabeledValueProps): ReactElement {
   const {
@@ -36,10 +36,9 @@ export function LabeledValue(props: LabeledValueProps): ReactElement {
       )}
       data-size={size}
       data-color={color}
-
       {...rest}
     >
-      <label
+      <span
         {...slotProps.label}
         ref={mergeRefs(
           slotProps.label?.ref,
@@ -51,13 +50,13 @@ export function LabeledValue(props: LabeledValueProps): ReactElement {
           WebkitLineClamp:
             typeof clampLabel === "number"
               ? clampLabel
-              : typeof clampLabel == "boolean" && clampLabel
+              : typeof clampLabel === "boolean" && clampLabel
                 ? 1
                 : undefined,
         }}
       >
         {label}
-      </label>
+      </span>
       {divider}
       <span
         {...slotProps.content}

@@ -1,12 +1,12 @@
 "use client";
 
-import { createContext, useContext, type ReactElement } from "react";
-import type { RolodexContextProps, RolodexProps } from "./Rolodex.types";
+import { ChevronDownIcon, ChevronUpIcon } from "@cubicsui/icons";
 import { cn } from "@cubicsui/utils";
-import styles from "./Rolodex.module.css";
+import { createContext, type ReactElement, useContext } from "react";
 import { GlassCard } from "../../Display/GlassCard/GlassCard";
 import { Button } from "../Button/Button";
-import { ChevronDownIcon, ChevronUpIcon } from "@cubicsui/icons";
+import styles from "./Rolodex.module.css";
+import type { RolodexContextProps, RolodexProps } from "./Rolodex.types";
 import { useRolodexContext } from "./useRolodexContext";
 
 const RolodexContext = createContext<RolodexContextProps | null>(null);
@@ -39,28 +39,21 @@ function Rolodex(props: RolodexProps): ReactElement {
   return (
     <RolodexContext.Provider value={{ open }}>
       <div className={cn(styles.root)}>
-        <div
+        <button
           ref={triggerRef}
-          role="button"
-          tabIndex={0}
+          type="button"
           aria-haspopup="listbox"
           aria-expanded={open}
           className={cn(styles.trigger)}
           onClick={openList}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              openList();
-            }
-          }}
         >
           {activeItem?.node}
-        </div>
-
+        </button>
         <div
           ref={popoverRef}
           popover="auto"
-
+          role="dialog"
+          aria-label="Select item"
           tabIndex={-1}
           className={cn(styles.popover)}
           onToggle={onPopoverToggle}
@@ -73,6 +66,7 @@ function Rolodex(props: RolodexProps): ReactElement {
               className={cn(styles.step)}
               aria-label="Previous item"
               onClick={() => shift(-1)}
+              tabIndex={-1}
             >
               <ChevronUpIcon />
             </Button>
@@ -93,12 +87,14 @@ function Rolodex(props: RolodexProps): ReactElement {
               const far = Math.abs(offset) > visible;
 
               return (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard is handled on the popover (arrows, Enter, Space)
                 <div
                   key={item.id}
                   ref={(el) => {
                     itemRefs.current[index] = el;
                   }}
                   role="option"
+                  tabIndex={-1}
                   aria-selected={offset === 0}
                   className={cn(styles.item)}
                   style={{
@@ -110,11 +106,10 @@ function Rolodex(props: RolodexProps): ReactElement {
                     pointerEvents: far ? "none" : undefined,
                   }}
                   // Clicking the centered item confirms it, any other item moves to the center
-                  onClick={() =>
-                    offset === 0
-                      ? popoverRef.current?.hidePopover()
-                      : shift(offset)
-                  }
+                  onClick={() => {
+                    if (offset === 0) popoverRef.current?.hidePopover();
+                    else shift(offset);
+                  }}
                 >
                   {item.node}
                 </div>
@@ -128,6 +123,7 @@ function Rolodex(props: RolodexProps): ReactElement {
               className={cn(styles.step)}
               aria-label="Next item"
               onClick={() => shift(1)}
+              tabIndex={-1}
             >
               <ChevronDownIcon />
             </Button>

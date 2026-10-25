@@ -5,7 +5,8 @@ import type {
 } from "../InputField/InputField.types";
 
 export interface TextAreaInputProps
-  extends ComponentProps<"textarea">, InputFieldSharedProps {
+  extends ComponentProps<"textarea">,
+    InputFieldSharedProps {
   /** Disables the handle for resizing <textarea/> */
   disableResize?: boolean;
   /**

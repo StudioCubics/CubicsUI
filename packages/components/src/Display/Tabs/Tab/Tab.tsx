@@ -1,11 +1,11 @@
 "use client";
 
-import { type ElementType, useRef, type MouseEvent } from "react";
-import styles from "./Tab.module.css";
-import { useTabs } from "../Tabs";
-import { cn, mergeRefs } from "@cubicsui/utils";
 import type { PolymorphicComponentType } from "@cubicsui/types";
+import { cn, mergeRefs } from "@cubicsui/utils";
+import { type ElementType, type MouseEvent, useRef } from "react";
+import { useTabs } from "../Tabs";
 import type { TabBaseProps, TabProps } from "../Tabs.types";
+import styles from "./Tab.module.css";
 
 function TabBase<C extends ElementType = "button">(props: TabProps<C>) {
   const {
@@ -27,7 +27,7 @@ function TabBase<C extends ElementType = "button">(props: TabProps<C>) {
   const { activeTab, setActiveTab } = useTabs();
   const tabRef = useRef<HTMLButtonElement>(null);
 
-  const active = activeTab == value;
+  const active = activeTab === value;
 
   const Component = href ? LinkComponent : as || "div";
 

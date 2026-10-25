@@ -1,5 +1,7 @@
 "use client";
 
+import { DropDownIcon } from "@cubicsui/icons";
+import { cn, mergeRefs } from "@cubicsui/utils";
 import {
   type MouseEvent,
   type ReactElement,
@@ -7,10 +9,8 @@ import {
   useId,
   useRef,
 } from "react";
-import { cn, mergeRefs } from "@cubicsui/utils";
-import { useAccordion } from "../Accordion";
 import { useRipple } from "../../../Misc/Ripple/Ripple";
-import { DropDownIcon } from "@cubicsui/icons";
+import { useAccordion } from "../Accordion";
 import type { AccordionItemProps } from "../Accordion.types";
 import styles from "./AccordionItem.module.css";
 
@@ -93,7 +93,6 @@ export function AccordionItem(props: AccordionItemProps): ReactElement {
       toggleOnlyOnIcon && styles.toggleOnlyOnIcon,
       variant && styles[`variant_${variant}`],
     ),
-    "aria-expanded": !collapsed,
     "data-slot": "accordion_item",
     "data-active": !collapsed,
     "data-color": color,
@@ -108,6 +107,7 @@ export function AccordionItem(props: AccordionItemProps): ReactElement {
       ref={mergeRefs(ref, itemRef)}
       suppressHydrationWarning
     >
+      {/** biome-ignore lint/a11y/noStaticElementInteractions: This needs onClick for toggleOnlyOnIcon to work */}
       <summary
         {...slotProps.summary}
         onClick={handleSummaryClick}

@@ -1,16 +1,18 @@
 "use client";
 
-import { useId, type ReactElement } from "react";
-import { Button } from "../Button/Button";
 import { useMounted } from "@cubicsui/hooks";
-import type { ThemeObject, ThemeToggleProps } from "./ThemeToggle.types";
-import { Popover } from "../../Layout/Popover/Popover";
-import { Card } from "../../Display/Card/Card";
-import { ThemeToggleIcon } from "./ThemeToggleIcon/ThemeToggleIcon";
 import { cn } from "@cubicsui/utils";
-import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
+import { type ReactElement, useId } from "react";
+import { Card } from "../../Display/Card/Card";
+import { List } from "../../Display/List/List";
+import { ListItem } from "../../Display/List/ListItem/ListItem";
+import { Popover } from "../../Layout/Popover/Popover";
 import { useTheme } from "../../Providers/ThemeProvider/ThemeProvider";
+import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
+import { Button } from "../Button/Button";
 import styles from "./ThemeToggle.module.css";
+import type { ThemeObject, ThemeToggleProps } from "./ThemeToggle.types";
+import { ThemeToggleIcon } from "./ThemeToggleIcon/ThemeToggleIcon";
 
 const defaultThemeObject: ThemeObject = {
   light: { text: "Light Mode" },
@@ -52,7 +54,7 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
       ...themeObject.system,
       onClick: (e) => {
         if (!isControlled) {
-          if (resolveSystem && resolvedTheme == "dark") setTheme("light");
+          if (resolveSystem && resolvedTheme === "dark") setTheme("light");
           else setTheme("dark");
         }
         themeObject.system?.onClick?.(e);
@@ -88,27 +90,30 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
           <Popover {...slotProps.popover} id={popoverId}>
             <Card {...slotProps.card} disablePadding>
               {/* TODO replace with proper list */}
-              <ul
+              <List
                 {...slotProps.list}
                 className={cn(slotProps.list?.className, styles.list)}
               >
                 {Object.entries(cleanThemeObject).map(([k, v]) => {
                   return (
-                    <li
+                    <ListItem
                       {...slotProps.listItem}
+                      type="item"
                       onClick={(e) => {
                         if (!isControlled) setTheme(k as Theme);
                         themeObject[k as Theme]?.onClick?.(e);
                       }}
+                      icon={
+                        v.icon ?? <ThemeToggleIcon currentTheme={k as Theme} />
+                      }
                       data-active={currentTheme === k ? k : undefined}
                       key={k}
                     >
-                      {v.icon ?? <ThemeToggleIcon currentTheme={k as Theme} />}
                       {v.text}
-                    </li>
+                    </ListItem>
                   );
                 })}
-              </ul>
+              </List>
             </Card>
           </Popover>
         </>

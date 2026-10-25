@@ -1,11 +1,11 @@
 "use client";
 
-import type { PolymorphicComponentType } from "@cubicsui/types";
-import { type ElementType } from "react";
-import { cn } from "@cubicsui/utils";
-import type { ChipBaseProps, ChipProps } from "./Chip.types";
-import styles from "./Chip.module.css";
 import { XIcon } from "@cubicsui/icons";
+import type { PolymorphicComponentType } from "@cubicsui/types";
+import { cn } from "@cubicsui/utils";
+import type { ElementType } from "react";
+import styles from "./Chip.module.css";
+import type { ChipBaseProps, ChipProps } from "./Chip.types";
 
 function ChipBase<C extends ElementType = "span">(props: ChipProps<C>) {
   const {

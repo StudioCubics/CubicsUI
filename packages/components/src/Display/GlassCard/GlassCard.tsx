@@ -5,8 +5,8 @@ import type {
   PolymorphicComponentProps,
   PolymorphicComponentType,
 } from "@cubicsui/types";
-import { mergeRefs, cn } from "@cubicsui/utils";
-import { type ElementType, useRef, useEffect } from "react";
+import { cn, mergeRefs } from "@cubicsui/utils";
+import { type ElementType, useEffect, useRef } from "react";
 import styles from "./GlassCard.module.css";
 
 export type GlassCardProps<C extends ElementType = "div"> =
@@ -56,7 +56,7 @@ function GlassCardBase<C extends ElementType = "div">(
     cardRef.current.style.setProperty("--mouse-y", `${y}px`);
     cardRef.current.style.setProperty("--gradient-angle", `${angle}deg`);
     cardRef.current.style.setProperty("--reflection-intensity", `${intensity}`);
-  }, [pointerPosition, id]);
+  }, [pointerPosition]);
 
   return (
     <Component

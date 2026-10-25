@@ -1,5 +1,5 @@
-import { type ElementType } from "react";
 import type { UnionElementComponentType } from "@cubicsui/types";
+import type { ElementType } from "react";
 import type {
   TextOrListBaseProps,
   TextOrListDefaultElements,
@@ -10,8 +10,8 @@ function TextOrListBase<C extends ElementType = TextOrListDefaultElements>(
   props: TextOrListProps<C>,
 ) {
   const { text, ...rest } = props as TextOrListProps<TextOrListDefaultElements>;
-  const t = text?.length == 1 ? text[0] : text;
-  if (!t || !t.length) return null;
+  const t = text?.length === 1 ? text[0] : text;
+  if (!t?.length) return null;
   const isString = typeof t === "string";
   const Component = (isString ? "p" : "ul") as ElementType;
   return (
@@ -19,6 +19,7 @@ function TextOrListBase<C extends ElementType = TextOrListDefaultElements>(
       {isString
         ? t
         : t.map((c, i) => {
+            // biome-ignore lint/suspicious/noArrayIndexKey: c can be not unique
             return <li key={i}>{c}</li>;
           })}
     </Component>

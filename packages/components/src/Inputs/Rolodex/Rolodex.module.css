@@ -6,8 +6,10 @@
 }
 
 .trigger {
+  all: unset;
   cursor: pointer;
   border-radius: var(--br);
+  width: 100%;
   &:focus-visible {
     outline: var(--focus-ring);
   }
@@ -85,6 +87,18 @@
   cursor: pointer;
 }
 
+.viewport {
+  /* Centered in the viewport, same place the active item sits */
+  & .highlight {
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    translate: 0 -50%;
+    pointer-events: none;
+    backdrop-filter: none;
+    z-index: 3;
+  }
+}
 .popover[data-ready] {
   /* No transitions until the measured layout is applied, so items don't fly in on open */
   & .item {
@@ -97,14 +111,4 @@
   & .highlight {
     transition: height var(--transition-time) var(--transition-tf);
   }
-}
-/* Centered in the viewport, same place the active item sits */
-.viewport > .highlight {
-  position: absolute;
-  inset-inline: 0;
-  top: 50%;
-  translate: 0 -50%;
-  pointer-events: none;
-  backdrop-filter: none;
-  z-index: 3;
 }

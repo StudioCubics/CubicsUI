@@ -6,8 +6,7 @@ import type {
 import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
 export interface PasswordInputProps
-  extends
-    Omit<ComponentProps<"input">, "size" | "type">,
+  extends Omit<ComponentProps<"input">, "size" | "type">,
     InputFieldSharedProps {
   /** size attribute of the html `<input size=""/>` element */
   htmlSize?: ComponentProps<"input">["size"];

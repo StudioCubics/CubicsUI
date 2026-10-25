@@ -1,9 +1,7 @@
 import type { ComponentProps, ReactNode } from "react";
 
-export interface SectionWrapperProps extends Omit<
-  ComponentProps<"section">,
-  "title"
-> {
+export interface SectionWrapperProps
+  extends Omit<ComponentProps<"section">, "title"> {
   /** The title of the section if string is passed it will be used for the id, pass id if the title is a ReactNode */
   title?: ReactNode;
   /** Subtitle below the title */

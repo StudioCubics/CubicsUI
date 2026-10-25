@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, type ReactElement } from "react";
+import { cn, mergeRefs } from "@cubicsui/utils";
+import { type ReactElement, useRef } from "react";
 import { useRipple } from "../../Misc/Ripple/Ripple";
 import { TextOrList } from "../../Typography/TextOrList/TextOrList";
-import { cn, mergeRefs } from "@cubicsui/utils";
-import type { InputFieldProps } from "./InputField.types";
 import styles from "./InputField.module.css";
+import type { InputFieldProps } from "./InputField.types";
 
 export function InputField(props: InputFieldProps): ReactElement {
   const {
@@ -90,7 +90,7 @@ export function InputField(props: InputFieldProps): ReactElement {
       {afterSurface}
       <TextOrList
         {...slotProps.helperText}
-        id={(slotProps.helperText?.id, descriptionId)}
+        id={slotProps.helperText?.id ?? descriptionId}
         className={cn(slotProps.helperText?.className, styles.helperText)}
         text={error ?? helperText}
       />

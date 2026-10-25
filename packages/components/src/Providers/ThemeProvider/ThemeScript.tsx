@@ -31,6 +31,7 @@ export const ThemeScript: NamedExoticComponent<ThemeScriptProps> =
         {...scriptProps}
         suppressHydrationWarning
         nonce={typeof window === "undefined" ? nonce : ""}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: this has to be passed in a script tag
         dangerouslySetInnerHTML={{
           __html: `(${script.toString()})(${JSON.stringify(scriptArgs)})`,
         }}

@@ -1,6 +1,6 @@
 import { memo, type NamedExoticComponent } from "react";
-import { script } from "./script";
 import type { AccordionScriptProps } from "./Accordion.types";
+import { script } from "./script";
 
 export const AccordionScript: NamedExoticComponent<AccordionScriptProps> =
   memo<AccordionScriptProps>((props) => {
@@ -21,6 +21,7 @@ export const AccordionScript: NamedExoticComponent<AccordionScriptProps> =
         id={scriptId}
         suppressHydrationWarning
         nonce={nonce}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: this has to be passed in a script tag
         dangerouslySetInnerHTML={{
           __html: `(${script.toString()})(${JSON.stringify(storageKey)})`,
         }}

@@ -18,14 +18,6 @@
     background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
   }
 }
-
-.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  & ~ .sublist {
-    opacity: 0.5;
-  }
-}
 .content {
   flex: 1 1 20ch;
 }
@@ -103,6 +95,14 @@
   & > svg {
     width: 1em;
     height: 1em;
+  }
+}
+/* Disabled Styles */
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  & ~ .sublist {
+    opacity: 0.5;
   }
 }
 /* Collapsed styles */

@@ -21,7 +21,7 @@ export interface LabeledValueProps extends ComponentProps<"div"> {
   scrollOverflowLabel?: boolean;
 
   slotProps?: {
-    label?: ComponentProps<"label">;
+    label?: ComponentProps<"span">;
     content?: ComponentProps<"span">;
   };
 }

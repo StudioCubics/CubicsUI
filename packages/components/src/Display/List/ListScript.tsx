@@ -1,6 +1,6 @@
 import { memo, type NamedExoticComponent } from "react";
-import { script } from "./script";
 import type { ListScriptProps } from "./List.types";
+import { script } from "./script";
 
 export const ListScript: NamedExoticComponent<ListScriptProps> =
   memo<ListScriptProps>((props) => {
@@ -21,6 +21,7 @@ export const ListScript: NamedExoticComponent<ListScriptProps> =
         id={scriptId}
         suppressHydrationWarning
         nonce={nonce}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: this has to be passed in a script tag
         dangerouslySetInnerHTML={{
           __html: `(${script.toString()})(${JSON.stringify(storageKey)})`,
         }}

@@ -5,8 +5,7 @@ import type {
 } from "../InputField/InputField.types";
 
 export interface TextInputProps
-  extends
-    Omit<ComponentProps<"input">, "size" | "type">,
+  extends Omit<ComponentProps<"input">, "size" | "type">,
     InputFieldSharedProps {
   /** Only text type inputs are allowed here */
   type?: "text" | "email" | "search" | "tel" | "url";

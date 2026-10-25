@@ -1,10 +1,10 @@
 import {
-  useState,
-  useRef,
-  useCallback,
-  useEffect,
   type KeyboardEvent,
   type ToggleEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
 import type { RolodexProps, UseRolodexContextReturn } from "./Rolodex.types";
 
@@ -26,7 +26,7 @@ export function useRolodexContext(
   const [heights, setHeights] = useState<number[]>([]);
 
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const triggerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const wheelDelta = useRef(0);
 
@@ -113,6 +113,10 @@ export function useRolodexContext(
     if (e.key === "ArrowDown") {
       e.preventDefault();
       shift(1);
+    }
+    if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) {
+      e.preventDefault();
+      popoverRef.current?.hidePopover();
     }
   }
   // Runs for every way the popover can open or close (outside click, Escape, hidePopover())

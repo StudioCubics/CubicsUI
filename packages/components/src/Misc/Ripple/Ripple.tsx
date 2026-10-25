@@ -9,8 +9,8 @@ import type {
   TouchEvent,
 } from "react";
 import { useCallback, useState } from "react";
-import type { Ripple, UseRippleProps, UseRippleReturns } from "./Ripple.types";
 import styles from "./Ripple.module.css";
+import type { Ripple, UseRippleProps, UseRippleReturns } from "./Ripple.types";
 
 /**
  * Use to add ripples to any components triggered by any event
@@ -67,7 +67,7 @@ export function useRipple<C extends HTMLElement>(
   );
 
   const rippleElements = ripples.map((ripple) => (
-    <Ripple
+    <RippleComponent
       ripple={ripple}
       key={ripple.key}
       duration={duration}
@@ -78,7 +78,7 @@ export function useRipple<C extends HTMLElement>(
   return { createRipple, rippleElements };
 }
 
-function Ripple({
+function RippleComponent({
   ripple,
   color,
   duration,

@@ -5,7 +5,7 @@ import type {
   PolymorphicComponentType,
 } from "@cubicsui/types";
 import { cn } from "@cubicsui/utils";
-import { type ElementType } from "react";
+import type { ElementType } from "react";
 import styles from "./TableCell.module.css";
 
 export interface TableCellBaseProps {

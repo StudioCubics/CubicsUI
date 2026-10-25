@@ -1,11 +1,11 @@
 "use client";
 
-import { type ReactElement } from "react";
-import styles from "./TabsBar.module.css";
-import { cn } from "@cubicsui/utils";
-import { GlassCard } from "../../GlassCard/GlassCard";
 import { useActiveNodeGlider } from "@cubicsui/hooks";
+import { cn } from "@cubicsui/utils";
+import type { ReactElement } from "react";
+import { GlassCard } from "../../GlassCard/GlassCard";
 import type { TabsBarProps } from "../Tabs.types";
+import styles from "./TabsBar.module.css";
 
 export function TabsBar(props: TabsBarProps): ReactElement {
   const {

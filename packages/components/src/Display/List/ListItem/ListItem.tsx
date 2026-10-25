@@ -1,18 +1,17 @@
 "use client";
 
+import { DropDownIcon } from "@cubicsui/icons";
 import { cn } from "@cubicsui/utils";
-import { type ElementType, type MouseEvent, type ReactElement } from "react";
-import styles from "./ListItem.module.css";
-
+import type { ElementType, MouseEvent, ReactElement } from "react";
 import { useList } from "../List";
 import type {
   ListItemProps,
-  ListItemTypeSeparatorProps,
   ListItemTypeCollapsibleProps,
-  ListItemTypeItemProps,
   ListItemTypeHeaderProps,
+  ListItemTypeItemProps,
+  ListItemTypeSeparatorProps,
 } from "../List.types";
-import { DropDownIcon } from "@cubicsui/icons";
+import styles from "./ListItem.module.css";
 
 export function ListItem(props: ListItemProps): ReactElement {
   const { type } = props;
@@ -163,9 +162,10 @@ export function ListItemTypeCollapsible(
         >
           {nodes.map((n, i) => (
             <ListItem
+              // biome-ignore lint/suspicious/noArrayIndexKey: for creating unique keys
               key={i}
-              {...(n.type == "collapsible" && { dropdownIcon })}
-              {...((n.type == "item" || n.type == "collapsible") && {
+              {...(n.type === "collapsible" && { dropdownIcon })}
+              {...((n.type === "item" || n.type === "collapsible") && {
                 disabled: n.disabled ?? disabled,
               })}
               {...n}

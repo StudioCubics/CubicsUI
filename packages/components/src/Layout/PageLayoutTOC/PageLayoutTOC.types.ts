@@ -10,8 +10,7 @@ import type {
 import type { PageHeaderProps } from "../../Typography/PageHeader/PageHeader.types";
 
 export interface PageLayoutTOCProps
-  extends
-    Omit<SidebarLayoutProps, "slotProps">,
+  extends Omit<SidebarLayoutProps, "slotProps">,
     Pick<PageHeaderProps, "title" | "desc" | "actions"> {
   /** The main content that will be shown through the viewports */
   children: ReactNode;

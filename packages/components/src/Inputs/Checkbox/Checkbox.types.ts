@@ -1,10 +1,8 @@
 import type { ComponentProps, ReactElement, ReactNode } from "react";
 import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
-export interface CheckboxProps extends Omit<
-  ComponentProps<"input">,
-  "onChange" | "type" | "size"
-> {
+export interface CheckboxProps
+  extends Omit<ComponentProps<"input">, "onChange" | "type" | "size"> {
   /** Class for the root of the `<Checkbox/>` component */
   rootClass?: string;
 
@@ -87,7 +85,10 @@ export interface CheckboxSlotProps {
 }
 
 export type CheckboxCurrentState =
-  "checked" | "unchecked" | "indeterminate" | undefined;
+  | "checked"
+  | "unchecked"
+  | "indeterminate"
+  | undefined;
 
 export interface CheckboxContextProps {
   values: Record<string, boolean>;

@@ -1,12 +1,12 @@
+import type { SetState } from "@cubicsui/types";
 import type { ComponentProps, MouseEvent, ReactNode, RefObject } from "react";
+import type { CardProps } from "../../Display/Card/Card.types";
+import type { ListProps } from "../../Display/List/List.types";
+import type { PopoverProps } from "../../Layout/Popover/Popover.types";
 import type {
   InputFieldSharedProps,
   InputFieldSlotProps,
 } from "../InputField/InputField.types";
-import type { PopoverProps } from "../../Layout/Popover/Popover.types";
-import type { CardProps } from "../../Display/Card/Card.types";
-import type { ListProps } from "../../Display/List/List.types";
-import type { SetState } from "@cubicsui/types";
 
 export type ComboBoxProps<
   T,

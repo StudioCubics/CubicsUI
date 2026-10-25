@@ -1,10 +1,8 @@
 import type { ComponentProps, ReactNode } from "react";
 import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
-export interface SwitchProps extends Omit<
-  ComponentProps<"input">,
-  "size" | "onChange" | "indeterminate"
-> {
+export interface SwitchProps
+  extends Omit<ComponentProps<"input">, "size" | "onChange" | "indeterminate"> {
   /** Class for the root of the `<Switch/>` component */
   rootClass?: string;
 

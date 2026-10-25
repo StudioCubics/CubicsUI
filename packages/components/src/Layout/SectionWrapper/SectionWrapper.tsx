@@ -1,7 +1,7 @@
 import { cn } from "@cubicsui/utils";
 import type { ReactElement } from "react";
-import type { SectionWrapperProps } from "./SectionWrapper.types";
 import styles from "./SectionWrapper.module.css";
+import type { SectionWrapperProps } from "./SectionWrapper.types";
 
 export function SectionWrapper(props: SectionWrapperProps): ReactElement {
   const {
@@ -38,7 +38,7 @@ export function SectionWrapper(props: SectionWrapperProps): ReactElement {
           {...slotProps.header}
           className={cn(styles.header, slotProps.header?.className)}
         >
-          {typeof title == "string" ? (
+          {typeof title === "string" ? (
             <TitleElement
               {...slotProps.title}
               className={cn(slotProps.title?.className, styles.title)}
@@ -48,7 +48,7 @@ export function SectionWrapper(props: SectionWrapperProps): ReactElement {
           ) : (
             title
           )}
-          {subtitle && typeof subtitle == "string" ? (
+          {subtitle && typeof subtitle === "string" ? (
             <p
               {...slotProps.subtitle}
               className={cn(slotProps.subtitle?.className, styles.subtitle)}

@@ -25,7 +25,7 @@ export interface RolodexProps {
   blurMultiplier?: number;
 }
 export interface UseRolodexContextReturn {
-  triggerRef: RefObject<HTMLDivElement | null>;
+  triggerRef: RefObject<HTMLButtonElement | null>;
   popoverRef: RefObject<HTMLDivElement | null>;
   itemRefs: RefObject<(HTMLDivElement | null)[]>;
   activeItem: RolodexItem;

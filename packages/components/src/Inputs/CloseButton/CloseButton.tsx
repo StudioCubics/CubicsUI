@@ -1,13 +1,13 @@
+import { XIcon } from "@cubicsui/icons";
+import { cn } from "@cubicsui/utils";
 import type { ReactElement } from "react";
 import { Button } from "../Button/Button";
-import { cn } from "@cubicsui/utils";
-import { XIcon } from "@cubicsui/icons";
-import type { CloseButtonProps } from "./CloseButton.types";
 import styles from "./CloseButton.module.css";
+import type { CloseButtonProps } from "./CloseButton.types";
 
 export function CloseButton(props: CloseButtonProps): ReactElement {
   const {
-    className: className,
+    className,
     relative = false,
     style,
     margin,

@@ -1,14 +1,14 @@
 "use client";
 
-import type { ReactElement } from "react";
-import type { TableOfContentsProps } from "./TableOfContents.types";
 import { cn, mergeRefs } from "@cubicsui/utils";
+import type { ReactElement } from "react";
 import { Card } from "../Card/Card";
 import { CardContent } from "../Card/CardContent/CardContent";
-import styles from "./TableOfContents.module.css";
-import { useTableOfContentsMarker } from "./TableOfContentsMarker/useTableOfContentsMarker";
-import { TableOfContentsMarker } from "./TableOfContentsMarker/TableOfContentsMarker";
 import { CardHeader } from "../Card/CardHeader/CardHeader";
+import styles from "./TableOfContents.module.css";
+import type { TableOfContentsProps } from "./TableOfContents.types";
+import { TableOfContentsMarker } from "./TableOfContentsMarker/TableOfContentsMarker";
+import { useTableOfContentsMarker } from "./TableOfContentsMarker/useTableOfContentsMarker";
 
 // TODO add slotProps for the slots
 export function TableOfContents(props: TableOfContentsProps): ReactElement {
@@ -33,7 +33,7 @@ export function TableOfContents(props: TableOfContentsProps): ReactElement {
               key={t.numbering.join("")}
               style={{ "--depth": t.depth } as React.CSSProperties}
               className={cn(styles.item, withNumbering && styles.withNumbering)}
-              data-numbering={t.numbering.filter((_, i) => i != 0).join(".")}
+              data-numbering={t.numbering.filter((_, i) => i !== 0).join(".")}
               data-active={activeIds.has(t.href.slice(1))}
             >
               <LinkComponent href={t.href}>{t.value}</LinkComponent>
