@@ -1,7 +1,7 @@
 export type ActionResponse<
   K extends string = string,
   E extends K[] = K[],
-  P extends unknown = unknown,
+  P = unknown,
 > = {
   success: boolean;
   payload?: P;
@@ -12,16 +12,12 @@ export type ActionResponse<
 export type FormActionResponse<
   K extends string = string,
   E extends K[] = K[],
-  P extends unknown = unknown,
+  P = unknown,
   F extends Record<K, FormDataEntryValue> = Record<K, FormDataEntryValue>,
 > = ActionResponse<K, E, P> & { formState: F };
 
 export const apiRes = {
-  actionFail: <
-    K extends string = string,
-    E extends K[] = K[],
-    P extends unknown = unknown,
-  >(
+  actionFail: <K extends string = string, E extends K[] = K[], P = unknown>(
     error: ActionResponse<K, E, P>["error"],
     fieldErrors?: Record<string, string[]>,
   ): ActionResponse<K, E, P> => ({
@@ -30,11 +26,7 @@ export const apiRes = {
     fieldErrors: fieldErrors as ActionResponse<K, E, P>["fieldErrors"],
   }),
 
-  actionSuccess: <
-    K extends string = string,
-    E extends K[] = K[],
-    P extends unknown = unknown,
-  >(
+  actionSuccess: <K extends string = string, E extends K[] = K[], P = unknown>(
     payload?: P,
   ): ActionResponse<K, E, P> => ({
     success: true,

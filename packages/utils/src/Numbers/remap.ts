@@ -18,7 +18,7 @@ export function remap(
   const [fromMin, fromMax] = from;
   const [toMin, toMax] = to;
 
-  if (roundTo == "ceil")
+  if (roundTo === "ceil")
     return Math.ceil(
       toMin + ((value - fromMin) * (toMax - toMin)) / (fromMax - fromMin),
     );

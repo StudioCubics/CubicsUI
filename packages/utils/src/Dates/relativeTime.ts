@@ -3,15 +3,13 @@
  * Accepts Date | number (ms) | date-string.
  * Fast, allocation-light, no Intl.
  */
-export function relativeTime(
-  input: Date | number | string
-): string {
+export function relativeTime(input: Date | number | string): string {
   const t: number =
     input instanceof Date
       ? input.getTime()
       : typeof input === "number"
-      ? input
-      : Date.parse(input);
+        ? input
+        : Date.parse(input);
 
   if (!Number.isFinite(t)) return "invalid date";
 
@@ -58,7 +56,5 @@ export function relativeTime(
 
   if (value !== 1) unit += "s";
 
-  return isFuture
-    ? `in ${value} ${unit}`
-    : `${value} ${unit} ago`;
+  return isFuture ? `in ${value} ${unit}` : `${value} ${unit} ago`;
 }

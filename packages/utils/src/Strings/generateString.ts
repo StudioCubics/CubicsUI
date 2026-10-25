@@ -2,10 +2,7 @@
  * Generates a unique string of a fixed length, optionally from a seed.
  */
 export function generateString(
-  options: {
-    length?: number;
-    seed?: string | number;
-  } = {},
+  options: { length?: number; seed?: string | number } = {},
 ): string {
   const { length, seed } = {
     length: options?.length ?? 16,
