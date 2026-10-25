@@ -1,5 +1,5 @@
-import { useId, type ComponentProps, type ReactElement } from "react";
 import { cn } from "@cubicsui/utils";
+import { type ComponentProps, type ReactElement, useId } from "react";
 import styles from "./PasswordVisibilityIcon.module.css";
 
 export function PasswordVisibilityIcon(
@@ -11,6 +11,8 @@ export function PasswordVisibilityIcon(
     <svg
       fill="none"
       stroke="currentColor"
+      role="img"
+      aria-label="PasswordVisibilityIcon"
       {...rest}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

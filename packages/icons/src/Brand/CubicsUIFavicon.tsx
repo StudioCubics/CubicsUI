@@ -6,6 +6,8 @@ export function CubicsUIFavicon(props: ComponentProps<"svg">): ReactElement {
     <svg
       fill="none"
       stroke="currentColor"
+      role="img"
+      aria-label="CubicsUIFavicon"
       {...rest}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -23,11 +25,14 @@ export function CubicsUIFaviconShape(
   const { width = 24, height = width, ...rest } = props;
   return (
     <svg
+      role="img"
+      aria-label="CubicsUIFavicon"
       {...rest}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width={width}
       height={height}
+      className="lucide"
     >
       <path
         fillRule="evenodd"

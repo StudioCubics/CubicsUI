@@ -6,6 +6,8 @@ export function ChevronUpIcon(props: ComponentProps<"svg">): ReactElement {
     <svg
       fill="none"
       stroke="currentColor"
+      role="img"
+      aria-label="ChevronUpIcon"
       {...rest}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

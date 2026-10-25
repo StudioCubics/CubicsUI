@@ -1,5 +1,5 @@
-import type { ComponentProps, ReactElement } from "react";
 import { cn } from "@cubicsui/utils";
+import type { ComponentProps, ReactElement } from "react";
 import styles from "./DropDownIcon.module.css";
 
 export function DropDownIcon(props: ComponentProps<"svg">): ReactElement {
@@ -8,6 +8,8 @@ export function DropDownIcon(props: ComponentProps<"svg">): ReactElement {
     <svg
       fill="none"
       stroke="currentColor"
+      role="img"
+      aria-label="DropDownIcon"
       {...rest}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
