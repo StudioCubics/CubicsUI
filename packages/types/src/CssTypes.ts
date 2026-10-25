@@ -1,7 +1,8 @@
 export type CssTime = `${"" | "+" | "-"}${number}${"s" | "ms"}`;
 
 export type CssAbsoluteSize =
-  `${"x-" | "xx-" | "xxx-" | ""}${"small" | "large"}` | "medium";
+  | `${"x-" | "xx-" | "xxx-" | ""}${"small" | "large"}`
+  | "medium";
 
 export type CssBlendMode =
   | "normal"
@@ -26,12 +27,22 @@ export type CssRelativeSize = "smaller" | "larger";
 export type CssUrl = `url(${string})`;
 
 export type CssFontRelativeLengthUnits =
-  "cap" | "ch" | "em" | "ex" | "ic" | "lh";
+  | "cap"
+  | "ch"
+  | "em"
+  | "ex"
+  | "ic"
+  | "lh";
 
 export type CssRootFontRelativeLengthUnits = `r${CssFontRelativeLengthUnits}`;
 
 export type CssViewportRelativeLengthUnits =
-  "vh" | "vw" | "vmax" | "vmin" | "vb" | "vi";
+  | "vh"
+  | "vw"
+  | "vmax"
+  | "vmin"
+  | "vb"
+  | "vi";
 
 export type CssSmallViewportRelativeLengthUnits =
   `s${CssViewportRelativeLengthUnits}`;
@@ -43,7 +54,12 @@ export type CssDynamicViewportRelativeLengthUnits =
   `d${CssViewportRelativeLengthUnits}`;
 
 export type CssContainerQueryRelativeLengthUnits =
-  "cqw" | "cqh" | "cqi" | "cqb" | "cqmin" | "cqmax";
+  | "cqw"
+  | "cqh"
+  | "cqi"
+  | "cqb"
+  | "cqmin"
+  | "cqmax";
 
 export type CssRelativeLengthUnits =
   | CssFontRelativeLengthUnits
@@ -55,7 +71,13 @@ export type CssRelativeLengthUnits =
   | CssContainerQueryRelativeLengthUnits;
 
 export type CssAbsoluteLengthUnits =
-  "px" | "cm" | "mm" | "Q" | "in" | "pc" | "pt";
+  | "px"
+  | "cm"
+  | "mm"
+  | "Q"
+  | "in"
+  | "pc"
+  | "pt";
 
 export type CssLength =
   | `${number}${CssRelativeLengthUnits}`
@@ -76,7 +98,12 @@ export type CssCubicBezierEasingFunction =
   | `cubic-bezier(${number}, ${number}, ${number}, ${number})`;
 
 export type CssStepEasingFunctionStepPosition =
-  "jump-start" | "jump-end" | "jump-none" | "jump-both" | "start" | "end";
+  | "jump-start"
+  | "jump-end"
+  | "jump-none"
+  | "jump-both"
+  | "start"
+  | "end";
 
 export type CssStepEasingFunction =
   | "step-start"

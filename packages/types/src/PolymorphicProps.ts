@@ -13,5 +13,5 @@ export type PolymorphicComponentType<
   Props,
   DefaultElement extends ElementType = "div",
 > = <C extends ElementType = DefaultElement>(
-  props: PolymorphicComponentProps<C, Props>
+  props: PolymorphicComponentProps<C, Props>,
 ) => ReactElement | null;
