@@ -2,10 +2,8 @@ import type { ComponentProps, ReactNode } from "react";
 
 type AllowedTags = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-export interface PageHeaderProps extends Omit<
-  ComponentProps<"header">,
-  "title"
-> {
+export interface PageHeaderProps
+  extends Omit<ComponentProps<"header">, "title"> {
   /** Anything that can be placed inside a heading tag */
   title?: ReactNode;
 

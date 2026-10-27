@@ -28,7 +28,8 @@ function Rolodex(props: RolodexProps): ReactElement {
     visible,
     half,
     open,
-    openList,
+    setOpen,
+    openPopover,
     shift,
     distance,
     heightAt,
@@ -37,7 +38,7 @@ function Rolodex(props: RolodexProps): ReactElement {
     onPopoverToggle,
   } = useRolodexContext(props);
   return (
-    <RolodexContext.Provider value={{ open }}>
+    <RolodexContext.Provider value={{ open, setOpen, activeItem }}>
       <div className={cn(styles.root)}>
         <button
           ref={triggerRef}
@@ -45,7 +46,7 @@ function Rolodex(props: RolodexProps): ReactElement {
           aria-haspopup="listbox"
           aria-expanded={open}
           className={cn(styles.trigger)}
-          onClick={openList}
+          onClick={openPopover}
         >
           {activeItem?.node}
         </button>

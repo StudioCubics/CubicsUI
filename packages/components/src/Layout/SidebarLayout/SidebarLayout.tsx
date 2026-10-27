@@ -1,19 +1,19 @@
 "use client";
 
+import { cn, isServer } from "@cubicsui/utils";
 import {
+  type Context,
   createContext,
+  type ReactElement,
   useContext,
   useEffect,
-  type ReactElement,
-  type Context,
   useState,
 } from "react";
-import { cn, isServer } from "@cubicsui/utils";
+import styles from "./SidebarLayout.module.css";
 import type {
   SidebarLayoutContextProps,
   SidebarLayoutProps,
 } from "./SidebarLayout.types";
-import styles from "./SidebarLayout.module.css";
 import { SidebarScript } from "./SidebarScript";
 
 const SIDEBAR_LAYOUT_DEFAULTS = {

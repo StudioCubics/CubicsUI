@@ -79,7 +79,7 @@ export function useRolodexContext(
     return sign * y;
   }
 
-  function openList() {
+  function openPopover() {
     const trigger = triggerRef.current;
     const popover = popoverRef.current;
     if (!trigger || !popover) return;
@@ -166,7 +166,7 @@ export function useRolodexContext(
     visible,
     half,
     open,
-    openList,
+    openPopover,
     setOpen,
     shift,
     distance,

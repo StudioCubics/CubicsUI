@@ -1,18 +1,18 @@
 "use client";
 
-import { useRef, type ReactElement } from "react";
-import { cn, mergeRefs } from "@cubicsui/utils";
-import { TableOfContents } from "../../Display/TableOfContents/TableOfContents";
-import styles from "./PageLayoutTOC.module.css";
-import type { PageLayoutTOCProps } from "./PageLayoutTOC.types";
 import { FormIcon } from "@cubicsui/icons";
-import { SidebarLayout } from "../SidebarLayout/SidebarLayout";
+import { cn, mergeRefs } from "@cubicsui/utils";
+import { type ReactElement, useRef } from "react";
+import { TableOfContents } from "../../Display/TableOfContents/TableOfContents";
+import { PageHeader } from "../../Typography/PageHeader/PageHeader";
 import { Sidebar } from "../SidebarLayout/Sidebar/Sidebar";
 import { SidebarBody } from "../SidebarLayout/SidebarBody/SidebarBody";
 import { SidebarHeader } from "../SidebarLayout/SidebarHeader/SidebarHeader";
 import { SidebarToggle } from "../SidebarLayout/SidebarHeader/SidebarToggle";
+import { SidebarLayout } from "../SidebarLayout/SidebarLayout";
 import { SidebarViewport } from "../SidebarLayout/SidebarViewport/SidebarViewport";
-import { PageHeader } from "../../Typography/PageHeader/PageHeader";
+import styles from "./PageLayoutTOC.module.css";
+import type { PageLayoutTOCProps } from "./PageLayoutTOC.types";
 
 // TODO nuke this and make with PageLayout instead of SidebarLayout
 export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
@@ -21,7 +21,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
     title,
     desc,
     actions,
-    size = "lg",
+    size = "md",
     children,
     slotProps = {},
     LinkComponent,

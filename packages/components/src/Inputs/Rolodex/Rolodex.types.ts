@@ -24,17 +24,14 @@ export interface RolodexProps {
   /** amount of blur on each item */
   blurMultiplier?: number;
 }
-export interface UseRolodexContextReturn {
+export interface UseRolodexContextReturn extends RolodexContextProps {
   triggerRef: RefObject<HTMLButtonElement | null>;
   popoverRef: RefObject<HTMLDivElement | null>;
   itemRefs: RefObject<(HTMLDivElement | null)[]>;
-  activeItem: RolodexItem;
   activeIndex: number;
   visible: number;
   half: number;
-  open: boolean;
-  openList: () => void;
-  setOpen: SetState<boolean>;
+  openPopover: () => void;
   shift: (by: number) => void;
   distance: (from: number, d: number) => number;
   heightAt: (i: number) => number;
@@ -44,5 +41,10 @@ export interface UseRolodexContextReturn {
 }
 
 export interface RolodexContextProps {
+  /** The popover is open or not */
   open: boolean;
+  /** Change the popover open state */
+  setOpen: SetState<boolean>;
+  /** Contains the active items node and id */
+  activeItem: RolodexItem;
 }
