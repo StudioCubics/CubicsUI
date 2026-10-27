@@ -1,40 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
-import type { ListDefaultHrefType, ListItemProps } from "@cubicsui/components";
-import { toCapitalised } from "@cubicsui/utils";
-import matter from "gray-matter";
-import { type EvaluateOptions, evaluate } from "next-mdx-remote-client/rsc";
-import rehypeMdxCodeProps from "rehype-mdx-code-props";
-import rehypeSlug from "rehype-slug";
-import remarkFlexibleToc from "remark-flexible-toc";
-import remarkGfm from "remark-gfm";
-import { defaultComponents } from "../components";
-import type {
-  MDXFrontmatter,
-  MDXLoaderProps,
-  MDXMeta,
-  MDXScope,
-} from "./mdxLoader.types";
-
-/** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
-function walkPageSlugs(contentRoot: string): string[] {
-  const absRoot = path.join(process.cwd(), contentRoot);
-  const slugs: string[] = [];
-
-  function walk(dir: string, prefix: string) {
-    if (!fs.existsSync(dir)) return;
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (entry.isDirectory()) {
-        walk(path.join(dir, entry.name), `${prefix}${entry.name}/`);
-      } else if (entry.name === "page.mdx") {
-        slugs.push(prefix.slice(0, -1)); // strip trailing slash
-      }
-    }
-  }
-
-  walk(absRoot, "");
-  return slugs;
-}
+import { createGetPage } from "./api/getPage";
+import { createGetPageTree } from "./api/getPageTree";
+import { createGetStaticParams } from "./api/getStaticParams";
+import type { MDXLoaderContext, MDXLoaderProps } from "./mdxLoader.types";
+import { walkPageSlugs } from "./mdxLoader.utils";
 
 /** Loads the mdx files from the contentRoot
  * ```tsx
@@ -57,144 +25,19 @@ function walkPageSlugs(contentRoot: string): string[] {
  */
 export function mdxLoader(props: MDXLoaderProps) {
   const { contentRoot, components = {}, readSource, readMeta } = props;
-  // Slugs are computed once, at loader init time, by walking the filesystem.
-  const pageSlugs = walkPageSlugs(contentRoot);
 
-  async function getPage(
-    param: string | string[] | undefined,
-    options: EvaluateOptions<MDXScope> = {},
-  ) {
-    const slug = typeof param === "string" ? param : param?.join("/");
-    let source: string;
-    try {
-      source = await readSource(`${slug}/page.mdx`);
-    } catch {
-      return;
-    }
-    const opts: EvaluateOptions<MDXScope> = {
-      ...options,
-      mdxOptions: {
-        ...options?.mdxOptions,
-        remarkPlugins: [remarkGfm, [remarkFlexibleToc, { skipLevels: [] }]],
-        rehypePlugins: [rehypeMdxCodeProps, rehypeSlug],
-      },
-      parseFrontmatter: options.parseFrontmatter ?? true,
-      vfileDataIntoScope: "toc",
-    };
-    const evaluatedPage = await evaluate<MDXFrontmatter, MDXScope>({
-      source,
-      options: opts,
-      components: { ...defaultComponents, ...components },
-    });
+  const ctx: MDXLoaderContext = {
+    contentRoot,
+    components,
+    readSource,
+    readMeta,
+    // Slugs are computed once, at loader init time, by walking the filesystem.
+    pageSlugs: walkPageSlugs(contentRoot),
+  };
 
-    return evaluatedPage;
-  }
-
-  /** Trie node used while grouping flat slugs into a nested tree */
-  type TrieNode = { isPage: boolean; children: Map<string, TrieNode> };
-
-  function buildTrie(slugs: string[]) {
-    const root: TrieNode = { isPage: false, children: new Map() };
-    for (const slug of slugs) {
-      let node = root;
-      for (const seg of slug.split("/")) {
-        let child = node.children.get(seg);
-        if (!child) {
-          child = { isPage: false, children: new Map() };
-          node.children.set(seg, child);
-        }
-        node = child;
-      }
-      node.isPage = true;
-    }
-    return root;
-  }
-
-  /** Calls the app's `readMeta`, defaulting to `undefined` if absent/missing/throws */
-  async function safeReadMeta(
-    relFolderPath: string,
-  ): Promise<MDXMeta | undefined> {
-    if (!readMeta) return undefined;
-    try {
-      return await readMeta(relFolderPath ? `${relFolderPath}/meta` : "meta");
-    } catch {
-      return undefined;
-    }
-  }
-
-  /** Reads frontmatter only (no MDX compile) — cheap, for tree labels */
-  async function readFrontmatter(
-    slug: string,
-  ): Promise<Partial<MDXFrontmatter>> {
-    try {
-      const source = await readSource(`${slug}/page.mdx`);
-      return matter(source).data as Partial<MDXFrontmatter>;
-    } catch {
-      return {};
-    }
-  }
-
-  async function buildNodes<T extends ListDefaultHrefType>(
-    node: TrieNode,
-    pathSegments: string[],
-    baseHref: string,
-  ): Promise<ListItemProps<T>[]> {
-    const folderPath = pathSegments.join("/");
-    const meta = await safeReadMeta(folderPath);
-    // No meta.tsx (or it threw) → fall back to every child, alphabetically.
-    // With meta.tsx → only ids listed in `order`, in that order.
-    const ids = meta?.order ?? Array.from(node.children.keys()).sort();
-
-    const items: ListItemProps<T>[] = [];
-    for (const id of ids) {
-      const child = node.children.get(id);
-      if (!child) continue; // id in order but no matching file/folder
-
-      const slug = [...pathSegments, id].join("/");
-      const extraProps = meta?.pages?.[id];
-      const hasChildren = child.children.size > 0;
-      if (hasChildren) {
-        // Folder → collapsible node, recurse for its children.
-        const nodes = await buildNodes(child, [...pathSegments, id], baseHref);
-        const frontmatter = child.isPage ? await readFrontmatter(slug) : {};
-        items.push({
-          type: "collapsible",
-          id: slug,
-          nodes,
-          href: child.isPage ? `${baseHref}/${slug}` : undefined,
-          children: frontmatter.title ?? toCapitalised(id),
-          ...extraProps,
-        } as ListItemProps<T>);
-      } else {
-        // Leaf → actual page.
-        const frontmatter = await readFrontmatter(slug);
-        items.push({
-          type: "item",
-          href: `${baseHref}/${slug}`,
-          children: frontmatter.title ?? id,
-          ...extraProps,
-        } as ListItemProps<T>);
-      }
-    }
-    return items;
-  }
-
-  /**
-   * Builds the sidebar `ListItemProps[]` tree from the slugs computed at
-   * loader init, honoring each folder's `meta.tsx` ordering (when
-   * `readMeta` is provided and resolves for that folder).
-   * @param baseHref - URL prefix prepended to each page's href, e.g. `"/docs"`.
-   */
-  async function getPageTree<T extends ListDefaultHrefType>(
-    baseHref: string,
-  ): Promise<ListItemProps<T>[]> {
-    const trie = buildTrie(pageSlugs);
-    return buildNodes(trie, [], baseHref);
-  }
-  /** Returns params for Next's `generateStaticParams`. The root page (`""`) maps to an empty slug array. */
-  function getStaticParams() {
-    return pageSlugs.map((slug) => ({ slug: slug ? slug.split("/") : [] }));
-  }
-
-  return { getPage, getPageTree, getStaticParams };
+  return {
+    getPage: createGetPage(ctx),
+    getPageTree: createGetPageTree(ctx),
+    getStaticParams: createGetStaticParams(ctx),
+  };
 }

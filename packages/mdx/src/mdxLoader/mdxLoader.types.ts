@@ -1,5 +1,22 @@
-import type { ListItemProps, TocItem } from "@cubicsui/components";
+import type {
+  ListDefaultHrefType,
+  ListItemProps,
+  TocItem,
+} from "@cubicsui/components";
 import type { MDXComponents } from "next-mdx-remote-client";
+import type { ReactNode } from "react";
+
+/** Trie node used while grouping flat slugs into a nested tree */
+export type TrieNode = { isPage: boolean; children: Map<string, TrieNode> };
+
+/** Shared state passed to every loader factory */
+export type MDXLoaderContext = Required<
+  Pick<MDXLoaderProps, "components" | "contentRoot" | "readSource">
+> &
+  Pick<MDXLoaderProps, "readMeta"> & {
+    /** Slugs computed once, at loader init time */
+    pageSlugs: string[];
+  };
 
 export type MDXScope = {
   readingTime?: string;
@@ -20,6 +37,14 @@ export type MDXFrontmatter = {
   /** If table of content should be shown for this page or not */
   toc?: boolean;
 };
+export interface MDXPageData {
+  frontmatter: MDXFrontmatter;
+  scope: MDXScope;
+}
+export interface MDXPageTreeProviderProps<T extends ListDefaultHrefType> {
+  tree: ListItemProps<T>[];
+  children: ReactNode;
+}
 
 /** Shape a folder's `meta.tsx` must default-export */
 export interface MDXMeta {
