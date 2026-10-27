@@ -1,4 +1,20 @@
-/* .editor {
-  & :global(.monaco-editor) {
+/** biome-ignore-all lint/correctness/noUnknownPseudoClass: Cause f u */
+.editor {
+  /* Apply rounded corners to the main Monaco editor container */
+  & :global(.monaco-editor),
+  & :global(.monaco-editor .data-view-zone),
+  & :global(.monaco-editor .overflow-guard) {
+    border-radius: var(--br-md);
   }
-} */
+
+  /* Round the background/margin regions that bleed into sharp corners */
+  & :global(.monaco-editor .monaco-editor-background),
+  & :global(.monaco-editor .inputarea.ime-input) {
+    border-radius: var(--br-md);
+  }
+
+  /* Optional: round the scrollbar slider as well */
+  & :global(.monaco-editor .slider) {
+    border-radius: 10px;
+  }
+}

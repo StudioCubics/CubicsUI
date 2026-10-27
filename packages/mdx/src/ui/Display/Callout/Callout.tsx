@@ -1,22 +1,23 @@
-import { GlassCard } from "@cubicsui/components";
+import { Card, GlassCard } from "@cubicsui/components";
+import { icons } from "@cubicsui/icons/registry";
 import { cn } from "@cubicsui/utils";
 import styles from "./Callout.module.css";
 import type { CalloutProps } from "./Callout.types";
-import { calloutIcons } from "./Callout.utils";
+import { calloutColors, calloutIcons } from "./Callout.utils";
 
 export function Callout(props: CalloutProps) {
-  const { type = "note", title, subtitle, children } = props;
-  const Icon = calloutIcons[type];
+  const { type = "note", title, subtitle, icon, children } = props;
+
+  const Icon = icon ? icons[icon as keyof typeof icons] : calloutIcons[type];
+  const color = type && calloutColors[type];
   return (
-    <GlassCard role="note" className={cn(styles.root, styles[type])}>
-      <div className={styles.header}>
-        <div className={styles.icon}>
-          <Icon />
-        </div>
-        <div className={styles.title}>
-          {title && <h1>{title}</h1>}
-          {subtitle && <h2>{subtitle}</h2>}
-        </div>
+    <GlassCard as={Card} color={color} role="note" className={cn(styles.root)}>
+      <div className={styles.icon}>
+        <Icon />
+      </div>
+      <div className={styles.title}>
+        {title && <h1>{title}</h1>}
+        {subtitle && <h2>{subtitle}</h2>}
       </div>
       <div className={styles.body}>{children}</div>
     </GlassCard>

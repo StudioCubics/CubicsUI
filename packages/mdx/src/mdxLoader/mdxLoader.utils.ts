@@ -4,6 +4,7 @@ import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
 import remarkFlexibleToc from "remark-flexible-toc";
 import remarkGfm from "remark-gfm";
+import remarkCallouts from "../plugins/remarkCallout/remarkCallout";
 import type { MDXRehypePlugins, MDXRemarkPlugins } from "./mdxLoader.types";
 
 /** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
@@ -29,6 +30,7 @@ export function walkPageSlugs(contentRoot: string): string[] {
 export const defaultRemarkPlugins: MDXRemarkPlugins = [
   remarkGfm,
   [remarkFlexibleToc, { skipLevels: [] }],
+  remarkCallouts,
 ];
 export const defaultRehypePlugins: MDXRehypePlugins = [
   rehypeMdxCodeProps,

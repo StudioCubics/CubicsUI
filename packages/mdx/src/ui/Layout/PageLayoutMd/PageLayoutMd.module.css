@@ -1,95 +1,90 @@
 .root {
-  & h1 {
-    margin-block: var(--gap-10);
-  }
-  & h2 {
-    margin-block: var(--gap-6);
-  }
-  & h3,
-  & p {
-    margin-block: var(--gap-4);
+  container-type: inline-size;
+  /* Default gap between any two sibling blocks: 20px */
+  & > :where(* + *) {
+    margin-top: var(--gap-5);
   }
 
-  & p {
-    letter-spacing: 0.02em;
-    line-height: 1.7;
+  /* Headings: large space above, so sections separate clearly */
+  & > :where(h1) {
+    margin-top: var(--gap-16); /* 64px */
+  }
+  & > :where(h2) {
+    margin-top: var(--gap-12); /* 48px */
+  }
+  & > :where(h3) {
+    margin-top: var(--gap-8); /* 32px */
+  }
+  & > :where(h4, h5, h6) {
+    margin-top: var(--gap-6); /* 24px */
   }
 
-  & h4,
-  & h5,
-  & h6 {
-    margin-top: var(--gap);
-    margin-bottom: var(--gap-5);
+  /* Whatever follows a heading sits close to it (must come after the heading rules) */
+  & > :where(h1, h2, h3, h4, h5, h6) + :where(*) {
+    margin-top: var(--gap-3); /* 12px */
   }
 
-  & ul,
-  & ol {
-    margin-top: var(--gap);
-    margin-bottom: var(--gap-7);
-    padding-left: var(--gap-10);
+  & > :where(hr) {
+    margin-block: var(--gap-12);
   }
 
-  & li {
-    margin-bottom: var(--gap-3);
-    line-height: 1.7;
+  /* Lists: spacing between items only */
+  & :where(li + li) {
+    margin-top: var(--gap-2); /* 8px */
+  }
+  & :where(li > ul, li > ol) {
+    margin-top: var(--gap-2);
   }
 
-  & li > ul,
-  & li > ol {
+  & > :where(ul, ol) {
+    padding-left: var(--gap-8);
+  }
+
+  /* Lists: spacing between items only, nested lists inherit the same rhythm */
+  & :where(li + li) {
     margin-top: var(--gap-3);
-    margin-bottom: 0;
+  }
+  & :where(li > ul, li > ol) {
+    margin-top: var(--gap-3);
   }
 
-  & blockquote {
-    margin-top: var(--gap-3);
-    margin-bottom: var(--gap-7);
+  & > :where(blockquote) {
     padding-left: var(--gap-7);
     border-left: 3px solid var(--border-color, currentColor);
     opacity: 0.85;
   }
 
-  & code {
+  & :where(code) {
     letter-spacing: 0;
-    background: var(--color-surface);
+    background: var(--color-surface-highest);
   }
 
-  & p code,
-  & li code {
+  & :where(p code, li code) {
     padding: 0.1em 0.35em;
     border-radius: 4px;
   }
 
-  & hr {
-    margin-top: var(--gap-10);
-    margin-bottom: var(--gap-10);
-    border: none;
-    border-top: 1px solid var(--border-color, currentColor);
-    opacity: 0.3;
-  }
-
-  & a {
+  & :where(a) {
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
-  & strong {
+  & :where(strong) {
     font-weight: 600;
   }
 
-  & img {
-    margin-block: var(--gap-4);
+  & :where(img) {
     max-width: 100%;
     border-radius: var(--br, 6px);
   }
-  & table {
-    margin-block: var(--gap-4);
+
+  /* biome-ignore lint/correctness/noUnknownPseudoClass: biome fuwqnekj */
+  & :where(:global(.code)) {
+    margin-top: var(--gap-5);
   }
 
-  & > *:first-child {
+  /* Must stay last: the page never starts with a gap */
+  & > :first-child {
     margin-top: 0;
-  }
-
-  & > *:last-child {
-    margin-bottom: 0;
   }
 }

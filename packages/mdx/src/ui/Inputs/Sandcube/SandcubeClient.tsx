@@ -144,30 +144,32 @@ export function SandcubeClient({
         )}
         {mounted && compileError && <pre>{compileError}</pre>}
       </div>
-      <MonacoEditor
-        id={title}
-        height={"30vh"}
-        defaultValue={files[activeFile]?.code}
-        onChange={(value) =>
-          setFiles((prev) => ({
-            ...prev,
-            [activeFile]: { ...prev[activeFile], code: value ?? "" },
-          }))
-        }
-        loading={
-          <pre
-            style={{
-              width: "100%",
-              height: "100%",
-              padding: "var(--gap-3) var(--gap-5)",
-            }}
-          >
-            {files[activeFile].code}
-          </pre>
-        }
-        options={{ readOnly: files[activeFile]?.readOnly }}
-        tabsMgr={{ activeFile, visibleFiles, setActiveFile }}
-      />
+      <div className={styles.code}>
+        <MonacoEditor
+          id={title}
+          height={"30vh"}
+          defaultValue={files[activeFile]?.code}
+          onChange={(value) =>
+            setFiles((prev) => ({
+              ...prev,
+              [activeFile]: { ...prev[activeFile], code: value ?? "" },
+            }))
+          }
+          loading={
+            <pre
+              style={{
+                width: "100%",
+                height: "100%",
+                padding: "var(--gap-3) var(--gap-5)",
+              }}
+            >
+              {files[activeFile].code}
+            </pre>
+          }
+          options={{ readOnly: files[activeFile]?.readOnly }}
+          tabsMgr={{ activeFile, visibleFiles, setActiveFile }}
+        />
+      </div>
     </div>
   );
 }

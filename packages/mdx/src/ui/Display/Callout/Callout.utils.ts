@@ -1,3 +1,4 @@
+import type { CardProps } from "@cubicsui/components";
 import {
   InfoIcon,
   LightBulbIcon,
@@ -18,3 +19,21 @@ export const calloutIcons: Record<
   warning: TriangleAlertIcon,
   caution: OctagonAlertIcon,
 };
+export const calloutColors: Record<
+  Required<CalloutProps>["type"],
+  CardProps["color"]
+> = {
+  note: undefined,
+  tip: "primary",
+  important: "success",
+  warning: "warn",
+  caution: "error",
+};
+export const DEFAULT_CALLOUT_TYPES = [
+  "note",
+  "tip",
+  "important",
+  "warning",
+  "caution",
+] as const;
+

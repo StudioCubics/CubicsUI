@@ -7,7 +7,7 @@ import { Children, isValidElement } from "react";
 import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
 import styles from "./CodeBlock.module.css";
 import type { CodeBlockProps } from "./CodeBlock.types";
-import { getCodeHeight } from "./CodeBlock.utils";
+import { getCodeHeight, hashCode } from "./CodeBlock.utils";
 import { CodeBlockFrame } from "./CodeBlockFrame";
 import { CodeBlockPkgManager } from "./CodeBlockPkgManager";
 
@@ -26,9 +26,8 @@ export function CodeBlock(props: CodeBlockProps) {
   const lang = codeChildProps?.className?.replace("language-", "");
   const extension = lang ? (LANGUAGE_IDENTIFIER_TO_EXTENSION[lang] ?? "") : "";
 
-  const id =
-    _id ??
-    (title ? `${toCamelCase(title)}${extension}` : `unknown${extension}`);
+  const base = title ? toCamelCase(title) : "unknown";
+  const id = _id ?? `${base}-${hashCode(code)}${extension}`;
 
   // ```npm fences are expanded into pnpm / yarn / bun / deno tabs
   if (lang === "npm") {

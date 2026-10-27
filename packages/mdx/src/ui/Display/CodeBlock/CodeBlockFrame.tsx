@@ -13,7 +13,7 @@ type CodeBlockFrameProps = {
 export function CodeBlockFrame(props: CodeBlockFrameProps) {
   const { icon, title, code, children } = props;
   return (
-    <div className={styles.root}>
+    <div className={cn(styles.root, "code")}>
       {/* Header div */}
       {(icon || title) && (
         <div className={cn(styles.header)}>

@@ -1,12 +1,23 @@
 .root {
   overflow: hidden;
   border-radius: var(--br-md);
-  background: var(--color-surface-highest);
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* Stack when the container is narrower than 700px */
+@container (max-width: 700px) {
+  .root {
+    flex-direction: column;
+  }
 }
 .runner {
-  height: 30vh;
+  flex: 1;
   overflow: auto;
   background: white;
+}
+.code {
+  flex: 1;
 }
 [data-theme="dark"] .runner {
   background: black;

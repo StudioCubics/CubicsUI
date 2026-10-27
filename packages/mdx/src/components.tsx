@@ -1,5 +1,6 @@
 import { Table, TableCell } from "@cubicsui/components";
 import type { MDXComponents } from "mdx/types";
+import { Callout } from "./ui/Display/Callout/Callout";
 import { CodeBlock } from "./ui/Display/CodeBlock/CodeBlock";
 import { Sandcube } from "./ui/Inputs/Sandcube/Sandcube";
 import { SandcubeFile } from "./ui/Inputs/Sandcube/SandcubeFile";
@@ -13,4 +14,5 @@ export const defaultComponents: MDXComponents = {
   Sandcube,
   SandcubeFile,
   wrapper: PageLayoutMd,
+  Callout,
 };
