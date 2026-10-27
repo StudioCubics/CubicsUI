@@ -41,7 +41,7 @@
     "build": "pnpm generate && tsdown",
     "lint": "biome lint",
     "format": "biome format --write",
-    "check": "biome check --write --fix",
+    "check": "biome check --write",
     "dev": "pnpm generate && tsdown --watch",
     "clean": "rimraf dist node_modules"
   },

@@ -30,7 +30,7 @@
     "build": "tsc",
     "lint": "biome lint",
     "format": "biome format --write",
-    "check": "biome check --write --fix",
+    "check": "biome check --write",
     "clean": "rimraf dist node_modules"
   },
   "devDependencies": {
