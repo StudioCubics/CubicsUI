@@ -1,6 +1,6 @@
 import type { SetState } from "@cubicsui/types";
-import { useGlider, type UseGliderReturn } from "../useGlider/useGlider";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { type UseGliderReturn, useGlider } from "../useGlider/useGlider";
 
 export interface UseActiveNodeGliderReturn extends UseGliderReturn {
   setActiveNode: SetState<Element | null>;

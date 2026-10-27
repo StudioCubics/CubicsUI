@@ -1,10 +1,10 @@
 "use client";
 
 import type { PolymorphicComponentType } from "@cubicsui/types";
-import { Children, isValidElement, type ElementType } from "react";
 import { cn } from "@cubicsui/utils";
-import type { CardBaseProps, CardProps } from "./Card.types";
+import { Children, type ElementType, isValidElement } from "react";
 import styles from "./Card.module.css";
+import type { CardBaseProps, CardProps } from "./Card.types";
 
 // CardBase.tsx
 function CardBase<C extends ElementType = "div">(props: CardProps<C>) {

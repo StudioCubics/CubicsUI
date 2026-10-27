@@ -1,21 +1,21 @@
 "use client";
 
+import { useActiveNodeGlider, useDisclosureGroup } from "@cubicsui/hooks";
 import { cn, mergeRefs } from "@cubicsui/utils";
 import {
-  createContext,
-  useContext,
-  type ReactElement,
   type Context,
+  createContext,
+  type ReactElement,
+  useContext,
 } from "react";
+import { GlassCard } from "../GlassCard/GlassCard";
 import styles from "./List.module.css";
 import type { ListContextProps, ListProps } from "./List.types";
-import { useActiveNodeGlider, useDisclosureGroup } from "@cubicsui/hooks";
-import { GlassCard } from "../GlassCard/GlassCard";
-import { ListScript } from "./ListScript";
 import {
   LIST_OBSERVED_ATTRIBUTES,
   resolveCollapsedAncestor,
 } from "./List.utils";
+import { ListScript } from "./ListScript";
 
 export const ListContext: Context<ListContextProps | null> =
   createContext<ListContextProps | null>(null);
