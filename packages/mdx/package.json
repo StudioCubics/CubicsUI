@@ -23,10 +23,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./config": {
+      "types": "./dist/mdxConfig.d.mts",
+      "default": "./dist/mdxConfig.mjs"
     }
   },
   "scripts": {
@@ -38,7 +40,8 @@
   },
   "peerDependencies": {
     "react": ">= 19",
-    "react-dom": ">= 19"
+    "react-dom": ">= 19",
+    "next": ">= 16"
   },
   "dependencies": {
     "@cubicsui/components": "workspace:^",
@@ -48,6 +51,7 @@
     "@monaco-editor/react": "^4.7.0",
     "gray-matter": "^4.0.3",
     "next-mdx-remote-client": "^2.1.12",
+    "raw-loader": "^4.0.2",
     "react-live": "^4.1.8",
     "rehype-mdx-code-props": "^3.0.1",
     "rehype-slug": "^6.0.0",

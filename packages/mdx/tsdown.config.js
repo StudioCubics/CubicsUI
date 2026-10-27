@@ -1,9 +1,9 @@
-import { defineConfig } from "tsdown";
-import { glob } from "glob";
 import { dirname } from "node:path/posix";
+import { glob } from "glob";
+import { defineConfig } from "tsdown";
 
 export default defineConfig({
-  entry: ["src/index.ts"],
+  entry: ["src/index.ts", "src/mdxConfig.ts"],
   format: ["esm"],
   sourcemap: true,
   clean: false,

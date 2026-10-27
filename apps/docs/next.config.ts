@@ -1,16 +1,9 @@
+import { mdxConfig } from "@cubicsui/mdx/config";
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig: NextConfig = mdxConfig({
   reactCompiler: true,
   typedRoutes: true,
-  turbopack: {
-    rules: {
-      "*.mdx": {
-        loaders: ["raw-loader"],
-        as: "*.js",
-      },
-    },
-  },
-};
+});
 
 export default nextConfig;
