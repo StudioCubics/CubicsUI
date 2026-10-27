@@ -13,6 +13,8 @@ export * from "./FishingHookIcon";
 export * from "./FormIcon";
 export * from "./InfoIcon";
 export * from "./LightBulbIcon";
+export * from "./MessageSquareWarningIcon";
+export * from "./OctagonAlertIcon";
 export * from "./PanelLeftIcon";
 export * from "./PointerLightIcon";
 export * from "./QuoteIcon";

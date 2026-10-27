@@ -1,0 +1,24 @@
+import type { ComponentProps, ReactElement } from "react";
+
+export function MessageSquareWarningIcon(
+  props: ComponentProps<"svg">,
+): ReactElement {
+  const { width = 24, height = width, ...rest } = props;
+  return (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      role="img"
+      aria-label="MessageSquareWarning"
+      {...rest}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width={width}
+      height={height}
+    >
+      <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
+      <path d="M12 15h.01" />
+      <path d="M12 7v4" />
+    </svg>
+  );
+}
