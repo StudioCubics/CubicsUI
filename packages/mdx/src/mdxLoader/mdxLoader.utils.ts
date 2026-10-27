@@ -1,5 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import rehypeMdxCodeProps from "rehype-mdx-code-props";
+import rehypeSlug from "rehype-slug";
+import remarkFlexibleToc from "remark-flexible-toc";
+import remarkGfm from "remark-gfm";
+import type { MDXRehypePlugins, MDXRemarkPlugins } from "./mdxLoader.types";
 
 /** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
 export function walkPageSlugs(contentRoot: string): string[] {
@@ -20,3 +25,12 @@ export function walkPageSlugs(contentRoot: string): string[] {
   walk(absRoot, "");
   return slugs;
 }
+// Defaults the loader depends on (toc, slugs, code props) - always applied first
+export const defaultRemarkPlugins: MDXRemarkPlugins = [
+  remarkGfm,
+  [remarkFlexibleToc, { skipLevels: [] }],
+];
+export const defaultRehypePlugins: MDXRehypePlugins = [
+  rehypeMdxCodeProps,
+  rehypeSlug,
+];

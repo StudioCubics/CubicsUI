@@ -40,9 +40,9 @@
     "clean": "rimraf dist node_modules"
   },
   "peerDependencies": {
+    "next": ">= 16",
     "react": ">= 19",
-    "react-dom": ">= 19",
-    "next": ">= 16"
+    "react-dom": ">= 19"
   },
   "dependencies": {
     "@cubicsui/components": "workspace:^",

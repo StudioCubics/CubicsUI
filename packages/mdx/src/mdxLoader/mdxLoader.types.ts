@@ -4,16 +4,24 @@ import type {
   TocItem,
 } from "@cubicsui/components";
 import type { MDXComponents } from "next-mdx-remote-client";
+import type { EvaluateOptions } from "next-mdx-remote-client/rsc";
 import type { ReactNode } from "react";
 
 /** Trie node used while grouping flat slugs into a nested tree */
 export type TrieNode = { isPage: boolean; children: Map<string, TrieNode> };
+
+export type MDXOptions = NonNullable<EvaluateOptions<MDXScope>["mdxOptions"]>;
+
+export type MDXRemarkPlugins = NonNullable<MDXOptions["remarkPlugins"]>;
+export type MDXRehypePlugins = NonNullable<MDXOptions["rehypePlugins"]>;
 
 /** Shared state passed to every loader factory */
 export type MDXLoaderContext = Required<
   Pick<MDXLoaderProps, "components" | "contentRoot" | "readSource">
 > &
   Pick<MDXLoaderProps, "readMeta"> & {
+    remarkPlugins?: MDXRemarkPlugins;
+    rehypePlugins?: MDXRehypePlugins;
     /** Slugs computed once, at loader init time */
     pageSlugs: string[];
   };
@@ -56,6 +64,8 @@ export interface MDXMeta {
 }
 
 export interface MDXLoaderProps {
+  remarkPlugins?: MDXRemarkPlugins;
+  rehypePlugins?: MDXRehypePlugins;
   /** Any components that need to overide the default components like `{ a: Link }` for using `next/link` instead of anchor tag */
   components?: MDXComponents;
   /**
