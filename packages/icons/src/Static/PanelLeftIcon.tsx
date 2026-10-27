@@ -1,7 +1,8 @@
+import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
 
 export function PanelLeftIcon(props: ComponentProps<"svg">): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
   return (
     <svg
       fill="none"
@@ -13,7 +14,7 @@ export function PanelLeftIcon(props: ComponentProps<"svg">): ReactElement {
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className="lucide"
+      className={cn(className, "lucide")}
     >
       <rect width="18" height="18" x="3" y="3" rx="2" />
       <path d="M9 3v18" />

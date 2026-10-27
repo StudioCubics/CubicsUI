@@ -1,7 +1,8 @@
+import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
 
 export function InfoIcon(props: ComponentProps<"svg">): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
 
   return (
     <svg
@@ -14,7 +15,7 @@ export function InfoIcon(props: ComponentProps<"svg">): ReactElement {
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className="lucide"
+      className={cn(className, "lucide")}
     >
       <circle cx="12" cy="12" r="10" />
       <path d="M12 16v-4" />

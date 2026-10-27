@@ -1,7 +1,7 @@
 import type { ComponentProps, ReactElement } from "react";
 
 export function CubicsUIFavicon(props: ComponentProps<"svg">): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
   return (
     <svg
       fill="none"
@@ -13,7 +13,7 @@ export function CubicsUIFavicon(props: ComponentProps<"svg">): ReactElement {
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className="lucide"
+      className={cn(className, "lucide")}
     >
       <path d="M12.4695 18.129C12.4695 17.8986 12.7042 17.6682 12.939 17.6682C13.2207 17.6682 15.2786 17.6682 16.2723 17.6682C16.5305 17.6682 16.7418 17.8986 16.7418 18.129V21.5392C16.7418 21.7696 16.5164 22 16.2723 22H12.939C12.7042 22 12.4695 21.7696 12.4695 21.5392V12.9677C12.4695 12.7373 12.7042 12.5069 12.939 12.5069H21.5305C21.7653 12.5069 22 12.7465 22 12.9677M22 12.9677V21.5392C22 21.7696 21.7653 22 21.5305 22H2.46948C2.23474 22 2 21.7696 2 21.5392V2.46083C2 2.23041 2.23474 2 2.46948 2H21.5305C21.7653 2 22 2.23041 22 2.46083V12.9677Z" />
     </svg>
@@ -22,7 +22,7 @@ export function CubicsUIFavicon(props: ComponentProps<"svg">): ReactElement {
 export function CubicsUIFaviconShape(
   props: ComponentProps<"svg">,
 ): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
   return (
     <svg
       role="img"
@@ -32,7 +32,7 @@ export function CubicsUIFaviconShape(
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className="lucide"
+      className={cn(className, "lucide")}
     >
       <path
         fillRule="evenodd"

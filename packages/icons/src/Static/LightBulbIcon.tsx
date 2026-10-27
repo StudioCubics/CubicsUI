@@ -1,7 +1,8 @@
+import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
 
 export function LightBulbIcon(props: ComponentProps<"svg">): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
 
   return (
     <svg
@@ -14,7 +15,7 @@ export function LightBulbIcon(props: ComponentProps<"svg">): ReactElement {
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className="lucide"
+      className={cn(className, "lucide")}
     >
       <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
       <path d="M9 18h6" />

@@ -5,7 +5,7 @@ import styles from "./PasswordVisibilityIcon.module.css";
 export function PasswordVisibilityIcon(
   props: ComponentProps<"svg">,
 ): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
   const id = useId();
   return (
     <svg

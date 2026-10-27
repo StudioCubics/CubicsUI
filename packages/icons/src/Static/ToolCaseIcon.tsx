@@ -1,7 +1,8 @@
+import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
 
 export function ToolCaseIcon(props: ComponentProps<"svg">): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
   return (
     <svg
       fill="none"
@@ -13,7 +14,7 @@ export function ToolCaseIcon(props: ComponentProps<"svg">): ReactElement {
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className="lucide"
+      className={cn(className, "lucide")}
     >
       <path d="M10 15h4" />
       <path d="m14.817 10.995-.971-1.45 1.034-1.232a2 2 0 0 0-2.025-3.238l-1.82.364L9.91 3.885a2 2 0 0 0-3.625.748L6.141 6.55l-1.725.426a2 2 0 0 0-.19 3.756l.657.27" />

@@ -1,9 +1,10 @@
+import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
 
 export function MessageSquareWarningIcon(
   props: ComponentProps<"svg">,
 ): ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
   return (
     <svg
       fill="none"
@@ -15,6 +16,7 @@ export function MessageSquareWarningIcon(
       viewBox="0 0 24 24"
       width={width}
       height={height}
+      className={cn("lucide", className)}
     >
       <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
       <path d="M12 15h.01" />
