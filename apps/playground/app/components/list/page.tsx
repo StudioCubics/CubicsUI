@@ -30,7 +30,6 @@ export default function Page() {
                   <ListItem
                     type="collapsible"
                     id="notifications"
-
                     nodes={nestedListItems("notifications")}
                   >
                     Notifications

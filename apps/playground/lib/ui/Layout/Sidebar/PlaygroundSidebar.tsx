@@ -1,13 +1,13 @@
-import type { ReactNode } from "react";
-import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
 import {
-  SidebarLayout,
   Sidebar,
-  SidebarHeader,
   SidebarBody,
   SidebarFooter,
+  SidebarHeader,
+  SidebarLayout,
   SidebarViewport,
 } from "@cubicsui/components";
+import type { ReactNode } from "react";
+import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
 import { SidebarBodyContent } from "./SidebarBodyContent";
 import { SidebarFooterContent } from "./SidebarFooterContent";
 

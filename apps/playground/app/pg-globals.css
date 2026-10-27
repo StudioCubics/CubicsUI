@@ -4,7 +4,7 @@
   gap: var(--gap-6);
   padding-inline: 4.165%;
   padding-block: var(--gap-10);
-  & > section {
+  & > :where(section) {
     display: flex;
     flex-direction: column;
     gap: var(--gap-5);

@@ -4,13 +4,13 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
+  type CardProps,
   PasswordInput,
   TextInput,
-  type CardProps,
 } from "@cubicsui/components";
-import { Polymorphic } from "./polymorphic";
-import Image from "next/image";
 import { CubicsUIFavicon } from "@cubicsui/icons";
+import Image from "next/image";
+import { Polymorphic } from "./polymorphic";
 
 function CardSample(props: CardProps) {
   return (
@@ -71,11 +71,7 @@ export default function Page() {
           <h3>
             colored {"("}primary{")"}
           </h3>
-          <CardSample
-            variant="colored"
-            color="primary"
-            fixedWidth="min(100%, 300px)"
-          />
+          <CardSample variant="colored" fixedWidth="min(100%, 300px)" />
         </div>
       </section>
       <h2>Sizes</h2>
