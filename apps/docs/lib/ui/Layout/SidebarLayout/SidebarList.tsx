@@ -3,14 +3,14 @@
 import {
   List,
   ListItem,
-  Rolodex,
   type ListItemProps,
+  Rolodex,
 } from "@cubicsui/components";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { PkgSelectorCard } from "../../Display/PkgSelectorCard";
 import { getSiteMap } from "@/app/docs/meta";
-import type { Route } from "next";
+import { PkgSelectorCard } from "../../Display/PkgSelectorCard";
 
 export function SidebarList({ tree }: { tree: ListItemProps<Route>[] }) {
   const pathname = usePathname();
@@ -27,12 +27,19 @@ export function SidebarList({ tree }: { tree: ListItemProps<Route>[] }) {
         defaultValue={curr}
         items={Object.entries(siteMap).map(([k, v]) => {
           return {
-            node: <PkgSelectorCard {...v} />,
+            node: (
+              <PkgSelectorCard
+                id={k}
+                icon={v.icon}
+                title={v.label}
+                desc={v.pkg}
+              />
+            ),
             id: k,
           };
         })}
         onClose={(v) => {
-          if (v !== curr) router.push(`/docs/${v}` as Route);
+          if (v !== curr) router.push(`/${v}` as Route);
         }}
       />
       <List
@@ -41,13 +48,13 @@ export function SidebarList({ tree }: { tree: ListItemProps<Route>[] }) {
         renderGlider
         LinkComponent={Link}
         selectedWhen={(i) => {
-          if (i.type && (i.type == "separator" || i.type == "header"))
+          if (i.type && (i.type === "separator" || i.type === "header"))
             return false;
           return pathname === i.href;
         }}
       >
         {siteMap[curr].meta.map((cm, i) => {
-          return <ListItem key={i} {...cm} />;
+          return <ListItem key={cm.id ?? i} {...cm} />;
         })}
       </List>
     </>

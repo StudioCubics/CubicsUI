@@ -1,9 +1,13 @@
-import { mdxSource } from "@/app/docs/source";
-import type { ReactElement } from "react";
-import { SidebarList } from "./SidebarList";
 import type { Route } from "next";
+import { type ReactElement, Suspense } from "react";
+import { mdxSource } from "@/app/docs/source";
+import { SidebarList } from "./SidebarList";
 
 export async function SidebarBodyContent(): Promise<ReactElement> {
   const tree = await mdxSource.getPageTree<Route>("/docs");
-  return <SidebarList tree={tree} />;
+  return (
+    <Suspense>
+      <SidebarList tree={tree} />
+    </Suspense>
+  );
 }
