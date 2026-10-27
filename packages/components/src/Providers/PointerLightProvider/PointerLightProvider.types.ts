@@ -1,5 +1,5 @@
-import type { ComponentProps, CSSProperties, ReactNode } from "react";
 import type { SetState } from "@cubicsui/types";
+import type { ComponentProps, CSSProperties, ReactNode } from "react";
 
 export interface PointerLightScriptProps {
   /** The key that is used to store the theme in localStorage

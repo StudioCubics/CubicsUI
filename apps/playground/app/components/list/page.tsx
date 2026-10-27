@@ -1,9 +1,15 @@
-import { Card, CardContent, CardHeader, Button } from "@cubicsui/components";
-import { List, ListItem } from "@cubicsui/components";
-import { SelectedWhen } from "./selectedWhen";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  List,
+  ListItem,
+} from "@cubicsui/components";
 import { CubicsUIFavicon } from "@cubicsui/icons";
-import { RenderGlider } from "./renderMarker";
 import { nestedListItems } from "@/lib/constants/nestedListItems";
+import { RenderGlider } from "./renderMarker";
+import { SelectedWhen } from "./selectedWhen";
 
 export default function Page() {
   return (

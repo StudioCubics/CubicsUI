@@ -6,8 +6,8 @@ import {
   CardHeader,
   Switch,
 } from "@cubicsui/components";
-import { CssVarValue } from "./CssVarValue";
 import { cn } from "@cubicsui/utils";
+import { CssVarValue } from "./CssVarValue";
 import styles from "./page.module.css";
 
 export default function Page() {

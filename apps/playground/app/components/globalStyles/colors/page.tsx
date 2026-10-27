@@ -1,6 +1,6 @@
 import { Card } from "@cubicsui/components";
-import { CssVarValue } from "../CssVarValue";
 import type { ReactNode } from "react";
+import { CssVarValue } from "../CssVarValue";
 
 function ColorPatch({
   color = "var(--color-on-background)",

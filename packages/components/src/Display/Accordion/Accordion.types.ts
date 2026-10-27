@@ -1,15 +1,15 @@
 import type {
-  ReactNode,
-  ComponentProps,
-  ToggleEvent,
-  ElementType,
-} from "react";
-import type { GlassCardProps } from "../GlassCard/GlassCard";
-import type { PolymorphicComponentProps } from "@cubicsui/types";
-import type {
   UseDisclosureGroupProps,
   UseDisclosureGroupReturn,
 } from "@cubicsui/hooks";
+import type { PolymorphicComponentProps } from "@cubicsui/types";
+import type {
+  ComponentProps,
+  ElementType,
+  ReactNode,
+  ToggleEvent,
+} from "react";
+import type { GlassCardProps } from "../GlassCard/GlassCard";
 
 export type AccordionContextProps = UseDisclosureGroupReturn;
 

@@ -1,9 +1,10 @@
-import styles from "./PageLayout.module.css";
-import type { ElementType } from "react";
-import { cn } from "@cubicsui/utils";
 import type { PolymorphicComponentType } from "@cubicsui/types";
-import type { PageLayoutBaseProps, PageLayoutProps } from "./PageLayout.types";
+import { cn } from "@cubicsui/utils";
+import type { ElementType } from "react";
 import { PageHeader } from "../../Typography/PageHeader/PageHeader";
+import styles from "./PageLayout.module.css";
+import type { PageLayoutBaseProps, PageLayoutProps } from "./PageLayout.types";
+
 function PageLayoutBase(props: PageLayoutProps) {
   const { as, children, titleBar, footer, slotProps = {}, ...rest } = props;
   const Component = (as || "main") as ElementType;

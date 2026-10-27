@@ -1,6 +1,6 @@
-import { Suspense } from "react";
-import { notFound } from "next/navigation";
 import { PageLayoutTOC } from "@cubicsui/components";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { mdxSource } from "../source";
 
 export const dynamicParams = false;

@@ -1,5 +1,5 @@
 import type { Position, SafePositionOptions } from "@cubicsui/utils";
-import type { ReactNode, ReactElement, Ref } from "react";
+import type { ReactElement, ReactNode, Ref } from "react";
 
 export interface TooltipProps extends SafePositionOptions {
   /** The content of the tooltip */

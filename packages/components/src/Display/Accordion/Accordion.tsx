@@ -1,11 +1,11 @@
 "use client";
 
-import { cn, mergeRefs } from "@cubicsui/utils";
-import { createContext, useContext, type ReactElement } from "react";
-import type { AccordionContextProps, AccordionProps } from "./Accordion.types";
-import { GlassCard } from "../GlassCard/GlassCard";
 import { useActiveNodeGlider, useDisclosureGroup } from "@cubicsui/hooks";
+import { cn, mergeRefs } from "@cubicsui/utils";
+import { createContext, type ReactElement, useContext } from "react";
+import { GlassCard } from "../GlassCard/GlassCard";
 import styles from "./Accordion.module.css";
+import type { AccordionContextProps, AccordionProps } from "./Accordion.types";
 import { AccordionScript } from "./AccordionScript";
 
 const AccordionContext = createContext<AccordionContextProps | null>(null);

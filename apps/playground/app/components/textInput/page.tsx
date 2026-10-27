@@ -1,6 +1,6 @@
 import { Button, Card, TextInput } from "@cubicsui/components";
-import { HybridInput } from "./hybridInput";
 import { CubicsUIFavicon } from "@cubicsui/icons";
+import { HybridInput } from "./hybridInput";
 
 export default function Page() {
   return (

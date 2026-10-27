@@ -1,6 +1,3 @@
-import { SidebarBodyContent } from "@/lib/ui/Layout/SidebarLayout/SidebarBodyContent";
-import { SidebarFooterContent } from "@/lib/ui/Layout/SidebarLayout/SidebarFooterContent";
-import { CubicsUILogo } from "@/public/logos/CubicsUILogo";
 import {
   Sidebar,
   SidebarBody,
@@ -9,7 +6,10 @@ import {
   SidebarLayout,
   SidebarViewport,
 } from "@cubicsui/components";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
+import { SidebarBodyContent } from "@/lib/ui/Layout/SidebarLayout/SidebarBodyContent";
+import { SidebarFooterContent } from "@/lib/ui/Layout/SidebarLayout/SidebarFooterContent";
+import { CubicsUILogo } from "@/public/logos/CubicsUILogo";
 
 export default function Layout(props: { children: ReactNode }) {
   const { children } = props;

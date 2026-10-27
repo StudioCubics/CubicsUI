@@ -1,4 +1,4 @@
-import { type ReactNode, isValidElement } from "react";
+import { isValidElement, type ReactNode } from "react";
 
 /** Recursively collect text from a React node tree */
 export function extractText(node: ReactNode): string {

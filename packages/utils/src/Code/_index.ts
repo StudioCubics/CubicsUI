@@ -1,2 +1,2 @@
-export * from "./noFn";
 export * from "./delay";
+export * from "./noFn";

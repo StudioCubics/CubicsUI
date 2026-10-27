@@ -1,7 +1,7 @@
+import { CopyButton } from "@cubicsui/components";
+import { cn } from "@cubicsui/utils";
 import type { ReactNode } from "react";
 import styles from "./CodeBlock.module.css";
-import { cn } from "@cubicsui/utils";
-import { CopyButton } from "@cubicsui/components";
 
 type CodeBlockFrameProps = {
   icon?: ReactNode;

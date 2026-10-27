@@ -1,12 +1,12 @@
 "use client";
 
+import { useCopyAction } from "@cubicsui/hooks";
+import { CopyIcon } from "@cubicsui/icons";
 import type { ReactElement } from "react";
+import { Tooltip } from "../../Display/Tooltip/Tooltip";
 import { Button } from "../Button/Button";
 import type { ButtonProps } from "../Button/Button.types";
-import { useCopyAction } from "@cubicsui/hooks";
 import { CheckIconAnimated } from "../Checkbox/CheckboxIcons/CheckboxIcons";
-import { CopyIcon } from "@cubicsui/icons";
-import { Tooltip } from "../../Display/Tooltip/Tooltip";
 
 export function CopyButton(
   props: { textToCopy: string } & ButtonProps,

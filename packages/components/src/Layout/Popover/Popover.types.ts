@@ -1,6 +1,6 @@
 import type {
-  PositionString,
   PolymorphicComponentProps,
+  PositionString,
 } from "@cubicsui/types";
 import type { ElementType } from "react";
 

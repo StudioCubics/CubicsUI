@@ -1,5 +1,6 @@
-import type { ComponentProps, ReactNode, ElementType } from "react";
+import type { ComponentProps, ElementType, ReactNode } from "react";
 import type { TableOfContentsProps } from "../../Display/TableOfContents/TableOfContents.types";
+import type { PageHeaderProps } from "../../Typography/PageHeader/PageHeader.types";
 import type {
   SidebarBodyProps,
   SidebarHeaderProps,
@@ -7,7 +8,6 @@ import type {
   SidebarProps,
   SidebarViewportProps,
 } from "../SidebarLayout/SidebarLayout.types";
-import type { PageHeaderProps } from "../../Typography/PageHeader/PageHeader.types";
 
 export interface PageLayoutTOCProps
   extends Omit<SidebarLayoutProps, "slotProps">,

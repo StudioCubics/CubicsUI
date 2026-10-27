@@ -1,6 +1,6 @@
 import { Button, Card, PasswordInput } from "@cubicsui/components";
-import { StrengthMeter } from "./strengthMeter";
 import { CubicsUIFavicon } from "@cubicsui/icons";
+import { StrengthMeter } from "./strengthMeter";
 
 export default function Page() {
   return (

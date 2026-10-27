@@ -1,5 +1,5 @@
-import { content } from "./data";
 import { Button } from "@cubicsui/components";
+import { content } from "./data";
 export default function Home() {
   return (
     <div>

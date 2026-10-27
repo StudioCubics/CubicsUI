@@ -1,4 +1,4 @@
-import type { DataTableDataType, RowData, CellData } from "./Table.types";
+import type { CellData, DataTableDataType, RowData } from "./Table.types";
 
 /**
  * Checks if array of arrays:-

@@ -1,6 +1,6 @@
+import type { PolymorphicComponentProps, SetState } from "@cubicsui/types";
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import type { GlassCardProps } from "../GlassCard/GlassCard";
-import type { PolymorphicComponentProps, SetState } from "@cubicsui/types";
 
 export interface TabsContextProps {
   /** Value of the active tab */

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Checkbox, CheckboxProvider } from "@cubicsui/components";
-import { useState, type SubmitEvent } from "react";
+import { type SubmitEvent, useState } from "react";
 
 export function HybridInput() {
   const [value, setValue] = useState(false);

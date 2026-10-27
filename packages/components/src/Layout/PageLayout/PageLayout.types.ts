@@ -1,5 +1,5 @@
 import type { PolymorphicComponentProps } from "@cubicsui/types";
-import type { ReactNode, ComponentProps, ElementType } from "react";
+import type { ComponentProps, ElementType, ReactNode } from "react";
 import type { PageHeaderProps } from "../../Typography/PageHeader/PageHeader.types";
 
 export interface PageLayoutBaseProps

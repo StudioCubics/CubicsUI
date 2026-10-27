@@ -1,25 +1,25 @@
 "use client";
 
 import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactElement,
-  type Context,
-} from "react";
-import type {
-  ThemeContextProps,
-  ThemeProviderProps,
-  ResolvedTheme,
-  Theme,
-  ThemeScriptProps,
-} from "./ThemeProvider.types";
-import {
   isServer,
   notImplemented,
   withDisabledTransitions,
 } from "@cubicsui/utils";
+import {
+  type Context,
+  createContext,
+  type ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import type {
+  ResolvedTheme,
+  Theme,
+  ThemeContextProps,
+  ThemeProviderProps,
+  ThemeScriptProps,
+} from "./ThemeProvider.types";
 import { ThemeScript } from "./ThemeScript";
 
 const MEDIA = "(prefers-color-scheme: dark)";

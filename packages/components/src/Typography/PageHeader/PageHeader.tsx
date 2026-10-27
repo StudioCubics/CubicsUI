@@ -1,7 +1,7 @@
-import type { ReactElement } from "react";
-import type { PageHeaderProps } from "./PageHeader.types";
 import { cn } from "@cubicsui/utils";
+import type { ReactElement } from "react";
 import styles from "./PageHeader.module.css";
+import type { PageHeaderProps } from "./PageHeader.types";
 
 export function PageHeader(props: PageHeaderProps): ReactElement {
   const {

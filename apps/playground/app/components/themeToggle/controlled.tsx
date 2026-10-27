@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, ThemeToggle, type Theme } from "@cubicsui/components";
+import { Card, type Theme, ThemeToggle } from "@cubicsui/components";
 import { useState } from "react";
 
 export function Controlled() {

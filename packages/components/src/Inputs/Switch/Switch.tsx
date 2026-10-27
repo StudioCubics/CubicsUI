@@ -1,18 +1,18 @@
 "use client";
 
+import { cn, mergeRefs } from "@cubicsui/utils";
 import {
+  type ChangeEvent,
   isValidElement,
+  type ReactElement,
   useEffect,
   useId,
   useRef,
   useState,
-  type ChangeEvent,
-  type ReactElement,
 } from "react";
-import { cn, mergeRefs } from "@cubicsui/utils";
-import type { RenderSwitchIconsProps, SwitchProps } from "./Switch.types";
 import { TextOrList } from "../../Typography/TextOrList/TextOrList";
 import styles from "./Switch.module.css";
+import type { RenderSwitchIconsProps, SwitchProps } from "./Switch.types";
 
 export function Switch(props: SwitchProps): ReactElement {
   const {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Switch } from "@cubicsui/components";
-import { useState, type SubmitEvent } from "react";
+import { type SubmitEvent, useState } from "react";
 
 export function HybridInput() {
   const [value, setValue] = useState(false);

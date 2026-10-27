@@ -1,16 +1,17 @@
-import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
 import {
-  SidebarLayout,
-  Sidebar,
-  SidebarHeader,
-  SidebarBody,
-  SidebarFooter,
-  SidebarViewport,
-  SidebarToggle,
   List,
   ListItem,
   type ListProps,
+  Sidebar,
+  SidebarBody,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarLayout,
+  SidebarToggle,
+  SidebarViewport,
 } from "@cubicsui/components";
+import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
+
 const demoHeight = 400;
 
 function DemoNav({ size }: { size?: ListProps["size"] }) {

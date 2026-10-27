@@ -1,7 +1,7 @@
 import { PageHeader, Select } from "@cubicsui/components";
+import { cn } from "@cubicsui/utils";
 import { CssVarValue } from "../CssVarValue";
 import styles from "./page.module.css";
-import { cn } from "@cubicsui/utils";
 
 const text = `
   The quick brown fox jumps over the lazy dog

@@ -1,7 +1,7 @@
 import { cn } from "@cubicsui/utils";
 import type { ReactElement } from "react";
-import styles from "./CardFooter.module.css";
 import type { CardFooterProps } from "../Card.types";
+import styles from "./CardFooter.module.css";
 
 export function CardFooter(props: CardFooterProps): ReactElement {
   const { className, overflowMargin = false, ...rest } = props;

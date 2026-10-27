@@ -1,6 +1,6 @@
-import type { TabsProps, TabsBarProps, TabProps } from "@cubicsui/components";
+import type { TabProps, TabsBarProps, TabsProps } from "@cubicsui/components";
 import type { EditorProps } from "@monaco-editor/react";
-import type { CSSProperties, ComponentProps } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 
 export type MonacoEditorProps = {
   name?: string;

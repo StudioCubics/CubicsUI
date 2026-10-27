@@ -1,7 +1,6 @@
 "use client";
 
-import { Card, CardContent } from "@cubicsui/components";
-import { GlassCard } from "@cubicsui/components";
+import { Card, CardContent, GlassCard } from "@cubicsui/components";
 
 export default function Page() {
   return (
