@@ -1,35 +1,12 @@
 import { GlassCard } from "@cubicsui/components";
 import { cn } from "@cubicsui/utils";
-import type { ComponentProps, ComponentType, ReactNode } from "react";
 import styles from "./Callout.module.css";
-import {
-  CircleXIcon,
-  InfoIcon,
-  LightBulbIcon,
-  TriangleAlertIcon,
-  TrophyIcon,
-} from "@cubicsui/icons";
+import type { CalloutProps } from "./Callout.types";
+import { calloutIcons } from "./Callout.utils";
 
-export interface CalloutProps {
-  type?: "info" | "warn" | "success" | "error" | "idea";
-  title?: string;
-  subtitle?: string;
-  children?: ReactNode;
-}
-
-const Icons: Record<
-  Required<CalloutProps>["type"],
-  ComponentType<ComponentProps<"svg">>
-> = {
-  info: InfoIcon,
-  warn: TriangleAlertIcon,
-  error: CircleXIcon,
-  success: TrophyIcon,
-  idea: LightBulbIcon,
-};
 export function Callout(props: CalloutProps) {
-  const { type = "info", title, subtitle, children } = props;
-  const Icon = Icons[type];
+  const { type = "note", title, subtitle, children } = props;
+  const Icon = calloutIcons[type];
   return (
     <GlassCard role="note" className={cn(styles.root, styles[type])}>
       <div className={styles.header}>
