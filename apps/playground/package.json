@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "biome lint",
     "format": "biome format --write",
+    "check": "biome check --write --fix",
     "clean": "rimraf .next node_modules"
   },
   "dependencies": {

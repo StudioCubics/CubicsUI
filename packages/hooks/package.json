@@ -33,6 +33,7 @@
     "build": "tsdown",
     "lint": "biome lint",
     "format": "biome format --write",
+    "check": "biome check --write --fix",
     "clean": "rimraf dist node_modules"
   },
   "dependencies": {

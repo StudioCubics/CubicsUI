@@ -22,6 +22,10 @@
       "cache": false,
       "outputs": []
     },
+    "check": {
+      "cache": false,
+      "outputs": []
+    },
     "dev": {
       "persistent": true,
       "cache": false
