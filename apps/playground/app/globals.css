@@ -87,8 +87,8 @@
   --z-header: 99;
   --z-drawer: 999;
   --z-modal: 9999;
-  --border-width: 2px;
-  --icon-stroke-width: 2px;
+  --border-width: 2.3px;
+  --icon-stroke-width: 2.3px;
   --gr: 1.618;
   --focus-ring: var(--border-width) dashed var(--color-focus);
   --pointer-light-size: 250px;
@@ -290,18 +290,17 @@
   --color-on-success-container: #0f1f0d;
 
   /* Surface colors - boosted contrast */
-  --color-background: hsl(343, 19%, 84%);
+  --color-background: hsl(345, 14%, 92%);
   --color-on-background: #000000;
   --color-on-background-low: #454545;
-  --color-surface: hsl(343, 22%, 90%);
-  --color-on-surface: #1a1a1a;
-  --color-surface-high: hsl(342, 17%, 94%);
-  --color-surface-highest: hsl(343, 15%, 99%);
-  --color-surface-dim: #a89a9e;
+  --color-surface: hsl(345, 16%, 96%);
+  --color-surface-high: hsl(345, 14%, 98%);
+  --color-surface-highest: #ffffff;
+  --color-surface-dim: hsl(345, 8%, 78%);
   --color-surface-bright: #ffffff;
 
   /* Misc Colors */
-  --color-outline: #4b4b4b;
+  --color-outline: #3d3d3d;
   --color-focus: #000000;
 }
 
@@ -458,6 +457,7 @@ code {
 }
 
 /* ______ Custom classes ______ */
+/* ______ Typography Custom classes ______ */
 .display,
 .display-lg {
   font-family: var(--font-h);
@@ -531,13 +531,17 @@ code {
   font-size: var(--fs-code);
   line-height: var(--lh-normal);
 }
+/* ______ Misc Custom classes ______ */
 .lucide {
   stroke-width: var(--icon-stroke-width);
   stroke-linecap: round;
   stroke-linejoin: round;
+  shape-rendering: geometricPrecision;
 }
 .animatedPath {
   transition: d var(--transition-time-fast) var(--transition-time);
+  shape-rendering: geometricPrecision;
+  will-change: transform;
 }
 
 /* ______ Scroll Bar Styles(not mozilla) ______ */
