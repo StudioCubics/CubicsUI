@@ -1,5 +1,5 @@
 import { mdxLoader } from "@cubicsui/mdx";
-import { components } from "@/lib/mdx/components";
+import { components } from "@/components";
 
 export const mdxSource = mdxLoader({
   components,
