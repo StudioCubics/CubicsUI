@@ -9,7 +9,11 @@ import type { MDXRehypePlugins, MDXRemarkPlugins } from "./mdxLoader.types";
 
 /** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
 export function walkPageSlugs(contentRoot: string): string[] {
-  const absRoot = path.join(process.cwd(), contentRoot);
+  const absRoot = path.join(
+    /*turbopackIgnore: true*/
+    process.cwd(),
+    contentRoot,
+  );
   const slugs: string[] = [];
 
   function walk(dir: string, prefix: string) {
@@ -26,7 +30,7 @@ export function walkPageSlugs(contentRoot: string): string[] {
   walk(absRoot, "");
   return slugs;
 }
-// Defaults the loader depends on (toc, slugs, code props) - always applied first
+// Defaults the loader depends on (toc, slugs, code props)
 export const defaultRemarkPlugins: MDXRemarkPlugins = [
   remarkGfm,
   [remarkFlexibleToc, { skipLevels: [] }],

@@ -8,7 +8,7 @@ export default defineConfig({
   sourcemap: true,
   clean: false,
   dts: true,
-  minify: true,
+  minify: false,
   treeshake: true,
   unbundle: true,
   deps: {
