@@ -1,5 +1,6 @@
 "use client";
 
+import { DrawCheckIcon, DrawDashIcon } from "@cubicsui/icons";
 import { cn, mergeRefs } from "@cubicsui/utils";
 import {
   type ChangeEvent,
@@ -12,10 +13,6 @@ import {
 import { TextOrList } from "../../Typography/TextOrList/TextOrList";
 import styles from "./Checkbox.module.css";
 import type { CheckboxCurrentState, CheckboxProps } from "./Checkbox.types";
-import {
-  CheckIconAnimated,
-  DashIconAnimated,
-} from "./CheckboxIcons/CheckboxIcons";
 import { useCheckbox } from "./CheckboxProvider";
 
 export function Checkbox(props: CheckboxProps): ReactElement {
@@ -37,11 +34,10 @@ export function Checkbox(props: CheckboxProps): ReactElement {
     error,
     helperText,
     "aria-label": ariaLabel,
-    checkedIcon = <CheckIconAnimated />,
-    indeterminateIcon = <DashIconAnimated />,
+    checkedIcon = <DrawCheckIcon />,
+    indeterminateIcon = <DrawDashIcon />,
     slotProps = {},
     onChange,
-
     ...rest
   } = props;
 
