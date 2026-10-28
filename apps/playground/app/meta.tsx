@@ -99,7 +99,18 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "Table", href: "/components/table", icon: "🚧" },
     ],
   },
-  // Providers
+  // Navigation
+  {
+    type: "collapsible",
+    id: "navigation",
+    children: "Navigation",
+    nodes: [
+      {
+        children: "Breadcrumbs",
+        href: "/components/breadcrumbs",
+      },
+    ],
+  },
   {
     type: "collapsible",
     id: "providers",
