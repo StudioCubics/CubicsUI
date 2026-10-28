@@ -18,8 +18,7 @@ This file tests **Markdown elements**, **lists**, **hyperlinks**, and **React co
 * `Inline code blocks` for API signatures
 
 #### Blockquotes
-> "MDX blends the readability of Markdown with the expressiveness of JSX."
-> — *The MDX Team*
+> "MDX blends the readability of Markdown with the expressiveness of JSX." - *The MDX Team*
 
 ---
 
@@ -101,6 +100,23 @@ function getUserInfo(user: User): string {
 
 > [!CAUTION]  
 > Negative potential consequences of an action.
+> `Inline code`
+> ```tsx
+> const tsx = true;
+> ```
+
+
+> [!WARNING] Warning with a custom title  
+> Critical content demanding immediate user attention due to potential risks.
+
+<Callout title="this is explicit" icon="X" subtitle="You can pass subtitle" >
+  Explicit callout content made like this
+  ```tsx
+    <Callout title="this is explicit" icon="X" subtitle="You can pass subtitle" >
+    ....
+    </Callout>
+  ```
+</Callout>
 
 ## Playground
 
