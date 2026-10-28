@@ -78,7 +78,6 @@
     border-radius: var(--br, 6px);
   }
 
-  /* biome-ignore lint/correctness/noUnknownPseudoClass: biome fuwqnekj */
   & :where(:global(.code)) {
     margin-top: var(--gap-5);
   }
