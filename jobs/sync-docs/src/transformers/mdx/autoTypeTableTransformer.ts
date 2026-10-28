@@ -1,6 +1,6 @@
+import path from "node:path";
 import ts from "typescript";
 import type { Context, MDXTagTransformer } from "../../types.js";
-import path from "path";
 import { isExported } from "../../utils/isExported.js";
 
 interface PropEntry {
@@ -84,7 +84,9 @@ export function resolveTypeProps(
         typeStr = decl.type.getText();
       } else {
         // fallback to resolved type
-        const propType = checker.getTypeOfSymbolAtLocation(prop, decl!);
+        const propType = decl
+          ? checker.getTypeOfSymbolAtLocation(prop, decl)
+          : checker.getDeclaredTypeOfSymbol(prop);
         typeStr = checker.typeToString(propType);
       }
       // Strip typescript generics using regex fallback for fully resolved strings if necessary
@@ -97,9 +99,9 @@ export function resolveTypeProps(
         type: typeStr,
         required,
         description: description || "—",
-        default: tags["default"] ?? "—",
-        ...(tags["deprecated"] !== undefined && {
-          deprecated: tags["deprecated"],
+        default: tags.default ?? "—",
+        ...(tags.deprecated !== undefined && {
+          deprecated: tags.deprecated,
         }),
       };
 

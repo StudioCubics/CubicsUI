@@ -1,12 +1,12 @@
-import fs from "fs";
+import fs from "node:fs";
+import path from "node:path";
 import matter from "gray-matter";
-import path from "path";
-import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
-import type { Context } from "../types.js";
-import { shortMdxPath, shortDestFile } from "./pathShorteners.js";
 import { dfName } from "../constants/global.js";
-import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
+import type { Context } from "../types.js";
 import { finaliseMDX } from "./finaliseMDX.js";
+import { shortDestFile, shortMdxPath } from "./pathShorteners.js";
+import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
+import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
 
 export function processPkgMDX(mdxPath: string, context: Context) {
   const raw = fs.readFileSync(mdxPath, "utf8");

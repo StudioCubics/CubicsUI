@@ -1,12 +1,12 @@
-import fs from "fs";
-import path from "path";
-import type { MDXTagTransformer } from "../../types.js";
+import fs from "node:fs";
+import path from "node:path";
 import {
   cn,
   EXTENSION_TO_LANGUAGE_IDENTIFIER,
   indentLines,
   toJsxAttrs,
 } from "@cubicsui/utils";
+import type { MDXTagTransformer } from "../../types.js";
 
 export interface SignatureOptions {
   start?: string;

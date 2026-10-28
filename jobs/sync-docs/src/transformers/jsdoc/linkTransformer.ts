@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import ts from "typescript";
 import type { Context, JSDocTagTransformer } from "../../types.js";
 import { isExported } from "../../utils/isExported.js";

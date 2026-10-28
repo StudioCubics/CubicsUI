@@ -1,94 +1,51 @@
-import path from "path";
+import path from "node:path";
 import { glob } from "glob";
-import { getPackageDetails } from "./utils/getPackageDetails.js";
-import { repoRoot } from "./constants/global.js";
-import ts from "typescript";
 import type { Context } from "./types.js";
+import { createContext } from "./utils/createContext.js";
 import { processCategoryMdx } from "./utils/processCategoryMDX.js";
 import { processComponentMdx } from "./utils/processComponentMDX.js";
 import { processPkgMDX } from "./utils/processPkgMDX.js";
 
 async function main() {
-  console.log("Initialising!\n");
-  const t0 = performance.now();
+  const pkgs: string[] = [
+    "components",
+    "hooks",
+    "icons",
+    "mdx",
+    "types",
+    "utils",
+  ];
+  for (let i = 0; i < pkgs.length; i++) {
+    const pkg = pkgs[i];
+    if (!pkg) continue;
 
-  const pkg = "components";
-  const pkgDir = path.resolve(repoRoot, "packages");
-  const pkgDetails = getPackageDetails(pkg, pkgDir);
-  const docPath = `/docs/${pkg}`;
-  const docBaseUrl = path.resolve(repoRoot, `apps/docs/content${docPath}`);
+    const context: Context = createContext(pkg);
+    const { pkgDetails, docBaseUrl } = context;
+    console.log(`\nSyncing the following docs -> ${docBaseUrl}\n`);
 
-  const t1 = performance.now();
-  console.log(`Initialised Details in ${t1 - t0} ms`);
+    const mdxFiles = await glob("**/*.mdx", {
+      cwd: pkgDetails.docSrcPath,
+      absolute: true,
+    });
 
-  const configFile = ts.readConfigFile(
-    pkgDetails.tsConfigPath,
-    ts.sys.readFile,
-  );
-
-  const t2 = performance.now();
-  console.log(`Read config files in ${t2 - t1} ms`);
-
-  const { options, fileNames } = ts.parseJsonConfigFileContent(
-    configFile.config,
-    ts.sys,
-    path.dirname(pkgDetails.tsConfigPath),
-  );
-
-  const t3 = performance.now();
-  console.log(`Parsed json config in ${t3 - t2} ms`);
-
-  const program = ts.createProgram(fileNames, {
-    ...options,
-    skipLibCheck: true,
-    noEmit: true,
-    skipDefaultLibCheck: true,
-    noLib: true,
-  });
-
-  const t4 = performance.now();
-  console.log(`Created program in ${t4 - t3} ms`);
-
-  const checker = program.getTypeChecker();
-
-  const t5 = performance.now();
-  console.log(`Got type checker in ${t5 - t4} ms`);
-
-  console.log(`Initialised in ${t5 - t0} ms`);
-
-  const context: Context = {
-    pkg,
-    pkgDir,
-    pkgDetails,
-    docBaseUrl,
-    docPath,
-    program,
-    checker,
-  };
-
-  console.log(`\nSyncing docs -> ${docBaseUrl}\n`);
-
-  const mdxFiles = await glob("**/*.mdx", {
-    cwd: pkgDetails.docSrcPath,
-    absolute: true,
-  });
-
-  for (const mdxPath of mdxFiles) {
-    const basename = path.basename(mdxPath);
-    switch (basename) {
-      case "_pkg.mdx":
-        processPkgMDX(mdxPath, context);
-        break;
-      case "_category.mdx":
-        processCategoryMdx(mdxPath, context);
-        break;
-      default:
-        processComponentMdx(mdxPath, context);
-        break;
+    for (const mdxPath of mdxFiles) {
+      const basename = path.basename(mdxPath);
+      switch (basename) {
+        case "_pkg.mdx":
+          console.log(`(pkg)`);
+          processPkgMDX(mdxPath, context);
+          break;
+        case "_category.mdx":
+          console.log(`(category)`);
+          processCategoryMdx(mdxPath, context);
+          break;
+        default:
+          console.log(`(component)`);
+          processComponentMdx(mdxPath, context);
+          break;
+      }
     }
   }
-
-  console.log(`\nDone in ${performance.now() - t0} ms\n`);
 }
 
 main().catch((err) => {

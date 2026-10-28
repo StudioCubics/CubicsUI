@@ -1,14 +1,14 @@
-import matter from "gray-matter";
-import fs from "fs";
-import path from "path";
-import { getCategoryFromPath } from "./getCategoryFromPath.js";
+import fs from "node:fs";
+import path from "node:path";
 import { toCamelCase } from "@cubicsui/utils";
+import matter from "gray-matter";
+import { dfName } from "../constants/global.js";
+import type { Context } from "../types.js";
+import { finaliseMDX } from "./finaliseMDX.js";
+import { getCategoryFromPath } from "./getCategoryFromPath.js";
+import { shortDestFile, shortMdxPath } from "./pathShorteners.js";
 import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
 import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
-import type { Context } from "../types.js";
-import { shortDestFile, shortMdxPath } from "./pathShorteners.js";
-import { dfName } from "../constants/global.js";
-import { finaliseMDX } from "./finaliseMDX.js";
 
 export interface ComponentFrontmatter {
   [key: string]: unknown;
