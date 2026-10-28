@@ -1,0 +1,67 @@
+.root {
+  --color: var(--color-on-background);
+  --fs: var(--fs-lg);
+  --ff: var(--font-h);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1ch;
+  font-size: var(--fs);
+  font-family: var(--ff);
+  color: color-mix(in srgb, var(--color) 70%, transparent);
+  transition: color var(--transition-time) var(--transition-tf);
+}
+:where(.item) {
+  color: inherit;
+  font-size: inherit;
+  text-wrap: nowrap;
+  &.clickable {
+    cursor: pointer;
+    &:hover {
+      color: var(--color);
+    }
+  }
+  &.active {
+    color: var(--color);
+  }
+  & svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.icon {
+  color: inherit;
+  width: 1.25em;
+  height: 1.25em;
+}
+.root[data-size="xs"] {
+  --fs: var(--fs-sm);
+}
+.root[data-size="sm"] {
+  --fs: var(--fs-md);
+}
+.root[data-size="lg"] {
+  --fs: var(--fs-xl);
+}
+.root[data-size="xl"] {
+  --fs: var(--fs-2xl);
+}
+.root[data-color="primary"] {
+  --color: var(--color-primary);
+}
+.root[data-color="secondary"] {
+  --color: var(--color-secondary);
+}
+.root[data-color="tertiary"] {
+  --color: var(--color-tertiary);
+}
+.root[data-color="error"] {
+  --color: var(--color-error);
+}
+.root[data-color="warn"] {
+  --color: var(--color-warn);
+}
+.root[data-color="success"] {
+  --color: var(--color-success);
+}
