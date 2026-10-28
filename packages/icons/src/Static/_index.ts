@@ -9,6 +9,7 @@ export * from "./CodeXMLIcon";
 export * from "./ComponentIcon";
 export * from "./ContrastIcon";
 export * from "./CopyIcon";
+export * from "./EllipsisIcon";
 export * from "./FishingHookIcon";
 export * from "./FormIcon";
 export * from "./InfoIcon";
