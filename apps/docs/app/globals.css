@@ -87,7 +87,7 @@
   --z-header: 99;
   --z-drawer: 999;
   --z-modal: 9999;
-  --border-width: 2.3px;
+  --border-width: 2px;
   --icon-stroke-width: 2.3px;
   --gr: 1.618;
   --focus-ring: var(--border-width) dashed var(--color-focus);
@@ -534,11 +534,11 @@ code {
   stroke-width: var(--icon-stroke-width);
   stroke-linecap: round;
   stroke-linejoin: round;
-  shape-rendering: geometricPrecision;
+  /* shape-rendering: geometricPrecision; */
 }
 .animatedPath {
   transition: d var(--transition-time-fast) var(--transition-time);
-  shape-rendering: geometricPrecision;
+  /* shape-rendering: geometricPrecision; */
   will-change: transform;
 }
 
@@ -556,7 +556,7 @@ code {
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: var(--br-xs);
   border-radius: var(--br-xs);
-  background: var(--color-surface);
+  background: var(--color-background);
   -webkit-box-shadow: inset 0 0 6px var(--color-shadow);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
