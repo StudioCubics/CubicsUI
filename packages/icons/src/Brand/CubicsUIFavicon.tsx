@@ -1,3 +1,4 @@
+import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
 
 export function CubicsUIFavicon(props: ComponentProps<"svg">): ReactElement {
@@ -19,6 +20,7 @@ export function CubicsUIFavicon(props: ComponentProps<"svg">): ReactElement {
     </svg>
   );
 }
+
 export function CubicsUIFaviconShape(
   props: ComponentProps<"svg">,
 ): ReactElement {
