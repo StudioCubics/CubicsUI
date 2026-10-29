@@ -2,33 +2,30 @@ import type { ComponentProps, ReactNode } from "react";
 
 export interface SidebarLayoutSharedProps {
   /** If it should be closed by default
-   * @default false
-   */
+   * @default false */
   defaultClosed?: boolean;
   /** Id of the SidebarLayout, use when nesting sidebars
-   *  @default "MAIN"
-   */
+   *  @default "MAIN" */
   id?: string;
   /** When full the sidebar closes to 0 width and when shortened the sidebar closes to shortened width
-   * @default "shortened"
-   */
+   * @default "shortened" */
   closesTo?: "full" | "shortened";
   /** contained is only bg and outlined is bg and border
-   * @default "contained"
-   */
+   * @default "contained" */
   variant?: "contained" | "outlined";
   /** The size of the gaps and paddings
-   * @default "md"
-   */
+   * @default "md" */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   /** Makes the sidebar float or stay inside the flexbox which shrinks viewport when sidebarOpen is true
-   * @default "flex"
-   */
+   * @default "flex" */
   type?: "float" | "flex";
   /** Side of the sidebar, when using `type="flex"` make sure to place the sidebar after the viewport if you want the sidebar to be at the right side.
-   * @default "left"
-   */
+   * @default "left" */
   side?: "left" | "right";
+  /** Controlled open state. When provided, the parent owns the state */
+  open?: boolean;
+  /** Called when the sidebar wants to change its open state */
+  onOpenChange?: (open: boolean) => void;
 }
 export interface SidebarLayoutContextProps extends SidebarLayoutSharedProps {
   sidebarOpen: boolean;

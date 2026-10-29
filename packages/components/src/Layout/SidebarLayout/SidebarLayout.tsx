@@ -26,10 +26,6 @@ const SIDEBAR_LAYOUT_DEFAULTS = {
   side: "left",
 } satisfies Omit<SidebarLayoutProps, "children">;
 
-function getInitialSidebarOpen(defaultClosed?: boolean): boolean {
-  return defaultClosed ? !defaultClosed : true;
-}
-
 export const SidebarLayoutContext: Context<SidebarLayoutContextProps | null> =
   createContext<SidebarLayoutContextProps | null>(null);
 
@@ -51,35 +47,46 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
     type = SIDEBAR_LAYOUT_DEFAULTS.type,
     side = SIDEBAR_LAYOUT_DEFAULTS.side,
     slotProps = {},
+    open,
+    onOpenChange,
   } = props;
 
   const storageKey = `sidebarOpen-${id}`;
-  const [sidebarOpen, setSidebarOpen] = useState(() =>
-    getInitialSidebarOpen(defaultClosed),
+  const isControlled = open !== undefined;
+  const [internalOpen, setInternalOpen] = useState(() =>
+    defaultClosed ? !defaultClosed : true,
   );
+  const sidebarOpen = isControlled ? open : internalOpen;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: its onOpenChange dumbass
   useEffect(() => {
     if (isServer) return;
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored !== null) {
         const parsed = JSON.parse(stored) as boolean;
-        setSidebarOpen((prev) => (prev === parsed ? prev : parsed));
+        if (isControlled) onOpenChange?.(parsed);
+        else setInternalOpen((prev) => (prev === parsed ? prev : parsed));
       }
     } catch {
       // Unsupported
     }
-  }, [storageKey]);
+  }, [storageKey, isControlled]);
+
+  // Persist on every change, including ones made from outside
+  useEffect(() => {
+    if (isServer) return;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(sidebarOpen));
+    } catch {
+      // Unsupported
+    }
+  }, [storageKey, sidebarOpen]);
 
   function toggleSidebar() {
-    setSidebarOpen((prev) => {
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(!prev));
-      } catch {
-        // Unsupported
-      }
-      return !prev;
-    });
+    const next = !sidebarOpen;
+    if (!isControlled) setInternalOpen(next);
+    onOpenChange?.(next);
   }
   return (
     <SidebarLayoutContext.Provider
