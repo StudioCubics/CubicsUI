@@ -66,6 +66,21 @@
   background-size: 50px 50px;
   background-repeat: repeat;
 }
+.primary_bg {
+  padding: var(--gap-5);
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+.secondary_bg {
+  padding: var(--gap-5);
+  color: var(--color-on-secondary);
+  background: var(--color-secondary);
+}
+.tertiary_bg {
+  padding: var(--gap-5);
+  color: var(--color-on-tertiary);
+  background: var(--color-tertiary);
+}
 .image_bg {
   padding: var(--gap-5);
   background-image: url("/images/landscapeSample.jpg");

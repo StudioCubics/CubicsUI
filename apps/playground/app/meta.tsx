@@ -79,7 +79,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
     nodes: [
       {
         children: "PageLayout",
-        disabled: true,
+        href: "/components/pageLayout",
         icon: "🚧",
       },
       {
