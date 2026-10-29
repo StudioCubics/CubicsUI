@@ -1,20 +1,77 @@
 .root {
+  --size: var(--gap-4);
+  --fullWidth-max: calc(var(--column-grid-size) * 1.75);
+  --breakout-max: var(--column-grid-size);
+  --fullWidth-size: min(var(--fullWidth-max), 8cqi);
+  --breakout-size: min(var(--breakout-max), 3cqi);
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
 }
+
+.contentFlow {
+  display: grid;
+  align-content: start;
+  grid-template-columns:
+    [fullWidth-start] calc(var(--fullWidth-size) / 2)
+    [breakout-start] calc(var(--breakout-size) / 2)
+    [content-start] 1fr [content-end]
+    calc(var(--breakout-size) / 2) [breakout-end]
+    calc(var(--fullWidth-size) / 2) [fullWidth-end];
+  & > hr {
+    height: 0; /* remove UA auto height */
+  }
+  & > :where(* + *) {
+    margin-top: calc(var(--size) * var(--gr));
+  }
+}
+.contentFlow > :not(:global(.breakout), :global(.fullWidth)),
+:global(.fullWidth) > :not(:global(.breakout), :global(.fullWidth)) {
+  grid-column: content;
+}
+.contentFlow > :global(.breakout) {
+  grid-column: breakout;
+}
+.contentFlow > :global(.fullWidth) {
+  grid-column: fullWidth;
+}
+
+.header {
+  margin-block: calc(var(--size) * var(--gr)) var(--size);
+}
 .titleBar {
-  padding-inline: var(--gap-3);
+  padding: calc(var(--size) / 2) calc((var(--size) / 2) * var(--gr));
+  display: flex;
+  align-items: center;
+  gap: var(--size);
+  background: color-mix(in srgb, var(--color-on-background) 10%, transparent);
 }
 .body {
   flex: 1;
   overflow: hidden auto;
-  padding-block: var(--gap-2);
 }
-.footer {
-  padding-top: var(--gap-2);
-  padding-bottom: 3dvh;
-  display: flex;
-  justify-content: center;
+.padBodyBlock {
+  padding-block: var(--size) calc(var(--size) * var(--gr));
+}
+.root[data-size="xs"] {
+  --size: var(--gap);
+  --fullWidth-size: min(calc(var(--column-grid-size) / 4), 8cqi);
+  --breakout-size: min(calc(var(--column-grid-size) / 4), 3cqi);
+}
+.root[data-size="sm"] {
+  --size: var(--gap-2);
+  --fullWidth-size: min(calc(var(--column-grid-size) / 2), 8cqi);
+  --breakout-size: min(calc(var(--column-grid-size) / 2), 3cqi);
+}
+.root[data-size="lg"] {
+  --size: var(--gap-6);
+  --fullWidth-size: min(calc(var(--column-grid-size) * 1.5), 8cqi);
+  --breakout-size: min(calc(var(--column-grid-size) * 1.5), 3cqi);
+}
+.root[data-size="xl"] {
+  --size: var(--gap-8);
+  --fullWidth-size: min(calc(var(--column-grid-size) * 2), 8cqi);
+  --breakout-size: min(calc(var(--column-grid-size) * 2), 3cqi);
 }

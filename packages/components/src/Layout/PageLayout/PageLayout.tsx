@@ -6,18 +6,61 @@ import styles from "./PageLayout.module.css";
 import type { PageLayoutBaseProps, PageLayoutProps } from "./PageLayout.types";
 
 function PageLayoutBase(props: PageLayoutProps) {
-  const { as, children, titleBar, footer, slotProps = {}, ...rest } = props;
-  const Component = (as || "main") as ElementType;
+  const {
+    as,
+    titleAs = "h1",
+    title,
+    desc,
+    actions,
+    children,
+    titleBar,
+    footer,
+    className,
+    size,
+    disableContentFlow,
+    disableBodyContentFlow,
+    disableHeaderContentFlow,
+    disableBodyPadding,
+    beforeHeader,
+    afterHeader,
+    slotProps = {},
+    ...rest
+  } = props;
+  const Component = (as || "div") as ElementType;
+  const renderHeader = beforeHeader || afterHeader || title || desc || actions;
   return (
     <Component
       {...slotProps.root}
       className={cn(styles.root, slotProps.root?.className)}
+      data-size={size}
     >
-      <PageHeader {...rest} />
+      {renderHeader && (
+        <div
+          {...slotProps.header}
+          className={cn(
+            slotProps.header?.className,
+            styles.header,
+            !disableContentFlow &&
+              !disableHeaderContentFlow &&
+              styles.contentFlow,
+          )}
+        >
+          {beforeHeader}
+          <PageHeader
+            {...rest}
+            as={titleAs}
+            title={title}
+            desc={desc}
+            actions={actions}
+            className={cn(className, "breakout")}
+          />
+          {afterHeader}
+        </div>
+      )}
       {titleBar && (
         <div
           {...slotProps.titleBar}
-          className={cn(styles.titleBar, slotProps.titleBar?.className)}
+          className={cn(slotProps.titleBar?.className, styles.titleBar)}
         >
           {titleBar}
         </div>
@@ -25,18 +68,16 @@ function PageLayoutBase(props: PageLayoutProps) {
 
       <div
         {...slotProps.body}
-        className={cn(styles.body, slotProps.body?.className)}
+        className={cn(
+          slotProps.body?.className,
+          styles.body,
+          !disableBodyPadding && styles.padBodyBlock,
+          !disableContentFlow && !disableBodyContentFlow && styles.contentFlow,
+        )}
       >
         {children}
       </div>
-      {footer && (
-        <div
-          {...slotProps.footer}
-          className={cn(styles.footer, slotProps.footer?.className)}
-        >
-          {footer}
-        </div>
-      )}
+      {footer}
     </Component>
   );
 }
