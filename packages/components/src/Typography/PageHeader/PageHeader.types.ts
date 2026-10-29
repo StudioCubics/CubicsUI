@@ -33,6 +33,6 @@ export interface PageHeaderProps
 }
 export interface PageHeaderSlotProps {
   title?: ComponentProps<AllowedTags>;
-  action?: ComponentProps<"div">;
+  actions?: ComponentProps<"div">;
   desc?: ComponentProps<"div">;
 }

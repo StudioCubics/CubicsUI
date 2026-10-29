@@ -24,8 +24,8 @@ export function PageHeader(props: PageHeaderProps): ReactElement {
       </TitleComponent>
       {actions && (
         <div
-          {...slotProps.action}
-          className={cn(slotProps.action?.className, styles.action)}
+          {...slotProps.actions}
+          className={cn(slotProps.actions?.className, styles.actions)}
         >
           {actions}
         </div>
