@@ -51,16 +51,19 @@ export function useRolodexContext(
       ),
     ),
   );
+  const indexRef = useRef(activeIndex);
+  indexRef.current = activeIndex;
 
-  // Moves the active item by `delta` positions, wrapping around
   const shift = useCallback(
     (by: number) => {
       if (!count) return;
-      const next = items[(activeIndex + by + count) % count];
+      const nextIndex = (indexRef.current + by + count) % count;
+      indexRef.current = nextIndex; // updated immediately so rapid calls accumulate
+      const next = items[nextIndex];
       setValue(next.id);
       onChange?.(next.id);
     },
-    [items, count, activeIndex, onChange],
+    [items, count, onChange],
   );
   const shiftRef = useRef(shift);
 
