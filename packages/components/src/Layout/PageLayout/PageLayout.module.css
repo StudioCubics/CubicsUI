@@ -1,9 +1,15 @@
 .root {
   --size: var(--gap-4);
-  --fullWidth-max: calc(var(--column-grid-size) * 1.75);
+  --pageWidth-max: calc(var(--column-grid-size) * var(--gr));
   --breakout-max: var(--column-grid-size);
-  --fullWidth-size: min(var(--fullWidth-max), 8cqi);
-  --breakout-size: min(var(--breakout-max), 3cqi);
+  /* cqi factors, scaled per size */
+  --pageWidth-cqi: 8;
+  --breakout-cqi: 3;
+  --pageWidth-size: min(
+    var(--pageWidth-max),
+    calc(var(--pageWidth-cqi) * 1cqi)
+  );
+  --breakout-size: min(var(--breakout-max), calc(var(--breakout-cqi) * 1cqi));
   container-type: inline-size;
   display: flex;
   flex-direction: column;
@@ -15,11 +21,11 @@
   display: grid;
   align-content: start;
   grid-template-columns:
-    [fullWidth-start] calc(var(--fullWidth-size) / 2)
+    [pageWidth-start] calc(var(--pageWidth-size) / 2)
     [breakout-start] calc(var(--breakout-size) / 2)
-    [content-start] 1fr [content-end]
+    [content-start] minmax(0, 1fr) [content-end]
     calc(var(--breakout-size) / 2) [breakout-end]
-    calc(var(--fullWidth-size) / 2) [fullWidth-end];
+    calc(var(--pageWidth-size) / 2) [pageWidth-end];
   & > hr {
     height: 0; /* remove UA auto height */
   }
@@ -27,15 +33,15 @@
     margin-top: calc(var(--size) * var(--gr));
   }
 }
-.contentFlow > :not(:global(.breakout), :global(.fullWidth)),
-:global(.fullWidth) > :not(:global(.breakout), :global(.fullWidth)) {
+.contentFlow > :not(:global(.breakout), :global(.pageWidth)),
+:global(.pageWidth) > :not(:global(.breakout), :global(.pageWidth)) {
   grid-column: content;
 }
 .contentFlow > :global(.breakout) {
   grid-column: breakout;
 }
-.contentFlow > :global(.fullWidth) {
-  grid-column: fullWidth;
+.contentFlow > :global(.pageWidth) {
+  grid-column: pageWidth;
 }
 
 .header {
@@ -57,21 +63,29 @@
 }
 .root[data-size="xs"] {
   --size: var(--gap);
-  --fullWidth-size: min(calc(var(--column-grid-size) / 4), 8cqi);
-  --breakout-size: min(calc(var(--column-grid-size) / 4), 3cqi);
+  --pageWidth-max: calc(var(--column-grid-size) / (4 * var(--gr)));
+  --breakout-max: calc(var(--column-grid-size) / 4);
+  --pageWidth-cqi: 3;
+  --breakout-cqi: 1;
 }
 .root[data-size="sm"] {
   --size: var(--gap-2);
-  --fullWidth-size: min(calc(var(--column-grid-size) / 2), 8cqi);
-  --breakout-size: min(calc(var(--column-grid-size) / 2), 3cqi);
+  --pageWidth-max: calc(var(--column-grid-size) / (2 * var(--gr)));
+  --breakout-max: calc(var(--column-grid-size) / 2);
+  --pageWidth-cqi: 5;
+  --breakout-cqi: 2;
 }
 .root[data-size="lg"] {
   --size: var(--gap-6);
-  --fullWidth-size: min(calc(var(--column-grid-size) * 1.5), 8cqi);
-  --breakout-size: min(calc(var(--column-grid-size) * 1.5), 3cqi);
+  --pageWidth-max: calc(var(--column-grid-size) * 1.5 * var(--gr));
+  --breakout-max: calc(var(--column-grid-size) * 1.5);
+  --pageWidth-cqi: 12;
+  --breakout-cqi: 4.5;
 }
 .root[data-size="xl"] {
   --size: var(--gap-8);
-  --fullWidth-size: min(calc(var(--column-grid-size) * 2), 8cqi);
-  --breakout-size: min(calc(var(--column-grid-size) * 2), 3cqi);
+  --pageWidth-max: calc(var(--column-grid-size) * 2 * var(--gr));
+  --breakout-max: calc(var(--column-grid-size) * 2);
+  --pageWidth-cqi: 16;
+  --breakout-cqi: 6;
 }

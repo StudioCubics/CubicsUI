@@ -11,11 +11,15 @@
 }
 .title {
   grid-area: title;
-  display: flex;
-  align-items: center;
-  gap: calc(var(--size) / var(--gr));
   text-wrap: balance;
   font-family: var(--ff);
+  place-self: center flex-start;
+  & > svg {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.125em; /* tune: more negative = lower, less negative = higher */
+  }
 }
 .desc {
   grid-area: desc;
@@ -24,13 +28,12 @@
   color: var(--color);
   opacity: 0.6;
   line-height: var(--lh-snug);
-  /* padding-top: 0.325em; */
   font-family: var(--ff);
 }
 .actions {
   grid-area: actions;
-  justify-self: flex-end;
   align-self: flex-start;
+  justify-self: flex-end;
   display: flex;
   flex-direction: column;
   align-items: flex-end;

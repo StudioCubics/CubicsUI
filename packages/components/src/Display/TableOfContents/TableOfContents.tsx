@@ -14,7 +14,7 @@ import { useTableOfContentsMarker } from "./TableOfContentsMarker/useTableOfCont
 export function TableOfContents(props: TableOfContentsProps): ReactElement {
   const {
     tree = [],
-    title = "Table of Contents",
+    title = "On this Page",
     ListComponent = "ol",
     LinkComponent = "a",
     withNumbering = false,

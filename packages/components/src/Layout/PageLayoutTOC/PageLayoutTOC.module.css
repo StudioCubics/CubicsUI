@@ -1,22 +1,3 @@
-.root {
-  display: flex;
-  flex-direction: row-reverse;
-  height: 100%;
-  overflow: hidden;
-  isolation: isolate;
-}
-.viewport {
-  flex: 1;
-  overflow: auto;
-  min-width: 0;
-  z-index: 0;
-  scroll-behavior: smooth;
-}
-
-.title {
-  padding-block: 7vh;
-  padding-inline: var(--column-grid-size);
-}
-.body {
-  padding-inline: var(--column-grid-size);
+.contentFlow {
+  composes: contentFlow from "../PageLayout/PageLayout.module.css";
 }

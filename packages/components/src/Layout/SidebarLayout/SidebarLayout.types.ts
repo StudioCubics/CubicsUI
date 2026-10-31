@@ -74,10 +74,12 @@ export interface SidebarShowProps {
 export type SidebarProps = ComponentProps<"aside"> & {
   children: ReactNode;
 } & SidebarBgProps;
-export interface SidebarHeaderProps extends ComponentProps<"div"> {
+
+export interface SidebarHeaderProps
+  extends Omit<ComponentProps<"div">, "title"> {
   children?: ReactNode;
   /** Brand logo or title of the sidebar */
-  logo?: ReactNode;
+  title?: ReactNode;
   /** Custom sidebar toggle */
   sidebarToggle?: ReactNode;
 }

@@ -1,81 +1,97 @@
 "use client";
 
+import { useId } from "@cubicsui/hooks";
 import { FormIcon } from "@cubicsui/icons";
 import { cn, mergeRefs } from "@cubicsui/utils";
-import { type ReactElement, useRef } from "react";
+import { type ReactElement, useRef, useState } from "react";
 import { TableOfContents } from "../../Display/TableOfContents/TableOfContents";
-import { PageHeader } from "../../Typography/PageHeader/PageHeader";
+import { Button } from "../../Inputs/Button/Button";
+import { PageLayout } from "../PageLayout/PageLayout";
 import { Sidebar } from "../SidebarLayout/Sidebar/Sidebar";
 import { SidebarBody } from "../SidebarLayout/SidebarBody/SidebarBody";
 import { SidebarHeader } from "../SidebarLayout/SidebarHeader/SidebarHeader";
-import { SidebarToggle } from "../SidebarLayout/SidebarHeader/SidebarToggle";
 import { SidebarLayout } from "../SidebarLayout/SidebarLayout";
 import { SidebarViewport } from "../SidebarLayout/SidebarViewport/SidebarViewport";
 import styles from "./PageLayoutTOC.module.css";
 import type { PageLayoutTOCProps } from "./PageLayoutTOC.types";
 
-// TODO nuke this and make with PageLayout instead of SidebarLayout
 export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
   const {
     tree = [],
-    title,
-    desc,
+    id: _id,
+    children,
     actions,
     size = "md",
-    children,
-    slotProps = {},
+    disableViewportContentFlow,
+    disableBodyContentFlow = true,
+    disableBodyPadding = true,
     LinkComponent,
+    slotProps = {},
     ...rest
   } = props;
+  const id = useId(_id);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   return (
-    <SidebarLayout
-      id="PageLayoutTOC"
-      side="right"
-      closesTo="full"
-      slotProps={slotProps}
-      size={size}
+    <PageLayout
       {...rest}
+      actions={
+        <>
+          {actions}
+          {!!tree.length && (
+            <Button
+              onClick={() => {
+                setSidebarOpen((o) => {
+                  console.log(o, "sidebarOpen");
+
+                  return !o;
+                });
+              }}
+              icon
+            >
+              <FormIcon />
+            </Button>
+          )}
+        </>
+      }
+      disableBodyContentFlow={disableBodyContentFlow}
+      disableBodyPadding={disableBodyPadding}
+      size={size}
     >
-      <SidebarViewport
-        {...slotProps.sidebarViewport}
-        removeBg
-        className={cn(slotProps.sidebarViewport?.className, styles.viewport)}
-        ref={mergeRefs(slotProps.sidebarViewport?.ref, scrollContainerRef)}
+      <SidebarLayout
+        {...slotProps.sidebarLayout}
+        id={`SidebarLayoutTOC-${id}`}
+        side="right"
+        closesTo="full"
+        size={size}
+        open={sidebarOpen}
+        onOpenChange={setSidebarOpen}
       >
-        <PageHeader
-          {...slotProps.title}
-          className={cn(styles.title, slotProps.title?.className)}
-          title={title}
-          desc={desc}
-          actions={actions}
-        />
-        <div
-          {...slotProps.body}
-          className={cn(styles.body, slotProps.body?.className)}
+        <SidebarViewport
+          {...slotProps.sidebarViewport}
+          removeBg
+          className={cn(
+            slotProps.sidebarViewport?.className,
+            !disableViewportContentFlow && styles.contentFlow,
+          )}
+          ref={mergeRefs(slotProps.sidebarViewport?.ref, scrollContainerRef)}
         >
           {children}
-        </div>
-      </SidebarViewport>
-      {!!tree.length && (
-        <Sidebar removeBg>
-          <SidebarHeader
-            sidebarToggle={
-              <SidebarToggle>
-                <FormIcon />
-              </SidebarToggle>
-            }
-          />
-          <SidebarBody>
-            <TableOfContents
-              {...slotProps.tableOfContents}
-              scrollContainerRef={scrollContainerRef}
-              tree={tree}
-              LinkComponent={LinkComponent}
-            />
-          </SidebarBody>
-        </Sidebar>
-      )}
-    </SidebarLayout>
+        </SidebarViewport>
+        {!!tree.length && (
+          <Sidebar removeBg>
+            <SidebarHeader sidebarToggle={""} {...slotProps.sidebarHeader} />
+            <SidebarBody>
+              <TableOfContents
+                {...slotProps.tableOfContents}
+                scrollContainerRef={scrollContainerRef}
+                tree={tree}
+                LinkComponent={LinkComponent}
+              />
+            </SidebarBody>
+          </Sidebar>
+        )}
+      </SidebarLayout>
+    </PageLayout>
   );
 }

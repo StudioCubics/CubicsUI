@@ -10,11 +10,10 @@ import { SidebarToggle } from "./SidebarToggle";
 
 export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
   const {
-    logo,
+    title,
     sidebarToggle = <SidebarToggle />,
     children,
     className,
-
     ...rest
   } = props;
   const { sidebarOpen, closesTo, side } = useSidebarLayout();
@@ -33,7 +32,7 @@ export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
       )}
     >
       <span className={cn(styles.header)}>
-        {logo && <span className={cn(styles.logo)}>{mounted && logo}</span>}
+        {title && <span className={cn(styles.logo)}>{mounted && title}</span>}
         <span className={cn(styles.sidebarToggle)}>{sidebarToggle}</span>
       </span>
       {children}
