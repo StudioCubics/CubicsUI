@@ -8,8 +8,8 @@ import { getPackageDetails } from "./getPackageDetails.js";
 export function createContext(pkg: string): Context {
   const pkgDir = path.resolve(repoRoot, "packages");
   const pkgDetails = getPackageDetails(pkg, pkgDir);
-  const docPath = `/docs/${pkg}`;
-  const docBaseUrl = path.resolve(repoRoot, `apps/docs/content${docPath}`);
+  const docBasePath = "/docs";
+  const docBaseUrl = path.resolve(repoRoot, `apps/docs/content${docBasePath}`);
   const configFile = ts.readConfigFile(
     pkgDetails.tsConfigPath,
     ts.sys.readFile,
@@ -25,5 +25,5 @@ export function createContext(pkg: string): Context {
   });
 
   const checker = program.getTypeChecker();
-  return { pkg, pkgDir, pkgDetails, docPath, docBaseUrl, program, checker };
+  return { pkg, pkgDir, pkgDetails, docBasePath, docBaseUrl, program, checker };
 }

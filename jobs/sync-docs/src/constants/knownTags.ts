@@ -1,7 +1,7 @@
-import type { JSDocTagTransformer, MDXTagTransformer } from "../types.js";
-import { autoTypeTableTransformer } from "../transformers/mdx/autoTypeTableTransformer.js";
-import { autoSandcubeTransformer } from "../transformers/mdx/autoSandcubeTransformer.js";
 import { linkTransformer } from "../transformers/jsdoc/linkTransformer.js";
+import { autoSandcubeTransformer } from "../transformers/mdx/autoSandcubeTransformer.js";
+import { autoTypeTableTransformer } from "../transformers/mdx/autoTypeTableTransformer.js";
+import type { JSDocTagTransformer, MDXTagTransformer } from "../types.js";
 
 export interface KnownJSDocTag {
   name: string;

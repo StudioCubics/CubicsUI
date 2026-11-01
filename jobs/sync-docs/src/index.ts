@@ -32,15 +32,12 @@ async function main() {
       const basename = path.basename(mdxPath);
       switch (basename) {
         case "_pkg.mdx":
-          console.log(`(pkg)`);
           processPkgMDX(mdxPath, context);
           break;
         case "_category.mdx":
-          console.log(`(category)`);
           processCategoryMdx(mdxPath, context);
           break;
         default:
-          console.log(`(component)`);
           processComponentMdx(mdxPath, context);
           break;
       }

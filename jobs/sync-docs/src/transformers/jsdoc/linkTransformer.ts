@@ -56,7 +56,7 @@ function buildUrl(
   symbolName: string,
   context: Context,
 ): string {
-  const { pkgDetails, docPath } = context;
+  const { pkgDetails, docBasePath, pkg } = context;
   const rel = path.relative(pkgDetails.docSrcPath, absFilePath);
   const withoutExt = rel
     .replace(/\.(tsx?|jsx?|ts?|js?)$/, "")
@@ -71,8 +71,9 @@ function buildUrl(
   }
   const urlPath = parts.map((p) => p.toLowerCase()).join("/");
 
-  return `${docPath}/${urlPath}#${symbolName.toLowerCase()}`;
+  return `${docBasePath}/${pkg}/${urlPath}#${symbolName.toLowerCase()}`;
 }
+
 export const linkTransformer: JSDocTagTransformer = (
   symbolName,
   label,

@@ -38,5 +38,7 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
 
   fs.writeFileSync(destFile, transformedContent);
 
-  console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
+  console.log(
+    `(category) ✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`,
+  );
 }

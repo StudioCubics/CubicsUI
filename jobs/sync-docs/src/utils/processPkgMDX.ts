@@ -32,5 +32,5 @@ export function processPkgMDX(mdxPath: string, context: Context) {
 
   fs.writeFileSync(destFile, transformedContent);
 
-  console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
+  console.log(`(pkg) ✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
 }

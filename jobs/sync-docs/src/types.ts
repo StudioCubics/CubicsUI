@@ -48,9 +48,9 @@ export interface Context {
    */
   docBaseUrl: string;
   /** Relative path inside the doc that can be used to link Links inside the markdown
-   * Example: "/docs/${pkg}"
+   * Example: "/docs"
    */
-  docPath: string;
+  docBasePath: string;
 
   /** TypeScript program instance used for type resolution */
   program: ts.Program;
