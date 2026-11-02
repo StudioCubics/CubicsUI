@@ -17,7 +17,7 @@ export default function Layout(props: { children: ReactNode }) {
     <div style={{ height: "100dvh" }}>
       <SidebarLayout>
         <Sidebar>
-          <SidebarHeader logo={<CubicsUILogo />} />
+          <SidebarHeader title={<CubicsUILogo />} />
           <SidebarBody>
             <SidebarBodyContent />
           </SidebarBody>

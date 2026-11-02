@@ -4,6 +4,7 @@ import { components } from "@/components";
 export const mdxSource = mdxLoader({
   components,
   contentRoot: "content/docs",
+  basePath: "/docs",
   readSource: async (relPath) => {
     const mod = await import(`@/content/docs/${relPath}`);
     return mod.default;

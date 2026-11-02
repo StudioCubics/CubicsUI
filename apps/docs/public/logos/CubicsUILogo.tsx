@@ -63,10 +63,3 @@ export function CubicsUILogo(props: Partial<LogoProps>) {
     />
   );
 }
-<svg
-  width="617"
-  height="100"
-  viewBox="0 0 617 100"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-></svg>;
