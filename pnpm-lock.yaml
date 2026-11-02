@@ -60,6 +60,9 @@ importers:
       '@cubicsui/biome':
         specifier: workspace:^
         version: link:../../configs/biome
+      '@cubicsui/sync-docs':
+        specifier: workspace:^
+        version: link:../../jobs/sync-docs
       '@cubicsui/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
