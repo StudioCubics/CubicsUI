@@ -1,5 +1,5 @@
 "use client";
-import { useId, type ReactElement } from "react";
+import { type ReactElement, useId } from "react";
 import type { LogoProps } from "./Logo.types";
 
 export function Logo(props: LogoProps): ReactElement {
@@ -25,6 +25,8 @@ export function Logo(props: LogoProps): ReactElement {
 
   return (
     <svg
+      role="img"
+      aria-label="Logo"
       viewBox={onlyFavicon ? faviconViewBox : onlyText ? textViewBox : viewBox}
       xmlns="http://www.w3.org/2000/svg"
       style={{ ...style }}

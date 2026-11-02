@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo, useSidebarLayout, type LogoProps } from "@cubicsui/components";
+import { Logo, type LogoProps, useSidebarLayout } from "@cubicsui/components";
 
 export function CubicsUIPlaygroundLogo(props: Partial<LogoProps>) {
   const { ...rest } = props;

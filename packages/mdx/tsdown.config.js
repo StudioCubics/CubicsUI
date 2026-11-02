@@ -1,14 +1,14 @@
-import { defineConfig } from "tsdown";
-import { glob } from "glob";
 import { dirname } from "node:path/posix";
+import { glob } from "glob";
+import { defineConfig } from "tsdown";
 
 export default defineConfig({
-  entry: ["src/index.ts"],
+  entry: ["src/index.ts", "src/mdxConfig.ts"],
   format: ["esm"],
   sourcemap: true,
   clean: false,
   dts: true,
-  minify: true,
+  minify: false,
   treeshake: true,
   unbundle: true,
   deps: {
@@ -20,6 +20,17 @@ export default defineConfig({
       "@cubicsui/hooks",
       "@cubicsui/icons",
       "@cubicsui/utils",
+      "@monaco-editor/react",
+      "gray-matter",
+      "next-mdx-remote-client",
+      "raw-loader",
+      "react-live",
+      "rehype-mdx-code-props",
+      "rehype-slug",
+      "remark-flexible-toc",
+      "remark-gfm",
+      "sucrase",
+      "next",
       /\.module\.css$/,
     ],
   },

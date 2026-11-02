@@ -1,5 +1,6 @@
 export * from "./extractText";
 export * from "./isServer";
 export * from "./mergeEvents";
-export * from "./withDisabledTransitions";
 export * from "./mergeRefs";
+export * from "./toJsxAttrs";
+export * from "./withDisabledTransitions";

@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import { Fira_Code, Outfit, Titillium_Web } from "next/font/google";
 import {
   ContrastProvider,
   PointerLightProvider,
   ThemeProvider,
 } from "@cubicsui/components";
+import type { Metadata } from "next";
+import { Fira_Code, Outfit, Titillium_Web } from "next/font/google";
 import "./globals.css";
 
 export const firaCode = Fira_Code({

@@ -12,7 +12,7 @@ function parseCookies(): Map<string, string> {
   return map;
 }
 
-// TODO not complete 
+// TODO not complete
 export function useCookies(): { cookies: Map<string, string> } {
   // Lazy initializer runs once on mount, no effect needed
   const [cookies] = useState<Map<string, string>>(parseCookies);

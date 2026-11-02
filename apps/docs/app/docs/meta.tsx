@@ -25,7 +25,7 @@ function getMeta(
   tree: ListItemProps<Route>[],
 ): ListItemProps<Route>[] {
   return (
-    (tree.find((si) => si.id == id) as ListItemTypeCollapsibleProps<Route>)
+    (tree.find((si) => si.id === id) as ListItemTypeCollapsibleProps<Route>)
       ?.nodes ?? []
   );
 }

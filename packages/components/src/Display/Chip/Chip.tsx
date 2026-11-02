@@ -1,11 +1,11 @@
 "use client";
 
-import type { PolymorphicComponentType } from "@cubicsui/types";
-import { type ElementType } from "react";
-import { cn } from "@cubicsui/utils";
-import type { ChipBaseProps, ChipProps } from "./Chip.types";
-import styles from "./Chip.module.css";
 import { XIcon } from "@cubicsui/icons";
+import type { PolymorphicComponentType } from "@cubicsui/types";
+import { cn } from "@cubicsui/utils";
+import type { ElementType } from "react";
+import styles from "./Chip.module.css";
+import type { ChipBaseProps, ChipProps } from "./Chip.types";
 
 function ChipBase<C extends ElementType = "span">(props: ChipProps<C>) {
   const {
@@ -14,28 +14,25 @@ function ChipBase<C extends ElementType = "span">(props: ChipProps<C>) {
     variant = "contained",
     color,
     size = "md",
-    square,
     icon,
     children,
     onClose,
     slotProps = {},
     ...restProps
   } = props;
-  const Component = (as || "span") as ElementType;
-
-  const componentProps = {
-    className: cn(
-      className,
-      styles.root,
-      variant && styles[`variant_${variant}`],
-    ),
-    "data-color": color,
-    "data-size": size,
-    ...restProps,
-  };
+  const Component: ElementType = as || "span";
 
   return (
-    <Component {...componentProps}>
+    <Component
+      {...restProps}
+      className={cn(
+        className,
+        styles.root,
+        variant && styles[`variant_${variant}`],
+      )}
+      data-color={color}
+      data-size={size}
+    >
       {icon}
       {children}
       {onClose && (

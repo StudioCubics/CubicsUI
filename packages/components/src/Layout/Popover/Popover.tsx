@@ -3,8 +3,8 @@
 import type { PolymorphicComponentType } from "@cubicsui/types";
 import { cn } from "@cubicsui/utils";
 import type { CSSProperties, ElementType, ToggleEvent } from "react";
-import type { PopoverBaseProps, PopoverProps } from "./Popover.types";
 import styles from "./Popover.module.css";
+import type { PopoverBaseProps, PopoverProps } from "./Popover.types";
 
 function PopoverBase<C extends ElementType = "div">(props: PopoverProps<C>) {
   const {

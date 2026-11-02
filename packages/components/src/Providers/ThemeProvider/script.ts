@@ -17,10 +17,10 @@ export const script = ({
           ? "dark"
           : "light"
         : value;
-    let d = document.documentElement;
+    const d = document.documentElement;
     d.setAttribute(attribute, theme);
     if (enableColorScheme) d.style.colorScheme = theme;
-  } catch (e) {
-    // Unsupported (e.g. localStorage blocked)
+  } catch {
+    // Unsupported
   }
 };

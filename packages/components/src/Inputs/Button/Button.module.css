@@ -35,8 +35,8 @@
 }
 
 .root.variant_outlined {
-  border: var(--border-width) solid;
-  border-color: color-mix(in srgb, var(--color) 30%, transparent);
+  border: var(--border-width) solid
+    color-mix(in srgb, currentColor 30%, transparent);
   &:not(:disabled):hover {
     outline-color: transparent;
   }

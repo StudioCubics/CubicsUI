@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactElement } from "react";
-import type { CheckboxProps } from "./Checkbox.types";
 import { Checkbox } from "./Checkbox";
+import type { CheckboxProps } from "./Checkbox.types";
 import { useCheckbox } from "./CheckboxProvider";
 
 export function CheckboxGroupControl(props: CheckboxProps): ReactElement {

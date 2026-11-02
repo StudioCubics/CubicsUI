@@ -1,10 +1,10 @@
 "use client";
 
 import type { PolymorphicComponentType } from "@cubicsui/types";
-import { Children, isValidElement, type ElementType } from "react";
 import { cn } from "@cubicsui/utils";
-import type { CardBaseProps, CardProps } from "./Card.types";
+import { Children, type ElementType, isValidElement } from "react";
 import styles from "./Card.module.css";
+import type { CardBaseProps, CardProps } from "./Card.types";
 
 // CardBase.tsx
 function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
@@ -14,21 +14,21 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
     variant = "contained",
     size = "md",
     fullWidth = false,
-    fullHeight,
-    fullScreen,
-    square,
+    fullHeight = false,
+    fullScreen = false,
+    square = false,
     removeBg = false,
     disablePadding = false,
+    centered = false,
     fixedWidth,
     fixedHeight,
     elevation,
     style,
     color,
-    ref: _ref,
     children,
     ...restProps
   } = props;
-  const Component = (as || "div") as ElementType;
+  const Component: ElementType = as || "div";
 
   // Split out the footer so it can render outside the opaque surface,
   // letting its backdrop-filter see through to whatever is behind the card.
@@ -49,15 +49,15 @@ function CardBase<C extends ElementType = "div">(props: CardProps<C>) {
       fullScreen && styles.fullScreen,
       variant && styles[`variant_${variant}`],
       removeBg && styles.removeBg,
+      centered && styles.centered,
     ),
     "data-color": color,
     "data-size": size,
     style: {
-      width: typeof fixedWidth === "string" ? fixedWidth : undefined,
-      height: typeof fixedHeight === "string" ? fixedHeight : undefined,
+      width: fixedWidth,
+      height: fixedHeight,
       ...style,
     },
-    ref: _ref,
     ...restProps,
   };
   if (footer)

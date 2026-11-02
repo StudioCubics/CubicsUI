@@ -5,7 +5,8 @@ import type {
 } from "../InputField/InputField.types";
 
 export interface SelectProps
-  extends Omit<ComponentProps<"select">, "size">, InputFieldSharedProps {
+  extends Omit<ComponentProps<"select">, "size">,
+    InputFieldSharedProps {
   /**
    * This behaves like the native multiple where users need to select using Ctrl,
    * for multiple selected values use `<ComboBox/>` component instead
@@ -34,4 +35,4 @@ export interface SelectProps
   slotProps?: SelectSlotProps;
 }
 
-export interface SelectSlotProps extends InputFieldSlotProps {}
+export type SelectSlotProps = InputFieldSlotProps;

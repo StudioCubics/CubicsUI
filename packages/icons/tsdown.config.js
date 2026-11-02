@@ -1,3 +1,5 @@
+import { dirname } from "node:path/posix";
+import { glob } from "glob";
 import { defineConfig } from "tsdown";
 
 export default defineConfig({
@@ -5,7 +7,6 @@ export default defineConfig({
   format: ["esm"],
   sourcemap: true,
   clean: false,
-  // TODO remove all use of ComponentProps as that is making build slow
   dts: true,
   minify: true,
   treeshake: true,
@@ -17,6 +18,14 @@ export default defineConfig({
       "react-dom",
       "@types/react",
       "@types/react-dom",
+      /\.module\.css$/,
     ],
+  },
+  copy: async () => {
+    const cssFiles = await glob("src/**/*.module.css");
+    return cssFiles.map((rawFrom) => {
+      const from = rawFrom.replace(/\\/g, "/");
+      return { from, to: dirname(from.replace("src/", "dist/")) };
+    });
   },
 });

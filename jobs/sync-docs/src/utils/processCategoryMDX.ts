@@ -1,14 +1,14 @@
+import fs from "node:fs";
+import path from "node:path";
 import { toCamelCase } from "@cubicsui/utils";
-import fs from "fs";
 import matter from "gray-matter";
-import path from "path";
-import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
-import type { Context } from "../types.js";
-import { getCategoryFromPath } from "./getCategoryFromPath.js";
-import { shortMdxPath, shortDestFile } from "./pathShorteners.js";
 import { dfName } from "../constants/global.js";
-import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
+import type { Context } from "../types.js";
 import { finaliseMDX } from "./finaliseMDX.js";
+import { getCategoryFromPath } from "./getCategoryFromPath.js";
+import { shortDestFile, shortMdxPath } from "./pathShorteners.js";
+import { transformKnownJSDocTags } from "./transformKnownJSDocTags.js";
+import { transformKnownMDXTags } from "./transformKnownMDXTags.js";
 
 export function processCategoryMdx(mdxPath: string, context: Context): void {
   const raw = fs.readFileSync(mdxPath, "utf8");
@@ -21,15 +21,12 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
   transformedContent = transformKnownJSDocTags(transformedContent, context);
   const frontmatter = {
     title: category,
-    slug: toCamelCase(category),
+    id: toCamelCase(category),
     packageVersion: context.pkgDetails.version,
     ...existingFrontmatter,
   };
 
-  const destDir = path.join(
-    context.docDetails.docBaseUrl,
-    toCamelCase(category),
-  );
+  const destDir = path.join(context.docBaseUrl, toCamelCase(category));
 
   const destFile = path.join(destDir, `${dfName}.mdx`);
 
@@ -41,5 +38,7 @@ export function processCategoryMdx(mdxPath: string, context: Context): void {
 
   fs.writeFileSync(destFile, transformedContent);
 
-  console.log(`✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
+  console.log(
+    `(category) ✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`,
+  );
 }

@@ -1,33 +1,33 @@
 "use client";
 
-import { type ElementType, useRef, type MouseEvent } from "react";
-import styles from "./Tab.module.css";
-import { useTabs } from "../Tabs";
-import { cn, mergeRefs } from "@cubicsui/utils";
 import type { PolymorphicComponentType } from "@cubicsui/types";
+import { cn, mergeRefs } from "@cubicsui/utils";
+import { type ElementType, type MouseEvent, useRef } from "react";
+import { useTabs } from "../Tabs";
 import type { TabBaseProps, TabProps } from "../Tabs.types";
+import styles from "./Tab.module.css";
 
-function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
+function TabBase<C extends ElementType = "button">(props: TabProps<C>) {
   const {
     as,
+    ref,
     className,
+    onClick,
+    value,
     startAdornment,
     endAdornment,
     disabled,
     href,
-    onClick,
-    value,
-    onTouchStart,
     children,
     slotProps = {},
-    ref,
+    disableCentering = false,
     LinkComponent = "a",
     ...restProps
-  } = props;
+  } = props as TabProps<"button">;
   const { activeTab, setActiveTab } = useTabs();
   const tabRef = useRef<HTMLButtonElement>(null);
 
-  const selected = activeTab == value;
+  const active = activeTab === value;
 
   const Component = href ? LinkComponent : as || "div";
 
@@ -36,30 +36,28 @@ function TabBase<C extends ElementType = "div">(props: TabProps<C>) {
     if (tabRef.current)
       tabRef.current.scrollIntoView({
         block: "nearest",
-        inline: "center",
+        inline: disableCentering ? "nearest" : "center",
         behavior: "smooth",
       });
     setActiveTab(value);
     onClick?.(e);
   }
 
-  const componentProps = {
-    className: cn(
-      className,
-      styles.root,
-      disabled ? styles.disabled : undefined,
-    ),
-    "data-selected": selected,
-    value,
-    onClick: handleClick,
-    disabled,
-    href: !disabled ? href : undefined,
-    ref: mergeRefs(ref, tabRef),
-    ...restProps,
-  };
-
   return (
-    <Component {...componentProps}>
+    <Component
+      {...restProps}
+      className={cn(
+        className,
+        styles.root,
+        disabled ? styles.disabled : undefined,
+      )}
+      data-active={active}
+      value={value}
+      onClick={handleClick}
+      disabled={disabled}
+      href={!disabled ? href : undefined}
+      ref={mergeRefs(ref, tabRef)}
+    >
       {startAdornment && (
         <span
           {...slotProps.startAdornment}

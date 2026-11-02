@@ -15,11 +15,7 @@
   border-collapse: separate; /* required for border-spacing / radius */
   border-spacing: var(--border-width);
   /* border-collapse: collapse; */
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: var(--fs);
   line-height: 1.4;
 }

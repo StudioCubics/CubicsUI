@@ -1,18 +1,18 @@
 "use client";
 
+import { cn, mergeRefs } from "@cubicsui/utils";
 import {
   Children,
   cloneElement,
+  type ReactElement,
   useEffect,
   useMemo,
-  type ReactElement,
 } from "react";
 import { createPortal } from "react-dom";
-import { useTooltip } from "./useTooltip";
-import styles from "./Tooltip.module.css";
 import getArrowDirection from "./getArrowDirection";
-import { cn, mergeRefs } from "@cubicsui/utils";
+import styles from "./Tooltip.module.css";
 import type { TooltipProps } from "./Tooltip.types";
+import { useTooltip } from "./useTooltip";
 
 export function Tooltip({
   title,
@@ -42,7 +42,7 @@ export function Tooltip({
   const child = Children.only(children);
 
   useEffect(() => {
-    if (showTooltip) updatePosition();
+    if (showTooltip || typeof title !== "undefined") updatePosition();
   }, [title, showTooltip, updatePosition]);
 
   return (

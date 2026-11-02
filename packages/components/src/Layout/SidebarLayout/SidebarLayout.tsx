@@ -1,19 +1,19 @@
 "use client";
 
+import { cn, isServer } from "@cubicsui/utils";
 import {
+  type Context,
   createContext,
+  type ReactElement,
   useContext,
   useEffect,
-  type ReactElement,
-  type Context,
   useState,
 } from "react";
-import { cn, isServer } from "@cubicsui/utils";
+import styles from "./SidebarLayout.module.css";
 import type {
   SidebarLayoutContextProps,
   SidebarLayoutProps,
 } from "./SidebarLayout.types";
-import styles from "./SidebarLayout.module.css";
 import { SidebarScript } from "./SidebarScript";
 
 const SIDEBAR_LAYOUT_DEFAULTS = {
@@ -25,10 +25,6 @@ const SIDEBAR_LAYOUT_DEFAULTS = {
   type: "flex",
   side: "left",
 } satisfies Omit<SidebarLayoutProps, "children">;
-
-function getInitialSidebarOpen(defaultClosed?: boolean): boolean {
-  return defaultClosed ? !defaultClosed : true;
-}
 
 export const SidebarLayoutContext: Context<SidebarLayoutContextProps | null> =
   createContext<SidebarLayoutContextProps | null>(null);
@@ -51,48 +47,60 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
     type = SIDEBAR_LAYOUT_DEFAULTS.type,
     side = SIDEBAR_LAYOUT_DEFAULTS.side,
     slotProps = {},
+    open,
+    onOpenChange,
   } = props;
 
   const storageKey = `sidebarOpen-${id}`;
-  const [sidebarOpen, setSidebarOpen] = useState(() =>
-    getInitialSidebarOpen(defaultClosed),
+  const isControlled = open !== undefined;
+  const [internalOpen, setInternalOpen] = useState(() =>
+    defaultClosed ? !defaultClosed : true,
   );
+  const sidebarOpen = isControlled ? open : internalOpen;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: its onOpenChange dumbass
   useEffect(() => {
     if (isServer) return;
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored !== null) {
         const parsed = JSON.parse(stored) as boolean;
-        setSidebarOpen((prev) => (prev === parsed ? prev : parsed));
+        if (isControlled) onOpenChange?.(parsed);
+        else setInternalOpen((prev) => (prev === parsed ? prev : parsed));
       }
-    } catch (_) {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storageKey]);
+    } catch {
+      // Unsupported
+    }
+  }, [storageKey, isControlled]);
 
-  async function toggleSidebar() {
-    setSidebarOpen((prev) => {
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(!prev));
-      } catch (_) {}
-      return !prev;
-    });
+  // Persist on every change, including ones made from outside
+  useEffect(() => {
+    if (isServer) return;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(sidebarOpen));
+    } catch {
+      // Unsupported
+    }
+  }, [storageKey, sidebarOpen]);
+
+  function toggleSidebar() {
+    const next = !sidebarOpen;
+    if (!isControlled) setInternalOpen(next);
+    onOpenChange?.(next);
   }
   return (
     <SidebarLayoutContext.Provider
-      value={
-        {
-          sidebarOpen,
-          toggleSidebar,
-          side,
-          closesTo,
-          variant,
-          size,
-          type,
-          defaultClosed,
-          id,
-        } as Required<SidebarLayoutContextProps>
-      }
+      value={{
+        sidebarOpen,
+        toggleSidebar,
+        side,
+        closesTo,
+        variant,
+        size,
+        type,
+        defaultClosed,
+        id,
+      }}
     >
       <SidebarScript
         {...slotProps.script}

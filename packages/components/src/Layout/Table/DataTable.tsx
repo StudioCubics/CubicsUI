@@ -1,13 +1,20 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: The index is used to identify rows and columns */
 "use client";
 
 import {
   createContext,
   isValidElement,
-  useContext,
-  useState,
   type ReactElement,
   type ReactNode,
+  useContext,
+  useState,
 } from "react";
+import styles from "./Table.module.css";
+import type {
+  CellData,
+  DataTableContextProps,
+  DataTableProps,
+} from "./Table.types";
 import {
   getColumnCount,
   isAOA,
@@ -16,12 +23,6 @@ import {
   isOOA,
   isOOR,
 } from "./Table.utils";
-import styles from "./Table.module.css";
-import type {
-  CellData,
-  DataTableContextProps,
-  DataTableProps,
-} from "./Table.types";
 import { TableCell } from "./TableCell/TableCell";
 
 const DataTableContext = createContext<DataTableContextProps | null>(null);
@@ -214,11 +215,7 @@ export function DataTable({ data }: DataTableProps): ReactElement {
         return (
           <tr key={`${r},row`}>
             {row.map((cell, c) => (
-              <TableCell
-                id={`${r},${c}`}
-                key={`${r},${c}`}
-                // selected={selectedCell[0] === r && selectedCell[1] === c}
-              >
+              <TableCell id={`${r},${c}`} key={`${r},${c}`}>
                 {renderCell(cell)}
               </TableCell>
             ))}

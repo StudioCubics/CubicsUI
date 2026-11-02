@@ -1,22 +1,17 @@
-import { type ElementType } from "react";
+import type { UnionElementComponentType } from "@cubicsui/types";
+import type { ElementType } from "react";
 import type {
-  UnionElementComponentType,
-  UnionElementProps,
-} from "@cubicsui/types";
-import type { TextOrListBaseProps } from "./TextOrList.types";
+  TextOrListBaseProps,
+  TextOrListDefaultElements,
+  TextOrListProps,
+} from "./TextOrList.types";
 
-const defaultElements: ["p", "ul"] = ["p", "ul"];
-type DefaultElements = (typeof defaultElements)[number];
-
-export type TextOrListProps<C extends ElementType = DefaultElements> =
-  UnionElementProps<C, TextOrListBaseProps>;
-
-function TextOrListBase<C extends ElementType = DefaultElements>(
+function TextOrListBase<C extends ElementType = TextOrListDefaultElements>(
   props: TextOrListProps<C>,
 ) {
-  const { text, ...rest } = props as TextOrListProps<DefaultElements>;
-  const t = text?.length == 1 ? text[0] : text;
-  if (!t || !t.length) return null;
+  const { text, ...rest } = props as TextOrListProps<TextOrListDefaultElements>;
+  const t = text?.length === 1 ? text[0] : text;
+  if (!t?.length) return null;
   const isString = typeof t === "string";
   const Component = (isString ? "p" : "ul") as ElementType;
   return (
@@ -24,6 +19,7 @@ function TextOrListBase<C extends ElementType = DefaultElements>(
       {isString
         ? t
         : t.map((c, i) => {
+            // biome-ignore lint/suspicious/noArrayIndexKey: c can be not unique
             return <li key={i}>{c}</li>;
           })}
     </Component>
@@ -42,6 +38,6 @@ TextOrListBase.displayName = "TextOrList";
  * ```
  */
 export const TextOrList = TextOrListBase as UnionElementComponentType<
-  DefaultElements,
+  TextOrListDefaultElements,
   TextOrListBaseProps
 >;

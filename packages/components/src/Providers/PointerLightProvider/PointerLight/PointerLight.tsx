@@ -3,9 +3,9 @@
 import { usePointerPosition } from "@cubicsui/hooks";
 import { cn, remap } from "@cubicsui/utils";
 import type { CSSProperties, ReactElement } from "react";
-import styles from "./PointerLight.module.css";
-import type { PointerLightProps } from "../PointerLightProvider.types";
 import { POINTERLIGHT_DEFAULTS } from "../PointerLightProvider";
+import type { PointerLightProps } from "../PointerLightProvider.types";
+import styles from "./PointerLight.module.css";
 
 function getSpeedAdjustedSize(value: number, mouseSpeed: number) {
   return value - Math.round(remap(mouseSpeed, [33, 1000], [0, 100]));

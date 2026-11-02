@@ -1,14 +1,14 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
 import {
   PACKAGE_MANAGERS,
-  toPkgManagerCommands,
   type PackageManager,
+  toPkgManagerCommands,
 } from "@cubicsui/utils";
+import { type ReactNode, useMemo, useState } from "react";
 import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
+import { getCodeHeight } from "./CodeBlock.utils";
 import { CodeBlockFrame } from "./CodeBlockFrame";
-import { getCodeHeight } from "./Codeblock.utils";
 
 type PkgManagerCodeBlockProps = {
   id: string;
@@ -42,6 +42,9 @@ export function CodeBlockPkgManager(props: PkgManagerCodeBlockProps) {
           scrollBeyondLastLine: false,
           foldingHighlight: false,
           lineNumbers: "off",
+          renderLineHighlight: "none",
+          scrollbar: { vertical: "hidden" },
+          hideCursorInOverviewRuler: true,
         }}
       />
     </CodeBlockFrame>

@@ -1,13 +1,19 @@
-import type { ComponentProps, MouseEvent, ReactNode } from "react";
-import type { ButtonProps } from "../Button/Button.types";
-import type { PopoverProps } from "../../Layout/Popover/Popover.types";
+import type { MouseEvent, ReactNode } from "react";
 import type { CardProps } from "../../Display/Card/Card.types";
+import type {
+  ListItemTypeItemProps,
+  ListProps,
+} from "../../Display/List/List.types";
+import type { PopoverProps } from "../../Layout/Popover/Popover.types";
 import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
+import type { ButtonProps } from "../Button/Button.types";
+
 export interface ThemeObjectValue {
   text?: string;
   icon?: ReactNode;
-  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (e: MouseEvent) => void;
 }
+
 export type ThemeObject = Record<Theme, ThemeObjectValue>;
 
 export interface ThemeToggleProps {
@@ -36,7 +42,7 @@ export interface ThemeToggleProps {
     button?: ButtonProps;
     popover?: PopoverProps;
     card?: CardProps;
-    list?: ComponentProps<"ul">;
-    listItem?: ComponentProps<"li">;
+    list?: ListProps;
+    listItem?: ListItemTypeItemProps;
   };
 }

@@ -3,10 +3,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <>
-      <Link href={"/docs/components/inputs/button"}>
-        <Button>Go to Button</Button>
-      </Link>
-    </>
+    <Link href={"/docs/components/inputs/button"}>
+      <Button>Go to Button</Button>
+    </Link>
   );
 }

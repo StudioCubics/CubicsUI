@@ -1,6 +1,6 @@
-import { defineConfig } from "tsdown";
-import { glob } from "glob";
 import { dirname } from "node:path/posix";
+import { glob } from "glob";
+import { defineConfig } from "tsdown";
 
 export default defineConfig({
   entry: ["src/index.ts"],
@@ -8,7 +8,10 @@ export default defineConfig({
   sourcemap: true,
   clean: false,
   dts: true,
-  minify: true,
+  minify: {
+    compress: { keepNames: { function: true, class: true } },
+    mangle: { keepNames: true },
+  },
   treeshake: true,
   unbundle: true,
   deps: {

@@ -1,9 +1,16 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
-import { Card, CardContent, CardHeader } from "@cubicsui/components";
-import { Tabs, TabsBar, Tab, useTabs } from "@cubicsui/components";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Tab,
+  Tabs,
+  TabsBar,
+  useTabs,
+} from "@cubicsui/components";
 import { CubicsUIFavicon } from "@cubicsui/icons";
+import { type CSSProperties, useState } from "react";
 
 /** Reads the active tab from context so we can verify selection visually. */
 function ActiveTab() {
@@ -348,10 +355,24 @@ export default function Page() {
         <code>fullWidth</code> on <code>{"<TabsBar/>"}</code>
       </h2>
       <section>
-        <Tabs defaultTab="two">
+        <Tabs>
           <TabsBar fullWidth>
             {Array.from({ length: 50 }).map((_, i) => (
               <Tab key={i} value={`Tab-${i + 1}`}>
+                {`Tab ${i + 1}`}
+              </Tab>
+            ))}
+          </TabsBar>
+        </Tabs>
+      </section>
+      <h2>
+        <code>disableCentering</code> on <code>{"<Tab/>"}</code>
+      </h2>
+      <section>
+        <Tabs>
+          <TabsBar fullWidth>
+            {Array.from({ length: 50 }).map((_, i) => (
+              <Tab key={i} value={`Tab-${i + 1}`} disableCentering>
                 {`Tab ${i + 1}`}
               </Tab>
             ))}

@@ -1,4 +1,4 @@
-import type { DataTableDataType, RowData, CellData } from "./Table.types";
+import type { CellData, DataTableDataType, RowData } from "./Table.types";
 
 /**
  * Checks if array of arrays:-
@@ -97,17 +97,12 @@ export function isOCR(
   if (data === null || typeof data !== "object" || Array.isArray(data)) {
     return false;
   }
-
-  const d = data as any;
-
-  if (!Array.isArray(d.columns) || !Array.isArray(d.rows)) {
+  if (!Array.isArray(data.columns) || !Array.isArray(data.rows)) {
     return false;
   }
-
-  for (let i = 0; i < d.rows.length; i++) {
-    if (!Array.isArray(d.rows[i])) return false;
+  for (let i = 0; i < data.rows.length; i++) {
+    if (!Array.isArray(data.rows[i])) return false;
   }
-
   return true;
 }
 

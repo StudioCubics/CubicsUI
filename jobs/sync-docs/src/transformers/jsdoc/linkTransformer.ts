@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import ts from "typescript";
 import type { Context, JSDocTagTransformer } from "../../types.js";
 import { isExported } from "../../utils/isExported.js";
@@ -56,8 +56,8 @@ function buildUrl(
   symbolName: string,
   context: Context,
 ): string {
-  const { pkgDetails, docDetails } = context;
-  const rel = path.relative(pkgDetails.docSrcPath, absFilePath);
+  const { pkgDetails, docBasePath, pkg } = context;
+  const rel = path.relative(pkgDetails.pkgSrcPath, absFilePath);
   const withoutExt = rel
     .replace(/\.(tsx?|jsx?|ts?|js?)$/, "")
     .replace(/\.types$/, "");
@@ -71,17 +71,15 @@ function buildUrl(
   }
   const urlPath = parts.map((p) => p.toLowerCase()).join("/");
 
-  return `${docDetails.docPath}/${urlPath}#${symbolName.toLowerCase()}`;
+  return `${docBasePath}/${pkg}/${urlPath}#${symbolName.toLowerCase()}`;
 }
+
 export const linkTransformer: JSDocTagTransformer = (
   symbolName,
   label,
   context,
 ) => {
   const url = resolveSymbolToDocsUrl(symbolName, context);
-
-  // \n before {@link} breaks the markdown table row — the caller must strip it,
-  // but we return a space-prefixed link so it stays inline
   return url
     ? ` [${label}](${url})`
     : ` [${label}](#${symbolName.toLowerCase()})`;

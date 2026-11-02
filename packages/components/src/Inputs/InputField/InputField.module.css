@@ -66,52 +66,19 @@
   min-width: 100%;
 }
 
-/* Has start icon */
-.inputSurface[data-start-adornment] .input {
-  padding-left: var(--size);
-}
-/* Has end icon */
-.inputSurface[data-end-adornment] .input {
-  padding-right: var(--size);
-}
 .root.fullWidth {
   width: 100%;
 }
-/* With padding disabled */
-.root.disablePadding {
+
+/* For high contrast env */
+:where([data-contrast="true"]) .root {
   & .inputSurface {
-    padding: 0;
-  }
-  /* Has start and end icon */
-  & .inputSurface[data-start-adornment] .input,
-  & .inputSurface[data-end-adornment] .input {
-    padding: var(--size);
-  }
-}
-/* Errored state */
-.root[data-error="true"],
-.root:has(.input:user-invalid) {
-  & .helperText,
-  & .label {
-    color: var(--color-error);
-  }
-  & .inputSurface {
-    border-color: var(--color-error);
-  }
-  /* Focused */
-  &:has(.input:focus) {
-    & .helperText,
-    & .label {
-      color: var(--color);
-    }
-    & .inputSurface {
-      border-color: var(--border-color-focused);
-    }
+    border-color: var(--border-color);
   }
 }
 
 /* Required Input */
-.root:has(.input:required) {
+.root:where(:has(.input:required)) {
   & .label {
     &::before {
       content: "*";
@@ -119,7 +86,7 @@
   }
 }
 /* Disabled Input */
-.root:has(.input:disabled) {
+.root:where(:has(.input:disabled)) {
   opacity: 0.5;
 
   & .inputSurface,
@@ -129,7 +96,7 @@
   }
 }
 /* Focused input */
-.root:has(.input:focus) {
+.root:where(:has(.input:focus)) {
   & .label {
     color: var(--label-color-focused);
   }
@@ -142,10 +109,44 @@
     outline: none;
   }
 }
-/* For high contrast env */
-*[data-contrast="true"] .root {
+/* Errored state */
+.root:where([data-error="true"], :has(.input:user-invalid)) {
+  & .helperText,
+  & .label {
+    color: var(--color-error);
+  }
   & .inputSurface {
-    border-color: var(--border-color);
+    border-color: var(--color-error);
+  }
+  /* Focused */
+  &:where(:has(.input:focus)) {
+    & .helperText,
+    & .label {
+      color: var(--color);
+    }
+    & .inputSurface {
+      border-color: var(--border-color-focused);
+    }
+  }
+}
+
+/* Has start icon */
+.inputSurface[data-start-adornment] .input {
+  padding-left: var(--size);
+}
+/* Has end icon */
+.inputSurface[data-end-adornment] .input {
+  padding-right: var(--size);
+}
+/* With padding disabled */
+.root.disablePadding {
+  & .inputSurface {
+    padding: 0;
+  }
+  /* Has start and end icon */
+  & .inputSurface[data-start-adornment] .input,
+  & .inputSurface[data-end-adornment] .input {
+    padding: var(--size);
   }
 }
 

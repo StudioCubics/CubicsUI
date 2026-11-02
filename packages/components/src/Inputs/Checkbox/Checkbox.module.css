@@ -82,7 +82,12 @@
   width: 0;
   min-width: 100%;
 }
-
+/* For high contrast env */
+[data-contrast="true"] .root {
+  & .input {
+    border-color: var(--border-color);
+  }
+}
 /* Checked or indeterminate state */
 .root:has(.input:checked),
 .root:has(.input:indeterminate) {
@@ -139,12 +144,7 @@
     outline: var(--focus-ring);
   }
 }
-/* For high contrast env */
-*[data-contrast="true"] .root {
-  & .input {
-    border-color: var(--border-color);
-  }
-}
+
 /* Size */
 .root[data-size="xs"] {
   --fs: var(--fs-sm);

@@ -1,23 +1,23 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  type ReactElement,
-  type Context,
-} from "react";
+import { useLocalStorage } from "@cubicsui/hooks";
 import {
   isServer,
   notImplemented,
   withDisabledTransitions,
 } from "@cubicsui/utils";
+import {
+  type Context,
+  createContext,
+  type ReactElement,
+  useContext,
+  useEffect,
+} from "react";
 import type {
   ContrastContextProps,
   ContrastProviderProps,
   ContrastSharedProps,
 } from "./ContrastProvider.types";
-import { useLocalStorage } from "@cubicsui/hooks";
 import { script } from "./script";
 
 export const CONTRAST_PROVIDER_DEFAULTS: Required<ContrastSharedProps> = {
@@ -60,18 +60,11 @@ export function ContrastProvider(props: ContrastProviderProps): ReactElement {
     defaultContrast,
   );
 
-  function applyContrast(value: boolean) {
-    if (isServer) return;
-    let d = document.documentElement;
-    if (!!value) d.setAttribute(attribute, JSON.stringify(value));
-    else d.removeAttribute(attribute);
-  }
-
   function setContrast(value: boolean) {
     setContrastState(value);
     try {
       localStorage.setItem(storageKey, JSON.stringify(value));
-    } catch (e) {
+    } catch {
       // Unsupported
     }
   }
@@ -85,15 +78,22 @@ export function ContrastProvider(props: ContrastProviderProps): ReactElement {
     };
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
-  }, [storageKey, defaultContrast]);
+  }, [storageKey, defaultContrast, setContrastState]);
 
   useEffect(() => {
+    function applyContrast(value: boolean) {
+      if (isServer) return;
+      const d = document.documentElement;
+      if (value) d.setAttribute(attribute, JSON.stringify(value));
+      else d.removeAttribute(attribute);
+    }
+
     if (disableTransitionOnChange) {
       withDisabledTransitions(() => applyContrast(contrast), { nonce });
     } else {
       applyContrast(contrast);
     }
-  }, [applyContrast, contrast, disableTransitionOnChange, nonce]);
+  }, [contrast, disableTransitionOnChange, nonce, attribute]);
 
   return (
     <ContrastContext.Provider
@@ -106,6 +106,7 @@ export function ContrastProvider(props: ContrastProviderProps): ReactElement {
         {...scriptProps}
         suppressHydrationWarning
         nonce={typeof window === "undefined" ? nonce : ""}
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: this has to be passed in a script tag
         dangerouslySetInnerHTML={{
           __html: `(${script.toString()})(${JSON.stringify(asaProps)})`,
         }}

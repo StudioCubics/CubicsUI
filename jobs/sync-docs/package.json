@@ -16,7 +16,8 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsx --tsconfig ./tsconfig.json ./src/index.ts"
+    "build": "tsx --tsconfig ./tsconfig.json ./src/index.ts",
+    "clean": "rimraf node_modules  ../../apps/docs/content/docs"
   },
   "dependencies": {
     "@cubicsui/utils": "workspace:^"

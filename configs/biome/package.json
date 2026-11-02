@@ -1,0 +1,21 @@
+{
+  "name": "@cubicsui/biome",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Contains biome configs of different stuff",
+  "keywords": [
+    "@cubicsui",
+    "@studiocubics",
+    "cubics",
+    "studio",
+    "components",
+    "ui",
+    "design"
+  ],
+  "author": {
+    "name": "Ishfaq Ahmed",
+    "email": "ishfaqahmed0837@gmail.com",
+    "url": "https://studio-cubics.vercel.app"
+  },
+  "license": "MIT"
+}

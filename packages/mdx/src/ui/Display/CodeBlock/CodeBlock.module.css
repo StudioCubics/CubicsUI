@@ -4,9 +4,6 @@
   display: flex;
   flex-direction: column;
   isolation: isolate;
-  border-radius: var(--br);
-  overflow: clip;
-  margin-block: var(--gap-10);
 }
 .header {
   background: var(--color-surface-highest);
@@ -18,6 +15,9 @@
 .main {
   position: relative;
   flex: 1;
+}
+.editor {
+  border-radius: var(--br);
 }
 .overlay {
   position: absolute;

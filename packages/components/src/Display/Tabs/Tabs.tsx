@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import type { JSX } from "react/jsx-runtime";
 import type { TabsContextProps, TabsProps } from "./Tabs.types";
 
@@ -14,12 +14,14 @@ export function useTabs(): TabsContextProps {
 
 export function Tabs(props: TabsProps): JSX.Element {
   const { children, defaultTab } = props;
-
   const [activeTab, setActiveTab] = useState<string | null>(defaultTab ?? null);
+  const [prevDefaultTab, setPrevDefaultTab] = useState(defaultTab);
 
-  useEffect(() => {
+  // reset the active tab when defaultTab changes
+  if (defaultTab !== prevDefaultTab) {
+    setPrevDefaultTab(defaultTab);
     setActiveTab(defaultTab ?? null);
-  }, [defaultTab]);
+  }
 
   return (
     <TabsContext.Provider

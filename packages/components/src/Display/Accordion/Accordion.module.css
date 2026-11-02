@@ -1,0 +1,36 @@
+.root {
+  --glider-color: var(--color-primary);
+  position: relative;
+  isolation: isolate;
+}
+.root:has([data-slot="accordion_item"][data-color="primary"]) {
+  --glider-color: var(--color-primary);
+}
+.root:has([data-slot="accordion_item"][data-color="secondary"]) {
+  --glider-color: var(--color-secondary);
+}
+.root:has([data-slot="accordion_item"][data-color="tertiary"]) {
+  --glider-color: var(--color-tertiary);
+}
+.root:has([data-slot="accordion_item"][data-color="error"]) {
+  --glider-color: var(--color-error);
+}
+.root:has([data-slot="accordion_item"][data-color="warn"]) {
+  --glider-color: var(--color-warn);
+}
+.root:has([data-slot="accordion_item"][data-color="success"]) {
+  --glider-color: var(--color-success);
+}
+
+.glider {
+  --color: var(--glider-color);
+  background: none;
+  backdrop-filter: none;
+  pointer-events: none;
+  border-radius: var(--br);
+  transition:
+    inset var(--transition-time) var(--transition-tf),
+    opacity var(--transition-time) var(--transition-tf),
+    scale var(--transition-time) var(--transition-tf),
+    width var(--transition-time) var(--transition-tf);
+}

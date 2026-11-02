@@ -11,20 +11,38 @@ import type { Route } from "next";
 import type { ReactNode } from "react";
 
 export const componentsMeta: ListItemProps<Route>[] = [
+  // Global Styles
+  {
+    type: "collapsible",
+    id: "globalStyles",
+    children: "Global Styles",
+    href: "/components/globalStyles",
+    nodes: [
+      { children: "Typography", href: "/components/globalStyles/typography" },
+      { children: "Colors", href: "/components/globalStyles/colors" },
+    ],
+  },
+  // Display
   {
     type: "collapsible",
     id: "display",
     children: "Display",
     nodes: [
+      { children: "Accordion", href: "/components/accordion" },
       { children: "Card", href: "/components/card" },
       { children: "Chip", href: "/components/chip" },
       { children: "GlassCard", href: "/components/glassCard" },
+      {
+        children: "LabeledValue",
+        href: "/components/labeledValue",
+      },
       { children: "List", href: "/components/list" },
       { children: "TableOfContents", disabled: true, icon: "🚧" },
       { children: "Tabs", href: "/components/tabs" },
       { children: "Tooltip", disabled: true, icon: "🚧" },
     ],
   },
+  // Inputs
   {
     type: "collapsible",
     id: "inputs",
@@ -45,7 +63,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
         icon: "🚧",
       },
       { children: "PasswordInput", href: "/components/passwordInput" },
-      { children: "Rolodex", href: "/components/rolodex" },
+      { children: "Rolodex", href: "/components/rolodex", icon: "🚧" },
       { children: "Select", href: "/components/select" },
       { children: "Switch", href: "/components/switch" },
       { children: "TextAreaInput", href: "/components/textAreaInput" },
@@ -53,6 +71,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "ThemeToggle", href: "/components/themeToggle" },
     ],
   },
+  // Layout
   {
     type: "collapsible",
     id: "layout",
@@ -60,31 +79,34 @@ export const componentsMeta: ListItemProps<Route>[] = [
     nodes: [
       {
         children: "PageLayout",
-        disabled: true,
-        icon: "🚧",
+        href: "/components/pageLayout",
       },
       {
         children: "PageLayoutTOC",
-        disabled: true,
+        href: "/components/pageLayoutTOC",
         icon: "🚧",
       },
       { children: "Popover", href: "/components/popover" },
       {
+        children: "SectionWrapper",
+        href: "/components/sectionWrapper",
+      },
+      {
         children: "SidebarLayout",
         href: "/components/sidebarLayout",
       },
+      { children: "Table", href: "/components/table", icon: "🚧" },
     ],
   },
+  // Navigation
   {
     type: "collapsible",
-    id: "misc",
-    children: "Misc",
+    id: "navigation",
+    children: "Navigation",
     nodes: [
-      { children: "Logo", href: "/components/logo" },
       {
-        children: "Ripple",
-        disabled: true,
-        icon: "🚧",
+        children: "Breadcrumbs",
+        href: "/components/breadcrumbs",
       },
     ],
   },
@@ -104,6 +126,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "ThemeProvider", href: "/components/themeProvider" },
     ],
   },
+  // Typography
   {
     type: "collapsible",
     id: "typography",
@@ -111,6 +134,20 @@ export const componentsMeta: ListItemProps<Route>[] = [
     nodes: [
       { children: "PageHeader", href: "/components/pageHeader" },
       { children: "TextOrList", href: "/components/textOrList" },
+    ],
+  },
+  // Misc
+  {
+    type: "collapsible",
+    id: "misc",
+    children: "Misc",
+    nodes: [
+      { children: "Logo", href: "/components/logo" },
+      {
+        children: "Ripple",
+        disabled: true,
+        icon: "🚧",
+      },
     ],
   },
 ];

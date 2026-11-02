@@ -1,17 +1,20 @@
-export function ComponentIcon(
-  props: React.ComponentProps<"svg">,
-): React.ReactElement {
-  const { width = 24, height = width, ...rest } = props;
+import { cn } from "@cubicsui/utils";
+import type { ComponentProps, ReactElement } from "react";
+
+export function ComponentIcon(props: ComponentProps<"svg">): ReactElement {
+  const { width = 24, height = width, className, ...rest } = props;
   return (
     <svg
       fill="none"
       stroke="currentColor"
+      role="img"
+      aria-label="ComponentIcon"
       {...rest}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className="lucide"
+      className={cn(className, "lucide")}
     >
       <path d="M15.536 11.293a1 1 0 0 0 0 1.414l2.376 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z" />
       <path d="M2.297 11.293a1 1 0 0 0 0 1.414l2.377 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414L6.088 8.916a1 1 0 0 0-1.414 0z" />

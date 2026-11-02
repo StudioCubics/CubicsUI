@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 
 type GliderUpdater = (
   glider: HTMLDivElement,
@@ -8,8 +8,7 @@ type GliderUpdater = (
   scrollLeft: number,
   scrollTop: number,
 ) => void;
-
-export type UseGliderReturnType = {
+export type UseGliderReturn = {
   gliderRef: RefObject<HTMLElement | null>;
   rootRef: RefObject<HTMLElement | null>;
 };
@@ -17,7 +16,7 @@ export type UseGliderReturnType = {
 export function useGlider(
   updater: GliderUpdater,
   deps: unknown[],
-): UseGliderReturnType {
+): UseGliderReturn {
   const gliderRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLOListElement>(null);
   const updaterRef = useRef<GliderUpdater>(updater);
@@ -48,7 +47,7 @@ export function useGlider(
     return () => {
       resizeObserver.disconnect();
     };
-  }, deps);
+  }, [...deps]);
 
   return { gliderRef, rootRef };
 }

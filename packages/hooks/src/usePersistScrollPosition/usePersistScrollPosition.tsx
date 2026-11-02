@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, type RefObject } from "react";
+import { type RefObject, useLayoutEffect, useRef } from "react";
 
 /**
  * This will remember the scroll position of the user and restore it on navigation for reload and back_forward
@@ -24,7 +24,8 @@ export function usePersistScrollPosition({
     // Only restore on reload / back-forward, not on fresh navigations
     const navType = (
       performance.getEntriesByType("navigation")[0] as
-        PerformanceNavigationTiming | undefined
+        | PerformanceNavigationTiming
+        | undefined
     )?.type;
 
     let saved: string | null = null;
@@ -76,7 +77,7 @@ export function usePersistScrollPosition({
       cancelAnimationFrame(restoreRaf);
       cancelAnimationFrame(saveRaf);
     };
-  }, [id]);
+  }, [id, disabled]);
 
   return { containerRef };
 }

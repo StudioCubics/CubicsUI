@@ -1,11 +1,11 @@
 "use client";
 
-import { useId, type ReactElement } from "react";
-import { InputField } from "../InputField/InputField";
 import { cn, mergeEvents } from "@cubicsui/utils";
-import type { TextInputProps } from "./TextInput.types";
+import { type ReactElement, useId } from "react";
+import { InputField } from "../InputField/InputField";
 import type { InputFieldProps } from "../InputField/InputField.types";
 import styles from "./TextInput.module.css";
+import type { TextInputProps } from "./TextInput.types";
 
 export function TextInput(props: TextInputProps): ReactElement {
   const {
@@ -27,14 +27,13 @@ export function TextInput(props: TextInputProps): ReactElement {
     className,
     type = "text",
     htmlSize,
-    onTouchStart,
     onClick,
     ...inputProps
   } = props;
   const fallbackId = useId();
   const inputId = id ?? fallbackId;
   const descriptionId =
-    !!error || !!helperText ? `${inputId}-description` : undefined;
+    error || helperText ? `${inputId}-description` : undefined;
 
   const inputFieldProps: InputFieldProps = {
     label,

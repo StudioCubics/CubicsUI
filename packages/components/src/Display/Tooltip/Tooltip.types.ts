@@ -1,5 +1,5 @@
 import type { Position, SafePositionOptions } from "@cubicsui/utils";
-import type { ReactNode, ReactElement, Ref } from "react";
+import type { ReactElement, ReactNode, Ref } from "react";
 
 export interface TooltipProps extends SafePositionOptions {
   /** The content of the tooltip */
@@ -9,7 +9,7 @@ export interface TooltipProps extends SafePositionOptions {
   children: ReactElement<{ ref?: Ref<HTMLElement | null> }>;
 }
 
-export type UseTooltipReturnType = {
+export type UseTooltipReturn = {
   showTooltip: boolean;
   position: Position;
   anchorRef: Ref<HTMLElement | null>;
@@ -17,7 +17,7 @@ export type UseTooltipReturnType = {
   updatePosition: () => void;
 };
 
-export type GetArrowDirectionReturnType =
+export type GetArrowDirectionReturn =
   | "top"
   | "bottom"
   | "left"

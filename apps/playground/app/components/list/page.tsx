@@ -1,9 +1,15 @@
-import { Card, CardContent, CardHeader, Button } from "@cubicsui/components";
-import { List, ListItem } from "@cubicsui/components";
-import { SelectedWhen } from "./selectedWhen";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  List,
+  ListItem,
+} from "@cubicsui/components";
 import { CubicsUIFavicon } from "@cubicsui/icons";
-import { RenderGlider } from "./renderMarker";
 import { nestedListItems } from "@/lib/constants/nestedListItems";
+import { RenderGlider } from "./renderMarker";
+import { SelectedWhen } from "./selectedWhen";
 
 export default function Page() {
   return (
@@ -30,7 +36,6 @@ export default function Page() {
                   <ListItem
                     type="collapsible"
                     id="notifications"
-
                     nodes={nestedListItems("notifications")}
                   >
                     Notifications
@@ -252,9 +257,9 @@ export default function Page() {
           </List>
         </div>
       </section>
-      <h2>Persisting collapsed state</h2>
+      <h2>Persisting Expanded state</h2>
       <p>
-        Collapsed state is saved to <code>localStorage</code> when the{" "}
+        Expanded state is saved to <code>localStorage</code> when the{" "}
         <code>List</code> has an <code>id</code>, unless{" "}
         <code>persist={"{false}"}</code> is set. Without an <code>id</code>,
         nothing is persisted. Toggle the items, then reload the page and
@@ -299,7 +304,7 @@ export default function Page() {
           <List>
             <ListItem
               type="collapsible"
-              id="persist-no-id-collapsible"
+              id="persist-no-id-expendable"
               nodes={nestedListItems("persistNoId")}
             >
               Not persisted
@@ -317,7 +322,7 @@ export default function Page() {
           <List persist>
             <ListItem
               type="collapsible"
-              id="persist-no-id-flag-collapsible"
+              id="persist-no-id-flag-expendable"
               nodes={nestedListItems("persistNoIdFlag")}
             >
               Unreliable
@@ -363,7 +368,7 @@ export default function Page() {
       <h2>
         With custom <code>dropdownIcon</code>
       </h2>
-      <p>Custom dropdownIcon set to &quot;^&quot; in collapsible type</p>
+      <p>Custom dropdownIcon set to &quot;^&quot; in expendable type</p>
       <section>
         <div className="column" style={{ width: "260px" }}>
           <List>
@@ -386,7 +391,7 @@ export default function Page() {
       <p>
         <code>listType</code> sets the CSS <code>list-style-type</code> for a
         list. Pass it to <code>List</code> to apply it to the whole list (and
-        its sublists), or to a <code>collapsible</code> <code>ListItem</code> to
+        its sublists), or to a <code>expendable</code> <code>ListItem</code> to
         override it for just that item&apos;s sublist.
       </p>
       <section>
@@ -406,7 +411,7 @@ export default function Page() {
           </List>
         </div>
         <div className="column" style={{ width: "260px" }}>
-          <h3>Per collapsible sublist</h3>
+          <h3>Per Expendable sublist</h3>
           <List ordered>
             <ListItem>Item one</ListItem>
             <ListItem
@@ -422,19 +427,19 @@ export default function Page() {
         </div>
       </section>
 
-      <h2>Collapsible nesting</h2>
+      <h2>Expendable nesting</h2>
       <p>
-        Collapsed state persists to <code>localStorage</code> keyed by{" "}
-        <code>{"${id}-collapsed"}</code> of the <code>List</code>. Reload the
-        page to confirm it sticks.
+        Expanded state persists to <code>localStorage</code> keyed by{" "}
+        <code>{`list-{id}-expandedIds`}</code> of the <code>List</code>. Reload
+        the page to confirm it sticks.
       </p>
       <section>
         <div className="column" style={{ width: "280px" }}>
-          <List>
+          <List id={"Expendable_nesting"}>
             <ListItem
               type="collapsible"
               id="collapse-initially-open"
-              defaultCollapsed={false}
+              defaultCollapsed
               nodes={nestedListItems("initiallyExpanded")}
             >
               Initially expanded
@@ -442,10 +447,9 @@ export default function Page() {
             <ListItem
               type="collapsible"
               id="collapse-initially-closed"
-              defaultCollapsed={true}
               nodes={nestedListItems("initiallyCollapsed")}
             >
-              Initially defaultCollapsed
+              Initially collapsed {"("}default{")"}
             </ListItem>
           </List>
         </div>

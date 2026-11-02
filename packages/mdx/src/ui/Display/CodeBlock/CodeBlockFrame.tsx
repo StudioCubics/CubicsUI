@@ -1,7 +1,7 @@
+import { CopyButton } from "@cubicsui/components";
+import { cn } from "@cubicsui/utils";
 import type { ReactNode } from "react";
 import styles from "./CodeBlock.module.css";
-import { cn } from "@cubicsui/utils";
-import { CopyButton } from "@cubicsui/components";
 
 type CodeBlockFrameProps = {
   icon?: ReactNode;
@@ -10,11 +10,10 @@ type CodeBlockFrameProps = {
   children: ReactNode;
 };
 
-/** Shared header + copy overlay layout for every code block variant */
 export function CodeBlockFrame(props: CodeBlockFrameProps) {
   const { icon, title, code, children } = props;
   return (
-    <div className={styles.root}>
+    <div className={cn(styles.root, "code")}>
       {/* Header div */}
       {(icon || title) && (
         <div className={cn(styles.header)}>

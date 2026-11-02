@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export interface UseDisclosureReturnType {
+export interface UseDisclosureReturn {
   open: boolean;
   handleClose: () => void;
   handleStrictClose: (
@@ -15,7 +15,7 @@ export interface UseDisclosureReturnType {
 
 export function useDisclosure(
   initialState: boolean = false,
-): UseDisclosureReturnType {
+): UseDisclosureReturn {
   const [open, setOpen] = useState(initialState);
 
   function handleOpen(): void {

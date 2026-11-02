@@ -1,21 +1,25 @@
 "use client";
 
 import {
+  isServer,
+  notImplemented,
+  withDisabledTransitions,
+} from "@cubicsui/utils";
+import {
+  type Context,
   createContext,
+  type ReactElement,
   useContext,
   useEffect,
   useState,
-  type ReactElement,
-  type Context,
 } from "react";
 import type {
-  ThemeContextProps,
-  ThemeProviderProps,
   ResolvedTheme,
   Theme,
+  ThemeContextProps,
+  ThemeProviderProps,
   ThemeScriptProps,
 } from "./ThemeProvider.types";
-import { isServer, notImplemented, withDisabledTransitions } from "@cubicsui/utils";
 import { ThemeScript } from "./ThemeScript";
 
 const MEDIA = "(prefers-color-scheme: dark)";
@@ -53,7 +57,7 @@ function getInitialTheme(
   try {
     const stored = localStorage.getItem(storageKey);
     if (stored) return stored as Theme;
-  } catch (e) {
+  } catch {
     // Unsupported
   }
 
@@ -98,18 +102,12 @@ export function ThemeProvider(props: ThemeProviderProps): ReactElement {
     enableColorScheme,
   };
 
-  function applyTheme(name: ResolvedTheme) {
-    let d = document.documentElement;
-    d.setAttribute(attribute, name);
-    if (enableColorScheme) d.style.colorScheme = name;
-  }
-
   function setTheme(value: Theme) {
     setThemeState(value);
     setResolvedTheme(resolveTheme(value, enableSystem));
     try {
       localStorage.setItem(storageKey, value);
-    } catch (e) {
+    } catch {
       // Unsupported
     }
   }
@@ -139,12 +137,23 @@ export function ThemeProvider(props: ThemeProviderProps): ReactElement {
 
   // Apply resolved theme
   useEffect(() => {
+    function applyTheme(name: ResolvedTheme) {
+      const d = document.documentElement;
+      d.setAttribute(attribute, name);
+      if (enableColorScheme) d.style.colorScheme = name;
+    }
     if (disableTransitionOnChange) {
       withDisabledTransitions(() => applyTheme(resolvedTheme), { nonce });
     } else {
       applyTheme(resolvedTheme);
     }
-  }, [resolvedTheme, applyTheme, disableTransitionOnChange, nonce]);
+  }, [
+    resolvedTheme,
+    disableTransitionOnChange,
+    nonce,
+    attribute,
+    enableColorScheme,
+  ]);
 
   return (
     <ThemeContext.Provider

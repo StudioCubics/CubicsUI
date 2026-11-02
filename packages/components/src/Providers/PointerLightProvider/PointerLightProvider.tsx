@@ -1,14 +1,16 @@
 "use client";
 
+import { useLocalStorage } from "@cubicsui/hooks";
+import { notImplemented } from "@cubicsui/utils";
 import {
+  type Context,
   createContext,
+  type ReactElement,
   useContext,
   useEffect,
-  type ReactElement,
-  type Context,
   useState,
 } from "react";
-import { notImplemented } from "@cubicsui/utils";
+import { PointerLight } from "./PointerLight/PointerLight";
 import type {
   PointerLightContextProps,
   PointerLightProps,
@@ -16,8 +18,6 @@ import type {
   PointerLightProviderProps,
   PointerLightScriptProps,
 } from "./PointerLightProvider.types";
-import { useLocalStorage } from "@cubicsui/hooks";
-import { PointerLight } from "./PointerLight/PointerLight";
 
 export const POINTERLIGHT_PROVIDER_DEFAULTS: Required<PointerLightScriptProps> =
   {
@@ -71,7 +71,7 @@ export function PointerLightProvider(
     setPointerLightState(value);
     try {
       localStorage.setItem(storageKey, JSON.stringify(value));
-    } catch (e) {
+    } catch {
       // Unsupported
     }
   }
@@ -89,13 +89,13 @@ export function PointerLightProvider(
             ? defaultPointerLight
             : (JSON.parse(e.newValue) as boolean);
         setPointerLightState(newC);
-      } catch (err) {
+      } catch {
         setPointerLightState(defaultPointerLight);
       }
     };
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
-  }, [storageKey, defaultPointerLight]);
+  }, [storageKey, defaultPointerLight, setPointerLightState]);
 
   return (
     <PointerLightContext.Provider

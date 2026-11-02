@@ -11,7 +11,7 @@ type ThemeData = Parameters<Monaco["editor"]["defineTheme"]>[1];
 // Red         #b3261e  errors, warnings, deletions
 // Orange      #A34D14  numbers, constants, booleans
 // Yellow      #846E15  strings, text content
-// Green       #4faa78  functions, methods
+// Green       #55964f  functions, methods
 // Cyan        #514faa  classes, types, support
 // Purple      #7a3bcb  instance reserved words (this/self/super) — italic
 // Pink        #de599c  keywords, storage types
@@ -94,8 +94,8 @@ export const cubicsuiLightTheme: ThemeData = {
     { token: "storage.modifier", foreground: "de599c" },
 
     // ── Functions / Methods → Green ───────────────────────────────────────
-    { token: "entity.name.function", foreground: "4faa78" },
-    { token: "support.function", foreground: "4faa78" },
+    { token: "entity.name.function", foreground: "55964f" },
+    { token: "support.function", foreground: "55964f" },
 
     // ── Classes / Types / Support → Cyan ─────────────────────────────────
     { token: "entity.name.class", foreground: "514faa" },
@@ -133,7 +133,7 @@ export const cubicsuiLightTheme: ThemeData = {
     { token: "invalid.deprecated", foreground: "b3261e" },
 
     // ── Diff ─────────────────────────────────────────────────────────────
-    { token: "added", foreground: "4faa78" },
+    { token: "added", foreground: "55964f" },
     { token: "deleted", foreground: "b3261e" },
     { token: "changed", foreground: "A34D14" },
 
@@ -171,12 +171,12 @@ export const cubicsuiLightTheme: ThemeData = {
     { token: "delimiter.tag.jsx", foreground: "313133" },
 
     // ── Attribute names → Green italic ────────────────────────────────────
-    { token: "attribute.name", foreground: "4faa78", fontStyle: "italic" },
-    { token: "attribute.name.html", foreground: "4faa78", fontStyle: "italic" },
-    { token: "tag.attribute.name", foreground: "4faa78", fontStyle: "italic" },
+    { token: "attribute.name", foreground: "55964f", fontStyle: "italic" },
+    { token: "attribute.name.html", foreground: "55964f", fontStyle: "italic" },
+    { token: "tag.attribute.name", foreground: "55964f", fontStyle: "italic" },
     {
       token: "tag.attribute.name.html",
-      foreground: "4faa78",
+      foreground: "55964f",
       fontStyle: "italic",
     },
 
@@ -203,7 +203,7 @@ export const cubicsuiLightTheme: ThemeData = {
 // Red          #e69490  errors, warnings, deletions
 // Orange       #FFB86C  numbers, constants, parameters
 // Yellow       #F1FA8C  strings, text content
-// Green        #50FA7B  functions, methods, attributes
+// Green        #8bc783  functions, methods, attributes
 // Cyan         #9a97e6  classes, types, support
 // Purple       #bc9de6  constants, instance reserved words (this/self)
 // Pink         #e6a8c7  keywords, storage types
@@ -317,8 +317,8 @@ export const cubicsuiDarkTheme: ThemeData = {
     { token: "constant.language", foreground: "bc9de6" },
 
     // ── Functions / Methods → Green ───────────────────────────────────────
-    { token: "entity.name.function", foreground: "50FA7B" },
-    { token: "support.function", foreground: "50FA7B" },
+    { token: "entity.name.function", foreground: "8bc783" },
+    { token: "support.function", foreground: "8bc783" },
 
     // ── Classes / Types → Cyan ────────────────────────────────────────────
     { token: "entity.name.class", foreground: "9a97e6" },
@@ -355,8 +355,8 @@ export const cubicsuiDarkTheme: ThemeData = {
     },
 
     // ── Decorators → Green ────────────────────────────────────────────────
-    { token: "annotation", foreground: "50FA7B" },
-    { token: "decorator", foreground: "50FA7B" },
+    { token: "annotation", foreground: "8bc783" },
+    { token: "decorator", foreground: "8bc783" },
 
     // ── Markdown ──────────────────────────────────────────────────────────
     { token: "emphasis", fontStyle: "italic", foreground: "d9d9da" },
@@ -393,12 +393,12 @@ export const cubicsuiDarkTheme: ThemeData = {
     { token: "delimiter.tag.jsx", foreground: "d9d9da" },
 
     // ── Attribute names → Green italic ────────────────────────────────────
-    { token: "attribute.name", foreground: "50FA7B", fontStyle: "italic" },
-    { token: "attribute.name.html", foreground: "50FA7B", fontStyle: "italic" },
-    { token: "tag.attribute.name", foreground: "50FA7B", fontStyle: "italic" },
+    { token: "attribute.name", foreground: "8bc783", fontStyle: "italic" },
+    { token: "attribute.name.html", foreground: "8bc783", fontStyle: "italic" },
+    { token: "tag.attribute.name", foreground: "8bc783", fontStyle: "italic" },
     {
       token: "tag.attribute.name.html",
-      foreground: "50FA7B",
+      foreground: "8bc783",
       fontStyle: "italic",
     },
 

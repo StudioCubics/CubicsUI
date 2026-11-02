@@ -1,8 +1,25 @@
-import type { ListItemProps, TocItem } from "@cubicsui/components";
+import type {
+  BreadcrumbItem,
+  ListDefaultHrefType,
+  ListItemProps,
+  TocItem,
+} from "@cubicsui/components";
+import type { MDXComponents } from "next-mdx-remote-client";
+import type { EvaluateOptions } from "next-mdx-remote-client/rsc";
+import type { ReactNode } from "react";
 
-export type MDXScope = {
+/** Trie node used while grouping flat slugs into a nested tree */
+export type TrieNode = { isPage: boolean; children: Map<string, TrieNode> };
+
+export type MDXOptions = NonNullable<EvaluateOptions<MDXScope>["mdxOptions"]>;
+
+export type MDXRemarkPlugins = NonNullable<MDXOptions["remarkPlugins"]>;
+export type MDXRehypePlugins = NonNullable<MDXOptions["rehypePlugins"]>;
+
+export type MDXScope<H extends string = string> = {
   readingTime?: string;
   toc?: TocItem[];
+  breadcrumbs: BreadcrumbItem<H>[];
 };
 
 export type MDXFrontmatter = {
@@ -18,7 +35,17 @@ export type MDXFrontmatter = {
   description?: string;
   /** If table of content should be shown for this page or not */
   toc?: boolean;
+  /** If breadcrumbs should be shown for this page or not */
+  breadcrumbs: boolean;
 };
+export interface MDXPageData<H extends string = string> {
+  frontmatter: MDXFrontmatter;
+  scope: MDXScope<H>;
+}
+export interface MDXPageTreeProviderProps<T extends ListDefaultHrefType> {
+  tree: ListItemProps<T>[];
+  children: ReactNode;
+}
 
 /** Shape a folder's `meta.tsx` must default-export */
 export interface MDXMeta {
@@ -37,6 +64,11 @@ export interface MDXLoaderProps {
    * @example "content/docs"
    */
   contentRoot: string;
+  /**
+   * Optional URL prefix the content is served under, used for hrefs
+   * @example "/docs"
+   */
+  basePath?: string;
   /**
    * The function that will be used to read the source of the mdx files, other source reading method is also allowed
    * @param {String} relPath Path to the MDX file, relative to the content root.
@@ -65,5 +97,17 @@ export interface MDXLoaderProps {
    * });
    * ```
    */
-  readMeta?: (relFolderPath: string) => Promise<MDXMeta>;
+  readMeta: (relFolderPath: string) => Promise<MDXMeta>;
+
+  remarkPlugins?: MDXRemarkPlugins;
+  rehypePlugins?: MDXRehypePlugins;
+  /** Any components that need to overide the default components like `{ a: Link }` for using `next/link` instead of anchor tag */
+  components?: MDXComponents;
 }
+
+/** Shared state passed to every loader factory */
+export type MDXLoaderContext = MDXLoaderProps &
+  Required<Pick<MDXLoaderProps, "components" | "basePath">> & {
+    /** Slugs computed once, at loader init time */
+    pageSlugs: string[];
+  };

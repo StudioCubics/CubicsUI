@@ -1,7 +1,7 @@
-import type { ReactElement } from "react";
-import type { PageHeaderProps } from "./PageHeader.types";
 import { cn } from "@cubicsui/utils";
+import type { ReactElement } from "react";
 import styles from "./PageHeader.module.css";
+import type { PageHeaderProps } from "./PageHeader.types";
 
 export function PageHeader(props: PageHeaderProps): ReactElement {
   const {
@@ -16,31 +16,27 @@ export function PageHeader(props: PageHeaderProps): ReactElement {
   const TitleComponent = as;
   return (
     <header {...rest} className={cn(className, styles.root)}>
-      {/* Title */}
       <TitleComponent
         {...slotProps.title}
         className={cn(slotProps.title?.className, styles.title)}
       >
         {title}
       </TitleComponent>
-
-      {/* Action */}
       {actions && (
         <div
-          {...slotProps.action}
-          className={cn(slotProps.action?.className, styles.action)}
+          {...slotProps.actions}
+          className={cn(slotProps.actions?.className, styles.actions)}
         >
           {actions}
         </div>
       )}
-      {/* Description */}
       {desc && (
-        <p
+        <div
           {...slotProps.desc}
           className={cn(slotProps.desc?.className, styles.desc)}
         >
           {desc}
-        </p>
+        </div>
       )}
     </header>
   );

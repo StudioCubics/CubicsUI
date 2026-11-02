@@ -1,5 +1,6 @@
-import type { ComponentProps, ReactNode, ElementType } from "react";
+import type { ElementType } from "react";
 import type { TableOfContentsProps } from "../../Display/TableOfContents/TableOfContents.types";
+import type { PageLayoutProps } from "../PageLayout/PageLayout.types";
 import type {
   SidebarBodyProps,
   SidebarHeaderProps,
@@ -7,31 +8,27 @@ import type {
   SidebarProps,
   SidebarViewportProps,
 } from "../SidebarLayout/SidebarLayout.types";
-import type { PageHeaderProps } from "../../Typography/PageHeader/PageHeader.types";
 
-export interface PageLayoutTOCProps
-  extends
-    Omit<SidebarLayoutProps, "slotProps">,
-    Pick<PageHeaderProps, "title" | "desc" | "actions"> {
-  /** The main content that will be shown through the viewports */
-  children: ReactNode;
-  className?: string;
+export interface PageLayoutTOCProps extends Omit<PageLayoutProps, "slotProps"> {
   /** The table of contents flat tree */
-  tree: TableOfContentsProps["tree"];
+  tree?: TableOfContentsProps["tree"];
   /** @default "a" */
   LinkComponent?: ElementType;
-  /** The props for the slots */
-  slotProps?: SidebarLayoutProps["slotProps"] & {
-    /** The PageTitle components props that are not merged with PageLayoutTOCProps */
-    title?: Omit<PageHeaderProps, "title" | "desc" | "actions">;
+  /** Removes contentFlow from the viewport */
+  disableViewportContentFlow?: boolean;
+
+  slotProps?: PageLayoutProps["slotProps"] & {
     /** The main Table of contents */
     tableOfContents?: TableOfContentsProps;
-
+    /** The layout for creating sidebar  */
+    sidebarLayout?: SidebarLayoutProps;
+    /** The sidebar `<aside/>` */
     sidebar?: SidebarProps;
+    /** The sidebar's header in a `<div/>` */
     sidebarHeader?: SidebarHeaderProps;
+    /** The sidebar's body in a `<div/>` */
     sidebarBody?: SidebarBodyProps;
+    /** The main area where the children will be shown */
     sidebarViewport?: SidebarViewportProps;
-
-    body?: ComponentProps<"div">;
   };
 }

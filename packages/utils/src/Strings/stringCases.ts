@@ -23,13 +23,15 @@ function withPreserved(str: string, transform: (s: string) => string): string {
   let result = transform(stashedEsc);
 
   result = result.replace(
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: This is escaping null, so intentional
     /\x00ESCAPED_(\d+)\x00/g,
-    (_, i: string) => escaped[parseInt(i)],
+    (_, i: string) => escaped[parseInt(i, 10)],
   );
 
   result = result.replace(
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: This is escaping null, so intentional
     /\x00PRESERVED_(\d+)\x00/g,
-    (_, i: string) => preserved[parseInt(i)],
+    (_, i: string) => preserved[parseInt(i, 10)],
   );
 
   return result;
@@ -38,7 +40,7 @@ function withPreserved(str: string, transform: (s: string) => string): string {
 function toWords(str: string): string[] {
   return str
     .replace(/([a-z])([A-Z])/g, "$1 $2") // camelCase → camel Case
-    .replace(/[_\-]+/g, " ") // snake_case, kebab-case → spaces
+    .replace(/[_-]+/g, " ") // snake_case, kebab-case → spaces
     .trim()
     .split(/\s+/)
     .filter(Boolean)

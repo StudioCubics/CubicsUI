@@ -1,6 +1,7 @@
 .markerContainer {
   isolation: isolate;
   margin-right: -16px;
+  overflow: visible;
 }
 
 .color1 {

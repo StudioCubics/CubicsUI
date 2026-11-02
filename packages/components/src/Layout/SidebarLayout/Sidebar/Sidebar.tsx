@@ -1,10 +1,10 @@
 "use client";
 
-import { type ReactElement } from "react";
 import { cn } from "@cubicsui/utils";
+import type { ReactElement } from "react";
 import { useSidebarLayout } from "../SidebarLayout";
-import styles from "./Sidebar.module.css";
 import type { SidebarProps } from "../SidebarLayout.types";
+import styles from "./Sidebar.module.css";
 
 export function Sidebar(props: SidebarProps): ReactElement {
   const { children, removeBg = false, ...rest } = props;

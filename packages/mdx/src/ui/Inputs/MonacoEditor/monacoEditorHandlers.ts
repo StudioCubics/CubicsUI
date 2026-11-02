@@ -1,8 +1,8 @@
+import type { Monaco } from "@monaco-editor/react";
 import {
   cubicsuiDarkTheme,
   cubicsuiLightTheme,
 } from "../../../themes/cubicsuiMonacoTheme";
-import type { Monaco } from "@monaco-editor/react";
 import { registerJsxTokenizer } from "./monacoJSXTokenizer";
 
 // Register themes once before mount
@@ -12,7 +12,7 @@ export function handleEditorBeforeMount(monaco: Monaco) {
   registerJsxTokenizer(monaco);
 }
 
-export async function handleEditorOnMount(editor: unknown, monaco: Monaco) {
+export async function handleEditorOnMount(_: unknown, monaco: Monaco) {
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     target: monaco.languages.typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,

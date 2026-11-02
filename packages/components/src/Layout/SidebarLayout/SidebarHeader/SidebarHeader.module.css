@@ -10,7 +10,7 @@
   padding-top: 0;
   transition: all var(--transition-time) var(--transition-tf);
 }
-.logo {
+.title {
   flex: 1 1 100%;
   display: flex;
   justify-content: center;
@@ -22,7 +22,7 @@
   }
 }
 .root[data-open="false"] {
-  & .logo {
+  & .title {
     min-height: var(--header-height);
   }
 }
@@ -38,7 +38,7 @@
     justify-content: flex-end;
     flex: 1 1 0;
   }
-  & .logo {
+  & .title {
     & > svg {
       width: 66%;
       height: auto;
@@ -46,12 +46,12 @@
   }
 }
 .closesTo_shortened {
-  & .header {
+  & :where(.header) {
     padding: calc(var(--size));
   }
 }
 .closesTo_full {
-  & .header {
+  & :where(.header) {
     padding: calc(var(--size));
   }
   &[data-open="false"] {

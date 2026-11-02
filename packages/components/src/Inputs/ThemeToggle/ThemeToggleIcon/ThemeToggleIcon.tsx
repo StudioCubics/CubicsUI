@@ -1,9 +1,9 @@
 "use client";
 
-import { useId, type ComponentProps, type ReactElement } from "react";
 import { cn } from "@cubicsui/utils";
-import styles from "./ThemeToggleIcon.module.css";
+import { type ComponentProps, type ReactElement, useId } from "react";
 import type { Theme } from "../../../Providers/ThemeProvider/ThemeProvider.types";
+import styles from "./ThemeToggleIcon.module.css";
 
 export function ThemeToggleIcon(
   props: ComponentProps<"svg"> & { currentTheme: Theme },
@@ -11,15 +11,17 @@ export function ThemeToggleIcon(
   const { width = 24, height = width, currentTheme, ...rest } = props;
   const id = useId();
   const cl =
-    currentTheme == "light"
+    currentTheme === "light"
       ? ""
-      : currentTheme == "dark"
+      : currentTheme === "dark"
         ? styles.isMoon
         : styles.isSunMoon;
   return (
     <svg
       fill="none"
       stroke="currentColor"
+      role="img"
+      aria-label="ThemeToggleIcon"
       {...rest}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

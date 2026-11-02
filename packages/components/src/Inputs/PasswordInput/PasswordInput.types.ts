@@ -1,13 +1,12 @@
 import type { ComponentProps } from "react";
+import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 import type {
   InputFieldSharedProps,
   InputFieldSlotProps,
 } from "../InputField/InputField.types";
-import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList";
 
 export interface PasswordInputProps
-  extends
-    Omit<ComponentProps<"input">, "size" | "type">,
+  extends Omit<ComponentProps<"input">, "size" | "type">,
     InputFieldSharedProps {
   /** size attribute of the html `<input size=""/>` element */
   htmlSize?: ComponentProps<"input">["size"];

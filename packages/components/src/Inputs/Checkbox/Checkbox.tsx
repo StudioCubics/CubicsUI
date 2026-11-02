@@ -1,22 +1,19 @@
 "use client";
 
+import { DrawCheckIcon, DrawDashIcon } from "@cubicsui/icons";
+import { cn, mergeRefs } from "@cubicsui/utils";
 import {
+  type ChangeEvent,
+  type ReactElement,
   useEffect,
   useId,
   useRef,
   useState,
-  type ChangeEvent,
-  type ReactElement,
 } from "react";
-import { cn, mergeRefs } from "@cubicsui/utils";
-import type { CheckboxCurrentState, CheckboxProps } from "./Checkbox.types";
-import { useCheckbox } from "./CheckboxProvider";
-import {
-  CheckIconAnimated,
-  DashIconAnimated,
-} from "./CheckboxIcons/CheckboxIcons";
 import { TextOrList } from "../../Typography/TextOrList/TextOrList";
 import styles from "./Checkbox.module.css";
+import type { CheckboxCurrentState, CheckboxProps } from "./Checkbox.types";
+import { useCheckbox } from "./CheckboxProvider";
 
 export function Checkbox(props: CheckboxProps): ReactElement {
   const {
@@ -37,12 +34,10 @@ export function Checkbox(props: CheckboxProps): ReactElement {
     error,
     helperText,
     "aria-label": ariaLabel,
-    checkedIcon = <CheckIconAnimated />,
-    indeterminateIcon = <DashIconAnimated />,
+    checkedIcon = <DrawCheckIcon />,
+    indeterminateIcon = <DrawDashIcon />,
     slotProps = {},
     onChange,
-    onTouchStart,
-    onClick,
     ...rest
   } = props;
 
@@ -58,8 +53,8 @@ export function Checkbox(props: CheckboxProps): ReactElement {
   const group = useCheckbox();
   const fallbackId = useId();
   const id = _id ?? fallbackId;
-  const isChecked = currentState == "checked";
-  const isIndeterminate = currentState == "indeterminate";
+  const isChecked = currentState === "checked";
+  const isIndeterminate = currentState === "indeterminate";
   const stringLabel = typeof label === "string" ? label : undefined;
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -83,7 +78,7 @@ export function Checkbox(props: CheckboxProps): ReactElement {
       isRegistered.current = true;
       group.register(name, c);
     }
-  }, [group, skipGroup, name, indeterminate]);
+  }, [group, skipGroup, name, indeterminate, disabled]);
 
   // Set indeterminate state
   useEffect(() => {
@@ -97,7 +92,7 @@ export function Checkbox(props: CheckboxProps): ReactElement {
     if (!isRegistered.current || !inputRef.current || !name || disabled) return;
     inputRef.current.checked = group.values[name];
     setCurrentState(group.values[name] ? "checked" : "unchecked");
-  }, [group.values, name]);
+  }, [group.values, name, disabled]);
 
   // Native form reset restores input.checked to defaultChecked but does not
   // fire onChange, so currentState never changes, this effect handles that

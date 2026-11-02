@@ -4,11 +4,44 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
+  type CardProps,
   PasswordInput,
   TextInput,
 } from "@cubicsui/components";
-import { Polymorphic } from "./polymorphic";
+import { CubicsUIFavicon } from "@cubicsui/icons";
 import Image from "next/image";
+import { Polymorphic } from "./polymorphic";
+
+function CardSample(props: CardProps) {
+  return (
+    <Card {...props}>
+      <CardHeader
+        title={<>Create your account</>}
+        desc="Takes less than a minute"
+        actions={<Button size="xs">Get Help!</Button>}
+      />
+      <CardContent>
+        <div className="column">
+          <TextInput label="Full name" fullWidth />
+          <TextInput label="Enter email address" type="email" fullWidth />
+          <PasswordInput
+            label="Enter Password"
+            enableStrengthMeter
+            fullWidth
+            slotProps={{ strengthMeter: { score: 2 } }}
+          />
+          <Button fullWidth variant="contained">
+            Sign up
+          </Button>
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button fullWidth>Google</Button>
+        <Button fullWidth>linkedIn</Button>
+      </CardFooter>
+    </Card>
+  );
+}
 
 export default function Page() {
   return (
@@ -19,32 +52,26 @@ export default function Page() {
       <h2>Composed example</h2>
       <section>
         <div className="column image_bg">
-          <Card fixedWidth="min(100%, 300px)">
-            <CardHeader
-              title={<>Create your account</>}
-              desc="Takes less than a minute"
-              actions={<Button size="xs">Get Help!</Button>}
-            />
-            <CardContent>
-              <div className="column">
-                <TextInput label="Full name" fullWidth />
-                <TextInput label="Enter email address" type="email" fullWidth />
-                <PasswordInput
-                  label="Enter Password"
-                  enableStrengthMeter
-                  fullWidth
-                  slotProps={{ strengthMeter: { score: 2 } }}
-                />
-                <Button fullWidth variant="contained">
-                  Sign up
-                </Button>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button fullWidth>Google</Button>
-              <Button fullWidth>linkedIn</Button>
-            </CardFooter>
-          </Card>
+          <CardSample fixedWidth="min(100%, 300px)" />
+        </div>
+      </section>
+      <h2>Variants</h2>
+      <section>
+        <div className="column">
+          <h3>
+            contained {"("}Default{")"}
+          </h3>
+          <CardSample variant="contained" fixedWidth="min(100%, 300px)" />
+        </div>
+        <div className="column">
+          <h3>outlined</h3>
+          <CardSample variant="outlined" fixedWidth="min(100%, 300px)" />
+        </div>
+        <div className="column">
+          <h3>
+            colored {"("}primary{")"}
+          </h3>
+          <CardSample variant="colored" fixedWidth="min(100%, 300px)" />
         </div>
       </section>
       <h2>Sizes</h2>
@@ -61,14 +88,14 @@ export default function Page() {
                 <CardHeader
                   title="This is a card title"
                   desc="This is a card desc"
-                  actions={<Button size={size}>Actions</Button>}
+                  actions={<Button>Actions</Button>}
                 />
                 <CardContent>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
                   consectetur quia maiores veniam.
                 </CardContent>
                 <CardFooter>
-                  <Button size={size}>Footer Button</Button>
+                  <Button>Footer Button</Button>
                 </CardFooter>
               </Card>
             </div>
@@ -147,25 +174,50 @@ export default function Page() {
             </div>
           ))}
         </div>
+        <hr />
+        <h3>Colored colors</h3>
+        <div className="grid">
+          {(
+            [
+              "primary",
+              "secondary",
+              "tertiary",
+              "error",
+              "warn",
+              "success",
+            ] as const
+          ).map((color) => (
+            <div className="column" key={color}>
+              <h3>{color}</h3>
+              <Card
+                variant="colored"
+                color={color}
+                fixedWidth="min(100%, 300px)"
+              >
+                <CardHeader
+                  title="This is a card title"
+                  desc="This is a card desc"
+                  actions={
+                    <Button variant="contained" color={color}>
+                      Actions
+                    </Button>
+                  }
+                />
+                <CardContent>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+                  consectetur quia maiores veniam.
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outlined" color={color}>
+                    Footer Button
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <h2>Variants</h2>
-      <section>
-        <div className="column">
-          <h3>
-            contained {"("}Default{")"}
-          </h3>
-          <Card variant="contained" fixedWidth="220px">
-            Solid surface background, no border.
-          </Card>
-        </div>
-        <div className="column">
-          <h3>outlined</h3>
-          <Card variant="outlined" fixedWidth="220px">
-            Bordered surface, useful on already-colored backgrounds.
-          </Card>
-        </div>
-      </section>
       <h2>
         <code>removeBg</code> Removes the surface background
       </h2>
@@ -198,6 +250,13 @@ export default function Page() {
 
       <h2>Layout props</h2>
       <section>
+        <div className="column">
+          <h3>centered</h3>
+          <Card disablePadding centered fixedWidth="70px" fixedHeight="70px">
+            <CubicsUIFavicon />
+            Henlo
+          </Card>
+        </div>
         <div className="column">
           <h3>square</h3>
           <Card square fixedWidth="180px">

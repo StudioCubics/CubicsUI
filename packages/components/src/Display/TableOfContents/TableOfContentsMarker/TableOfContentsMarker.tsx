@@ -1,9 +1,9 @@
 "use client";
 
-import { useId, type ReactElement } from "react";
-import type { useTableOfContentsMarker } from "./useTableOfContentsMarker";
-import styles from "./TableOfContentsMarker.module.css";
 import { cn } from "@cubicsui/utils";
+import { type ReactElement, useId } from "react";
+import styles from "./TableOfContentsMarker.module.css";
+import type { useTableOfContentsMarker } from "./useTableOfContentsMarker";
 
 export function TableOfContentsMarker(
   props: ReturnType<typeof useTableOfContentsMarker>,
@@ -12,6 +12,7 @@ export function TableOfContentsMarker(
   const tocMarkerColor = useId();
   const tocMarkerClip = useId();
   return (
+    // biome-ignore lint/a11y/noSvgWithoutTitle: This is just a line if not accesible doesnt matter
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={viewBox.w}

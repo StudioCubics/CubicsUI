@@ -5,8 +5,8 @@ import {
   CheckboxProvider,
 } from "@cubicsui/components";
 import { cn } from "@cubicsui/utils";
-import { InGroup } from "./inGroup";
 import { HybridInput } from "./hybridInput";
+import { InGroup } from "./inGroup";
 
 export default function Page() {
   return (

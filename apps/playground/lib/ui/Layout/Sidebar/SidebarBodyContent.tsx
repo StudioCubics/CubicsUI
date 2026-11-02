@@ -1,10 +1,10 @@
 "use client";
 
-import { siteMap } from "@/app/meta";
 import { List, ListItem, Rolodex } from "@cubicsui/components";
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { siteMap } from "@/app/meta";
 import { PkgSelectorCard } from "../../Display/PkgSelectorCard";
 
 export function SidebarBodyContent() {
@@ -21,7 +21,14 @@ export function SidebarBodyContent() {
         defaultValue={curr}
         items={Object.entries(siteMap).map(([k, v]) => {
           return {
-            node: <PkgSelectorCard {...v} />,
+            node: (
+              <PkgSelectorCard
+                id={k}
+                icon={v.icon}
+                title={v.label}
+                desc={v.pkg}
+              />
+            ),
             id: k,
           };
         })}
@@ -35,12 +42,13 @@ export function SidebarBodyContent() {
         renderGlider
         LinkComponent={Link}
         selectedWhen={(i) => {
-          if (i.type && i.type !== "item") return false;
+          if (i.type && i.type !== "item" && i.type !== "collapsible")
+            return false;
           return pathname === i.href;
         }}
       >
         {siteMap[curr].meta.map((cm, i) => (
-          <ListItem key={i} {...cm} />
+          <ListItem key={cm.id ?? i} {...cm} />
         ))}
       </List>
     </div>

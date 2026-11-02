@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import { Button, Logo } from "@cubicsui/components";
+import { useState } from "react";
 import { logoBaseProps } from "./logoAssets";
 
 /**

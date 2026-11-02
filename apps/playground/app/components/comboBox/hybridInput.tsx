@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, ComboBox } from "@cubicsui/components";
-import { useState, type SubmitEvent } from "react";
+import { type SubmitEvent, useState } from "react";
 
 const fruitOptions = [
   { label: "Orange" },

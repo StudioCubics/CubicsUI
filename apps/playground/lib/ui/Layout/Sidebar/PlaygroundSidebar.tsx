@@ -1,13 +1,13 @@
-import type { ReactNode } from "react";
-import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
 import {
-  SidebarLayout,
   Sidebar,
-  SidebarHeader,
   SidebarBody,
   SidebarFooter,
+  SidebarHeader,
+  SidebarLayout,
   SidebarViewport,
 } from "@cubicsui/components";
+import type { ReactNode } from "react";
+import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
 import { SidebarBodyContent } from "./SidebarBodyContent";
 import { SidebarFooterContent } from "./SidebarFooterContent";
 
@@ -16,7 +16,7 @@ export function PlaygroundSidebar({ children }: { children: ReactNode }) {
     <div style={{ height: "100dvh" }}>
       <SidebarLayout>
         <Sidebar>
-          <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+          <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
           <SidebarBody>
             <SidebarBodyContent />
           </SidebarBody>

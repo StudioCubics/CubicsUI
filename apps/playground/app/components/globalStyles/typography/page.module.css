@@ -1,0 +1,12 @@
+.display:not(:first-child) {
+  margin-top: var(--gap-2);
+}
+.ffControlled:has(option[value="h"]:checked) .ff {
+  font-family: var(--font-h);
+}
+.ffControlled:has(option[value="p"]:checked) .ff {
+  font-family: var(--font-p);
+}
+.ffControlled:has(option[value="c"]:checked) .ff {
+  font-family: var(--font-c);
+}

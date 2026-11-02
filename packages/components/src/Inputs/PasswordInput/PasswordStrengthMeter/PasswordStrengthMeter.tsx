@@ -1,15 +1,15 @@
 "use client";
 
+import { cn } from "@cubicsui/utils";
 import {
-  useEffect,
-  useState,
   type CSSProperties,
   type ReactElement,
+  useEffect,
+  useState,
 } from "react";
-import { cn } from "@cubicsui/utils";
 import { TextOrList } from "../../../Typography/TextOrList/TextOrList";
-import styles from "./PasswordStrengthMeter.module.css";
 import type { PasswordStrengthMeterProps } from "../PasswordInput.types";
+import styles from "./PasswordStrengthMeter.module.css";
 
 export function PasswordStrengthMeter(
   props: PasswordStrengthMeterProps,

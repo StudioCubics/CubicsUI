@@ -1,11 +1,11 @@
 "use client";
 
 import type { PolymorphicComponentType } from "@cubicsui/types";
-import { type ElementType, type ReactElement } from "react";
-import { useRipple } from "../../Misc/Ripple/Ripple";
 import { cn, mergeEvents } from "@cubicsui/utils";
-import type { ButtonBaseProps, ButtonProps } from "./Button.types";
+import type { ElementType, ReactElement } from "react";
+import { useRipple } from "../../Misc/Ripple/Ripple";
 import styles from "./Button.module.css";
+import type { ButtonBaseProps, ButtonProps } from "./Button.types";
 
 function ButtonBase<C extends ElementType = "button">(
   props: ButtonProps<C>,

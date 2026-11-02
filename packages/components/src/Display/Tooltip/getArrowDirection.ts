@@ -1,9 +1,9 @@
-import type { GetArrowDirectionReturnType } from "./Tooltip.types";
+import type { GetArrowDirectionReturn } from "./Tooltip.types";
 
 export default function getArrowDirection(
   anchorOrigin: string,
   transformOrigin: string,
-): GetArrowDirectionReturnType {
+): GetArrowDirectionReturn {
   const parse = (origin: string) => origin.toLowerCase().trim().split(/\s+/);
 
   const [aV = "top", aH = "left"] = parse(anchorOrigin);

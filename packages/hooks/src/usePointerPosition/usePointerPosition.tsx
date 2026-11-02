@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { type RefObject, useEffect, useRef, useState } from "react";
 
 interface PositionMatrix {
   x: number;
@@ -17,7 +17,7 @@ export interface UsePointerPositionProps {
   intensity?: number;
 }
 
-export interface UsePointerPositionReturnType {
+export interface UsePointerPositionReturn {
   pointerPosition: PositionMatrix;
   pointerSpeed: number;
   pointerSpeedRef: RefObject<number>;
@@ -25,8 +25,8 @@ export interface UsePointerPositionReturnType {
 }
 
 export function usePointerPosition(
-  props: UsePointerPositionProps | void,
-): UsePointerPositionReturnType {
+  props: UsePointerPositionProps | undefined,
+): UsePointerPositionReturn {
   const {
     includeTouch = false,
     defaultPosition,
@@ -73,7 +73,8 @@ export function usePointerPosition(
   }, [prevEvent, intensity]);
   useEffect(() => {
     const updateTouchPosition = (currentEvent: TouchEvent) => {
-      let x, y;
+      let x = null,
+        y = null;
       if (currentEvent.touches) {
         const touch = currentEvent.touches[0];
         [x, y] = [touch.clientX, touch.clientY];

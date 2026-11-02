@@ -1,14 +1,16 @@
 import {
-  useState,
-  useRef,
-  useCallback,
-  useEffect,
   type KeyboardEvent,
   type ToggleEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
 import type { RolodexProps, UseRolodexContextReturn } from "./Rolodex.types";
 
-export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn {
+export function useRolodexContext(
+  props: RolodexProps,
+): UseRolodexContextReturn {
   const {
     items,
     defaultValue,
@@ -24,7 +26,7 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
   const [heights, setHeights] = useState<number[]>([]);
 
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const triggerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const wheelDelta = useRef(0);
 
@@ -49,19 +51,21 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
       ),
     ),
   );
+  const indexRef = useRef(activeIndex);
+  indexRef.current = activeIndex;
 
-  // Moves the active item by `delta` positions, wrapping around
   const shift = useCallback(
     (by: number) => {
       if (!count) return;
-      const next = items[(activeIndex + by + count) % count];
+      const nextIndex = (indexRef.current + by + count) % count;
+      indexRef.current = nextIndex; // updated immediately so rapid calls accumulate
+      const next = items[nextIndex];
       setValue(next.id);
       onChange?.(next.id);
     },
-    [items, count, activeIndex, onChange],
+    [items, count, onChange],
   );
   const shiftRef = useRef(shift);
-  shiftRef.current = shift;
 
   function heightAt(i: number) {
     return heights[((i % count) + count) % count] ?? 0;
@@ -78,7 +82,7 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
     return sign * y;
   }
 
-  function openList() {
+  function openPopover() {
     const trigger = triggerRef.current;
     const popover = popoverRef.current;
     if (!trigger || !popover) return;
@@ -113,6 +117,10 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
       e.preventDefault();
       shift(1);
     }
+    if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) {
+      e.preventDefault();
+      popoverRef.current?.hidePopover();
+    }
   }
   // Runs for every way the popover can open or close (outside click, Escape, hidePopover())
   function onPopoverToggle(e: ToggleEvent<HTMLDivElement>) {
@@ -138,7 +146,7 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, []);
+  }, [wheelStep]);
 
   // The popover is position: fixed, so close it if the page moves underneath
   useEffect(() => {
@@ -161,7 +169,7 @@ export function useRolodexContext(props: RolodexProps): UseRolodexContextReturn 
     visible,
     half,
     open,
-    openList,
+    openPopover,
     setOpen,
     shift,
     distance,

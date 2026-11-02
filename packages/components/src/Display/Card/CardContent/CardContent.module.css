@@ -1,7 +1,9 @@
-.root:not(:first-child) {
-  margin-top: var(--size);
-  color: var(--color-on-surface);
+.root {
+  color: var(--color);
 }
 .root.overflowMargin {
   margin-inline: calc(-1 * var(--size));
+}
+[data-slot="card_header"] + .root {
+  margin-top: var(--size);
 }

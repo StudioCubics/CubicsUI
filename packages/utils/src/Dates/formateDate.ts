@@ -62,7 +62,7 @@ type DateToken =
  */
 export function formatDate(
   dateInput: number | string | Date,
-  format: string = "HH:mm:ss day D MMM, YYYY"
+  format: string = "HH:mm:ss day D MMM, YYYY",
 ): string {
   const date = new Date(dateInput);
 
@@ -131,7 +131,7 @@ export function formatDate(
 
   // Sort tokens by length (longest first) to avoid partial replacements
   const tokens = (Object.keys(replacements) as DateToken[]).sort(
-    (a, b) => b.length - a.length
+    (a, b) => b.length - a.length,
   );
 
   // Use a single regex replacement to avoid overlapping matches

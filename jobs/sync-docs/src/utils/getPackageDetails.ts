@@ -1,31 +1,6 @@
-import path from "path";
-import fs from "fs";
-
-/**
- * Resolved metadata for a package inside the monorepo.
- *
- * Includes filesystem paths, package.json metadata, and
- * TypeScript source configuration used for documentation generation.
- */
-export interface PackageDetails {
-  /** Absolute path to the package root directory */
-  src: string;
-
-  /** Package name from package.json */
-  name: string;
-
-  /** Raw parsed package.json contents */
-  json: Record<string, unknown>;
-
-  /** Package version from package.json */
-  version: number;
-
-  /** Absolute path to the source directory (typically /src) */
-  docSrcPath: string;
-
-  /** Absolute path to the package tsconfig.json */
-  tsConfigPath: string;
-}
+import fs from "node:fs";
+import path from "node:path";
+import type { PackageDetails } from "../types.js";
 
 /**
  * Gets the pkg details when pkg name and directory is given
@@ -37,7 +12,7 @@ export function getPackageDetails(pkg: string, dir: string): PackageDetails {
   );
   const name = json.name;
   const version = json.version;
-  const docSrcPath = path.resolve(src, "src");
+  const pkgSrcPath = path.resolve(src, "src");
   const tsConfigPath = path.resolve(src, "tsconfig.json");
-  return { src, name, json, version, docSrcPath, tsConfigPath };
+  return { src, name, json, version, pkgSrcPath, tsConfigPath };
 }

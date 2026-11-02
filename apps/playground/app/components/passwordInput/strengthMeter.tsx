@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { Button, Card, PasswordInput, TextInput } from "@cubicsui/components";
 import Link from "next/link";
+import { useState } from "react";
 
 export function StrengthMeter() {
   const scoreWords = ["Weak", "Okay", "Good", "Strong", "Very strong"];

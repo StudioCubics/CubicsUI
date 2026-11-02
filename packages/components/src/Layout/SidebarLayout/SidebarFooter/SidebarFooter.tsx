@@ -2,9 +2,9 @@
 
 import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
-import styles from "./SidebarFooter.module.css";
 import { useSidebarLayout } from "../SidebarLayout";
 import type { SidebarShowProps } from "../SidebarLayout.types";
+import styles from "./SidebarFooter.module.css";
 
 export function SidebarFooter(
   props: ComponentProps<"div"> & SidebarShowProps,

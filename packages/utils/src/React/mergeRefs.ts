@@ -1,4 +1,4 @@
-import type { RefObject, Ref } from "react";
+import type { Ref, RefObject } from "react";
 
 export function mergeRefs<T>(
   ...refs: (Ref<T> | undefined)[]

@@ -1,16 +1,17 @@
-import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
 import {
-  SidebarLayout,
-  Sidebar,
-  SidebarHeader,
-  SidebarBody,
-  SidebarFooter,
-  SidebarViewport,
-  SidebarToggle,
   List,
   ListItem,
   type ListProps,
+  Sidebar,
+  SidebarBody,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarLayout,
+  SidebarToggle,
+  SidebarViewport,
 } from "@cubicsui/components";
+import { CubicsUIPlaygroundLogo } from "@/public/logos/CubicsUIPlaygroundLogo";
+
 const demoHeight = 400;
 
 function DemoNav({ size }: { size?: ListProps["size"] }) {
@@ -48,7 +49,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="default-flex">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -62,7 +63,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="default-float" type="float">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -85,7 +86,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="full-flex" closesTo="full" type="flex">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -105,7 +106,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="full-float" closesTo="full" type="float">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -128,7 +129,7 @@ export default function Page() {
                 <DemoViewportContent label="side=right, type=flex" />
               </SidebarViewport>
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -149,7 +150,7 @@ export default function Page() {
                 <DemoViewportContent label="side=right, type=float" />
               </SidebarViewport>
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -170,7 +171,7 @@ export default function Page() {
                 <DemoViewportContent label="side=right, type=flex" />
               </SidebarViewport>
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -192,7 +193,7 @@ export default function Page() {
                 <DemoViewportContent label="side=right, type=float" />
               </SidebarViewport>
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -212,7 +213,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="contained" variant="contained">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -231,7 +232,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="outlined" variant="outlined">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -252,7 +253,7 @@ export default function Page() {
             <div style={{ height: demoHeight }}>
               <SidebarLayout id={`size-${size}`} type="float" size={size}>
                 <Sidebar>
-                  <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                  <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                   <SidebarBody>
                     <DemoNav size={size} />
                   </SidebarBody>
@@ -260,7 +261,7 @@ export default function Page() {
                 <SidebarViewport>
                   <SidebarLayout id={`size-inner-${size}`} size={size}>
                     <Sidebar>
-                      <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                      <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                       <SidebarBody>
                         <DemoNav size={size} />
                       </SidebarBody>
@@ -289,7 +290,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="closed-default" defaultClosed={true}>
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -315,7 +316,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="outer">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -323,7 +324,7 @@ export default function Page() {
               <SidebarViewport>
                 <SidebarLayout id="inner" closesTo="full" type="float">
                   <Sidebar>
-                    <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                    <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                     <SidebarBody>
                       <DemoNav />
                     </SidebarBody>
@@ -368,7 +369,7 @@ export default function Page() {
             <SidebarLayout id="custom-toggle">
               <Sidebar>
                 <SidebarHeader
-                  logo={<CubicsUIPlaygroundLogo />}
+                  title={<CubicsUIPlaygroundLogo />}
                   sidebarToggle={<SidebarToggle>Toggle</SidebarToggle>}
                 />
                 <SidebarBody>
@@ -390,7 +391,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="body-visible">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody showOnClose>
                   <DemoNav />
                 </SidebarBody>
@@ -409,7 +410,7 @@ export default function Page() {
           <div style={{ height: demoHeight }}>
             <SidebarLayout id="footer-visible">
               <Sidebar>
-                <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+                <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
                 <SidebarBody>
                   <DemoNav />
                 </SidebarBody>
@@ -429,7 +430,7 @@ export default function Page() {
         <div className={"sidebarDemoFrame image_bg"}>
           <SidebarLayout id="on-image">
             <Sidebar>
-              <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+              <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
               <SidebarBody>
                 <DemoNav />
               </SidebarBody>
@@ -443,7 +444,7 @@ export default function Page() {
         <div className={"sidebarDemoFrame rgb_bg"}>
           <SidebarLayout id="on-rgb">
             <Sidebar>
-              <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+              <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
               <SidebarBody>
                 <DemoNav />
               </SidebarBody>

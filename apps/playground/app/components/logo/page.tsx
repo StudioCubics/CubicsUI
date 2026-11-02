@@ -1,6 +1,6 @@
 import { Card, Logo } from "@cubicsui/components";
+import { altLogoBaseProps, logoBaseProps } from "./logoAssets";
 import { ToggleLogo } from "./toggleLogo";
-import { logoBaseProps, altLogoBaseProps } from "./logoAssets";
 
 export default function Page() {
   return (

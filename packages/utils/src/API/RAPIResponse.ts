@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/complexity/noStaticOnlyClass: // TODO change to function instead of class */
+/** biome-ignore-all lint/suspicious/noExplicitAny: // TODO change to function instead of class */
 import { apiRes } from "./apiRes";
 
 export class RAPIResponse {
@@ -26,38 +28,44 @@ export class RAPIResponse {
       errMssgs.push(error.message);
     }
 
-    return this.jsonResponse(400, this.ar.error(errMssgs.join("\n")));
+    return RAPIResponse.jsonResponse(
+      400,
+      RAPIResponse.ar.error(errMssgs.join("\n")),
+    );
   }
 
   static unauthorised(): Response {
-    return this.jsonResponse(401, this.ar.unauthorised);
+    return RAPIResponse.jsonResponse(401, RAPIResponse.ar.unauthorised);
   }
 
   static forbidden(): Response {
-    return this.jsonResponse(403, this.ar.forbidden);
+    return RAPIResponse.jsonResponse(403, RAPIResponse.ar.forbidden);
   }
 
   static missingParams(param: string | string[]): Response {
-    return this.jsonResponse(400, this.ar.missingParams(param));
+    return RAPIResponse.jsonResponse(400, RAPIResponse.ar.missingParams(param));
   }
 
   static notFound(item: string): Response {
-    return this.jsonResponse(404, this.ar.notFound(item));
+    return RAPIResponse.jsonResponse(404, RAPIResponse.ar.notFound(item));
   }
 
   static itemAlreadyExists(item: string): Response {
-    return this.jsonResponse(409, this.ar.alreadyExists(item));
+    return RAPIResponse.jsonResponse(409, RAPIResponse.ar.alreadyExists(item));
   }
 
   static success(obj: Record<string, any> | any[]): Response {
-    return this.jsonResponse(200, obj);
+    return RAPIResponse.jsonResponse(200, obj);
   }
 
   static wrongType(item: string): Response {
-    return this.jsonResponse(422, this.ar.wrongType(item));
+    return RAPIResponse.jsonResponse(422, RAPIResponse.ar.wrongType(item));
   }
 
   static contentTooLarge(content: string, maxSize?: string): Response {
-    return this.jsonResponse(413, this.ar.contentTooLarge(content, maxSize));
+    return RAPIResponse.jsonResponse(
+      413,
+      RAPIResponse.ar.contentTooLarge(content, maxSize),
+    );
   }
 }

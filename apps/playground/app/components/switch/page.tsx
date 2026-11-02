@@ -1,7 +1,7 @@
 import { Card, Switch } from "@cubicsui/components";
+import { CubicsUIFavicon } from "@cubicsui/icons";
 import { cn } from "@cubicsui/utils";
 import { HybridInput } from "./hybridInput";
-import { CubicsUIFavicon } from "@cubicsui/icons";
 
 export default function Page() {
   return (

@@ -32,4 +32,5 @@ export interface ContrastContextProps {
   setContrast: (on: boolean) => void;
 }
 export interface ContrastScriptProps
-  extends ContrastSharedProps, ComponentProps<"script"> {}
+  extends ContrastSharedProps,
+    ComponentProps<"script"> {}

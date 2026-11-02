@@ -3,7 +3,7 @@ import type { ActionResponse } from "../API/apiRes";
 export function initialiseForm<T extends string = string>(
   ...fieldNames: T[]
 ): ActionResponse<T, T[]> {
-  let fieldErrors = {} as Record<T, T[]>;
+  const fieldErrors = {} as Record<T, T[]>;
   for (const fieldName of fieldNames) {
     fieldErrors[fieldName] = [] as T[];
   }

@@ -4,8 +4,7 @@
   gap: var(--gap-6);
   padding-inline: 4.165%;
   padding-block: var(--gap-10);
-
-  & > section {
+  & > :where(section) {
     display: flex;
     flex-direction: column;
     gap: var(--gap-5);
@@ -21,15 +20,24 @@
     background: var(--color-surface);
     border-radius: var(--br-sm);
     padding-inline: var(--gap);
+    overflow: auto;
   }
-  & .escapePadding {
+  & > .escapePadding {
     margin-inline: -4.165%;
     margin-block: calc(-1 * var(--gap-10));
   }
 }
 
+.row_separator {
+  padding-bottom: var(--gap-3);
+  border-bottom: var(--border-width) solid var(--color-outline);
+  &:last-child {
+    border-bottom: none;
+  }
+}
 .row {
   display: flex;
+  flex-direction: row;
   gap: var(--gap-5);
   flex-wrap: wrap;
 }
@@ -57,6 +65,21 @@
   );
   background-size: 50px 50px;
   background-repeat: repeat;
+}
+.primary_bg {
+  padding: var(--gap-5);
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+.secondary_bg {
+  padding: var(--gap-5);
+  color: var(--color-on-secondary);
+  background: var(--color-secondary);
+}
+.tertiary_bg {
+  padding: var(--gap-5);
+  color: var(--color-on-tertiary);
+  background: var(--color-tertiary);
 }
 .image_bg {
   padding: var(--gap-5);

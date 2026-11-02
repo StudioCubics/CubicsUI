@@ -1,20 +1,19 @@
 "use client";
 
-import type { ReactElement } from "react";
-import { cn } from "@cubicsui/utils";
-import { useSidebarLayout } from "../SidebarLayout";
-import { SidebarToggle } from "./SidebarToggle";
 import { useMounted } from "@cubicsui/hooks";
+import { cn } from "@cubicsui/utils";
+import type { ReactElement } from "react";
+import { useSidebarLayout } from "../SidebarLayout";
 import type { SidebarHeaderProps } from "../SidebarLayout.types";
 import styles from "./SidebarHeader.module.css";
+import { SidebarToggle } from "./SidebarToggle";
 
 export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
   const {
-    logo,
+    title,
     sidebarToggle = <SidebarToggle />,
     children,
     className,
-
     ...rest
   } = props;
   const { sidebarOpen, closesTo, side } = useSidebarLayout();
@@ -32,10 +31,16 @@ export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
         side && styles[`side_${side}`],
       )}
     >
-      <span className={cn(styles.header)}>
-        {logo && <span className={cn(styles.logo)}>{mounted && logo}</span>}
-        <span className={cn(styles.sidebarToggle)}>{sidebarToggle}</span>
-      </span>
+      {(title || sidebarToggle) && (
+        <span className={cn(styles.header)}>
+          {title && (
+            <span className={cn(styles.title)}>{mounted && title}</span>
+          )}
+          {sidebarToggle && (
+            <span className={cn(styles.sidebarToggle)}>{sidebarToggle}</span>
+          )}
+        </span>
+      )}
       {children}
     </div>
   );
