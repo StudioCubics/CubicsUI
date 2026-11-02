@@ -15,7 +15,9 @@
   & > :where(h4, h5, h6) {
     margin-top: calc(var(--size) * 1.5); /* 24px */
   }
-
+  & > :where(p) {
+    line-height: var(--lh-relaxed);
+  }
   /* Whatever follows a heading sits close to it (must come after the heading rules) */
   & > :where(h1, h2, h3, h4, h5, h6) + :where(*) {
     margin-top: calc(var(--size) * 0.75); /* 12px */

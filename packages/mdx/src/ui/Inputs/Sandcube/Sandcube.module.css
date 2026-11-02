@@ -14,12 +14,14 @@
   }
 }
 .runner {
-  flex: 1;
+  flex: 1 0 0;
   overflow: auto;
   background: white;
 }
 .code {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0; /* lets the pane shrink below Monaco's intrinsic width */
+  overflow: hidden;
 }
 [data-theme="dark"] .runner {
   background: black;

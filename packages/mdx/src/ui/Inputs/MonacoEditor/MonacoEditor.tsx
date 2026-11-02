@@ -55,6 +55,7 @@ export function MonacoEditor(props: MonacoEditorProps) {
         {...rest}
         options={{
           minimap: { enabled: false },
+          automaticLayout: true,
           fontFamily: "var(--font-code)",
           fontSize: 14,
           padding: {
