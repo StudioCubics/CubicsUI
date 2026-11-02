@@ -4,5 +4,8 @@
   "extends": [
     "@cubicsui/biome/biome.react.json",
     "@cubicsui/biome/biome.cssModules.json"
-  ]
+  ],
+  "linter": {
+    "includes": ["!**/examples"]
+  }
 }
