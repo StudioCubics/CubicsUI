@@ -37,8 +37,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
         href: "/components/labeledValue",
       },
       { children: "List", href: "/components/list" },
-      { children: "TableOfContents", disabled: true, icon: "🚧" },
-      { children: "Tabs", href: "/components/tabs" },
       { children: "Tooltip", disabled: true, icon: "🚧" },
     ],
   },
@@ -84,9 +82,9 @@ export const componentsMeta: ListItemProps<Route>[] = [
       {
         children: "PageLayoutTOC",
         href: "/components/pageLayoutTOC",
-        icon: "🚧",
       },
       { children: "Popover", href: "/components/popover" },
+      { children: "ResizablePanels", href: "/components/resizablePanels" },
       {
         children: "SectionWrapper",
         href: "/components/sectionWrapper",
@@ -108,6 +106,8 @@ export const componentsMeta: ListItemProps<Route>[] = [
         children: "Breadcrumbs",
         href: "/components/breadcrumbs",
       },
+      { children: "TableOfContents", disabled: true, icon: "🚧" },
+      { children: "Tabs", href: "/components/tabs" },
     ],
   },
   {
