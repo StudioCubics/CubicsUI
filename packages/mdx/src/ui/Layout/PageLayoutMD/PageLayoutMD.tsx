@@ -1,7 +1,7 @@
 import { PageLayoutTOC } from "@cubicsui/components";
 import { cn } from "@cubicsui/utils";
-import styles from "./PageLayoutMd.module.css";
-import type { PageLayoutMDProps } from "./PageLayoutMd.types";
+import styles from "./PageLayoutMD.module.css";
+import type { PageLayoutMDProps } from "./PageLayoutMD.types";
 
 /** Based on PageLayoutTOC */
 export function PageLayoutMd(props: PageLayoutMDProps) {
