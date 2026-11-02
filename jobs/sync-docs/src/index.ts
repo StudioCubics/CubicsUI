@@ -24,7 +24,7 @@ async function main() {
     console.log(`\nSyncing the following docs -> ${docBaseUrl}\n`);
 
     const mdxFiles = await glob("**/*.mdx", {
-      cwd: pkgDetails.docSrcPath,
+      cwd: pkgDetails.pkgSrcPath,
       absolute: true,
     });
 

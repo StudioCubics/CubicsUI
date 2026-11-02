@@ -5,7 +5,7 @@ export function getCategoryFromPath(
   filePath: string,
   context: Context,
 ): string | undefined {
-  const rel = path.relative(context.pkgDetails.docSrcPath, filePath);
+  const rel = path.relative(context.pkgDetails.pkgSrcPath, filePath);
   const cat = rel.split(path.sep)[0];
   if (!cat || path.extname(cat)) {
     throw new Error(

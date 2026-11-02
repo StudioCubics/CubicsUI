@@ -57,7 +57,7 @@ function buildUrl(
   context: Context,
 ): string {
   const { pkgDetails, docBasePath, pkg } = context;
-  const rel = path.relative(pkgDetails.docSrcPath, absFilePath);
+  const rel = path.relative(pkgDetails.pkgSrcPath, absFilePath);
   const withoutExt = rel
     .replace(/\.(tsx?|jsx?|ts?|js?)$/, "")
     .replace(/\.types$/, "");

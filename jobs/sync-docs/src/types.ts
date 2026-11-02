@@ -1,5 +1,4 @@
 import type ts from "typescript";
-import type { PackageDetails } from "./utils/getPackageDetails.js";
 
 /** A leaf sidebar entry for a single component's doc page */
 export interface ComponentMetaItem {
@@ -44,7 +43,7 @@ export interface Context {
   pkgDetails: PackageDetails;
   /**
    * Absolute filesystem path where generated MDX files are written.
-   * Example: ".../apps/docs/content/{components}"
+   * Example: ".../apps/docs/content/{docs/pkg/components}"
    */
   docBaseUrl: string;
   /** Relative path inside the doc that can be used to link Links inside the markdown
@@ -75,3 +74,29 @@ export type MDXTagTransformer = (
   mdxPath: string,
   context: Context,
 ) => string;
+
+/**
+ * Resolved metadata for a package inside the monorepo.
+ *
+ * Includes filesystem paths, package.json metadata, and
+ * TypeScript source configuration used for documentation generation.
+ */
+export interface PackageDetails {
+  /** Absolute path to the package root directory */
+  src: string;
+
+  /** Package name from package.json */
+  name: string;
+
+  /** Raw parsed package.json contents */
+  json: Record<string, unknown>;
+
+  /** Package version from package.json */
+  version: number;
+
+  /** Absolute path to the source directory (typically /src) */
+  pkgSrcPath: string;
+
+  /** Absolute path to the package tsconfig.json */
+  tsConfigPath: string;
+}

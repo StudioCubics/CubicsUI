@@ -45,5 +45,7 @@ export function processComponentMdx(mdxPath: string, context: Context): void {
 
   fs.writeFileSync(destFile, transformedContent);
 
-  console.log(`(component) ✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`);
+  console.log(
+    `(component) ✓ ${shortMdxPath(mdxPath)} -> ${shortDestFile(destFile)}`,
+  );
 }
