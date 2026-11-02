@@ -1,4 +1,6 @@
-import type { ElementType, RefObject } from "react";
+import type { ComponentProps, ElementType, RefObject } from "react";
+import type { PageHeaderProps } from "../../Typography/PageHeader/PageHeader.types";
+import type { CardContentProps, CardProps } from "../Card/Card.types";
 
 export interface TocItem {
   value: string;
@@ -23,6 +25,14 @@ export interface TableOfContentsProps {
   LinkComponent?: ElementType;
 
   withNumbering?: boolean;
+  slotProps?: {
+    root?: CardProps;
+    title?: PageHeaderProps;
+    content?: CardContentProps;
+    list?: ComponentProps<"ol"> | ComponentProps<"ul">;
+    listItem?: ComponentProps<"li">;
+    link?: ComponentProps<"a">;
+  };
 }
 
 export interface UseTableOfContentsMarkerReturn {

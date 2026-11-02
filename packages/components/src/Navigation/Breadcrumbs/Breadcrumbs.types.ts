@@ -9,9 +9,9 @@ import type {
 export type BreadcrumbsItemProps<C extends ElementType = "span"> =
   PolymorphicComponentProps<C, object>;
 
-export interface BreadcrumbsProps
+export interface BreadcrumbsProps<H extends string = string>
   extends Omit<ComponentProps<"div">, "children" | "onChange"> {
-  children: BreadcrumbCrumbType[];
+  children: BreadcrumbCrumbComponent<H>[];
   /** For controlled Breadcrumbs pass the onChange function */
   onChange?: (pageNumber: number) => void;
   /** How many siblings of the active item should be shown
@@ -30,22 +30,27 @@ export interface BreadcrumbsProps
   /** Function that can be used to modify the rendered BreadcrumbsItem component */
   renderItem?: (props: Omit<BreadcrumbsItemProps, "as">) => ReactElement;
   /** If the selected state has to be set from the List instead of individually on every ListItem */
-  selectedWhen?: (props: BreadcrumbCrumbType["props"]) => boolean;
+  selectedWhen?: (props: BreadcrumbCrumbComponent<H>["props"]) => boolean;
   /** Size of the spacing and text */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   /** Color theme of the breadcrumb */
   color?: "primary" | "secondary" | "tertiary" | "error" | "warn" | "success";
 }
-export type BreadcrumbCrumbType = ReactElement<{
-  [key: string]: unknown;
+export type BreadcrumbItem<H extends string = string> = {
   id: string;
-  href?: string;
-  onClick?: () => void;
+  href?: H;
   disabled?: boolean;
-}>;
-export interface BreadcrumbsRangeCrumb {
+  children?: string;
+};
+export type BreadcrumbCrumbComponent<H extends string = string> = ReactElement<
+  BreadcrumbItem<H> & {
+    [key: string]: unknown;
+    onClick?: () => void;
+  }
+>;
+export interface BreadcrumbsRangeCrumb<H extends string = string> {
   type: "crumb";
-  crumb: BreadcrumbCrumbType;
+  crumb: BreadcrumbCrumbComponent<H>;
   /** Index in the original crumbs array */
   index: number;
 }
@@ -55,21 +60,21 @@ export interface BreadcrumbsRangeEllipsis {
   /** Index of the first hidden crumb, used to expand this gap */
   from: number;
 }
-export type BreadcrumbsRangeItem =
-  | BreadcrumbsRangeCrumb
+export type BreadcrumbsRangeItem<H extends string = string> =
+  | BreadcrumbsRangeCrumb<H>
   | BreadcrumbsRangeEllipsis;
 
-export interface UseBreadcrumbsReturn {
-  items: BreadcrumbsRangeItem[];
+export interface UseBreadcrumbsReturn<H extends string = string> {
+  items: BreadcrumbsRangeItem<H>[];
   activeCrumb: number;
   handleClick: (index: number) => void;
   /** Reveals the hidden crumbs of the gap starting at `from` */
   expand: (from: number) => void;
 }
-export interface UseBreadcrumbsProps {
-  crumbs: BreadcrumbCrumbType[];
+export interface UseBreadcrumbsProps<H extends string = string> {
+  crumbs: BreadcrumbCrumbComponent<H>[];
   defaultSelected?: number;
-  selectedWhen?: (props: BreadcrumbCrumbType["props"]) => boolean;
+  selectedWhen?: (props: BreadcrumbCrumbComponent<H>["props"]) => boolean;
   onChange?: (pageNumber: number) => void;
   siblingCount?: number;
   boundaryCount?: number;

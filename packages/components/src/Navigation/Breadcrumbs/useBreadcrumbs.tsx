@@ -7,14 +7,14 @@ import type {
   UseBreadcrumbsReturn,
 } from "./Breadcrumbs.types";
 
-export function useBreadcrumbs({
+export function useBreadcrumbs<H extends string>({
   crumbs,
   defaultSelected = 0,
   selectedWhen,
   onChange,
   siblingCount = 1,
   boundaryCount = 0,
-}: UseBreadcrumbsProps): UseBreadcrumbsReturn {
+}: UseBreadcrumbsProps<H>): UseBreadcrumbsReturn<H> {
   const [selectedCrumb, setSelectedCrumb] = useState<number>(defaultSelected);
   // Gaps (identified by their first hidden index) that the user expanded
   const [expandedGaps, setExpandedGaps] = useState<number[]>([]);
@@ -67,7 +67,7 @@ export function useBreadcrumbs({
   for (let i = siblingsStart; i <= siblingsEnd; i++) {
     visible.add(i);
   }
-  const items: BreadcrumbsRangeItem[] = [];
+  const items: BreadcrumbsRangeItem<H>[] = [];
 
   // Fills the hidden gap [from, to]. Revealed crumbs sit next to the active
   // crumb, the ellipsis stays on the side of the boundary. A single leftover
@@ -88,7 +88,7 @@ export function useBreadcrumbs({
       return;
     }
 
-    const ellipsis: BreadcrumbsRangeItem = {
+    const ellipsis: BreadcrumbsRangeItem<H> = {
       type: "ellipsis",
       key: `ellipsis-${from}`,
       from, // stays the original gap start so expand() keeps targeting this gap

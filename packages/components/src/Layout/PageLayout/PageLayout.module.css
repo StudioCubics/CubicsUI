@@ -29,7 +29,7 @@
   & > hr {
     height: 0; /* remove UA auto height */
   }
-  & > :where(* + *) {
+  & > :where(:not(:global(.escapeGap)) + :not(:global(.escapeGap))) {
     margin-top: calc(var(--size) * var(--gr));
   }
 }
@@ -44,10 +44,10 @@
   grid-column: pageWidth;
 }
 
-.header {
+.header:not(:empty) {
   margin-block: calc(var(--size) * var(--gr)) var(--size);
 }
-.titleBar {
+.titleBar:not(:empty) {
   padding: calc(var(--size) / 2) calc((var(--size) / 2) * var(--gr));
   display: flex;
   align-items: center;

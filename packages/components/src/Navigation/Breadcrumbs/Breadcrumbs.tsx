@@ -8,7 +8,9 @@ import type { BreadcrumbsProps } from "./Breadcrumbs.types";
 import { BreadcrumbsItem } from "./BreadcrumbsItem";
 import { useBreadcrumbs } from "./useBreadcrumbs";
 
-export function Breadcrumbs(props: BreadcrumbsProps): ReactElement {
+export function Breadcrumbs<H extends string>(
+  props: BreadcrumbsProps<H>,
+): ReactElement {
   const {
     onChange,
     boundaryCount,

@@ -8,7 +8,7 @@
   gap: 1ch;
   font-size: var(--fs);
   font-family: var(--ff);
-  color: color-mix(in srgb, var(--color) 70%, transparent);
+  color: color-mix(in srgb, var(--color) 50%, transparent);
   transition: color var(--transition-time) var(--transition-tf);
 }
 :where(.item) {

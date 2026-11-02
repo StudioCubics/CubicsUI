@@ -1,3 +1,6 @@
 .contentFlow {
   composes: contentFlow from "../PageLayout/PageLayout.module.css";
 }
+.sidebarViewport {
+  padding-block: calc(var(--size) * 4);
+}

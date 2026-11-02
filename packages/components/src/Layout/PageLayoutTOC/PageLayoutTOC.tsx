@@ -72,6 +72,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
           removeBg
           className={cn(
             slotProps.sidebarViewport?.className,
+            styles.sidebarViewport,
             !disableViewportContentFlow && styles.contentFlow,
           )}
           ref={mergeRefs(slotProps.sidebarViewport?.ref, scrollContainerRef)}

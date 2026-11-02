@@ -31,10 +31,16 @@ export function SidebarHeader(props: SidebarHeaderProps): ReactElement {
         side && styles[`side_${side}`],
       )}
     >
-      <span className={cn(styles.header)}>
-        {title && <span className={cn(styles.logo)}>{mounted && title}</span>}
-        <span className={cn(styles.sidebarToggle)}>{sidebarToggle}</span>
-      </span>
+      {(title || sidebarToggle) && (
+        <span className={cn(styles.header)}>
+          {title && (
+            <span className={cn(styles.title)}>{mounted && title}</span>
+          )}
+          {sidebarToggle && (
+            <span className={cn(styles.sidebarToggle)}>{sidebarToggle}</span>
+          )}
+        </span>
+      )}
       {children}
     </div>
   );

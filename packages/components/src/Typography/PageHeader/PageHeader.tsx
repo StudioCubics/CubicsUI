@@ -31,12 +31,12 @@ export function PageHeader(props: PageHeaderProps): ReactElement {
         </div>
       )}
       {desc && (
-        <p
+        <div
           {...slotProps.desc}
           className={cn(slotProps.desc?.className, styles.desc)}
         >
           {desc}
-        </p>
+        </div>
       )}
     </header>
   );
