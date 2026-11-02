@@ -20,16 +20,5 @@ export * from "./List/List";
 export * from "./List/List.types";
 export * from "./List/ListItem/ListItem";
 
-export * from "./TableOfContents/TableOfContents";
-export * from "./TableOfContents/TableOfContents.types";
-export * from "./TableOfContents/TableOfContentsMarker/TableOfContentsMarker";
-export * from "./TableOfContents/TableOfContentsMarker/useTableOfContentsMarker";
-export * from "./TableOfContents/useTableOfContentsTree";
-
-export * from "./Tabs/Tab/Tab";
-export * from "./Tabs/Tabs";
-export * from "./Tabs/Tabs.types";
-export * from "./Tabs/TabsBar/TabsBar";
-
 export * from "./Tooltip/Tooltip";
 export * from "./Tooltip/useTooltip";
