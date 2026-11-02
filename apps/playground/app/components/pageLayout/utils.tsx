@@ -1,4 +1,5 @@
 import { Button, PageLayout, type PageLayoutProps } from "@cubicsui/components";
+import { CubicsUIFavicon } from "@cubicsui/icons";
 import { Fragment } from "react/jsx-runtime";
 
 export const lorem = `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat,
@@ -9,7 +10,11 @@ eligendi. Porro, deserunt!`;
 export function SamplePageLayout(props: Omit<PageLayoutProps, "children">) {
   return (
     <PageLayout
-      title="This is a title"
+      title={
+        <>
+          <CubicsUIFavicon /> This is a title
+        </>
+      }
       desc="This is a description"
       actions={
         <Button size="sm" variant="outlined">
@@ -24,17 +29,15 @@ export function SamplePageLayout(props: Omit<PageLayoutProps, "children">) {
           <Button variant="contained" size="sm">
             Copy
           </Button>
-          <Button variant="outlined" size="sm">
-            Paste
-          </Button>
-          <Button color="error" size="sm">
+          <Button variant="outlined">Paste</Button>
+          <Button color="error" size="lg">
             Delete
           </Button>
         </>
       }
       footer={
         <footer
-          className={"fullWidth"}
+          className={"pageWidth"}
           style={{
             background: "var(--color-surface-highest)",
             color: "var(--color-on-surface)",
@@ -57,8 +60,8 @@ export function SamplePageLayout(props: Omit<PageLayoutProps, "children">) {
         <br />
         {lorem}
       </p>
-      <p className={"fullWidth primary_bg"}>
-        With <code>className="fullWidth"</code>
+      <p className={"pageWidth primary_bg"}>
+        With <code>className="pageWidth"</code>
         <br />
         {lorem}
       </p>

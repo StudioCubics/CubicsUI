@@ -80,11 +80,10 @@ export const componentsMeta: ListItemProps<Route>[] = [
       {
         children: "PageLayout",
         href: "/components/pageLayout",
-        icon: "🚧",
       },
       {
         children: "PageLayoutTOC",
-        disabled: true,
+        href: "/components/pageLayoutTOC",
         icon: "🚧",
       },
       { children: "Popover", href: "/components/popover" },

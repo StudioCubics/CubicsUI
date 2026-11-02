@@ -16,7 +16,7 @@ export function PlaygroundSidebar({ children }: { children: ReactNode }) {
     <div style={{ height: "100dvh" }}>
       <SidebarLayout>
         <Sidebar>
-          <SidebarHeader logo={<CubicsUIPlaygroundLogo />} />
+          <SidebarHeader title={<CubicsUIPlaygroundLogo />} />
           <SidebarBody>
             <SidebarBodyContent />
           </SidebarBody>

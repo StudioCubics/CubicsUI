@@ -5,6 +5,7 @@ import {
   PageHeader,
   type PageHeaderProps,
 } from "@cubicsui/components";
+import { CubicsUIFavicon } from "@cubicsui/icons";
 
 const PageHeaderMap = (p: PageHeaderProps) => {
   return (["h1", "h2", "h3", "h4", "h5", "h6"] as PageHeaderProps["as"][]).map(
@@ -12,10 +13,13 @@ const PageHeaderMap = (p: PageHeaderProps) => {
       <Card key={as} fixedWidth="min(100%, 600px)">
         <PageHeader
           title={
-            as &&
-            (as === "h1"
-              ? `Header ${as.slice(1)} (default)`
-              : `Header ${as.slice(1)}`)
+            <>
+              <CubicsUIFavicon />{" "}
+              {as &&
+                (as === "h1"
+                  ? `Header ${as.slice(1)} (default)`
+                  : `Header ${as.slice(1)}`)}
+            </>
           }
           as={as}
           {...p}
