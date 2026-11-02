@@ -1,5 +1,5 @@
 import type { ElementType } from "react";
-import type { TableOfContentsProps } from "../../Display/TableOfContents/TableOfContents.types";
+import type { TableOfContentsProps } from "../../Navigation/TableOfContents/TableOfContents.types";
 import type { PageLayoutProps } from "../PageLayout/PageLayout.types";
 import type {
   SidebarBodyProps,

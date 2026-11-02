@@ -2,9 +2,9 @@
 
 import { cn, mergeRefs } from "@cubicsui/utils";
 import type { ReactElement } from "react";
-import { Card } from "../Card/Card";
-import { CardContent } from "../Card/CardContent/CardContent";
-import { CardHeader } from "../Card/CardHeader/CardHeader";
+import { Card } from "../../Display/Card/Card";
+import { CardContent } from "../../Display/Card/CardContent/CardContent";
+import { CardHeader } from "../../Display/Card/CardHeader/CardHeader";
 import styles from "./TableOfContents.module.css";
 import type { TableOfContentsProps } from "./TableOfContents.types";
 import { TableOfContentsMarker } from "./TableOfContentsMarker/TableOfContentsMarker";

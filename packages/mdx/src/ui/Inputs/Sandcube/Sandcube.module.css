@@ -3,12 +3,14 @@
   border-radius: var(--br-md);
   display: flex;
   flex-direction: row-reverse;
+  height: 30vh;
 }
 
 /* Stack when the container is narrower than 700px */
 @container (max-width: 700px) {
   .root {
     flex-direction: column;
+    height: 50vh;
   }
 }
 .runner {

@@ -4,7 +4,7 @@ import styles from "./PageLayoutMD.module.css";
 import type { PageLayoutMDProps } from "./PageLayoutMD.types";
 
 /** Based on PageLayoutTOC */
-export function PageLayoutMd(props: PageLayoutMDProps) {
+export function PageLayoutMD(props: PageLayoutMDProps) {
   const { breadcrumbs, slotProps = {}, titleBar, ...rest } = props;
   return (
     <PageLayoutTOC

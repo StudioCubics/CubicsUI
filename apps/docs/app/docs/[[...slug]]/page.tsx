@@ -1,4 +1,4 @@
-import { PageLayoutMd } from "@cubicsui/mdx";
+import { PageLayoutMD } from "@cubicsui/mdx";
 import type { Route } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -20,7 +20,7 @@ export default async function Page({ params }: PageProps<"/docs/[[...slug]]">) {
   const { toc = true, breadcrumbs = true } = frontmatter;
 
   return (
-    <PageLayoutMd
+    <PageLayoutMD
       title={frontmatter.title}
       desc={frontmatter.description}
       tree={toc ? scope.toc : undefined}
@@ -31,6 +31,6 @@ export default async function Page({ params }: PageProps<"/docs/[[...slug]]">) {
       }
     >
       <Suspense>{content}</Suspense>
-    </PageLayoutMd>
+    </PageLayoutMD>
   );
 }

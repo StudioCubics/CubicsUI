@@ -1,6 +1,9 @@
 import type { ComponentProps, ElementType, RefObject } from "react";
+import type {
+  CardContentProps,
+  CardProps,
+} from "../../Display/Card/Card.types";
 import type { PageHeaderProps } from "../../Typography/PageHeader/PageHeader.types";
-import type { CardContentProps, CardProps } from "../Card/Card.types";
 
 export interface TocItem {
   value: string;
