@@ -1,4 +1,5 @@
 import type {
+  BreadcrumbItem,
   ListDefaultHrefType,
   ListItemProps,
   TocItem,
@@ -15,20 +16,10 @@ export type MDXOptions = NonNullable<EvaluateOptions<MDXScope>["mdxOptions"]>;
 export type MDXRemarkPlugins = NonNullable<MDXOptions["remarkPlugins"]>;
 export type MDXRehypePlugins = NonNullable<MDXOptions["rehypePlugins"]>;
 
-/** Shared state passed to every loader factory */
-export type MDXLoaderContext = Required<
-  Pick<MDXLoaderProps, "components" | "contentRoot" | "readSource">
-> &
-  Pick<MDXLoaderProps, "readMeta"> & {
-    remarkPlugins?: MDXRemarkPlugins;
-    rehypePlugins?: MDXRehypePlugins;
-    /** Slugs computed once, at loader init time */
-    pageSlugs: string[];
-  };
-
-export type MDXScope = {
+export type MDXScope<H extends string = string> = {
   readingTime?: string;
   toc?: TocItem[];
+  breadcrumbs: BreadcrumbItem<H>[];
 };
 
 export type MDXFrontmatter = {
@@ -44,10 +35,12 @@ export type MDXFrontmatter = {
   description?: string;
   /** If table of content should be shown for this page or not */
   toc?: boolean;
+  /** If breadcrumbs should be shown for this page or not */
+  breadcrumbs: boolean;
 };
-export interface MDXPageData {
+export interface MDXPageData<H extends string = string> {
   frontmatter: MDXFrontmatter;
-  scope: MDXScope;
+  scope: MDXScope<H>;
 }
 export interface MDXPageTreeProviderProps<T extends ListDefaultHrefType> {
   tree: ListItemProps<T>[];
@@ -64,10 +57,6 @@ export interface MDXMeta {
 }
 
 export interface MDXLoaderProps {
-  remarkPlugins?: MDXRemarkPlugins;
-  rehypePlugins?: MDXRehypePlugins;
-  /** Any components that need to overide the default components like `{ a: Link }` for using `next/link` instead of anchor tag */
-  components?: MDXComponents;
   /**
    * Path to the content root, relative to `process.cwd()`
    * Used only to walk the filesystem at init time and
@@ -75,6 +64,11 @@ export interface MDXLoaderProps {
    * @example "content/docs"
    */
   contentRoot: string;
+  /**
+   * Optional URL prefix the content is served under, used for hrefs
+   * @example "/docs"
+   */
+  basePath?: string;
   /**
    * The function that will be used to read the source of the mdx files, other source reading method is also allowed
    * @param {String} relPath Path to the MDX file, relative to the content root.
@@ -103,5 +97,17 @@ export interface MDXLoaderProps {
    * });
    * ```
    */
-  readMeta?: (relFolderPath: string) => Promise<MDXMeta>;
+  readMeta: (relFolderPath: string) => Promise<MDXMeta>;
+
+  remarkPlugins?: MDXRemarkPlugins;
+  rehypePlugins?: MDXRehypePlugins;
+  /** Any components that need to overide the default components like `{ a: Link }` for using `next/link` instead of anchor tag */
+  components?: MDXComponents;
 }
+
+/** Shared state passed to every loader factory */
+export type MDXLoaderContext = MDXLoaderProps &
+  Required<Pick<MDXLoaderProps, "components" | "basePath">> & {
+    /** Slugs computed once, at loader init time */
+    pageSlugs: string[];
+  };

@@ -4,7 +4,6 @@ import { Callout } from "./ui/Display/Callout/Callout";
 import { CodeBlock } from "./ui/Display/CodeBlock/CodeBlock";
 import { Sandcube } from "./ui/Inputs/Sandcube/Sandcube";
 import { SandcubeFile } from "./ui/Inputs/Sandcube/SandcubeFile";
-import { PageLayoutMd } from "./ui/Layout/PageLayoutMd/PageLayoutMd";
 
 export const defaultComponents: MDXComponents = {
   pre: CodeBlock,
@@ -13,6 +12,5 @@ export const defaultComponents: MDXComponents = {
   table: (props) => <Table {...props} />,
   Sandcube,
   SandcubeFile,
-  wrapper: PageLayoutMd,
   Callout,
 };

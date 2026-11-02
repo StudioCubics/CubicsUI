@@ -1,7 +1,31 @@
+import { PageLayoutTOC } from "@cubicsui/components";
 import { cn } from "@cubicsui/utils";
-import type { ReactNode } from "react";
 import styles from "./PageLayoutMd.module.css";
+import type { PageLayoutMDProps } from "./PageLayoutMd.types";
 
-export function PageLayoutMd({ children }: { children: ReactNode }) {
-  return <main className={cn(styles.root)}>{children}</main>;
+/** Based on PageLayoutTOC */
+export function PageLayoutMd(props: PageLayoutMDProps) {
+  const { breadcrumbs, slotProps = {}, titleBar, ...rest } = props;
+  return (
+    <PageLayoutTOC
+      titleBar={
+        breadcrumbs ? (
+          <>
+            {breadcrumbs}
+            {titleBar}
+          </>
+        ) : (
+          titleBar
+        )
+      }
+      slotProps={{
+        ...slotProps,
+        sidebarViewport: {
+          ...slotProps?.sidebarViewport,
+          className: cn(slotProps?.sidebarViewport?.className, styles.root),
+        },
+      }}
+      {...rest}
+    />
+  );
 }

@@ -1,55 +1,52 @@
 .root {
+  --br: var(--br-md);
   container-type: inline-size;
-  /* Default gap between any two sibling blocks: 20px */
-  & > :where(* + *) {
-    margin-top: var(--gap-5);
-  }
 
   /* Headings: large space above, so sections separate clearly */
   & > :where(h1) {
-    margin-top: var(--gap-16); /* 64px */
+    margin-top: calc(var(--size) * 4); /* 64px */
   }
   & > :where(h2) {
-    margin-top: var(--gap-12); /* 48px */
+    margin-top: calc(var(--size) * 3); /* 48px */
   }
   & > :where(h3) {
-    margin-top: var(--gap-8); /* 32px */
+    margin-top: calc(var(--size) * 2); /* 32px */
   }
   & > :where(h4, h5, h6) {
-    margin-top: var(--gap-6); /* 24px */
+    margin-top: calc(var(--size) * 1.5); /* 24px */
   }
 
   /* Whatever follows a heading sits close to it (must come after the heading rules) */
   & > :where(h1, h2, h3, h4, h5, h6) + :where(*) {
-    margin-top: var(--gap-3); /* 12px */
+    margin-top: calc(var(--size) * 0.75); /* 12px */
   }
 
   & > :where(hr) {
-    margin-block: var(--gap-12);
+    margin-block: calc(var(--size) * 3);
   }
 
   /* Lists: spacing between items only */
   & :where(li + li) {
-    margin-top: var(--gap-2); /* 8px */
+    margin-top: calc(var(--size) * 0.5); /* 8px */
   }
   & :where(li > ul, li > ol) {
-    margin-top: var(--gap-2);
+    margin-top: calc(var(--size) * 0.5);
   }
 
-  & > :where(ul, ol) {
-    padding-left: var(--gap-8);
+  & :where(ul, ol) {
+    padding-left: calc(var(--size) * 2);
   }
 
   /* Lists: spacing between items only, nested lists inherit the same rhythm */
   & :where(li + li) {
-    margin-top: var(--gap-3);
+    margin-top: calc(var(--size) * 0.75);
   }
   & :where(li > ul, li > ol) {
-    margin-top: var(--gap-3);
+    margin-top: calc(var(--size) * 0.75);
   }
 
   & > :where(blockquote) {
-    padding-left: var(--gap-7);
+    padding-left: calc(var(--size) * 1.75);
     border-left: 3px solid var(--border-color, currentColor);
     opacity: 0.85;
   }
@@ -61,7 +58,7 @@
 
   & :where(p code, li code) {
     padding: 0.1em 0.35em;
-    border-radius: 4px;
+    border-radius: var(--br);
   }
 
   & :where(a) {
@@ -75,11 +72,11 @@
 
   & :where(img) {
     max-width: 100%;
-    border-radius: var(--br, 6px);
+    border-radius: var(--br);
   }
 
   & :where(:global(.code)) {
-    margin-top: var(--gap-5);
+    margin-top: calc(var(--size) * 1.25);
   }
 
   /* Must stay last: the page never starts with a gap */

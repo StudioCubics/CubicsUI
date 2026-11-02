@@ -24,13 +24,20 @@ import { walkPageSlugs } from "./mdxLoader.utils";
  * ```
  */
 export function mdxLoader(props: MDXLoaderProps) {
-  const { contentRoot, components = {}, readSource, readMeta } = props;
+  const {
+    contentRoot,
+    readSource,
+    readMeta,
+    basePath = "",
+    components = {},
+  } = props;
 
   const ctx: MDXLoaderContext = {
     contentRoot,
     components,
     readSource,
     readMeta,
+    basePath,
     // Slugs are computed once, at loader init time, by walking the filesystem.
     pageSlugs: walkPageSlugs(contentRoot),
   };

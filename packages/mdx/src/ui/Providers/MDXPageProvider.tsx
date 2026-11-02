@@ -3,7 +3,7 @@
 import { createContext, type ReactNode, useContext } from "react";
 import type { MDXPageData } from "../../mdxLoader/mdxLoader.types";
 
-const MDXPageContext = createContext<MDXPageData | null>(null);
+const MDXPageContext = createContext<MDXPageData<string> | null>(null);
 
 /** Client provider  for current page, can be used like this:
  * ```tsx
@@ -23,11 +23,11 @@ const MDXPageContext = createContext<MDXPageData | null>(null);
  * }
  * ```
  */
-export function MDXPageProvider({
+export function MDXPageProvider<H extends string>({
   frontmatter,
   scope,
   children,
-}: MDXPageData & { children: ReactNode }) {
+}: MDXPageData<H> & { children: ReactNode }) {
   return (
     <MDXPageContext.Provider value={{ frontmatter, scope }}>
       {children}
@@ -35,11 +35,12 @@ export function MDXPageProvider({
   );
 }
 
-export function useMDXPageData() {
+export function useMDXPageData<H extends string>() {
   const ctx = useContext(MDXPageContext);
   if (!ctx) throw new Error("Page hooks must be used within PageProvider");
-  return ctx;
+  return ctx as MDXPageData<H>;
 }
 
 export const useMDXFrontmatter = () => useMDXPageData().frontmatter;
-export const useMDXScope = () => useMDXPageData().scope;
+export const useMDXScope = <H extends string = string>() =>
+  useMDXPageData<H>().scope;
