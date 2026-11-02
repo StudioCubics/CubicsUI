@@ -25,6 +25,7 @@
     "@cubicsui/types": "workspace:^",
     "@cubicsui/tsconfig": "workspace:^",
     "@cubicsui/biome": "workspace:^",
+    "@cubicsui/sync-docs": "workspace:^",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

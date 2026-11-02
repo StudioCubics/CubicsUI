@@ -3,7 +3,7 @@
 import { useActiveNodeGlider } from "@cubicsui/hooks";
 import { cn } from "@cubicsui/utils";
 import type { ReactElement } from "react";
-import { GlassCard } from "../../GlassCard/GlassCard";
+import { GlassCard } from "../../../Display/GlassCard/GlassCard";
 import type { TabsBarProps } from "../Tabs.types";
 import styles from "./TabsBar.module.css";
 
