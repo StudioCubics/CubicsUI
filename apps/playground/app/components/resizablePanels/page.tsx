@@ -71,6 +71,20 @@ const VARIANTS: { title: string; props: Props }[] = [
     title: "fixed size (800px x 300px)",
     props: { width: "800px", height: "300px", layout: "row" },
   },
+  {
+    title: "row, disableEdgeHandles",
+    props: { ...BASE, layout: "row", disableEdgeHandles: true },
+  },
+  {
+    title: "grid, columns=2, disableEdgeHandles, panelGap=1rem",
+    props: {
+      ...BASE,
+      layout: "grid",
+      columns: 2,
+      disableEdgeHandles: true,
+      panelGap: "1rem",
+    },
+  },
 ];
 
 export default function Page() {
