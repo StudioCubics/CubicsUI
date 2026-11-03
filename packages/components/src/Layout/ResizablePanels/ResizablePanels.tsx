@@ -26,6 +26,8 @@ import {
   resizePanels,
 } from "./ResizablePanels.utils";
 
+// TODO Fix bug where when panel is 100% of the root the resizehandlers dont allow getting smaller than 100%
+
 export function ResizablePanels({
   width,
   height,

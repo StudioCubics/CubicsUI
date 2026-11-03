@@ -25,7 +25,7 @@ export interface UsePointerPositionReturn {
 }
 
 export function usePointerPosition(
-  props: UsePointerPositionProps | undefined,
+  props?: UsePointerPositionProps,
 ): UsePointerPositionReturn {
   const {
     includeTouch = false,

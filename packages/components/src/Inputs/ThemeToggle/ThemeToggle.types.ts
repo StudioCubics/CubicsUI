@@ -37,7 +37,6 @@ export interface ThemeToggleProps {
    */
   resolveSystem?: boolean;
 
-  // TODO add List and ListItem props and make ThemeToggleSlotProps
   slotProps?: {
     button?: ButtonProps;
     popover?: PopoverProps;

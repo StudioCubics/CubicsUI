@@ -10,7 +10,6 @@ import type { TableOfContentsProps } from "./TableOfContents.types";
 import { TableOfContentsMarker } from "./TableOfContentsMarker/TableOfContentsMarker";
 import { useTableOfContentsMarker } from "./TableOfContentsMarker/useTableOfContentsMarker";
 
-// TODO add slotProps for the slots
 export function TableOfContents(props: TableOfContentsProps): ReactElement {
   const {
     tree = [],

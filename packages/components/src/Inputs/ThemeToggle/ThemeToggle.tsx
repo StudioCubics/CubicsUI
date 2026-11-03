@@ -89,7 +89,6 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
           </Button>
           <Popover {...slotProps.popover} id={popoverId}>
             <Card {...slotProps.card} disablePadding>
-              {/* TODO replace with proper list */}
               <List
                 {...slotProps.list}
                 className={cn(slotProps.list?.className, styles.list)}
