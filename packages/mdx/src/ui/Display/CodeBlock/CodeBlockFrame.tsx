@@ -17,7 +17,7 @@ export function CodeBlockFrame(props: CodeBlockFrameProps) {
       {/* Header div */}
       {(icon || title) && (
         <div className={cn(styles.header)}>
-          <span className={cn(styles.icon)}></span>
+          {icon && <span className={cn(styles.icon)}>{icon}</span>}
           {title}
         </div>
       )}

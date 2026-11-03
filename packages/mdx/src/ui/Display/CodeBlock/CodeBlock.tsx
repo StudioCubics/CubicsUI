@@ -1,3 +1,4 @@
+import { icons } from "@cubicsui/icons/registry";
 import {
   extractText,
   LANGUAGE_IDENTIFIER_TO_EXTENSION,
@@ -35,10 +36,11 @@ export function CodeBlock(props: CodeBlockProps) {
       <CodeBlockPkgManager id={id} icon={icon} title={title} code={code} />
     );
   }
+  const Icon = icons[icon as keyof typeof icons];
 
   // TODO const Icon=change text icon to component
   return (
-    <CodeBlockFrame icon={icon} title={title} code={code}>
+    <CodeBlockFrame icon={<Icon />} title={title} code={code}>
       <MonacoEditor
         id={id}
         defaultValue={code}
