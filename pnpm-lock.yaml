@@ -18,8 +18,8 @@ importers:
         specifier: ^4.3.2
         version: 4.3.2(@types/node@26.6.2)(typescript@5.9.3)
       cz-cubics:
-        specifier: ^0.0.11
-        version: 0.0.11(commitizen@4.3.2(@types/node@26.6.2)(typescript@5.9.3))(inquirer@8.2.7(@types/node@26.6.2))
+        specifier: ^0.0.12
+        version: 0.0.12(commitizen@4.3.2(@types/node@26.6.2)(typescript@5.9.3))(inquirer@8.2.7(@types/node@26.6.2))
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -1630,8 +1630,8 @@ packages:
     resolution: {integrity: sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==}
     engines: {node: '>= 10'}
 
-  cz-cubics@0.0.11:
-    resolution: {integrity: sha512-TT5yDeL06obhKuo03WfZF5QW2pHcAIRbFWcwRQCbiuvSBp3LGBghQ0maba9Gpy583TKEzi0vtLx3yYCL8J5dTw==}
+  cz-cubics@0.0.12:
+    resolution: {integrity: sha512-phKWapgZlsczWvsK12wsz2YbmvA4b2kTW7FNWUElmH0eSBAgPH7q8BdKIm8cduaRvb5vIRIPUlzaVivJRFDsCA==}
     engines: {node: '>=22'}
     peerDependencies:
       commitizen: ^4
@@ -4249,7 +4249,7 @@ snapshots:
       - '@types/node'
       - typescript
 
-  cz-cubics@0.0.11(commitizen@4.3.2(@types/node@26.6.2)(typescript@5.9.3))(inquirer@8.2.7(@types/node@26.6.2)):
+  cz-cubics@0.0.12(commitizen@4.3.2(@types/node@26.6.2)(typescript@5.9.3))(inquirer@8.2.7(@types/node@26.6.2)):
     dependencies:
       commitizen: 4.3.2(@types/node@26.6.2)(typescript@5.9.3)
       find-up: 8.0.0
