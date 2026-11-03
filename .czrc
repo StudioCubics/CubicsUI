@@ -2,7 +2,23 @@
   "path": "node_modules/cz-cubics",
   "config": {
     "cz-cubics": {
-      "scopes": []
+      "scopes": [
+        "components",
+        "hooks",
+        "icons",
+        "mdx",
+        "types",
+        "utils",
+        "docs",
+        "playground",
+        "sync-docs",
+        "turbo",
+        "globals",
+        "biome",
+        "cz",
+        "github",
+        "vercel"
+      ]
     }
   }
 }
