@@ -1,3 +1,6 @@
+export * from "./ErrorBoundary/ErrorBoundary";
+export * from "./ErrorBoundary/ErrorBoundary.types";
+
 export * from "./Logo/Logo";
 export * from "./Logo/Logo.types";
 
