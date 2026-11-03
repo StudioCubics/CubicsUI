@@ -8,6 +8,7 @@ export * from "./Popover/Popover";
 export * from "./Popover/Popover.types";
 
 export * from "./ResizablePanels/ResizablePanels";
+export * from "./ResizablePanels/ResizablePanels.types";
 
 export * from "./SectionWrapper/SectionWrapper";
 export * from "./SectionWrapper/SectionWrapper.types";

@@ -23,6 +23,10 @@ export interface ResizablePanelsProps {
    * @default "linked"
    */
   resizeMode?: PanelResizeMode;
+  /** Removes handles on the outer edges of the root.
+   * @default false */
+  disableEdgeHandles?: boolean;
+  /** The minimum size of a panel in px */
   minPanelSize?: number;
 }
 export type PanelEdge = "top" | "right" | "bottom" | "left";

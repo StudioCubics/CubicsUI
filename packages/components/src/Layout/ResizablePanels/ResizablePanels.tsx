@@ -22,11 +22,13 @@ import type {
 import {
   computeLayout,
   getPanelStyle,
+  isBoundaryEdge,
   RESIZABLE_PANEL_EDGES,
   resizePanels,
 } from "./ResizablePanels.utils";
 
 // TODO Fix bug where when panel is 100% of the root the resizehandlers dont allow getting smaller than 100%
+// TODO Add prop to remove edge handles only handles in between panels should be there
 
 export function ResizablePanels({
   width,
@@ -37,6 +39,7 @@ export function ResizablePanels({
   minPanelSize = 50,
   resizeMode = "linked",
   panelGap = "0px",
+  disableEdgeHandles,
 }: ResizablePanelsProps): ReactElement {
   const panels = Children.toArray(children).filter(
     isValidElement,
@@ -46,7 +49,7 @@ export function ResizablePanels({
   const ids = panels.map((p) => p.props.id);
   const duplicates = ids.filter((id, i) => ids.indexOf(id) !== i);
   if (ids.some((id) => !id) || duplicates.length) {
-    throw new Error(
+    console.error(
       `ResizablePanels: every panel needs a unique id. Duplicates/missing: ${
         duplicates.join(", ") || "empty id"
       }`,
@@ -152,7 +155,10 @@ export function ResizablePanels({
             style={getPanelStyle(rect, viewport, panelGap)}
           >
             <div className={styles.content}>{panel}</div>
-            {RESIZABLE_PANEL_EDGES.map((edge) => (
+            {RESIZABLE_PANEL_EDGES.filter(
+              (edge) =>
+                !disableEdgeHandles || !isBoundaryEdge(rect, edge, viewport),
+            ).map((edge) => (
               <div
                 key={edge}
                 className={`${styles.handle} ${styles[`edge_${edge}`]}`}

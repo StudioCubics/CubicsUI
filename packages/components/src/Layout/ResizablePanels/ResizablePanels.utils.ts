@@ -83,14 +83,6 @@ export function resizePanels(
   const startEnd = start[pos] + start[size];
   const edgePos = isEnd ? startEnd : start[pos];
 
-  // Locked: moving a viewport boundary would always leave empty space
-  if (
-    linked &&
-    (isEnd ? edgePos >= vpSize - TOUCH_TOLERANCE : edgePos <= TOUCH_TOLERANCE)
-  ) {
-    return {};
-  }
-
   // Panels whose edge lies on the dragged line: same side as the dragged edge, or facing it
   const sameSide = (n: PanelRect) =>
     Math.abs((isEnd ? n[pos] + n[size] : n[pos]) - edgePos) <= TOUCH_TOLERANCE;
@@ -171,4 +163,21 @@ export function getPanelStyle(
     width: `calc(${rect.width}px - ${left ? half : "0px"} - ${right ? half : "0px"})`,
     height: `calc(${rect.height}px - ${top ? half : "0px"} - ${bottom ? half : "0px"})`,
   };
+}
+/** True when the given edge of the rect lies on the root's boundary */
+export function isBoundaryEdge(
+  rect: PanelRect,
+  edge: PanelEdge,
+  vp: ResizablePanelViewport,
+): boolean {
+  switch (edge) {
+    case "left":
+      return rect.x <= TOUCH_TOLERANCE;
+    case "top":
+      return rect.y <= TOUCH_TOLERANCE;
+    case "right":
+      return rect.x + rect.width >= vp.width - TOUCH_TOLERANCE;
+    case "bottom":
+      return rect.y + rect.height >= vp.height - TOUCH_TOLERANCE;
+  }
 }
