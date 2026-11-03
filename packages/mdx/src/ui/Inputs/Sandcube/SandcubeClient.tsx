@@ -1,100 +1,20 @@
 "use client";
 
-import * as CubicsUI from "@cubicsui/components";
-import { useMounted } from "@cubicsui/hooks";
-import * as React from "react";
-import { type ComponentType, useMemo, useState } from "react";
-import { LiveError, LivePreview, LiveProvider } from "react-live";
-import { transform } from "sucrase";
+import { ResizablePanels } from "@cubicsui/components";
+import { useState } from "react";
 import { MonacoEditor } from "../MonacoEditor/MonacoEditor";
-import styles from "./Sandcube.module.css";
 import type { SandcubeClientProps, SandcubeFiles } from "./Sandcube.types";
+import { SandcubeRunner } from "./SandcubeRunner/SandcubeRunner";
 
-// Packages available to every demo by default
-const baseImports: Record<string, unknown> = {
-  react: React,
-  "@cubicsui/components": CubicsUI,
-};
-
-const EXTENSIONS = [
-  "",
-  ".ts",
-  ".tsx",
-  ".js",
-  ".jsx",
-  ".mjs",
-  ".cjs",
-  ".css",
-  ".scss",
-  ".less",
-  ".json",
-  ".html",
-  ".md",
-  ".mdx",
-  ".yml",
-  ".yaml",
-];
-
-// Resolves a relative/absolute request against the importing file, e.g. ("/App.tsx", "./data") -> "/data"
-function resolvePath(from: string, request: string) {
-  const parts = request.startsWith("/") ? [""] : from.split("/").slice(0, -1);
-  for (const segment of request.split("/")) {
-    if (segment === "." || segment === "") continue;
-    if (segment === "..") parts.pop();
-    else parts.push(segment);
-  }
-  return parts.join("/") || "/";
-}
-
-// Compiles the entry file and everything it imports, and returns the entry's exports.
-// Modules are loaded lazily on `require`, so files can import each other in any order.
-function runFiles(files: SandcubeFiles, entry: string) {
-  const cache: Record<string, Record<string, unknown>> = {};
-
-  const makeRequire = (from: string) => (request: string) => {
-    if (request in baseImports) return baseImports[request];
-    if (request.startsWith(".") || request.startsWith("/")) {
-      const base = resolvePath(from, request);
-      const found = EXTENSIONS.map((ext) => base + ext).find(
-        (candidate) => candidate in files,
-      );
-      if (found) return load(found);
-    }
-    throw new Error(`Cannot find module '${request}' imported from ${from}`);
-  };
-
-  const load = (path: string): Record<string, unknown> => {
-    if (path in cache) return cache[path];
-    const module = { exports: {} as Record<string, unknown> };
-    // Registered before running so circular imports don't loop forever
-    cache[path] = module.exports;
-    // css files resolve to an empty module
-    if (/\.(tsx?|jsx?|mjs|cjs)$/.test(path)) {
-      const { code } = transform(files[path].code, {
-        transforms: ["typescript", "jsx", "imports"],
-        filePath: path,
-        production: true, // Skips the __self/__source props that trigger React's "outdated JSX transform" warning
-      });
-      new Function("require", "exports", "module", "React", code)(
-        makeRequire(path),
-        module.exports,
-        module,
-        React,
-      );
-    }
-    cache[path] = module.exports;
-    return module.exports;
-  };
-
-  if (!(entry in files)) throw new Error(`Entry file '${entry}' not found`);
-  return load(entry);
-}
-
-export function SandcubeClient({
-  files: initialFiles,
-  title,
-  entry = "/App.tsx",
-}: SandcubeClientProps) {
+export function SandcubeClient(props: SandcubeClientProps) {
+  const {
+    files: initialFiles,
+    title,
+    entry = "/App.tsx",
+    width = "100%",
+    height = "40vh",
+    ...rest
+  } = props;
   const [files, setFiles] = useState<SandcubeFiles>(() =>
     Object.fromEntries(
       initialFiles.map((f) => [
@@ -112,64 +32,40 @@ export function SandcubeClient({
   const [activeFile, setActiveFile] = useState(
     visibleFiles.includes(entry) ? entry : visibleFiles[0],
   );
-  const { mounted } = useMounted();
-
-  // Recompile whenever any file changes. The runner always renders the entry
-  // file; activeFile only affects the editor.
-  const { Demo, compileError } = useMemo(() => {
-    try {
-      const exports = runFiles(files, entry);
-      const Component = exports.default as ComponentType | undefined;
-      if (!Component) throw new Error(`${entry} needs a default export`);
-      return { Demo: Component, compileError: null };
-    } catch (e) {
-      return {
-        Demo: <></>,
-        compileError: e instanceof Error ? e.message : String(e),
-      };
-    }
-  }, [files, entry]);
-
-  // Memoized so react-live only re-transpiles when the component changes
-  const scope = useMemo(() => ({ Demo }), [Demo]);
 
   return (
-    <div className={styles.root}>
-      <div className={styles.runner}>
-        {mounted && (
-          <LiveProvider code="React.createElement(Demo)" scope={scope}>
-            <LivePreview />
-            <LiveError />
-          </LiveProvider>
-        )}
-        {mounted && compileError && <pre>{compileError}</pre>}
-      </div>
-      <div className={styles.code}>
-        <MonacoEditor
-          id={title}
-          height={"30vh"}
-          defaultValue={files[activeFile]?.code}
-          onChange={(value) =>
-            setFiles((prev) => ({
-              ...prev,
-              [activeFile]: { ...prev[activeFile], code: value ?? "" },
-            }))
-          }
-          loading={
-            <pre
-              style={{
-                width: "100%",
-                height: "100%",
-                padding: "var(--gap-3) var(--gap-5)",
-              }}
-            >
-              {files[activeFile].code}
-            </pre>
-          }
-          options={{ readOnly: files[activeFile]?.readOnly }}
-          tabsMgr={{ activeFile, visibleFiles, setActiveFile }}
-        />
-      </div>
-    </div>
+    <ResizablePanels
+      width={width}
+      height={height}
+      columns={2}
+      layout={"row"}
+      disableEdgeHandles
+      {...rest}
+    >
+      <SandcubeRunner id={"sandcube_editor"} files={files} entry={entry} />
+      <MonacoEditor
+        id={title}
+        defaultValue={files[activeFile]?.code}
+        onChange={(value) =>
+          setFiles((prev) => ({
+            ...prev,
+            [activeFile]: { ...prev[activeFile], code: value ?? "" },
+          }))
+        }
+        loading={
+          <pre
+            style={{
+              width: "100%",
+              height: "100%",
+              padding: "var(--gap-3) var(--gap-5)",
+            }}
+          >
+            {files[activeFile].code}
+          </pre>
+        }
+        options={{ readOnly: files[activeFile]?.readOnly }}
+        tabsMgr={{ activeFile, visibleFiles, setActiveFile }}
+      />
+    </ResizablePanels>
   );
 }

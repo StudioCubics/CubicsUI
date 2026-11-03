@@ -29,18 +29,19 @@ export function CodeBlock(props: CodeBlockProps) {
 
   const base = title ? toCamelCase(title) : "unknown";
   const id = _id ?? `${base}-${hashCode(code)}${extension}`;
+  // TODO make icons dynamic so external icon libraries can also be used
+  const Icon = icon ? icons[icon as keyof typeof icons] : undefined;
+  const iconNode = Icon ? <Icon /> : undefined;
 
   // ```npm fences are expanded into pnpm / yarn / bun / deno tabs
   if (lang === "npm") {
     return (
-      <CodeBlockPkgManager id={id} icon={icon} title={title} code={code} />
+      <CodeBlockPkgManager id={id} icon={iconNode} title={title} code={code} />
     );
   }
-  const Icon = icons[icon as keyof typeof icons];
 
-  // TODO const Icon=change text icon to component
   return (
-    <CodeBlockFrame icon={<Icon />} title={title} code={code}>
+    <CodeBlockFrame icon={iconNode} title={title} code={code}>
       <MonacoEditor
         id={id}
         defaultValue={code}

@@ -15,7 +15,7 @@ export function MonacoEditor(props: MonacoEditorProps) {
   const {
     name,
     id,
-    height,
+    height = "100%",
     slotProps = {},
     className,
     tabsMgr,

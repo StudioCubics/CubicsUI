@@ -4,7 +4,8 @@ import type { SandcubeClientFile, SandcubeProps } from "./Sandcube.types";
 import { SandcubeClient } from "./SandcubeClient";
 import type { SandcubeFileProps } from "./SandcubeFile";
 
-export function Sandcube({ children, title, entry }: SandcubeProps) {
+export function Sandcube(props: SandcubeProps) {
+  const { children, title, entry, ...rest } = props;
   // Runs on the server, where the fenced code is still a plain element tree
   const files: SandcubeClientFile[] = [];
   Children.forEach(children, (child) => {
@@ -19,5 +20,5 @@ export function Sandcube({ children, title, entry }: SandcubeProps) {
     });
   });
 
-  return <SandcubeClient files={files} title={title} entry={entry} />;
+  return <SandcubeClient files={files} title={title} entry={entry} {...rest} />;
 }
