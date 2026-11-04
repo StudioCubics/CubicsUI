@@ -1,10 +1,10 @@
 import type { ListDefaultHrefType, ListItemProps } from "@cubicsui/components";
 import { toCapitalised } from "@cubicsui/utils";
-import matter from "gray-matter";
+import { getFrontmatter } from "next-mdx-remote-client/utils";
 import type {
   MDXFrontmatter,
   MDXLoaderContext,
-  MDXMeta,
+  MDXPageTreeMeta,
   TrieNode,
 } from "../mdxLoader.types";
 
@@ -31,7 +31,7 @@ export function createGetPageTree(ctx: MDXLoaderContext) {
   /** Calls the app's `readMeta`, defaulting to `undefined` if absent/missing/throws */
   async function safeReadMeta(
     relFolderPath: string,
-  ): Promise<MDXMeta | undefined> {
+  ): Promise<MDXPageTreeMeta | undefined> {
     if (!readMeta) return undefined;
     try {
       return await readMeta(relFolderPath ? `${relFolderPath}/meta` : "meta");
@@ -45,8 +45,10 @@ export function createGetPageTree(ctx: MDXLoaderContext) {
     slug: string,
   ): Promise<Partial<MDXFrontmatter>> {
     try {
-      const source = await readSource(`${slug}/page.mdx`);
-      return matter(source).data as Partial<MDXFrontmatter>;
+      const source: unknown = await readSource(`${slug}/page.mdx`);
+      // tsx page → default export is a component, no frontmatter to parse
+      if (typeof source !== "string") return {};
+      return getFrontmatter<Partial<MDXFrontmatter>>(source).frontmatter;
     } catch {
       return {};
     }
@@ -59,9 +61,19 @@ export function createGetPageTree(ctx: MDXLoaderContext) {
   ): Promise<ListItemProps<T>[]> {
     const folderPath = pathSegments.join("/");
     const meta = await safeReadMeta(folderPath);
+
     // No meta.tsx (or it threw) → fall back to every child, alphabetically.
     // With meta.tsx → only ids listed in `order`, in that order.
-    const ids = meta?.order ?? Array.from(node.children.keys()).sort();
+    // A "..." entry in `order` expands to all remaining children (alphabetical).
+    const listed = new Set(meta?.order);
+    const rest = Array.from(node.children.keys())
+      .filter((id) => !listed.has(id))
+      .sort();
+    const ids = meta?.order
+      ? Array.from(
+          new Set(meta.order.flatMap((id) => (id === "..." ? rest : id))),
+        )
+      : rest;
 
     const items: ListItemProps<T>[] = [];
     for (const id of ids) {

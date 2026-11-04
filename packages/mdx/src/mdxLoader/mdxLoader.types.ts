@@ -48,7 +48,7 @@ export interface MDXPageTreeProviderProps<T extends ListDefaultHrefType> {
 }
 
 /** Shape a folder's `meta.tsx` must default-export */
-export interface MDXMeta {
+export interface MDXPageTreeMeta {
   /** Ids (file/folder names) in display order for this folder.
    * Any id not present here is excluded from the tree. */
   order: string[];
@@ -97,7 +97,7 @@ export interface MDXLoaderProps {
    * });
    * ```
    */
-  readMeta: (relFolderPath: string) => Promise<MDXMeta>;
+  readMeta: (relFolderPath: string) => Promise<MDXPageTreeMeta>;
 
   remarkPlugins?: MDXRemarkPlugins;
   rehypePlugins?: MDXRehypePlugins;

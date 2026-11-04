@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import remarkCallouts from "../plugins/remarkCallout/remarkCallout";
 import type { MDXRehypePlugins, MDXRemarkPlugins } from "./mdxLoader.types";
 
+export const MDX_PAGE_FILES = ["page.mdx"];
 /** Walks `contentRoot` (relative to `process.cwd()`) and returns every page slug */
 export function walkPageSlugs(contentRoot: string): string[] {
   const absRoot = path.join(
@@ -14,23 +15,25 @@ export function walkPageSlugs(contentRoot: string): string[] {
     process.cwd(),
     contentRoot,
   );
-  const slugs: string[] = [];
+  // Set so a folder with both page.mdx and page.tsx is only added once
+  const slugs = new Set<string>();
 
   function walk(dir: string, prefix: string) {
     if (!fs.existsSync(dir)) return;
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       if (entry.isDirectory()) {
         walk(path.join(dir, entry.name), `${prefix}${entry.name}/`);
-      } else if (entry.name === "page.mdx") {
-        slugs.push(prefix.slice(0, -1)); // strip trailing slash
+      } else if (MDX_PAGE_FILES.includes(entry.name)) {
+        slugs.add(prefix.slice(0, -1)); // strip trailing slash
       }
     }
   }
 
   walk(absRoot, "");
-  return slugs;
+  return Array.from(slugs);
 }
-// Defaults the loader depends on (toc, slugs, code props)
+
+/** Defaults the loader depends on (toc, slugs, code props) */
 export const defaultRemarkPlugins: MDXRemarkPlugins = [
   remarkGfm,
   [remarkFlexibleToc, { skipLevels: [] }],
