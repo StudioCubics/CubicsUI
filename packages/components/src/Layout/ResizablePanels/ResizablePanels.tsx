@@ -1,21 +1,24 @@
 "use client";
 
+import type { PolymorphicComponentType } from "@cubicsui/types";
+import { cn, mergeRefs } from "@cubicsui/utils";
 import {
   Children,
+  type ElementType,
   isValidElement,
   type ReactElement,
   type PointerEvent as ReactPointerEvent,
-  useCallback,
   useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
+import { ResizeHandle } from "../../Misc/ResizeHandle/ResizeHandle";
 import styles from "./ResizablePanels.module.css";
 import type {
   PanelEdge,
   PanelElement,
   PanelRect,
+  ResizablePanelsBaseProps,
   ResizablePanelsProps,
   ResizablePanelViewport,
 } from "./ResizablePanels.types";
@@ -23,24 +26,34 @@ import {
   computeLayout,
   getPanelStyle,
   isBoundaryEdge,
-  RESIZABLE_PANEL_EDGES,
+  RESIZABLE_PANELS_EDGES,
   resizePanels,
 } from "./ResizablePanels.utils";
 
-// TODO Fix bug where when panel is 100% of the root the resizehandlers dont allow getting smaller than 100%
-// TODO Add prop to remove edge handles only handles in between panels should be there
-
-export function ResizablePanels({
-  width,
-  height,
-  children,
-  layout = "row",
-  columns,
-  minPanelSize = 50,
-  resizeMode = "linked",
-  panelGap = "0px",
-  disableEdgeHandles,
-}: ResizablePanelsProps): ReactElement {
+function ResizablePanelsBase<C extends ElementType>(
+  props: ResizablePanelsProps<C>,
+): ReactElement {
+  const {
+    as,
+    ref,
+    style,
+    className,
+    width,
+    height,
+    children,
+    layout = "row",
+    columns,
+    minPanelSize = 50,
+    resizeMode = "linked",
+    panelGap = "0px",
+    disableEdgeHandles,
+    touchTolerance = 1,
+    snapDistance = 0,
+    color,
+    size,
+    slotProps = {},
+    ...rest
+  } = props as ResizablePanelsProps<"div">;
   const panels = Children.toArray(children).filter(
     isValidElement,
   ) as PanelElement[];
@@ -76,91 +89,97 @@ export function ResizablePanels({
 
   // Panel state keyed by id; user resizes are stored as overrides of the layout
   const [overrides, setOverrides] = useState<Record<string, PanelRect>>({});
-
   // Reset user overrides when the layout or the set of panels changes
   const idsKey = ids.join("|");
   useLayoutEffect(() => {
     setOverrides({});
   }, [layout, columns, idsKey]);
 
-  const layoutRects = useMemo(
-    () => computeLayout(layout, ids, viewport, columns),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [layout, columns, idsKey, viewport],
-  );
-
+  const layoutRects = computeLayout(layout, ids, viewport, columns);
   // Current rect of every panel (user overrides win over the layout)
-  const rects = useMemo(
-    () => ({ ...layoutRects, ...overrides }),
-    [layoutRects, overrides],
-  );
+  const rects = { ...layoutRects, ...overrides };
+  const Component: ElementType = as || "div";
 
-  const startResize = useCallback(
-    (
-      id: string,
-      edge: PanelEdge,
-      startRects: Record<string, PanelRect>,
-      vp: ResizablePanelViewport,
-      e: ReactPointerEvent<HTMLDivElement>,
-    ) => {
-      e.preventDefault();
-      const handle = e.currentTarget;
-      const origin = { x: e.clientX, y: e.clientY };
+  function startResize(
+    id: string,
+    edge: PanelEdge,
+    startRects: Record<string, PanelRect>,
+    vp: ResizablePanelViewport,
+    e: ReactPointerEvent<HTMLElement>,
+  ) {
+    e.preventDefault();
+    const handle = e.currentTarget;
+    const origin = { x: e.clientX, y: e.clientY };
 
-      handle.setPointerCapture(e.pointerId);
+    handle.setPointerCapture(e.pointerId);
 
-      const onMove = (ev: PointerEvent) => {
-        const dx = ev.clientX - origin.x;
-        const dy = ev.clientY - origin.y;
+    const onMove = (ev: PointerEvent) => {
+      const dx = ev.clientX - origin.x;
+      const dy = ev.clientY - origin.y;
 
-        // Computed from the rects at drag start; in "linked" mode touching panels are included
-        const changed = resizePanels(
-          startRects,
-          id,
-          edge,
-          dx,
-          dy,
-          vp,
-          minPanelSize,
-          resizeMode === "linked",
-        );
+      // Computed from the rects at drag start; in "linked" mode touching panels are included
+      const changed = resizePanels(
+        startRects,
+        id,
+        edge,
+        dx,
+        dy,
+        vp,
+        minPanelSize,
+        resizeMode === "linked",
+        touchTolerance,
+        snapDistance,
+      );
 
-        setOverrides((prev) => ({ ...prev, ...changed }));
-      };
+      setOverrides((prev) => ({ ...prev, ...changed }));
+    };
 
-      const onUp = (ev: PointerEvent) => {
-        handle.releasePointerCapture(ev.pointerId);
-        handle.removeEventListener("pointermove", onMove);
-        handle.removeEventListener("pointerup", onUp);
-      };
+    const onUp = (ev: PointerEvent) => {
+      handle.releasePointerCapture(ev.pointerId);
+      handle.removeEventListener("pointermove", onMove);
+      handle.removeEventListener("pointerup", onUp);
+    };
 
-      handle.addEventListener("pointermove", onMove);
-      handle.addEventListener("pointerup", onUp);
-    },
-    [minPanelSize, resizeMode],
-  );
-
-  const rootStyle = useMemo(() => ({ width, height }), [width, height]);
+    handle.addEventListener("pointermove", onMove);
+    handle.addEventListener("pointerup", onUp);
+  }
 
   return (
-    <div ref={rootRef} className={styles.root} style={rootStyle}>
+    <Component
+      {...rest}
+      ref={mergeRefs(ref, rootRef)}
+      className={cn(className, styles.root)}
+      style={{ ...style, width, height }}
+    >
       {panels.map((panel) => {
         const id = panel.props.id;
         const rect = rects[id];
         if (!rect) return null;
         return (
           <div
+            {...slotProps.panel}
             key={id}
-            className={styles.panel}
-            style={getPanelStyle(rect, viewport, panelGap)}
+            className={cn(slotProps.panel?.className, styles.panel)}
+            style={{
+              ...slotProps.panel?.style,
+              ...getPanelStyle(rect, viewport, panelGap, touchTolerance),
+            }}
           >
-            <div className={styles.content}>{panel}</div>
-            {RESIZABLE_PANEL_EDGES.filter(
+            
+              {panel}
+            {RESIZABLE_PANELS_EDGES.filter(
               (edge) =>
-                !disableEdgeHandles || !isBoundaryEdge(rect, edge, viewport),
+                !disableEdgeHandles ||
+                !isBoundaryEdge(rect, edge, viewport, touchTolerance),
             ).map((edge) => (
-              <div
+              <ResizeHandle
+                role="separator"
+                aria-orientation={
+                  ["bottom", "top"].includes(edge) ? "horizontal" : "vertical"
+                }
                 key={edge}
+                size={size}
+                color={color}
                 className={`${styles.handle} ${styles[`edge_${edge}`]}`}
                 onPointerDown={(e) => startResize(id, edge, rects, viewport, e)}
               />
@@ -168,6 +187,12 @@ export function ResizablePanels({
           </div>
         );
       })}
-    </div>
+    </Component>
   );
 }
+ResizablePanelsBase.displayName = "ResizablePanels";
+
+export const ResizablePanels = ResizablePanelsBase as PolymorphicComponentType<
+  ResizablePanelsBaseProps,
+  "div"
+>;

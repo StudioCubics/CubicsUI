@@ -5,16 +5,12 @@ import type {
   PanelRect,
   ResizablePanelViewport,
 } from "./ResizablePanels.types";
-export const RESIZABLE_PANEL_EDGES: PanelEdge[] = [
+export const RESIZABLE_PANELS_EDGES: PanelEdge[] = [
   "top",
   "right",
   "bottom",
   "left",
 ];
-export const RESIZABLE_PANEL_CASCADE_OFFSET = 32;
-// Max distance (px) between two edges for them to count as touching
-const TOUCH_TOLERANCE = 1;
-
 /** Computes the initial rect of every panel for the chosen layout */
 export function computeLayout(
   layout: PanelLayout,
@@ -57,7 +53,7 @@ export function computeLayout(
 }
 /** Returns the rects changed by dragging `edge` of panel `id` by (dx, dy).
  * When `linked`, every panel connected to the dragged line is moved/resized with it,
- * so no empty space is left. Viewport-boundary edges are locked when linked.*/
+ * so no empty space is left.*/
 export function resizePanels(
   rects: Record<string, PanelRect>,
   id: string,
@@ -67,6 +63,8 @@ export function resizePanels(
   vp: ResizablePanelViewport,
   minSize: number,
   linked: boolean,
+  touchTolerance: number,
+  snapDistance: number,
 ): Record<string, PanelRect> {
   const start = rects[id];
   if (!start) return {};
@@ -85,14 +83,14 @@ export function resizePanels(
 
   // Panels whose edge lies on the dragged line: same side as the dragged edge, or facing it
   const sameSide = (n: PanelRect) =>
-    Math.abs((isEnd ? n[pos] + n[size] : n[pos]) - edgePos) <= TOUCH_TOLERANCE;
+    Math.abs((isEnd ? n[pos] + n[size] : n[pos]) - edgePos) <= touchTolerance;
   const facing = (n: PanelRect) =>
-    Math.abs((isEnd ? n[pos] : n[pos] + n[size]) - edgePos) <= TOUCH_TOLERANCE;
+    Math.abs((isEnd ? n[pos] : n[pos] + n[size]) - edgePos) <= touchTolerance;
 
   const overlaps = (a: PanelRect, b: PanelRect) =>
     Math.min(a[perp] + a[perpSize], b[perp] + b[perpSize]) -
       Math.max(a[perp], b[perp]) >
-    TOUCH_TOLERANCE;
+    touchTolerance;
 
   // Grow the group with candidates connected to it along the line
   const group = new Set<string>([id]);
@@ -127,7 +125,25 @@ export function resizePanels(
       min = Math.max(min, n[pos] + minSize);
     }
   }
-  const next = Math.min(Math.max(edgePos + delta, min), max);
+  // Snap to the nearest edge of a panel that is not moving, or to the root boundary
+  let target = edgePos + delta;
+  if (snapDistance > 0) {
+    const candidates = [0, vpSize];
+    for (const [nid, n] of Object.entries(rects)) {
+      if (group.has(nid)) continue;
+      candidates.push(n[pos], n[pos] + n[size]);
+    }
+    let bestDist = snapDistance;
+    for (const c of candidates) {
+      const dist = Math.abs(c - target);
+      // Only snap to positions that are allowed
+      if (dist <= bestDist && c >= min && c <= max) {
+        target = c;
+        bestDist = dist;
+      }
+    }
+  }
+  const next = Math.min(Math.max(target, min), max);
 
   const changed: Record<string, PanelRect> = {};
   for (const gid of group) {
@@ -150,12 +166,13 @@ export function getPanelStyle(
   rect: PanelRect,
   vp: ResizablePanelViewport,
   gap: string,
+  touchTolerance: number,
 ): CSSProperties {
   const half = `calc(${gap} / 2)`;
-  const left = rect.x > TOUCH_TOLERANCE;
-  const top = rect.y > TOUCH_TOLERANCE;
-  const right = rect.x + rect.width < vp.width - TOUCH_TOLERANCE;
-  const bottom = rect.y + rect.height < vp.height - TOUCH_TOLERANCE;
+  const left = rect.x > touchTolerance;
+  const top = rect.y > touchTolerance;
+  const right = rect.x + rect.width < vp.width - touchTolerance;
+  const bottom = rect.y + rect.height < vp.height - touchTolerance;
 
   return {
     left: left ? `calc(${rect.x}px + ${half})` : rect.x,
@@ -169,15 +186,16 @@ export function isBoundaryEdge(
   rect: PanelRect,
   edge: PanelEdge,
   vp: ResizablePanelViewport,
+  touchTolerance: number,
 ): boolean {
   switch (edge) {
     case "left":
-      return rect.x <= TOUCH_TOLERANCE;
+      return rect.x <= touchTolerance;
     case "top":
-      return rect.y <= TOUCH_TOLERANCE;
+      return rect.y <= touchTolerance;
     case "right":
-      return rect.x + rect.width >= vp.width - TOUCH_TOLERANCE;
+      return rect.x + rect.width >= vp.width - touchTolerance;
     case "bottom":
-      return rect.y + rect.height >= vp.height - TOUCH_TOLERANCE;
+      return rect.y + rect.height >= vp.height - touchTolerance;
   }
 }
