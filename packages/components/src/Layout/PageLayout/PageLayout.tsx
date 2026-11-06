@@ -2,10 +2,14 @@ import type { PolymorphicComponentType } from "@cubicsui/types";
 import { cn } from "@cubicsui/utils";
 import type { ElementType } from "react";
 import { PageHeader } from "../../Typography/PageHeader/PageHeader";
+import { ContentFlow } from "../ContentFlow/ContentFlow";
+import { PageBody } from "../PageBody/PageBody";
 import styles from "./PageLayout.module.css";
 import type { PageLayoutBaseProps, PageLayoutProps } from "./PageLayout.types";
 
-function PageLayoutBase(props: PageLayoutProps) {
+function PageLayoutBase<C extends ElementType = "div">(
+  props: PageLayoutProps<C>,
+) {
   const {
     as,
     titleAs = "h1",
@@ -21,41 +25,39 @@ function PageLayoutBase(props: PageLayoutProps) {
     disableBodyContentFlow,
     disableHeaderContentFlow,
     disableBodyPadding,
+    disableBodyWrapper,
     beforeHeader,
     afterHeader,
     slotProps = {},
     ...rest
-  } = props;
+  } = props as PageLayoutProps<"div">;
+
   const Component = (as || "div") as ElementType;
   const renderHeader = beforeHeader || afterHeader || title || desc || actions;
+  const HeaderWrapper =
+    !disableContentFlow && !disableHeaderContentFlow ? ContentFlow : "div";
+
   return (
-    <Component
-      {...slotProps.root}
-      className={cn(styles.root, slotProps.root?.className)}
-      data-size={size}
-    >
+    <Component {...rest} className={cn(styles.root, className)}>
       {renderHeader && (
-        <div
-          {...slotProps.header}
+        <HeaderWrapper
+          {...slotProps?.headerWrapper}
           className={cn(
-            slotProps.header?.className,
-            styles.header,
-            !disableContentFlow &&
-              !disableHeaderContentFlow &&
-              styles.contentFlow,
+            slotProps.headerWrapper?.className,
+            styles.headerWrapper,
           )}
         >
           {beforeHeader}
           <PageHeader
-            {...rest}
+            {...slotProps.header}
             as={titleAs}
             title={title}
             desc={desc}
             actions={actions}
-            className={cn(className, "breakout")}
+            className={cn(slotProps.header?.className, "breakout")}
           />
           {afterHeader}
-        </div>
+        </HeaderWrapper>
       )}
       {titleBar && (
         <div
@@ -65,18 +67,17 @@ function PageLayoutBase(props: PageLayoutProps) {
           {titleBar}
         </div>
       )}
-
-      <div
-        {...slotProps.body}
-        className={cn(
-          slotProps.body?.className,
-          styles.body,
-          !disableBodyPadding && styles.padBodyBlock,
-          !disableContentFlow && !disableBodyContentFlow && styles.contentFlow,
-        )}
-      >
-        {children}
-      </div>
+      {disableBodyWrapper ? (
+        children
+      ) : (
+        <PageBody
+          {...slotProps.body}
+          disableContentFlow={disableContentFlow || disableBodyContentFlow}
+          disablePadding={disableBodyPadding}
+        >
+          {children}
+        </PageBody>
+      )}
       {footer}
     </Component>
   );
