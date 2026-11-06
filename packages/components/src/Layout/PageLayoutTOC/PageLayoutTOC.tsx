@@ -6,6 +6,7 @@ import { cn, mergeRefs } from "@cubicsui/utils";
 import { type ReactElement, useRef, useState } from "react";
 import { Button } from "../../Inputs/Button/Button";
 import { TableOfContents } from "../../Navigation/TableOfContents/TableOfContents";
+import { PageBody } from "../PageBody/PageBody";
 import { PageLayout } from "../PageLayout/PageLayout";
 import { Sidebar } from "../SidebarLayout/Sidebar/Sidebar";
 import { SidebarBody } from "../SidebarLayout/SidebarBody/SidebarBody";
@@ -23,8 +24,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
     actions,
     size = "md",
     disableViewportContentFlow,
-    disableBodyContentFlow = true,
-    disableBodyPadding = true,
+    disableBodyWrapper = true,
     LinkComponent,
     slotProps = {},
     ...rest
@@ -32,6 +32,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
   const id = useId(_id);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
   return (
     <PageLayout
       {...rest}
@@ -41,11 +42,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
           {!!tree.length && (
             <Button
               onClick={() => {
-                setSidebarOpen((o) => {
-                  console.log(o, "sidebarOpen");
-
-                  return !o;
-                });
+                setSidebarOpen((o) => !o);
               }}
               icon
             >
@@ -54,13 +51,13 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
           )}
         </>
       }
-      disableBodyContentFlow={disableBodyContentFlow}
-      disableBodyPadding={disableBodyPadding}
+      disableBodyWrapper={disableBodyWrapper}
       size={size}
     >
       <SidebarLayout
         {...slotProps.sidebarLayout}
         id={`SidebarLayoutTOC-${id}`}
+        className={cn(slotProps.sidebarLayout?.className, styles.sidebarLayout)}
         side="right"
         closesTo="full"
         size={size}
@@ -69,11 +66,13 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
       >
         <SidebarViewport
           {...slotProps.sidebarViewport}
+          as={PageBody}
+          persistScrollPosition
+          disableContentFlow={disableViewportContentFlow}
           removeBg
           className={cn(
             slotProps.sidebarViewport?.className,
             styles.sidebarViewport,
-            !disableViewportContentFlow && styles.contentFlow,
           )}
           ref={mergeRefs(slotProps.sidebarViewport?.ref, scrollContainerRef)}
         >

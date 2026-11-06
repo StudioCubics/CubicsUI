@@ -1,5 +1,6 @@
 import type { ElementType } from "react";
 import type { TableOfContentsProps } from "../../Navigation/TableOfContents/TableOfContents.types";
+import type { PageBodyProps } from "../PageBody/PageBody.types";
 import type { PageLayoutProps } from "../PageLayout/PageLayout.types";
 import type {
   SidebarBodyProps,
@@ -14,7 +15,7 @@ export interface PageLayoutTOCProps extends Omit<PageLayoutProps, "slotProps"> {
   tree?: TableOfContentsProps["tree"];
   /** @default "a" */
   LinkComponent?: ElementType;
-  /** Removes contentFlow from the viewport */
+  /** Removes contentFlow from the sidebar viewport */
   disableViewportContentFlow?: boolean;
 
   slotProps?: PageLayoutProps["slotProps"] & {
@@ -29,6 +30,6 @@ export interface PageLayoutTOCProps extends Omit<PageLayoutProps, "slotProps"> {
     /** The sidebar's body in a `<div/>` */
     sidebarBody?: SidebarBodyProps;
     /** The main area where the children will be shown */
-    sidebarViewport?: SidebarViewportProps;
+    sidebarViewport?: SidebarViewportProps & PageBodyProps;
   };
 }

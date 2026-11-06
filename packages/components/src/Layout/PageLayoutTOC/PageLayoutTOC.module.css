@@ -1,5 +1,6 @@
-.contentFlow {
-  composes: contentFlow from "../PageLayout/PageLayout.module.css";
+.sidebarLayout {
+  flex: 1 1 100%;
+  min-height: 0;
 }
 .sidebarViewport {
   padding-block: calc(var(--size) * 4);
