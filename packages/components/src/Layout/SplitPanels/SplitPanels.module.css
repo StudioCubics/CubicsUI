@@ -1,0 +1,51 @@
+.root {
+  position: relative; /* Positioning context for the absolute handle */
+  display: grid;
+  width: 100%;
+}
+/* Panels */
+.root > :not(.handle) {
+  min-width: 0;
+  min-height: 0;
+}
+
+.row {
+  grid-template-columns:
+    minmax(var(--min-first-size), var(--first-size))
+    minmax(var(--min-second-size), var(--second-size));
+}
+
+/* Stacked resizing needs the root to have a definite height */
+.stacked {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows:
+    minmax(var(--min-first-size), var(--first-size))
+    minmax(var(--min-second-size), var(--second-size));
+  /* Root grows when stacked so both panels always stay fully visible */
+  min-height: calc(var(--min-first-size) + var(--min-second-size));
+}
+.row > .handle {
+  top: 0;
+  bottom: 0;
+  left: var(--handle-pos);
+  width: var(--size);
+  transform: translateX(-50%);
+  cursor: col-resize;
+  scale: 1 1;
+  :active {
+    scale: 1.1 1;
+  }
+}
+
+.stacked > .handle {
+  left: 0;
+  right: 0;
+  top: var(--handle-pos);
+  height: var(--size);
+  transform: translateY(-50%);
+  cursor: row-resize;
+  scale: 1 1;
+  :active {
+    scale: 1 1.1;
+  }
+}

@@ -22,6 +22,9 @@ export * from "./SidebarLayout/SidebarLayout";
 export * from "./SidebarLayout/SidebarLayout.types";
 export * from "./SidebarLayout/SidebarViewport/SidebarViewport";
 
+export * from "./SplitPanels/SplitPanels";
+export * from "./SplitPanels/SplitPanels.types";
+
 export * from "./Table/DataTable";
 export * from "./Table/Table";
 export * from "./Table/Table.types";
