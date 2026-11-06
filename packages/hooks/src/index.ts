@@ -7,6 +7,7 @@ export * from "./useDisclosure/useDisclosure";
 export * from "./useDisclosureGroup/useDisclosureGroup";
 export * from "./useEventCallback/useEventCallback";
 export * from "./useEventListener/useEventListener";
+export * from "./useExternalFlag/useExternalFlag";
 export * from "./useFormHelpers/useFormHelpers";
 export * from "./useGlider/useGlider";
 export * from "./useId/useId";
