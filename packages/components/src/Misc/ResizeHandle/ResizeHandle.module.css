@@ -7,22 +7,20 @@
   touch-action: none;
   user-select: none;
   border-radius: var(--br);
-  opacity: 0.5;
-  transition-property: opacity, background, border-radius;
+  opacity: 0.7;
+  transition-property: opacity, background, border-radius, scale, width, height;
   transition-duration: var(--transition-time);
   transition-timing-function: var(--transition-tf);
 }
 
-.root:hover {
+:where(.root:hover) {
   background: var(--color);
 }
-[data-theme="dark"] .root:active {
-  opacity: 1;
+[data-theme="dark"] :where(.root:active) {
   border-radius: 0;
   background: color-mix(in srgb, var(--color) 80%, white);
 }
-[data-theme="light"] .root:active {
-  opacity: 1;
+[data-theme="light"] :where(.root:active) {
   border-radius: 0;
   background: color-mix(in srgb, var(--color) 80%, black);
 }
