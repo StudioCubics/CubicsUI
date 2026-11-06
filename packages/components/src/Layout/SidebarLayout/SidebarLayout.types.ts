@@ -1,4 +1,5 @@
-import type { ComponentProps, ReactNode } from "react";
+import type { PolymorphicComponentProps } from "@cubicsui/types";
+import type { ComponentProps, ElementType, ReactNode } from "react";
 
 export interface SidebarLayoutSharedProps {
   /** If it should be closed by default
@@ -31,18 +32,17 @@ export interface SidebarLayoutContextProps extends SidebarLayoutSharedProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
 }
-export interface SidebarLayoutProps extends SidebarLayoutSharedProps {
+export interface SidebarLayoutBaseProps extends SidebarLayoutSharedProps {
   children: ReactNode;
+  /** Pass nonce to save yourself from CORS issues */
+  nonce?: string;
   slotProps?: {
     /** Props of the script tag */
     script?: ComponentProps<"script">;
-    /** Props of the root container */
-    root?: ComponentProps<"div">;
   };
-
-  /** Pass nonce to save yourself from CORS issues */
-  nonce?: string;
 }
+export type SidebarLayoutProps<C extends ElementType = "div"> =
+  PolymorphicComponentProps<C, SidebarLayoutBaseProps>;
 
 export interface SidebarScriptProps extends ComponentProps<"script"> {
   storageKey: string;
@@ -75,8 +75,10 @@ export type SidebarProps = ComponentProps<"aside"> & {
   children: ReactNode;
 } & SidebarBgProps;
 
-export interface SidebarHeaderProps
-  extends Omit<ComponentProps<"div">, "title"> {
+export interface SidebarHeaderProps extends Omit<
+  ComponentProps<"div">,
+  "title"
+> {
   children?: ReactNode;
   /** Brand logo or title of the sidebar */
   title?: ReactNode;
@@ -87,6 +89,7 @@ export interface SidebarHeaderProps
 export type SidebarBodyProps = ComponentProps<"div"> &
   SidebarShowProps &
   SidebarOverflowProps;
-export type SidebarViewportProps = ComponentProps<"div"> &
-  SidebarOverflowProps &
-  SidebarBgProps;
+
+export type SidebarViewportBaseProps = SidebarOverflowProps & SidebarBgProps;
+export type SidebarViewportProps<C extends ElementType = "div"> =
+  PolymorphicComponentProps<C, SidebarViewportBaseProps>;

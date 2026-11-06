@@ -1,16 +1,18 @@
 "use client";
 
-import { cn, isServer } from "@cubicsui/utils";
+import { readExternalFlag, useExternalFlag } from "@cubicsui/hooks";
+import type { PolymorphicComponentType } from "@cubicsui/types";
+import { cn } from "@cubicsui/utils";
 import {
   type Context,
   createContext,
   type ReactElement,
   useContext,
   useEffect,
-  useState,
 } from "react";
 import styles from "./SidebarLayout.module.css";
 import type {
+  SidebarLayoutBaseProps,
   SidebarLayoutContextProps,
   SidebarLayoutProps,
 } from "./SidebarLayout.types";
@@ -36,9 +38,11 @@ export function useSidebarLayout(): SidebarLayoutContextProps {
   return c;
 }
 
-export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
+function SidebarLayoutBase(props: SidebarLayoutProps): ReactElement {
   const {
+    as,
     children,
+    className,
     defaultClosed = SIDEBAR_LAYOUT_DEFAULTS.defaultClosed,
     id = SIDEBAR_LAYOUT_DEFAULTS.id,
     closesTo = SIDEBAR_LAYOUT_DEFAULTS.closesTo,
@@ -49,45 +53,36 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
     slotProps = {},
     open,
     onOpenChange,
+    ...rest
   } = props;
 
   const storageKey = `sidebarOpen-${id}`;
   const isControlled = open !== undefined;
-  const [internalOpen, setInternalOpen] = useState(() =>
-    defaultClosed ? !defaultClosed : true,
+  const [storedOpen, setStoredOpen] = useExternalFlag(
+    storageKey,
+    !defaultClosed,
   );
-  const sidebarOpen = isControlled ? open : internalOpen;
+  const sidebarOpen = isControlled ? open : storedOpen;
+  const Component = as || "div";
 
+  // Controlled mode: push the stored value to the parent once on mount
   // biome-ignore lint/correctness/useExhaustiveDependencies: its onOpenChange dumbass
   useEffect(() => {
-    if (isServer) return;
-    try {
-      const stored = localStorage.getItem(storageKey);
-      if (stored !== null) {
-        const parsed = JSON.parse(stored) as boolean;
-        if (isControlled) onOpenChange?.(parsed);
-        else setInternalOpen((prev) => (prev === parsed ? prev : parsed));
-      }
-    } catch {
-      // Unsupported
-    }
+    if (!isControlled) return;
+    const stored = readExternalFlag(storageKey);
+    if (stored !== null && stored !== open) onOpenChange?.(stored);
   }, [storageKey, isControlled]);
-
-  // Persist on every change, including ones made from outside
-  useEffect(() => {
-    if (isServer) return;
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(sidebarOpen));
-    } catch {
-      // Unsupported
-    }
-  }, [storageKey, sidebarOpen]);
 
   function toggleSidebar() {
     const next = !sidebarOpen;
-    if (!isControlled) setInternalOpen(next);
+    setStoredOpen(next); // persist only on user action
     onOpenChange?.(next);
   }
+  // Persist controlled changes made from outside
+  useEffect(() => {
+    if (isControlled && open !== readExternalFlag(storageKey))
+      setStoredOpen(open);
+  }, [isControlled, open, storageKey, setStoredOpen]);
   return (
     <SidebarLayoutContext.Provider
       value={{
@@ -102,26 +97,34 @@ export function SidebarLayout(props: SidebarLayoutProps): ReactElement {
         id,
       }}
     >
-      <SidebarScript
-        {...slotProps.script}
-        storageKey={storageKey}
-        defaultClosed={defaultClosed}
-        containerId={id}
-      />
-      <div
-        {...slotProps.root}
+      <Component
+        {...rest}
         suppressHydrationWarning
         id={id}
         data-size={size}
         data-open={sidebarOpen}
         className={cn(
           styles.root,
+          className,
           closesTo && styles[`closesTo_${closesTo}`],
           type && styles[`type_${type}`],
         )}
       >
         {children}
-      </div>
+      </Component>
+      {/* fuc FOUC */}
+      <SidebarScript
+        {...slotProps.script}
+        storageKey={storageKey}
+        defaultClosed={defaultClosed}
+        containerId={id}
+      />
     </SidebarLayoutContext.Provider>
   );
 }
+SidebarLayoutBase.displayName = "SidebarLayout";
+
+export const SidebarLayout = SidebarLayoutBase as PolymorphicComponentType<
+  SidebarLayoutBaseProps,
+  "div"
+>;

@@ -1,3 +1,4 @@
+import { isServer } from "@cubicsui/utils";
 import { memo, type NamedExoticComponent } from "react";
 import type { SidebarScriptProps } from "./SidebarLayout.types";
 import { script } from "./script";
@@ -22,7 +23,8 @@ export const SidebarScript: NamedExoticComponent<SidebarScriptProps> =
         {...rest}
         id={scriptId}
         suppressHydrationWarning
-        nonce={nonce}
+        nonce={isServer ? nonce : ""}
+        type={isServer ? undefined : "text/plain"}
         // biome-ignore lint/security/noDangerouslySetInnerHtml: this has to be passed in a script tag
         dangerouslySetInnerHTML={{
           __html: `(${script.toString()})(${JSON.stringify({ storageKey, defaultClosed, containerId })})`,
