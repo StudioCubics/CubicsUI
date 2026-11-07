@@ -3,5 +3,5 @@ export * from "./MonacoEditor/MonacoEditor.types";
 
 export * from "./Sandcube/Sandcube";
 export * from "./Sandcube/Sandcube.types";
-export * from "./Sandcube/SandcubeClient";
+export * from "./Sandcube/SandcubeClient/SandcubeClient";
 export * from "./Sandcube/SandcubeFile";

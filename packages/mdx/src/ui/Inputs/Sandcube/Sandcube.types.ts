@@ -1,7 +1,7 @@
-import type { ResizablePanelsProps } from "@cubicsui/components";
+import type { SplitPanelsProps } from "@cubicsui/components";
 import type { ReactNode } from "react";
 
-export interface SandcubeProps extends Omit<ResizablePanelsProps, "children"> {
+export interface SandcubeProps extends Omit<SplitPanelsProps, "children"> {
   children: ReactNode;
   /** Title of the Sandcube */
   title?: string;
@@ -20,7 +20,7 @@ export interface SandcubeClientFile {
 }
 
 export interface SandcubeClientProps extends Omit<
-  ResizablePanelsProps,
+  SplitPanelsProps,
   "children"
 > {
   /** Files in the Sandcube */
@@ -42,3 +42,12 @@ interface SandcubeFileState {
 }
 
 export type SandcubeFiles = Record<string, SandcubeFileState>;
+
+export interface SandcubeFileProps {
+  children: ReactNode;
+  path: string;
+  /** Hides the file from the tabs, cannot be selected */
+  hidden?: boolean;
+  /** Makes the file readonly in the editor */
+  readOnly?: boolean;
+}

@@ -1,18 +1,19 @@
 "use client";
 
-import { ResizablePanels } from "@cubicsui/components";
+import { SplitPanels } from "@cubicsui/components";
+import { cn } from "@cubicsui/utils";
 import { useState } from "react";
-import { MonacoEditor } from "../MonacoEditor/MonacoEditor";
-import type { SandcubeClientProps, SandcubeFiles } from "./Sandcube.types";
-import { SandcubeRunner } from "./SandcubeRunner/SandcubeRunner";
+import { MonacoEditor } from "../../MonacoEditor/MonacoEditor";
+import type { SandcubeClientProps, SandcubeFiles } from "../Sandcube.types";
+import { SandcubeRunner } from "../SandcubeRunner/SandcubeRunner";
+import styles from "./SandcubeClient.module.css";
 
 export function SandcubeClient(props: SandcubeClientProps) {
   const {
     files: initialFiles,
     title,
     entry = "/App.tsx",
-    width = "100%",
-    height = "40vh",
+    className,
     ...rest
   } = props;
   const [files, setFiles] = useState<SandcubeFiles>(() =>
@@ -34,17 +35,16 @@ export function SandcubeClient(props: SandcubeClientProps) {
   );
 
   return (
-    <ResizablePanels
-      width={width}
-      height={height}
-      columns={2}
-      layout={"row"}
-      disableEdgeHandles
+    <SplitPanels
+      minFirstSize={300}
+      minSecondSize={300}
+      className={cn(className, styles.root)}
       {...rest}
     >
-      <SandcubeRunner id={"sandcube_editor"} files={files} entry={entry} />
+      <SandcubeRunner files={files} entry={entry} />
       <MonacoEditor
         id={title}
+        disableBorderRadius
         defaultValue={files[activeFile]?.code}
         onChange={(value) =>
           setFiles((prev) => ({
@@ -63,9 +63,12 @@ export function SandcubeClient(props: SandcubeClientProps) {
             {files[activeFile].code}
           </pre>
         }
-        options={{ readOnly: files[activeFile]?.readOnly }}
+        options={{
+          readOnly: files[activeFile]?.readOnly,
+          lineNumbersMinChars: 4,
+        }}
         tabsMgr={{ activeFile, visibleFiles, setActiveFile }}
       />
-    </ResizablePanels>
+    </SplitPanels>
   );
 }

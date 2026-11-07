@@ -1,0 +1,5 @@
+.root {
+  overflow: hidden;
+  border-radius: var(--br-md);
+  height: 30vh;
+}

@@ -88,7 +88,6 @@ function runFiles(files: SandcubeFiles, entry: string) {
   return load(entry);
 }
 export interface SandcubeRunnerProps {
-  id: string;
   files: SandcubeFiles;
   entry: string;
 }

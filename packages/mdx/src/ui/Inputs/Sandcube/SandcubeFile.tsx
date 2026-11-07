@@ -1,13 +1,5 @@
-import type { ReactNode } from "react";
+import type { SandcubeFileProps } from "./Sandcube.types";
 
-export interface SandcubeFileProps {
-  children: ReactNode;
-  path: string;
-  /** Hides the file from the tabs, cannot be selected */
-  hidden?: boolean;
-  /** Makes the file readonly in the editor */
-  readOnly?: boolean;
-}
 export function SandcubeFile(_: SandcubeFileProps) {
   return null;
 }

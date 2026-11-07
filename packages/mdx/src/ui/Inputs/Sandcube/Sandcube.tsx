@@ -1,7 +1,7 @@
 import { extractText } from "@cubicsui/utils";
 import { Children, isValidElement } from "react";
 import type { SandcubeClientFile, SandcubeProps } from "./Sandcube.types";
-import { SandcubeClient } from "./SandcubeClient";
+import { SandcubeClient } from "./SandcubeClient/SandcubeClient";
 import type { SandcubeFileProps } from "./SandcubeFile";
 
 export function Sandcube(props: SandcubeProps) {

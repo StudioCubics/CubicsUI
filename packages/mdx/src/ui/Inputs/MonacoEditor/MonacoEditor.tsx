@@ -13,12 +13,12 @@ import {
 export function MonacoEditor(props: MonacoEditorProps) {
   const { resolvedTheme } = useTheme();
   const {
-    name,
     id,
     height = "100%",
     slotProps = {},
     className,
     tabsMgr,
+    disableBorderRadius,
     ...rest
   } = props;
 
@@ -51,21 +51,27 @@ export function MonacoEditor(props: MonacoEditorProps) {
         onMount={handleEditorOnMount}
         beforeMount={handleEditorBeforeMount}
         height={height}
-        className={cn(className, styles.editor)}
+        className={cn(
+          className,
+          styles.root,
+          disableBorderRadius && styles.disableBorderRadius,
+        )}
         {...rest}
         options={{
-          minimap: { enabled: false },
           automaticLayout: true,
           fontFamily: "var(--font-code)",
           fontSize: 14,
+          fontLigatures: true,
+          ...rest.options,
           padding: {
             top: 12,
+            ...rest.options?.padding,
           },
-          fontLigatures: true,
           scrollbar: {
             alwaysConsumeMouseWheel: false,
+            ...rest.options?.scrollbar,
           },
-          ...rest.options,
+          minimap: { enabled: false, ...rest.options?.minimap },
         }}
       />
     </Tabs>

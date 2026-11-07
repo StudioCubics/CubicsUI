@@ -7,6 +7,7 @@ import { registerJsxTokenizer } from "./monacoJSXTokenizer";
 
 // Register themes once before mount
 export function handleEditorBeforeMount(monaco: Monaco) {
+  // TODO change themes to get created from css vars
   monaco.editor.defineTheme("cubicsui-dark", cubicsuiDarkTheme);
   monaco.editor.defineTheme("cubicsui-light", cubicsuiLightTheme);
   registerJsxTokenizer(monaco);
