@@ -21,6 +21,7 @@ export default async function Page({ params }: PageProps<"/docs/[[...slug]]">) {
 
   return (
     <PageLayoutMD
+      id={"DOCS_MAIN"}
       title={frontmatter.title}
       desc={frontmatter.description}
       tree={toc ? scope.toc : undefined}
