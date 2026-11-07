@@ -41,7 +41,7 @@
   padding: 0;
 }
 .variant_outlined {
-  outline: var(--border-width) solid
+  border: var(--border-width) solid
     color-mix(in srgb, currentColor 30%, transparent);
 }
 .variant_colored {

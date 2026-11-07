@@ -43,6 +43,7 @@ export function useTheme(): ThemeContextProps {
       theme: "light",
       setTheme: notImplemented,
       resolvedTheme: "light",
+      systemEnabled: true,
     };
   return c;
 }

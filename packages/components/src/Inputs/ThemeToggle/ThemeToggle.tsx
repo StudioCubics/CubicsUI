@@ -1,8 +1,13 @@
 "use client";
 
 import { useMounted } from "@cubicsui/hooks";
-import { cn } from "@cubicsui/utils";
-import { type ReactElement, useId } from "react";
+import { mergeEvents } from "@cubicsui/utils";
+import {
+  type MouseEvent,
+  type ReactElement,
+  type ReactNode,
+  useId,
+} from "react";
 import { Card } from "../../Display/Card/Card";
 import { List } from "../../Display/List/List";
 import { ListItem } from "../../Display/List/ListItem/ListItem";
@@ -10,20 +15,20 @@ import { Popover } from "../../Layout/Popover/Popover";
 import { useTheme } from "../../Providers/ThemeProvider/ThemeProvider";
 import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
 import { Button } from "../Button/Button";
-import styles from "./ThemeToggle.module.css";
-import type { ThemeObject, ThemeToggleProps } from "./ThemeToggle.types";
+import type { ThemeObjectValue, ThemeToggleProps } from "./ThemeToggle.types";
+import { DEFAULT_THEME_OBJECT, getNextTheme } from "./ThemeToggle.utils";
 import { ThemeToggleIcon } from "./ThemeToggleIcon/ThemeToggleIcon";
 
-const defaultThemeObject: ThemeObject = {
-  light: { text: "Light Mode" },
-  system: { text: "System Mode" },
-  dark: { text: "Dark Mode" },
-};
+/** Resolved entry: text is always defined, icon always renderable. */
+interface ResolvedEntry extends ThemeObjectValue {
+  text: string;
+  icon: ReactNode;
+}
 
 export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
   const {
     variant = "icon",
-    currentTheme: _currentTheme,
+    currentTheme: controlledTheme,
     themeObject = {},
     slotProps = {},
     resolveSystem = false,
@@ -35,83 +40,67 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
 
   if (!mounted) return null;
 
-  const isControlled = _currentTheme !== undefined;
+  // Controlled mode: never touch the provider, only call user handlers.
+  const isControlled = controlledTheme !== undefined;
+  const currentTheme = controlledTheme ?? theme;
+  const displayTheme: Theme =
+    !isControlled && resolveSystem ? resolvedTheme : currentTheme;
 
-  const cleanThemeObject: ThemeObject = {
-    light: {
-      ...defaultThemeObject.light,
-      ...themeObject.light,
-      onClick: (e) => {
-        if (!isControlled) {
-          if (systemEnabled) setTheme("system");
-          else setTheme("dark");
-        }
-        themeObject.light?.onClick?.(e);
+  const themeList = (Object.keys(DEFAULT_THEME_OBJECT) as Theme[]).map(
+    (key): [Theme, ResolvedEntry] => [
+      key,
+      {
+        ...DEFAULT_THEME_OBJECT[key],
+        ...themeObject[key],
+        text: themeObject[key]?.text ?? DEFAULT_THEME_OBJECT[key].text ?? "",
+        icon: themeObject[key]?.icon ?? <ThemeToggleIcon currentTheme={key} />,
       },
-    },
-    system: {
-      ...defaultThemeObject.system,
-      ...themeObject.system,
-      onClick: (e) => {
-        if (!isControlled) {
-          if (resolveSystem && resolvedTheme === "dark") setTheme("light");
-          else setTheme("dark");
-        }
-        themeObject.system?.onClick?.(e);
-      },
-    },
-    dark: {
-      ...defaultThemeObject.dark,
-      ...themeObject.dark,
-      onClick: (e) => {
-        if (!isControlled) {
-          setTheme("light");
-        }
-        themeObject.dark?.onClick?.(e);
-      },
-    },
-  };
-  const currentTheme = _currentTheme ?? theme;
-  const current = cleanThemeObject[currentTheme];
-  const icon = cleanThemeObject[currentTheme].icon ?? (
-    <ThemeToggleIcon currentTheme={currentTheme} />
+    ],
   );
+  const current = themeList.find(([key]) => key === displayTheme)![1];
+
+  /** Applies a theme change (uncontrolled only), then calls the user's handler. */
+  function handleClick(target: Theme, e: MouseEvent) {
+    if (!isControlled) setTheme(target);
+    themeObject[target]?.onClick?.(e);
+  }
+  /** Clicking the toggle button cycles to the next theme. */
+  function cycleTheme(e: MouseEvent) {
+    const next = getNextTheme(currentTheme, {
+      systemEnabled,
+      resolveSystem,
+      resolvedTheme,
+    });
+    if (!isControlled) setTheme(next);
+    themeObject[displayTheme]?.onClick?.(e);
+  }
+
   switch (variant) {
     case "list":
       return (
         <>
           <Button
             {...slotProps.button}
-            startIcon={icon}
+            startIcon={current.icon}
             popoverTarget={popoverId}
           >
             {current.text}
           </Button>
           <Popover {...slotProps.popover} id={popoverId}>
             <Card {...slotProps.card} disablePadding>
-              <List
-                {...slotProps.list}
-                className={cn(slotProps.list?.className, styles.list)}
-              >
-                {Object.entries(cleanThemeObject).map(([k, v]) => {
-                  return (
-                    <ListItem
-                      {...slotProps.listItem}
-                      type="item"
-                      onClick={(e) => {
-                        if (!isControlled) setTheme(k as Theme);
-                        themeObject[k as Theme]?.onClick?.(e);
-                      }}
-                      icon={
-                        v.icon ?? <ThemeToggleIcon currentTheme={k as Theme} />
-                      }
-                      data-active={currentTheme === k ? k : undefined}
-                      key={k}
-                    >
-                      {v.text}
-                    </ListItem>
-                  );
-                })}
+              <List size="lg" {...slotProps.list}>
+                {themeList.map(([key, entry]) => (
+                  <ListItem
+                    {...slotProps.listItem}
+                    type="item"
+                    key={key}
+                    onClick={(e) => handleClick(key, e)}
+                    icon={entry.icon}
+                    data-active={currentTheme === key ? key : undefined}
+                  >
+                    {entry.text}
+                  </ListItem>
+                ))}
               </List>
             </Card>
           </Popover>
@@ -121,24 +110,26 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
       return (
         <Button
           {...slotProps.button}
-          startIcon={icon}
-          onClick={(e) => {
-            current.onClick?.(e);
-          }}
+          startIcon={
+            <>
+              {slotProps.button?.startIcon}
+              {current.icon}
+            </>
+          }
+          onClick={mergeEvents(slotProps.button?.onClick, cycleTheme)}
         >
           {current.text}
         </Button>
       );
     default:
+      // Default: "icon"
       return (
         <Button
           {...slotProps.button}
           icon
-          onClick={(e) => {
-            current.onClick?.(e);
-          }}
+          onClick={mergeEvents(slotProps.button?.onClick, cycleTheme)}
         >
-          {icon}
+          {current.icon}
         </Button>
       );
   }

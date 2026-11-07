@@ -1,3 +1,4 @@
+import { isServer } from "@cubicsui/utils";
 import { memo, type NamedExoticComponent } from "react";
 import { script } from "./script";
 import type { ThemeScriptProps } from "./ThemeProvider.types";
@@ -29,8 +30,10 @@ export const ThemeScript: NamedExoticComponent<ThemeScriptProps> =
     return (
       <script
         {...scriptProps}
+        id={scriptId}
         suppressHydrationWarning
-        nonce={typeof window === "undefined" ? nonce : ""}
+        nonce={isServer ? nonce : ""}
+        type={isServer ? undefined : "text/plain"}
         // biome-ignore lint/security/noDangerouslySetInnerHtml: this has to be passed in a script tag
         dangerouslySetInnerHTML={{
           __html: `(${script.toString()})(${JSON.stringify(scriptArgs)})`,

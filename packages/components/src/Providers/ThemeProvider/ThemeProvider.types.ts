@@ -1,4 +1,16 @@
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, MouseEvent, ReactNode } from "react";
+
+/**
+ * Use to create your own theme ui elements
+ */
+export type ThemeObject = Record<
+  "dark" | "light" | "system",
+  {
+    text?: string;
+    icon?: ReactNode;
+    onClick?: (e: MouseEvent<HTMLElement>) => void;
+  }
+>;
 
 export type ResolvedTheme = "light" | "dark";
 export type Theme = ResolvedTheme | "system";
@@ -10,7 +22,7 @@ export interface ThemeContextProps {
   /** When `enableSystem` is true it will resolve to either `light` or `dark` */
   resolvedTheme: ResolvedTheme;
   /** This is so that components inside `<ThemeProvider/>` is aware if `enableSystem` is set to true */
-  systemEnabled?: boolean;
+  systemEnabled: boolean;
 }
 export interface ThemeScriptProps {
   /** The data attribute of the container that will be modified

@@ -31,10 +31,11 @@ export interface ThemeToggleProps {
    * `onClick` handlers you provide via `themeObject`, so it can be
    * used standalone without wrapping in a `<ThemeProvider/>`. */
   currentTheme?: Theme;
-  /** Will skip light when system preference is light and same for dark.
+  /** When the theme is `"system"`, display the resolved theme (light or dark)
+   * instead of "System Mode", and skip the cycle step that would match the
+   * current resolved theme (e.g. system resolving to light goes straight to dark).
    * Only applies when `<ThemeToggle/>` is inside `<ThemeProvider/>` mode.
-   * @default false
-   */
+   * @default false */
   resolveSystem?: boolean;
 
   slotProps?: {
