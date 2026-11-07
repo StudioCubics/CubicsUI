@@ -85,6 +85,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       },
       { children: "Popover", href: "/components/popover" },
       { children: "ResizablePanels", href: "/components/resizablePanels" },
+      { children: "SplitPanels", href: "/components/splitPanels" },
       {
         children: "SectionWrapper",
         href: "/components/sectionWrapper",

@@ -33,28 +33,6 @@ export default function Page() {
         </div>
       </section>
 
-      <h2>
-        With <code>resolveSystem</code>
-      </h2>
-      <section>
-        <div className={"column"}>
-          <h3>resolveSystem off (default)</h3>
-          <p>
-            Clicking system mode always goes to <code>dark</code>
-          </p>
-          <ThemeToggle variant="full" />
-        </div>
-        <hr />
-        <div className={"column"}>
-          <h3>resolveSystem on</h3>
-          <p>
-            Clicking system mode skips to the opposite of the resolved system
-            theme
-          </p>
-          <ThemeToggle variant="full" resolveSystem />
-        </div>
-      </section>
-
       <h2>Custom themeObject</h2>
       <section>
         <div className={"column"}>

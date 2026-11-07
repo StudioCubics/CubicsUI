@@ -271,6 +271,22 @@ export default function Page() {
           <h3>fullHeight (parent height: 160px)</h3>
           <Card fullHeight>Stretches to fill a sized parent.</Card>
         </div>
+        <div className="column" style={{ width: "100%" }}>
+          <h3>fixedWidth</h3>
+          <Card fixedWidth="30vw">Has a fixed width of 30vw</Card>
+        </div>
+        <div className="column" style={{ height: "160px" }}>
+          <h3>fixedHeight (parent height: 160px)</h3>
+          <Card fixedHeight="20vh">
+            <CardHeader title={"Has a fixed width of 20vh"} />
+            <CardContent>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+              odio expedita cupiditate ipsum debitis tempora neque rerum
+              accusantium eligendi totam ratione quibusdam, dolorem
+              necessitatibus sit soluta eius consequuntur vero nihil!
+            </CardContent>
+          </Card>
+        </div>
         <div className="column">
           <h3>disablePadding</h3>
           <Card disablePadding fixedWidth="180px">
