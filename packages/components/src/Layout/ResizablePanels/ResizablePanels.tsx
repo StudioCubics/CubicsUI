@@ -48,7 +48,7 @@ function ResizablePanelsBase<C extends ElementType>(
     panelGap = "0px",
     disableEdgeHandles,
     touchTolerance = 1,
-    snapDistance = 0,
+    snapDistance = 16,
     color,
     size,
     slotProps = {},

@@ -36,7 +36,7 @@ export interface ResizablePanelsBaseProps extends Pick<
    * @default 1 */
   touchTolerance?: number;
   /** Distance in px within which a dragged edge snaps to the nearest panel edge or root boundary. 0 disables snapping
-   * @default 0 */
+   * @default 16 */
   snapDistance?: number;
   slotProps?: {
     panel?: ComponentProps<"div">;
