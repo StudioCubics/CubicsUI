@@ -19,6 +19,7 @@ export * from "./OctagonAlertIcon";
 export * from "./PanelLeftIcon";
 export * from "./PointerLightIcon";
 export * from "./QuoteIcon";
+export * from "./SearchIcon";
 export * from "./SettingsIcon";
 export * from "./ToolCaseIcon";
 export * from "./TriangleAlertIcon";
