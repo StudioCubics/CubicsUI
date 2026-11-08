@@ -16,3 +16,5 @@ onlyBuiltDependencies:
   - es5-ext
   - esbuild
   - just-pnpm
+  - onnxruntime-node
+  - protobufjs

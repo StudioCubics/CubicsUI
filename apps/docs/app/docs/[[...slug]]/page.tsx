@@ -1,4 +1,4 @@
-import { PageLayoutMD } from "@cubicsui/mdx";
+import { PageLayoutMD } from "@cubicsui/mdx/client";
 import type { Route } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";

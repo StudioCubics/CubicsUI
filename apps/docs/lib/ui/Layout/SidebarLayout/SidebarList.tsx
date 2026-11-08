@@ -11,6 +11,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { getSiteMap } from "@/app/docs/meta";
 import { PkgSelectorCard } from "../../Display/PkgSelectorCard";
+import { SearchPopover } from "../../Inputs/SearchPopover/SearchPopover";
 
 export function SidebarList({ tree }: { tree: ListItemProps<Route>[] }) {
   const pathname = usePathname();
@@ -21,6 +22,7 @@ export function SidebarList({ tree }: { tree: ListItemProps<Route>[] }) {
 
   return (
     <>
+      <SearchPopover />
       <Rolodex
         blurMultiplier={0}
         showButtons
