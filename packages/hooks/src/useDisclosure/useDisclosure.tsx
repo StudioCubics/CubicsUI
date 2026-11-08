@@ -4,13 +4,13 @@ import { useState } from "react";
 
 export interface UseDisclosureReturn {
   open: boolean;
+  handleToggle: () => void;
+  handleOpen: () => void;
   handleClose: () => void;
   handleStrictClose: (
     _: unknown,
     reason: "backdropClick" | "escapeKeyDown",
   ) => void;
-  handleOpen: () => void;
-  handleToggle: () => void;
 }
 
 export function useDisclosure(
@@ -44,9 +44,9 @@ export function useDisclosure(
 
   return {
     open,
+    handleToggle,
+    handleOpen,
     handleClose,
     handleStrictClose,
-    handleOpen,
-    handleToggle,
   };
 }
