@@ -1,6 +1,9 @@
 export * from "./ContentFlow/ContentFlow";
 export * from "./ContentFlow/ContentFlow.types";
 
+export * from "./Dialog/Dialog";
+export * from "./Dialog/Dialog.types";
+
 export * from "./PageBody/PageBody";
 export * from "./PageBody/PageBody.types";
 

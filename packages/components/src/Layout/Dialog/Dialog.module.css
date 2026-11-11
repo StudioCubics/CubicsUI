@@ -1,0 +1,85 @@
+.root {
+  --dialog-duration: var(--transition-time);
+  --dialog-easing: var(--transition-tf);
+  --dialog-scale-from: 0.8;
+  --dialog-translate-from: 0px;
+
+  position: fixed;
+  inset: 0;
+  /* centers; needed because the global reset zeroes the UA margin */
+  margin: auto;
+  /* non-modal dialogs aren't in the top layer, so they need a z-index */
+  z-index: var(--z-modal);
+
+  transform-origin: center;
+
+  /* closed state */
+  opacity: 0;
+  scale: var(--dialog-scale-from);
+  translate: var(--dialog-translate-from);
+
+  transition:
+    opacity var(--dialog-duration) var(--dialog-easing),
+    scale var(--dialog-duration) var(--dialog-easing),
+    translate var(--dialog-duration) var(--dialog-easing),
+    display var(--dialog-duration) var(--dialog-easing) allow-discrete,
+    overlay var(--dialog-duration) var(--dialog-easing) allow-discrete;
+}
+
+.root::backdrop {
+  backdrop-filter: blur(var(--blur-light));
+  background: var(--color-scrim);
+
+  /* closed state */
+  opacity: 0;
+
+  transition:
+    opacity var(--dialog-duration) var(--dialog-easing),
+    display var(--dialog-duration) var(--dialog-easing) allow-discrete,
+    overlay var(--dialog-duration) var(--dialog-easing) allow-discrete;
+}
+
+/* open state */
+.root[open] {
+  opacity: 1;
+  scale: 1;
+  translate: 0;
+}
+
+.root[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .root[open] {
+    opacity: 0;
+    scale: var(--dialog-scale-from);
+    translate: var(--dialog-translate-from);
+  }
+
+  .root[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Size modifiers */
+.fullScreen,
+.fullWidth {
+  width: 100svw;
+}
+.fullScreen,
+.fullHeight {
+  height: 100svh;
+}
+
+.overrideUAStyles.fullScreen,
+.overrideUAStyles.fullWidth {
+  max-width: 100svw; /* override UA max-width */
+}
+.overrideUAStyles.fullScreen,
+.overrideUAStyles.fullHeight {
+  max-height: 100svh; /* override UA max-height */
+}
+.overrideUAStyles.fullScreen {
+  margin: 0;
+}
