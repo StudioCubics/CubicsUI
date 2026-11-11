@@ -14,7 +14,8 @@ import { SearchIcon } from "@cubicsui/icons";
 import { useSearch } from "@cubicsui/mdx/client";
 import { getFirstLines } from "@cubicsui/utils";
 import Link from "next/link";
-import { embedQuery } from "@/lib/utils/embedQuery";
+import { useEffect, useState } from "react";
+import { embedQuery, isModelReady, warmupModel } from "@/lib/utils/embedQuery";
 
 export function SearchPopover() {
   const { open, handleToggle, handleClose } = useDisclosure();
@@ -23,7 +24,15 @@ export function SearchPopover() {
     embedQuery,
     enabled: open,
   });
+  const [modelReady, setModelReady] = useState(isModelReady());
 
+  useEffect(() => {
+    if (!open) return;
+    // warmupModel must return the promise (return extractor at its end)
+    warmupModel()
+      .then(() => setModelReady(true))
+      .catch(() => {});
+  }, [open]);
   return (
     <>
       <Button
@@ -46,6 +55,7 @@ export function SearchPopover() {
               }
             />
             <CardContent>
+              {!modelReady && <p>Improving results…</p>}
               {loading && <p>Searching…</p>}
               <List LinkComponent={Link}>
                 {results?.hits.map((h) => (

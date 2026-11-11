@@ -1,6 +1,6 @@
 "use client";
 
-import { load, type SearchParamsFullText, search } from "@orama/orama";
+import { load, type SearchParams, search } from "@orama/orama";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createSearch } from "../../../../shared/search/search";
 import type {
@@ -65,29 +65,35 @@ export function useSearch(props: UseSearchProps) {
         }
       }
 
-      const baseOptions: SearchParamsFullText<SearchDB, SearchDocument> = {
+      const baseOptions: SearchParams<SearchDB, SearchDocument> = {
+        term,
         properties: ["title", "heading", "content"],
         boost: { title: 3, heading: 2 },
         limit,
       };
-      let res: SearchResult;
       try {
-        res = vector
-          ? await search(db, {
-              term,
-              ...baseOptions,
-              mode: "hybrid",
-              vector: { value: vector, property: "embedding" },
-              similarity: 0.6,
-            })
-          : await search(db, { term, ...baseOptions });
+        let res: SearchResult;
+        try {
+          res = vector
+            ? await search(db, {
+                ...baseOptions,
+                term,
+                mode: "hybrid",
+                vector: { value: vector, property: "embedding" },
+                similarity: 0.6,
+              })
+            : await search(db, baseOptions);
+        } catch (error) {
+          console.error(error);
+          res = await search(db, baseOptions);
+        }
+        if (id !== requestId.current) return;
+        setResults(res);
       } catch (error) {
         console.error(error);
-        res = await search(db, baseOptions); // full-text fallback
+      } finally {
+        if (id === requestId.current) setLoading(false);
       }
-      if (id !== requestId.current) return;
-      setResults(res);
-      setLoading(false);
     },
     [embedQuery, limit],
   );
