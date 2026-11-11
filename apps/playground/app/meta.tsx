@@ -76,6 +76,21 @@ export const componentsMeta: ListItemProps<Route>[] = [
     children: "Layout",
     nodes: [
       {
+        children: "ContentFlow",
+        disabled: true,
+        icon: "🚧",
+      },
+      {
+        children: "Dialog",
+        href: "/components/dialog",
+        icon: "🚧",
+      },
+      {
+        children: "PageBody",
+        disabled: true,
+        icon: "🚧",
+      },
+      {
         children: "PageLayout",
         href: "/components/pageLayout",
       },
@@ -85,7 +100,6 @@ export const componentsMeta: ListItemProps<Route>[] = [
       },
       { children: "Popover", href: "/components/popover" },
       { children: "ResizablePanels", href: "/components/resizablePanels" },
-      { children: "SplitPanels", href: "/components/splitPanels" },
       {
         children: "SectionWrapper",
         href: "/components/sectionWrapper",
@@ -94,7 +108,8 @@ export const componentsMeta: ListItemProps<Route>[] = [
         children: "SidebarLayout",
         href: "/components/sidebarLayout",
       },
-      { children: "Table", href: "/components/table", icon: "🚧" },
+      { children: "SplitPanels", href: "/components/splitPanels" },
+      { children: "Table", disabled: true, icon: "🚧" },
     ],
   },
   // Navigation

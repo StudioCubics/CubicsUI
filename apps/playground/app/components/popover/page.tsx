@@ -1,12 +1,8 @@
-import { Button, Card, Popover } from "@cubicsui/components";
+import { Button, Card, PageLayout, Popover } from "@cubicsui/components";
 
 export default function Page() {
   return (
-    <main className="main">
-      <h1>
-        <code>{"<Popover/>"}</code>
-      </h1>
-
+    <PageLayout title={<code>{"<Popover/>"}</code>}>
       <h2>Basic Usage</h2>
       <section>
         <div className={"column"}>
@@ -164,6 +160,6 @@ export default function Page() {
           </Popover>
         </div>
       </section>
-    </main>
+    </PageLayout>
   );
 }
