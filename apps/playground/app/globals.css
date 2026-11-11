@@ -171,7 +171,7 @@
   /* Misc Colors */
   --color-outline: #b4b4b6;
   --color-shadow: #82829954;
-  --color-scrim: #221a1e5c;
+  --color-scrim: #6c686d5c;
   --color-focus: #221a1e;
 }
 [data-theme="dark"] {
@@ -250,7 +250,7 @@
   /* Misc Colors */
   --color-outline: #444444;
   --color-shadow: #00000054;
-  --color-scrim: #221a1e80;
+  --color-scrim: #120e1380;
   --color-focus: #b1b1b1;
 }
 /* Contrast themes */
