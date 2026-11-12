@@ -1,4 +1,5 @@
-import type { MdNode } from "./remarkCallout.types";
+import type { Blockquote, Parent, PhrasingContent, RootContent } from "mdast";
+import type { MdxJsxFlowElement } from "mdast-util-mdx-jsx";
 
 // Matches "[!TYPE]" optionally followed by a custom title on the same line
 export const REMARK_CALLOUT_MARKER = /^\[!([A-Za-z]+)\][ \t]*([^\n]*)/;
@@ -12,17 +13,16 @@ export const DEFAULT_REMARK_CALLOUT_TYPES = [
 ] as const;
 
 /** Turns soft line breaks ("\n" in text nodes) into hard `break` nodes so they render as <br /> */
-export function preserveLineBreaks(node: MdNode): MdNode[] | undefined {
-  const { children } = node;
-  if (!children) return;
-  return children.flatMap((child): MdNode[] => {
-    if (child.type !== "text" || !child.value?.includes("\n")) {
-      preserveLineBreaks(child);
+export function preserveLineBreaks(node: Parent): void {
+  node.children = node.children.flatMap((child): RootContent[] => {
+    if (child.type !== "text") {
+      if ("children" in child) preserveLineBreaks(child);
       return [child];
     }
+    if (!child.value.includes("\n")) return [child];
     return child.value
       .split("\n")
-      .flatMap((line, i): MdNode[] =>
+      .flatMap((line, i): PhrasingContent[] =>
         i === 0
           ? [{ type: "text", value: line }]
           : [{ type: "break" }, { type: "text", value: line }],
@@ -32,14 +32,14 @@ export function preserveLineBreaks(node: MdNode): MdNode[] | undefined {
 
 // Returns a Callout node, or undefined if the blockquote isn't a callout
 export function toCallout(
-  node: MdNode,
+  node: Blockquote,
   types: readonly string[],
-): MdNode | undefined {
-  const paragraph = node.children?.[0];
-  if (paragraph?.type !== "paragraph" || !paragraph.children) return;
+): MdxJsxFlowElement | undefined {
+  const paragraph = node.children[0];
+  if (paragraph?.type !== "paragraph") return;
 
   const text = paragraph.children[0];
-  if (text?.type !== "text" || text.value === undefined) return;
+  if (text?.type !== "text") return;
 
   // No match or unknown type -> leave as a normal blockquote
   const match = REMARK_CALLOUT_MARKER.exec(text.value);
@@ -58,10 +58,10 @@ export function toCallout(
     paragraph.children.shift();
     if (paragraph.children[0]?.type === "break") paragraph.children.shift();
   }
-  if (paragraph.children.length === 0) node.children?.shift();
+  if (paragraph.children.length === 0) node.children.shift();
 
   // Keep the author's line breaks inside the callout body
-  node.children = preserveLineBreaks(node);
+  preserveLineBreaks(node);
 
   return {
     type: "mdxJsxFlowElement",
@@ -70,22 +70,22 @@ export function toCallout(
       { type: "mdxJsxAttribute", name: "type", value: type },
       { type: "mdxJsxAttribute", name: "title", value: title },
     ],
-    children: node.children ?? [],
+    children: node.children,
   };
 }
 
 // Depth-first walk that replaces matching blockquotes in their parent
-export function calloutWalk(node: MdNode, types: readonly string[]) {
-  const { children } = node;
-  if (!children) return;
-  children.forEach((child, i) => {
-    const callout = child.type === "blockquote" && toCallout(child, types);
-    // Recurse into whichever node ended up in this slot, so nested blockquotes are handled too
-    if (callout) {
-      children[i] = callout;
-      calloutWalk(callout, types);
-    } else {
-      calloutWalk(child, types);
+export function calloutWalk(node: Parent, types: readonly string[]) {
+  node.children.forEach((child, i) => {
+    if (child.type === "blockquote") {
+      const callout = toCallout(child, types);
+      if (callout) {
+        node.children[i] = callout;
+        // Recurse into the replacement so nested blockquotes are handled too
+        calloutWalk(callout, types);
+        return;
+      }
     }
+    if ("children" in child) calloutWalk(child, types);
   });
 }

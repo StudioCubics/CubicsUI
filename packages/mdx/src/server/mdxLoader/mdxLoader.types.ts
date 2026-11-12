@@ -110,6 +110,19 @@ export interface MDXLoaderProps {
   rehypePlugins?: MDXRehypePlugins;
   /** Any components that need to overide the default components like `{ a: Link }` for using `next/link` instead of anchor tag */
   components?: MDXComponents;
+  /**
+   * Disables the `remarkNoScripts` safety check, allowing executable JavaScript in MDX content.
+   *
+   * By default, MDX containing `import`/`export`, `{expressions}` or attribute expressions
+   * (`onClick={...}`, `{...props}`) throws, because MDX is compiled and executed on the server.
+   *
+   * Only enable this when every MDX file comes from a trusted source (e.g. your own repository).
+   * Never enable it for content written by users, a CMS or any source you don't control,
+   * as it allows arbitrary code execution on your server.
+   *
+   * @default false
+   */
+  unsafeAllowScripts?: boolean;
 }
 
 /** Shared state passed to every loader factory */

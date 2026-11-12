@@ -1,5 +1,6 @@
 import { type EvaluateOptions, evaluate } from "next-mdx-remote-client/rsc";
 import { defaultComponents } from "../../../../shared/defaultComponents";
+import remarkNoScripts from "../../../plugins/remarkNoScripts/remarkNoScripts";
 import type {
   MDXFrontmatter,
   MDXLoaderContext,
@@ -18,6 +19,7 @@ export function createGetPage(ctx: MDXLoaderContext) {
     basePath,
     remarkPlugins = [],
     rehypePlugins = [],
+    unsafeAllowScripts,
   } = ctx;
 
   const pageSlugs = new Set(ctx.pageSlugs);
@@ -27,6 +29,7 @@ export function createGetPage(ctx: MDXLoaderContext) {
     options: EvaluateOptions<MDXScope<H>> = {},
   ) {
     const slug = typeof param === "string" ? param : param?.join("/");
+    if (!slug || !pageSlugs.has(slug)) return;
     let source: string;
     try {
       source = await readSource(`${slug}/page.mdx`);
@@ -41,6 +44,7 @@ export function createGetPage(ctx: MDXLoaderContext) {
           ...defaultRemarkPlugins,
           ...remarkPlugins,
           ...(options.mdxOptions?.remarkPlugins ?? []),
+          ...(unsafeAllowScripts ? [] : [remarkNoScripts]),
         ],
         rehypePlugins: [
           ...defaultRehypePlugins,

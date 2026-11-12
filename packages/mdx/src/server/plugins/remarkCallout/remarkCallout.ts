@@ -1,4 +1,4 @@
-import type { MdNode } from "./remarkCallout.types";
+import type { Root } from "mdast";
 import {
   calloutWalk,
   DEFAULT_REMARK_CALLOUT_TYPES,
@@ -29,5 +29,5 @@ export default function remarkCallouts(options?: {
   types?: readonly string[];
 }) {
   const types = options?.types ?? DEFAULT_REMARK_CALLOUT_TYPES;
-  return (tree: MdNode) => calloutWalk(tree, types);
+  return (tree: Root) => calloutWalk(tree, types);
 }
