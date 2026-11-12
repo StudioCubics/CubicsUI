@@ -5,9 +5,9 @@
   gap: var(--size);
   height: 100%;
   border-radius: var(--br);
+  will-change: width;
   transition: width var(--transition-time) var(--transition-tf);
   container-type: inline-size;
-  backdrop-filter: blur(var(--blur-heavy));
   z-index: var(--z-drawer);
 }
 
@@ -21,6 +21,7 @@
   --bg: none;
 }
 .type_float {
+  backdrop-filter: blur(var(--blur-heavy));
   position: absolute;
   height: 100%;
   &.side_left {

@@ -1,14 +1,16 @@
 .root {
   display: flex;
   flex-direction: column;
-  transition-behavior: allow-discrete;
+  transition:
+    opacity var(--transition-time) var(--transition-tf),
+    display var(--transition-time) var(--transition-tf) allow-discrete;
   padding: var(--size) calc(var(--size) * var(--gr));
 }
 .root[data-open="true"] {
   opacity: 1;
 }
 
-.root:not(.root[data-open="true"]) {
+.root[data-open="false"] {
   opacity: 0;
   display: none;
   &.showOnClose {

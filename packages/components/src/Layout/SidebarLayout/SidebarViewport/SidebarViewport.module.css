@@ -1,7 +1,6 @@
 .root {
   flex: 1 1 0%;
   overflow: auto;
-  contain: layout paint;
   border-radius: var(--br);
   background: var(--bg);
 }

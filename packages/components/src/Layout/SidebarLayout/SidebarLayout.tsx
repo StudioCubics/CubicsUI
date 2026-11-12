@@ -83,6 +83,7 @@ function SidebarLayoutBase(props: SidebarLayoutProps): ReactElement {
     if (isControlled && open !== readExternalFlag(storageKey))
       setStoredOpen(open);
   }, [isControlled, open, storageKey, setStoredOpen]);
+
   return (
     <SidebarLayoutContext.Provider
       value={{
