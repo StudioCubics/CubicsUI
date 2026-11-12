@@ -1,3 +1,5 @@
+"use client";
+
 import { type RefObject, useEffect, useRef } from "react";
 
 /** Scrolls long text towards the left end to reveal the whole text */

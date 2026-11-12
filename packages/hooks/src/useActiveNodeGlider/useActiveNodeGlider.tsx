@@ -1,3 +1,5 @@
+"use client";
+
 import type { SetState } from "@cubicsui/types";
 import { useEffect, useState } from "react";
 import { type UseGliderReturn, useGlider } from "../useGlider/useGlider";

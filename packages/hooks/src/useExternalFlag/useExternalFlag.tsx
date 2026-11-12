@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useSyncExternalStore } from "react";
 
 // Module-level store helpers, keyed so a write only notifies subscribers of that key

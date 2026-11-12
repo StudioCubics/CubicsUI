@@ -1,4 +1,17 @@
+"use client";
+
 import { type RefObject, useLayoutEffect, useRef } from "react";
+
+export type PersistScrollPositionWithId =
+  | {
+      /** Enables effect for persisting scroll position in localStorage cause fucking chromium cant remember the scroll position of the viewport */
+      persistScrollPosition?: boolean;
+      id: string;
+    }
+  | {
+      persistScrollPosition?: false;
+      id?: undefined;
+    };
 
 /**
  * This will remember the scroll position of the user and restore it on navigation for reload and back_forward

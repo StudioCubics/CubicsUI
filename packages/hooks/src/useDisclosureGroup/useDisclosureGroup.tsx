@@ -1,3 +1,5 @@
+"use client";
+
 import { isServer } from "@cubicsui/utils";
 import { useLayoutEffect, useState } from "react";
 import { useId } from "../useId/useId";
