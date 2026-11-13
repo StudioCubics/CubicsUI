@@ -43,6 +43,7 @@
 .contentFlow {
   display: grid;
   align-content: start;
+  grid-auto-rows: max-content;
   grid-template-columns:
     [pageWidth-start] calc(var(--pageWidth-size) / 2)
     [breakout-start] calc(var(--breakout-size) / 2)
