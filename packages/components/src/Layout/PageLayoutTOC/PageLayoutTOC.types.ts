@@ -1,7 +1,10 @@
 import type { ElementType } from "react";
 import type { TableOfContentsProps } from "../../Navigation/TableOfContents/TableOfContents.types";
 import type { PageBodyProps } from "../PageBody/PageBody.types";
-import type { PageLayoutProps } from "../PageLayout/PageLayout.types";
+import type {
+  PageLayoutProps,
+  PageLayoutSlotProps,
+} from "../PageLayout/PageLayout.types";
 import type {
   SidebarBodyProps,
   SidebarHeaderProps,
@@ -10,7 +13,10 @@ import type {
   SidebarViewportProps,
 } from "../SidebarLayout/SidebarLayout.types";
 
-export interface PageLayoutTOCProps extends Omit<PageLayoutProps, "slotProps"> {
+export interface PageLayoutTOCProps extends Omit<
+  PageLayoutProps,
+  "slotProps" | "disableBodyWrapper"
+> {
   /** The table of contents flat tree */
   tree?: TableOfContentsProps["tree"];
   /** @default "a" */
@@ -18,7 +24,7 @@ export interface PageLayoutTOCProps extends Omit<PageLayoutProps, "slotProps"> {
   /** Removes contentFlow from the sidebar viewport */
   disableViewportContentFlow?: boolean;
 
-  slotProps?: PageLayoutProps["slotProps"] & {
+  slotProps?: Omit<PageLayoutSlotProps, "body"> & {
     /** The main Table of contents */
     tableOfContents?: TableOfContentsProps;
     /** The layout for creating sidebar  */

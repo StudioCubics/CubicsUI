@@ -1,4 +1,6 @@
 .root {
+  --header-margin: calc(var(--size) * var(--gr)) var(--size);
+  --scroll-distance: 500px;
   composes: sizes from "../ContentFlow/ContentFlow.module.css";
   container-type: inline-size;
   display: flex;
@@ -6,25 +8,48 @@
   height: 100%;
   overflow: hidden;
 }
-
-.contentFlow {
-  composes: contentFlow from "../ContentFlow/ContentFlow.module.css";
-}
-
 .headerWrapper:not(:empty) {
-  margin-block: calc(var(--size) * var(--gr)) var(--size);
+  margin-block: var(--header-margin);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
 }
 .titleBar:not(:empty) {
   padding: calc(var(--size) / 2) calc((var(--size) / 2) * var(--gr));
   display: flex;
   align-items: center;
   gap: var(--size);
-  background: color-mix(in srgb, var(--color-on-background) 10%, transparent);
+  background: color-mix(in srgb, var(--color-on-background) 5%, transparent);
+  overflow: auto;
+  flex-shrink: 0;
 }
-.body {
-  flex: 1;
-  overflow: hidden auto;
+
+.collapseHeaderOnScroll {
+  timeline-scope: --page-scroll;
 }
-.padBodyBlock {
-  padding-block: var(--size) calc(var(--size) * var(--gr));
+
+.scrollTimeline {
+  scroll-timeline-name: --page-scroll;
+  scroll-timeline-axis: y;
+}
+.collapseHeaderOnScroll > .headerWrapper:not(:empty) {
+  animation: collapse-header var(--transition-tf) both;
+  animation-timeline: --page-scroll;
+  animation-range: 0px var(--scroll-distance);
+}
+
+@keyframes collapse-header {
+  0% {
+    grid-template-rows: minmax(0, 1fr);
+    opacity: 1;
+    scale: 1 1;
+    margin-block: var(--header-margin);
+  }
+  70% {
+    opacity: 0;
+  }
+  100% {
+    grid-template-rows: minmax(0, 0fr);
+    scale: 1 0;
+    margin-block: 0;
+  }
 }

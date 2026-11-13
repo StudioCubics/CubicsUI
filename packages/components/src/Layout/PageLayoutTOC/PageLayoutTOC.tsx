@@ -1,6 +1,5 @@
 "use client";
 
-import { useId } from "@cubicsui/hooks";
 import { FormIcon } from "@cubicsui/icons";
 import { cn, mergeRefs } from "@cubicsui/utils";
 import { type ReactElement, useRef, useState } from "react";
@@ -19,17 +18,16 @@ import type { PageLayoutTOCProps } from "./PageLayoutTOC.types";
 export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
   const {
     tree = [],
-    id: _id,
+    id,
     children,
     actions,
     size = "md",
     disableViewportContentFlow,
-    disableBodyWrapper = true,
+    persistScrollPosition,
     LinkComponent,
     slotProps = {},
     ...rest
   } = props;
-  const id = useId(_id);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -51,7 +49,7 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
           )}
         </>
       }
-      disableBodyWrapper={disableBodyWrapper}
+      disableBodyWrapper
       size={size}
     >
       <SidebarLayout
@@ -67,12 +65,14 @@ export function PageLayoutTOC(props: PageLayoutTOCProps): ReactElement {
         <SidebarViewport
           {...slotProps.sidebarViewport}
           as={PageBody}
-          persistScrollPosition
+          id={`PageBody-${id}`}
+          persistScrollPosition={persistScrollPosition}
           disableContentFlow={disableViewportContentFlow}
           removeBg
           className={cn(
             slotProps.sidebarViewport?.className,
             styles.sidebarViewport,
+            styles.scrollTimeline,
           )}
           ref={mergeRefs(slotProps.sidebarViewport?.ref, scrollContainerRef)}
         >

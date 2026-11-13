@@ -1,3 +1,4 @@
+import type { PersistScrollPositionWithId } from "@cubicsui/hooks";
 import type { PolymorphicComponentProps } from "@cubicsui/types";
 import type { ComponentProps, ElementType, ReactNode } from "react";
 
@@ -54,12 +55,6 @@ export interface SidebarScriptProps extends ComponentProps<"script"> {
   containerId?: string;
 }
 
-export interface SidebarOverflowProps {
-  /** Enables effect for persisting scroll position in localStorage cause chromium cant remember the scroll position of the viewport
-   * @default false
-   */
-  persistScrollPosition?: boolean;
-}
 export interface SidebarBgProps {
   /** Removes the background surface */
   removeBg?: boolean;
@@ -88,8 +83,9 @@ export interface SidebarHeaderProps extends Omit<
 
 export type SidebarBodyProps = ComponentProps<"div"> &
   SidebarShowProps &
-  SidebarOverflowProps;
+  PersistScrollPositionWithId;
 
-export type SidebarViewportBaseProps = SidebarOverflowProps & SidebarBgProps;
+export type SidebarViewportBaseProps = PersistScrollPositionWithId &
+  SidebarBgProps;
 export type SidebarViewportProps<C extends ElementType = "div"> =
   PolymorphicComponentProps<C, SidebarViewportBaseProps>;

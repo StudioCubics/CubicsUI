@@ -5,3 +5,6 @@
 .sidebarViewport {
   padding-block: calc(var(--size) * 4);
 }
+.scrollTimeline {
+  composes: scrollTimeline from "../PageLayout/PageLayout.module.css";
+}

@@ -12,6 +12,7 @@ function PageLayoutBase<C extends ElementType = "div">(
 ) {
   const {
     as,
+    id,
     titleAs = "h1",
     title,
     desc,
@@ -22,12 +23,15 @@ function PageLayoutBase<C extends ElementType = "div">(
     className,
     size,
     disableContentFlow,
-    disableBodyContentFlow,
     disableHeaderContentFlow,
+    disableBodyContentFlow,
+    disableFooterContentFlow,
     disableBodyPadding,
     disableBodyWrapper,
     beforeHeader,
     afterHeader,
+    persistScrollPosition,
+    collapseHeaderOnScroll,
     slotProps = {},
     ...rest
   } = props as PageLayoutProps<"div">;
@@ -36,9 +40,19 @@ function PageLayoutBase<C extends ElementType = "div">(
   const renderHeader = beforeHeader || afterHeader || title || desc || actions;
   const HeaderWrapper =
     !disableContentFlow && !disableHeaderContentFlow ? ContentFlow : "div";
+  const FooterWrapper =
+    !disableContentFlow && !disableFooterContentFlow ? ContentFlow : "div";
 
   return (
-    <Component {...rest} className={cn(styles.root, className)}>
+    <Component
+      {...rest}
+      id={id}
+      className={cn(
+        styles.root,
+        collapseHeaderOnScroll && styles.collapseHeaderOnScroll,
+        className,
+      )}
+    >
       {renderHeader && (
         <HeaderWrapper
           {...slotProps?.headerWrapper}
@@ -72,13 +86,26 @@ function PageLayoutBase<C extends ElementType = "div">(
       ) : (
         <PageBody
           {...slotProps.body}
+          className={cn(
+            slotProps.body?.className,
+            collapseHeaderOnScroll && styles.scrollTimeline,
+          )}
           disableContentFlow={disableContentFlow || disableBodyContentFlow}
           disablePadding={disableBodyPadding}
+          id={`PageBody-${id}`}
+          persistScrollPosition={persistScrollPosition}
         >
           {children}
         </PageBody>
       )}
-      {footer}
+      {footer && (
+        <FooterWrapper
+          {...slotProps?.footer}
+          className={cn(slotProps.footer?.className, styles.footer)}
+        >
+          {footer}
+        </FooterWrapper>
+      )}
     </Component>
   );
 }
