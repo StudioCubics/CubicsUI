@@ -4,7 +4,12 @@ import { SamplePageLayout } from "./utils";
 
 export default function Page() {
   return (
-    <PageLayout title={<code>{"<PageLayout/>"}</code>}>
+    <PageLayout
+      id={"PageLayout"}
+      persistScrollPosition
+      collapseHeaderOnScroll
+      title={<code>{"<PageLayout/>"}</code>}
+    >
       <h2>Sample</h2>
       <p>Card height is 700px and width is 100%</p>
       <Card disablePadding removeBg fixedHeight="700px" variant="outlined">

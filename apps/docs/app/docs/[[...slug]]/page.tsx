@@ -25,6 +25,8 @@ export default async function Page({ params }: PageProps<"/docs/[[...slug]]">) {
       title={frontmatter.title}
       desc={frontmatter.description}
       tree={toc ? scope.toc : undefined}
+      persistScrollPosition
+      collapseHeaderOnScroll
       breadcrumbs={
         breadcrumbs ? (
           <DocsBreadcrumbs breadcrumbs={scope.breadcrumbs} />

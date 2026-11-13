@@ -5,6 +5,7 @@ import {
   CardFooter,
   CardHeader,
   type CardProps,
+  PageLayout,
   PasswordInput,
   TextInput,
 } from "@cubicsui/components";
@@ -45,10 +46,11 @@ function CardSample(props: CardProps) {
 
 export default function Page() {
   return (
-    <main className="main">
-      <h1>
-        <code>{"<Card/>"}</code>
-      </h1>
+    <PageLayout
+      persistScrollPosition
+      id={"Card"}
+      title={<code>{"<Card/>"}</code>}
+    >
       <h2>Composed example</h2>
       <section>
         <div className="column image_bg">
@@ -511,6 +513,6 @@ export default function Page() {
           </Card>
         </div>
       </section>
-    </main>
+    </PageLayout>
   );
 }

@@ -37,6 +37,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
         href: "/components/labeledValue",
       },
       { children: "List", href: "/components/list" },
+      { children: "RefractiveGlass", href: "/components/refractiveGlass" },
       { children: "Tooltip", disabled: true, icon: "🚧" },
     ],
   },

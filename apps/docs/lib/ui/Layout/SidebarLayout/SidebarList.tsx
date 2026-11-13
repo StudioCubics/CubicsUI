@@ -5,6 +5,7 @@ import {
   ListItem,
   type ListItemProps,
   Rolodex,
+  useSidebarLayout,
 } from "@cubicsui/components";
 import type { Route } from "next";
 import Link from "next/link";
@@ -16,6 +17,7 @@ import { SearchPopover } from "../../Inputs/SearchPopover/SearchPopover";
 export function SidebarList({ tree }: { tree: ListItemProps<Route>[] }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { sidebarOpen } = useSidebarLayout();
   const curr = pathname.split("/")[2];
   const siteMap = getSiteMap(tree);
   if (!curr) router.replace("/");
@@ -23,42 +25,46 @@ export function SidebarList({ tree }: { tree: ListItemProps<Route>[] }) {
   return (
     <>
       <SearchPopover />
-      <Rolodex
-        blurMultiplier={0}
-        showButtons
-        defaultValue={curr}
-        items={Object.entries(siteMap).map(([k, v]) => {
-          return {
-            node: (
-              <PkgSelectorCard
-                id={k}
-                icon={v.icon}
-                title={v.label}
-                desc={v.pkg}
-              />
-            ),
-            id: k,
-          };
-        })}
-        onClose={(v) => {
-          if (v !== curr) router.push(`/${v}` as Route);
-        }}
-      />
-      <List
-        id="MAIN"
-        size="lg"
-        renderGlider
-        LinkComponent={Link}
-        selectedWhen={(i) => {
-          if (i.type && (i.type === "separator" || i.type === "header"))
-            return false;
-          return pathname === i.href;
-        }}
-      >
-        {siteMap[curr].meta.map((cm, i) => {
-          return <ListItem key={cm.id ?? i} {...cm} />;
-        })}
-      </List>
+      {sidebarOpen && (
+        <>
+          <Rolodex
+            blurMultiplier={0}
+            showButtons
+            defaultValue={curr}
+            items={Object.entries(siteMap).map(([k, v]) => {
+              return {
+                node: (
+                  <PkgSelectorCard
+                    id={k}
+                    icon={v.icon}
+                    title={v.label}
+                    desc={v.pkg}
+                  />
+                ),
+                id: k,
+              };
+            })}
+            onClose={(v) => {
+              if (v !== curr) router.push(`/${v}` as Route);
+            }}
+          />
+          <List
+            id="MAIN"
+            size="lg"
+            renderGlider
+            LinkComponent={Link}
+            selectedWhen={(i) => {
+              if (i.type && (i.type === "separator" || i.type === "header"))
+                return false;
+              return pathname === i.href;
+            }}
+          >
+            {siteMap[curr].meta.map((cm, i) => {
+              return <ListItem key={cm.id ?? i} {...cm} />;
+            })}
+          </List>
+        </>
+      )}
     </>
   );
 }

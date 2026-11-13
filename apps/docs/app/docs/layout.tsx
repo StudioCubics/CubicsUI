@@ -18,14 +18,14 @@ export default function Layout(props: { children: ReactNode }) {
       <SidebarLayout>
         <Sidebar>
           <SidebarHeader title={<CubicsUILogo />} />
-          <SidebarBody>
+          <SidebarBody showOnClose>
             <SidebarBodyContent />
           </SidebarBody>
           <SidebarFooter showOnClose>
             <SidebarFooterContent />
           </SidebarFooter>
         </Sidebar>
-        <SidebarViewport persistScrollPosition>{children}</SidebarViewport>
+        <SidebarViewport id={"DocsLayoutViewport"}>{children}</SidebarViewport>
       </SidebarLayout>
     </div>
   );
