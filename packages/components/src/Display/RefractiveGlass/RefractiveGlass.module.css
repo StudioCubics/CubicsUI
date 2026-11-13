@@ -1,0 +1,215 @@
+.glassCard {
+  --sheen-scale: 1;
+  --near-light: 1;
+  --far-light: 0.8;
+  --mouse-x: -9999px;
+  --mouse-y: -9999px;
+  --source-light: color-mix(in srgb, var(--tint) 40%, transparent);
+  --internal-reflection: color-mix(in srgb, var(--tint) 20%, transparent);
+  --pointer-color: color-mix(in srgb, var(--tint) 70%, transparent);
+  --tint: var(--color, var(--color-error));
+  --bevel-width: 18px;
+  --br: var(--br-md);
+  --frost-blur: 2px;
+  --reflection-intensity: 1;
+  --near-x: 50px;
+  --near-y: 0px;
+  --far-x: 50px;
+  --far-y: 100px;
+  --nx: 0;
+  --ny: -1;
+
+  position: relative;
+  border-radius: var(--br);
+  user-select: none;
+  touch-action: none;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--tint) 2%, transparent);
+
+  /* External depth only; inset bevel shadows live on ::after so refraction can't smear them */
+  box-shadow: 0 20px 44px var(--color-shadow);
+  /* Directional internal bevel shadows, painted above the refraction layer */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
+    background: transparent;
+    box-shadow:
+      inset calc(var(--nx) * 2px) calc(var(--ny) * 2px) 3px
+        color-mix(
+          in srgb,
+          var(--tint) min(100%, calc(75% * var(--reflection-intensity))),
+          transparent
+        ),
+      inset calc(var(--nx) * -2px) calc(var(--ny) * -2px) 5px
+        color-mix(
+          in srgb,
+          var(--tint) min(100%, calc(35% * var(--reflection-intensity))),
+          transparent
+        ),
+      inset 0 0 calc(var(--bevel-width) * 0.9)
+        color-mix(
+          in srgb,
+          var(--tint) min(100%, calc(14% * var(--reflection-intensity))),
+          transparent
+        );
+  }
+}
+.draggable {
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
+  }
+}
+/* Clipped refracted layer (works on chrome) */
+.refractionLayer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  backdrop-filter: blur(var(--frost-blur));
+  -webkit-backdrop-filter: blur(var(--frost-blur));
+}
+.refractionLayer {
+  display: none;
+}
+/* Border ring: pointer hotspot + near edge (capped by distance) + far bounce (fades faster) */
+.fresnelRim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: clamp(1.5px, calc(var(--bevel-width) * 0.14), 5px);
+  pointer-events: none;
+  z-index: 5;
+  background:
+    radial-gradient(
+      calc(var(--bevel-width) * 30) circle at var(--mouse-x) var(--mouse-y),
+      color-mix(
+        in srgb,
+        var(--tint)
+          min(100%, calc(70% * var(--reflection-intensity) * var(--near-light))),
+        transparent
+      ),
+      transparent 40%
+    ),
+    radial-gradient(
+      calc(var(--bevel-width) * 9) circle at var(--near-x) var(--near-y),
+      color-mix(
+        in srgb,
+        var(--tint)
+          min(100%, calc(40% * var(--reflection-intensity) * var(--near-light))),
+        transparent
+      ),
+      transparent 80%
+    ),
+    radial-gradient(
+      calc(var(--bevel-width) * 7.5) circle at var(--far-x) var(--far-y),
+      color-mix(
+        in srgb,
+        var(--tint)
+          min(100%, calc(35% * var(--reflection-intensity) * var(--far-light))),
+        transparent
+      ),
+      transparent 80%
+    );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Subtle interior light scatter, same distance caps */
+.internalSheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 5;
+  background:
+    radial-gradient(
+      calc(var(--bevel-width) * 10 * var(--sheen-scale)) circle at var(--near-x)
+        var(--near-y),
+      color-mix(
+        in srgb,
+        var(--tint)
+          min(100%, calc(10% * var(--reflection-intensity) * var(--near-light))),
+        transparent
+      ),
+      transparent 70%
+    ),
+    radial-gradient(
+      calc(var(--bevel-width) * 8 * var(--sheen-scale)) circle at var(--far-x)
+        var(--far-y),
+      color-mix(
+          in srgb,
+          var(--tint)
+            min(100%, calc(8% * var(--reflection-intensity) * var(--far-light))),
+          transparent
+        )
+        0%,
+      transparent 70%
+    );
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+}
+
+.svgDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Optional Debug Overlay */
+.debugOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.debugCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border: 1.5px solid #22d3ee;
+  border-radius: 50%;
+}
+
+.debugNearDot {
+  position: absolute;
+  left: var(--near-x);
+  top: var(--near-y);
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  background: #facc15;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #facc15;
+}
+
+.debugFarDot {
+  position: absolute;
+  left: var(--far-x);
+  top: var(--far-y);
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  background: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #38bdf8;
+}

@@ -20,5 +20,8 @@ export * from "./List/List";
 export * from "./List/List.types";
 export * from "./List/ListItem/ListItem";
 
+export * from "./RefractiveGlass/RefractiveGlass";
+export * from "./RefractiveGlass/RefractiveGlass.types";
+
 export * from "./Tooltip/Tooltip";
 export * from "./Tooltip/useTooltip";
