@@ -129,13 +129,13 @@
   --color-on-success-container: #1f331d;
 
   /* Surface colors */
-  --color-background: hsl(348, 20%, 90%);
+  --color-background: #e0ccd1;
   --color-on-background: #313133;
   --color-on-background-low: #818181;
-  --color-surface: hsl(347, 18%, 95%);
+  --color-surface: #eee7e9;
   --color-on-surface: #4b4b4b;
-  --color-surface-high: hsl(345, 15%, 95%);
-  --color-surface-highest: hsl(330, 20%, 98%);
+  --color-surface-high: #f5f0f1;
+  --color-surface-highest: #fbf9fa;
   --color-surface-dim: #bfb1b6;
   --color-surface-bright: #f7f7f7;
   --color-input-surface: color-mix(
@@ -216,7 +216,7 @@
   --color-surface-high: #302f3a;
   --color-surface-highest: #393842;
   --color-surface-dim: #18181e;
-  --color-surface-bright: #34343d;
+  --color-surface-bright: #373741;
   --color-input-surface: color-mix(
     in srgb,
     var(--color-surface-highest) 50%,
