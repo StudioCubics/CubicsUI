@@ -1,10 +1,12 @@
-import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
-import type { ThemeObject } from "./ThemeToggle.types";
+import type {
+  Theme,
+  ThemeObject,
+} from "../../Providers/ThemeProvider/ThemeProvider.types";
 
 export const DEFAULT_THEME_OBJECT: ThemeObject = {
-  light: { text: "Light Mode" },
-  system: { text: "System Mode" },
-  dark: { text: "Dark Mode" },
+  light: { text: "Light Theme" },
+  system: { text: "System Theme" },
+  dark: { text: "Dark Theme" },
 };
 /**
  * Which theme the toggle button switches to when clicked.

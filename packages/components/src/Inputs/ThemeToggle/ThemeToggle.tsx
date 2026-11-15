@@ -2,12 +2,7 @@
 
 import { useMounted } from "@cubicsui/hooks";
 import { mergeEvents } from "@cubicsui/utils";
-import {
-  type MouseEvent,
-  type ReactElement,
-  type ReactNode,
-  useId,
-} from "react";
+import { type MouseEvent, type ReactElement, useId } from "react";
 import { Card } from "../../Display/Card/Card";
 import { List } from "../../Display/List/List";
 import { ListItem } from "../../Display/List/ListItem/ListItem";
@@ -15,15 +10,9 @@ import { Popover } from "../../Layout/Popover/Popover";
 import { useTheme } from "../../Providers/ThemeProvider/ThemeProvider";
 import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
 import { Button } from "../Button/Button";
-import type { ThemeObjectValue, ThemeToggleProps } from "./ThemeToggle.types";
+import type { RequiredThemeValue, ThemeToggleProps } from "./ThemeToggle.types";
 import { DEFAULT_THEME_OBJECT, getNextTheme } from "./ThemeToggle.utils";
 import { ThemeToggleIcon } from "./ThemeToggleIcon/ThemeToggleIcon";
-
-/** Resolved entry: text is always defined, icon always renderable. */
-interface ResolvedEntry extends ThemeObjectValue {
-  text: string;
-  icon: ReactNode;
-}
 
 export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
   const {
@@ -47,7 +36,7 @@ export function ThemeToggle(props: ThemeToggleProps): ReactElement | null {
     !isControlled && resolveSystem ? resolvedTheme : currentTheme;
 
   const themeList = (Object.keys(DEFAULT_THEME_OBJECT) as Theme[]).map(
-    (key): [Theme, ResolvedEntry] => [
+    (key): [Theme, RequiredThemeValue] => [
       key,
       {
         ...DEFAULT_THEME_OBJECT[key],

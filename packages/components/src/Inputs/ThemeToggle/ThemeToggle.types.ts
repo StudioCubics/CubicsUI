@@ -1,20 +1,19 @@
-import type { MouseEvent, ReactNode } from "react";
+import type { RequireKeys } from "@cubicsui/types";
 import type { CardProps } from "../../Display/Card/Card.types";
 import type {
   ListItemTypeItemProps,
   ListProps,
 } from "../../Display/List/List.types";
 import type { PopoverProps } from "../../Layout/Popover/Popover.types";
-import type { Theme } from "../../Providers/ThemeProvider/ThemeProvider.types";
+import type {
+  Theme,
+  ThemeObject,
+  ThemeValue,
+} from "../../Providers/ThemeProvider/ThemeProvider.types";
 import type { ButtonProps } from "../Button/Button.types";
 
-export interface ThemeObjectValue {
-  text?: string;
-  icon?: ReactNode;
-  onClick?: (e: MouseEvent) => void;
-}
-
-export type ThemeObject = Record<Theme, ThemeObjectValue>;
+/** Resolved entry: text is always defined, icon always renderable. */
+export type RequiredThemeValue = RequireKeys<ThemeValue, "text" | "icon">;
 
 export interface ThemeToggleProps {
   /** Variant of the ThemeToggle

@@ -1,19 +1,21 @@
 import type { ComponentProps, MouseEvent, ReactNode } from "react";
 
+export interface ThemeValue {
+  /** The text label for the theme  */
+  text?: string;
+  /** The icon for the theme  */
+  icon?: ReactNode;
+  /** Runs when clicked */
+  onClick?: (e: MouseEvent) => void;
+}
+/** Resolved theme can only be light or dark never system */
+export type ResolvedTheme = "light" | "dark";
+/** Theme includes system along with light and dark */
+export type Theme = ResolvedTheme | "system";
 /**
  * Use to create your own theme ui elements
  */
-export type ThemeObject = Record<
-  "dark" | "light" | "system",
-  {
-    text?: string;
-    icon?: ReactNode;
-    onClick?: (e: MouseEvent<HTMLElement>) => void;
-  }
->;
-
-export type ResolvedTheme = "light" | "dark";
-export type Theme = ResolvedTheme | "system";
+export type ThemeObject = Record<Theme, ThemeValue>;
 export interface ThemeContextProps {
   /** Currently selected theme, will contain `"system"` if `enableSystem` is set to true */
   theme: Theme;
