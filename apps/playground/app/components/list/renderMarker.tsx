@@ -40,10 +40,11 @@ function GliderSample({ color }: { color: ListProps["color"] }) {
         renderGlider
         selectedWhen={(p) => {
           if (p.type && p.type !== "item") return false;
-          return p.id == selected;
+          return p.id === selected;
         }}
       >
         {getListItems({ color, setSelected }).map((item, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: wah wah
           <ListItem key={i} {...item} />
         ))}
       </List>

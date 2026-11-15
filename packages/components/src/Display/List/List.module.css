@@ -24,7 +24,7 @@
   background: none;
   backdrop-filter: none;
   pointer-events: none;
-  z-index: 2;
+  z-index: -1;
   border-radius: var(--br);
   transition:
     inset var(--transition-time) var(--transition-tf),
@@ -32,8 +32,11 @@
     scale var(--transition-time) var(--transition-tf),
     width var(--transition-time) var(--transition-tf);
 }
+.root:has(.glider) :where([data-active="true"]) {
+  background: transparent;
+  backdrop-filter: unset;
+}
 /* Sizes */
-
 .root[data-size="xs"] {
   --size: calc(var(--gap) / 2);
   --br: var(--br-xs);
