@@ -5,4 +5,5 @@ export * from "./MediaProps";
 export * from "./PolymorphicProps";
 export * from "./PositionString";
 export * from "./SetState";
+export * from "./TypeUtils";
 export * from "./UnionElementProps";
