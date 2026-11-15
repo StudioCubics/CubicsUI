@@ -6,8 +6,8 @@
   --size: var(--gap-3);
   display: grid;
   grid-template-columns: 1fr;
-  padding-inline: calc(var(--size) * var(--gr));
-  padding-block: var(--size);
+  padding-inline: calc((var(--size) * 2) * var(--gr));
+  padding-block: calc(var(--size) * 2);
   gap: var(--size);
 }
 .header {
