@@ -23,9 +23,7 @@
   --br-md: 5.6px;
   --br-lg: 8px;
   --br-xl: 12px;
-  --br-2xl: 16px;
-  --br-3xl: 20px;
-  --br-4xl: 24px;
+  --br-pill: 9999px;
 
   /* Font Families */
   --font-h:
@@ -41,14 +39,14 @@
   --fs-md: 1rem;
   --fs-lg: 1.125rem;
   --fs-xl: 1.25rem;
-  --fs-2xl: 1.5rem;
-  --fs-3xl: 1.875rem;
-  --fs-4xl: 2.25rem;
-  --fs-5xl: 3rem;
-  --fs-6xl: 3.75rem;
-  --fs-7xl: 4.5rem;
-  --fs-8xl: 6rem;
-  --fs-9xl: 8rem;
+  --fs-xl2: 1.5rem;
+  --fs-xl3: 1.875rem;
+  --fs-xl4: 2.25rem;
+  --fs-xl5: 3rem;
+  --fs-xl6: 3.75rem;
+  --fs-xl7: 4.5rem;
+  --fs-xl8: 6rem;
+  --fs-xl9: 8rem;
 
   /* Responsive font sizes(mobile min @375px, fluid, desktop max @1280px+) */
   --fs-caption: var(--fs-xs);
@@ -59,11 +57,11 @@
   --fs-h6: clamp(var(--fs-sm), 0.823rem + 0.22vw, var(--fs-md));
   --fs-h5: clamp(var(--fs-md), 0.948rem + 0.22vw, var(--fs-lg));
   --fs-h4: clamp(var(--fs-lg), 1.075rem + 0.22vw, var(--fs-xl));
-  --fs-h3: clamp(var(--fs-xl), 1.144rem + 0.44vw, var(--fs-2xl));
-  --fs-h2: clamp(var(--fs-xl), 0.991rem + 1.1vw, var(--fs-3xl)); /* 20 → 30 */
-  --fs-h1: clamp(var(--fs-2xl), 1.189rem + 1.33vw, var(--fs-4xl)); /* 24 → 36 */
-  --fs-display: clamp(var(--fs-4xl), 1.938rem + 1.33vw, var(--fs-5xl));
-  --fs-display-lg: clamp(var(--fs-5xl), 2.381rem + 2.65vw, var(--fs-7xl));
+  --fs-h3: clamp(var(--fs-xl), 1.144rem + 0.44vw, var(--fs-xl2));
+  --fs-h2: clamp(var(--fs-xl), 0.991rem + 1.1vw, var(--fs-xl3)); /* 20 → 30 */
+  --fs-h1: clamp(var(--fs-xl2), 1.189rem + 1.33vw, var(--fs-xl4)); /* 24 → 36 */
+  --fs-display: clamp(var(--fs-xl4), 1.938rem + 1.33vw, var(--fs-xl5));
+  --fs-hero: clamp(var(--fs-xl5), 2.381rem + 2.65vw, var(--fs-xl7));
 
   /* Line Heights */
   --lh-none: 1;
@@ -84,9 +82,9 @@
   --blur-light: 5px;
   --blur-gradient: 30px;
   --column-grid-size: 8.33%;
-  --z-header: 99;
-  --z-drawer: 999;
-  --z-modal: 9999;
+  --zi-header: 99;
+  --zi-drawer: 999;
+  --zi-modal: 9999;
   --border-width: 2px;
   --icon-stroke-width: 2.3px;
   --gr: 1.618;
@@ -468,7 +466,7 @@ code {
   line-height: var(--lh-tight);
 }
 .display-lg {
-  font-size: var(--fs-display-lg);
+  font-size: var(--fs-hero);
   line-height: var(--lh-none);
 }
 .h1 {

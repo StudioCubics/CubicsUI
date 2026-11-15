@@ -9,7 +9,7 @@
   /* centers; needed because the global reset zeroes the UA margin */
   margin: auto;
   /* non-modal dialogs aren't in the top layer, so they need a z-index */
-  z-index: var(--z-modal);
+  z-index: var(--zi-modal);
 
   transform-origin: center;
 

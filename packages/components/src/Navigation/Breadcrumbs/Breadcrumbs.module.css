@@ -45,7 +45,7 @@
   --fs: var(--fs-xl);
 }
 .root[data-size="xl"] {
-  --fs: var(--fs-2xl);
+  --fs: var(--fs-xl2);
 }
 .root[data-color="primary"] {
   --color: var(--color-primary);

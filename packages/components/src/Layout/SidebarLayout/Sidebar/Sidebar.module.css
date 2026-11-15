@@ -8,7 +8,7 @@
   will-change: width;
   transition: width var(--transition-time) var(--transition-tf);
   container-type: inline-size;
-  z-index: var(--z-drawer);
+  z-index: var(--zi-drawer);
 }
 
 .root[data-open="true"] {
