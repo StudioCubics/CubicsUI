@@ -1,5 +1,6 @@
 export * from "./CssTypes";
 export * from "./DataTree";
+export * from "./Geometry";
 export * from "./MediaProps";
 export * from "./PolymorphicProps";
 export * from "./PositionString";
