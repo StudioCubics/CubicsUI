@@ -1,26 +1,27 @@
 "use client";
+import type { Point2D } from "@cubicsui/types";
 import { type RefObject, useEffect, useRef, useState } from "react";
-
-interface PositionMatrix {
-  x: number;
-  y: number;
-}
 
 type Event = MouseEvent | undefined;
 
 export interface UsePointerPositionProps {
+  /** Shows the last touch position too */
   includeTouch?: boolean;
-  defaultPosition?: PositionMatrix;
+  /** Shows the last touch position too */
+  defaultPosition?: Point2D;
   /** The intensity multiplier of the effect movement has on the speed
-   * @default 10
-   */
+   * @default 10*/
   intensity?: number;
 }
 
 export interface UsePointerPositionReturn {
-  pointerPosition: PositionMatrix;
+  /** The x and y coords of the pointer */
+  pointerPosition: Point2D;
+  /** The current speed of the pointer Note: this shit is unreliable */
   pointerSpeed: number;
+  /** A ref object version of the same pointerSpeed */
   pointerSpeedRef: RefObject<number>;
+  /** A ref object version of the same x y coors of the pointer */
   pointerPositionRef: RefObject<{ x: number; y: number }>;
 }
 
@@ -29,19 +30,12 @@ export function usePointerPosition(
 ): UsePointerPositionReturn {
   const {
     includeTouch = false,
-    defaultPosition,
+    defaultPosition = { x: -9999, y: -9999 },
     intensity = 10,
-  } = props || {
-    includeTouch: false,
-  };
-  const defaultPositionMatrix = {
-    x: defaultPosition?.x ?? -9999,
-    y: defaultPosition?.y ?? -9999,
-  };
-  const [pointerPosition, setPointerPosition] = useState<PositionMatrix>(
-    defaultPositionMatrix,
-  );
-  const pointerPositionRef = useRef(defaultPositionMatrix);
+  } = props || {};
+  const [pointerPosition, setPointerPosition] =
+    useState<Point2D>(defaultPosition);
+  const pointerPositionRef = useRef(defaultPosition);
   const [pointerSpeed, setPointerSpeed] = useState(0);
   const pointerSpeedRef = useRef(0);
   const [prevEvent, setPrevEvent] = useState<Event>(undefined);
