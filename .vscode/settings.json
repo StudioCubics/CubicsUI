@@ -3,5 +3,11 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit",
     "source.fixAll.biome": "explicit"
+  },
+  // material-icon-theme why you like this?
+  "material-icon-theme.folders.associations": {
+    "globals": "global",
+    "typography": "font",
+    "mdx": "markdown"
   }
 }
