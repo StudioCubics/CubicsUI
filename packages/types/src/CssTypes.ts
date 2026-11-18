@@ -1,3 +1,6 @@
+export type CssVarName = `--${string}`;
+export type CssVariable = `var(${CssVarName})`;
+
 export type CssTime = `${"" | "+" | "-"}${number}${"s" | "ms"}`;
 
 export type CssAbsoluteSize =
@@ -309,8 +312,6 @@ export type CssColorFunction =
   | `color-mix(${string})`
   | `light-dark(${string})`;
 
-export type CssVariableColor = `var(--${string})`;
-
 export type CssColor =
   | CssNamedColor
   | CssSystemColor
@@ -321,4 +322,4 @@ export type CssColor =
   | CssLabColor
   | CssLchColor
   | CssColorFunction
-  | CssVariableColor;
+  | CssVariable;
