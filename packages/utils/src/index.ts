@@ -6,6 +6,7 @@ export * from "./Forms/_index";
 export * from "./HTML/_index";
 export * from "./Markdown/_index";
 export * from "./Numbers/_index";
+export * from "./Objects/_index";
 // TODO separate React utils to @cubicsui/react-utils
 export * from "./React/_index";
 export * from "./Strings/_index";
