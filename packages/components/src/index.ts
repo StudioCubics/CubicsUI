@@ -1,4 +1,5 @@
 export * from "./Display/_index";
+export * from "./Globals/_index";
 export * from "./Inputs/_index";
 export * from "./Layout/_index";
 export * from "./Misc/_index";
