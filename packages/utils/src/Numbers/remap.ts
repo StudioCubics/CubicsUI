@@ -13,16 +13,13 @@ export function remap(
   value: number,
   from: [number, number],
   to: [number, number],
-  roundTo: "floor" | "ceil" = "floor",
+  roundTo?: "floor" | "ceil",
 ): number {
   const [fromMin, fromMax] = from;
   const [toMin, toMax] = to;
-
-  if (roundTo === "ceil")
-    return Math.ceil(
-      toMin + ((value - fromMin) * (toMax - toMin)) / (fromMax - fromMin),
-    );
-  return Math.floor(
-    toMin + ((value - fromMin) * (toMax - toMin)) / (fromMax - fromMin),
-  );
+  const result =
+    toMin + ((value - fromMin) * (toMax - toMin)) / (fromMax - fromMin);
+  if (roundTo === "ceil") return Math.ceil(result);
+  if (roundTo === "floor") return Math.floor(result);
+  return result;
 }
