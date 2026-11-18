@@ -24,7 +24,9 @@ export function PlaygroundSidebar({ children }: { children: ReactNode }) {
             <SidebarFooterContent />
           </SidebarFooter>
         </Sidebar>
-        <SidebarViewport persistScrollPosition>{children}</SidebarViewport>
+        <SidebarViewport id={"PlaygroundSidebar"} persistScrollPosition>
+          {children}
+        </SidebarViewport>
       </SidebarLayout>
     </div>
   );

@@ -1,14 +1,24 @@
 "use client";
 
-import { Logo, type LogoProps, useSidebarLayout } from "@cubicsui/components";
+import {
+  Logo,
+  type LogoProps,
+  useGlobalCssVars,
+  useSidebarLayout,
+} from "@cubicsui/components";
 
 export function CubicsUILogo(props: Partial<LogoProps>) {
-  const { ...rest } = props;
+  const { style, ...rest } = props;
   const { sidebarOpen } = useSidebarLayout();
-
+  const { misc } = useGlobalCssVars();
   return (
     <Logo
       {...rest}
+      style={{
+        ...style,
+        width: !sidebarOpen ? "70%" : "60%",
+        maxHeight: misc.headerHeight,
+      }}
       suppressHydrationWarning
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

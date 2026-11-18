@@ -1,4 +1,5 @@
 import { PageLayout, RefractiveGlass } from "@cubicsui/components";
+import { cn } from "@cubicsui/utils";
 import { Draggable } from "./draggable";
 
 export default function Page() {
@@ -7,29 +8,40 @@ export default function Page() {
       <h2>Usage</h2>
       {Array.from({ length: 3 }).map((_, i) => {
         return (
-          <div
+          <section
             // biome-ignore lint/suspicious/noArrayIndexKey: dqweqwe
             key={i}
-            className={i % 2 ? "image_bg" : i % 3 ? "rgb_bg" : ""}
+            className={cn("grid", i % 2 ? "image_bg" : i % 3 ? "rgb_bg" : "")}
           >
-            <section className={"grid"}>
-              {Array.from({ length: 3 }).map((_, i) => {
-                return (
-                  <div
-                    // biome-ignore lint/suspicious/noArrayIndexKey: dqweqwe
-                    key={i}
-                  >
-                    <RefractiveGlass style={{ padding: "var(--gap-3)" }}>
-                      Grid Item {i + 1}
-                    </RefractiveGlass>
-                  </div>
-                );
-              })}
-            </section>
-          </div>
+            {Array.from({ length: 3 }).map((_, i) => {
+              return (
+                <RefractiveGlass
+                  // biome-ignore lint/suspicious/noArrayIndexKey: dqweqwe
+                  key={i}
+                  style={{
+                    padding: "var(--gap-3)",
+                    height: "30ch",
+                  }}
+                >
+                  Grid Item {i + 1}
+                </RefractiveGlass>
+              );
+            })}
+          </section>
         );
       })}
+      <h2>These are draggable</h2>
       <Draggable />
+      <h2>Colors</h2>
+      {["primary", "tertiary", "secondary", "error", "warn", "success"].map(
+        (c) => {
+          return (
+            <Draggable key={c} style={{ "--color": `var(--color-${c})` }}>
+              {c}
+            </Draggable>
+          );
+        },
+      )}
     </PageLayout>
   );
 }

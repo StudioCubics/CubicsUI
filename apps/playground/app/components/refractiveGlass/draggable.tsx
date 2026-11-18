@@ -1,52 +1,60 @@
 "use client";
 
-import { RefractiveGlass } from "@cubicsui/components";
+import {
+  RefractiveGlass,
+  type RefractiveGlassProps,
+} from "@cubicsui/components";
 import { useDraggable } from "@cubicsui/hooks";
+import { cn, mergeEvents, mergeRefs } from "@cubicsui/utils";
 
-export function Draggable() {
-  return (
-    <>
-      <h2>These are draggable</h2>
-      {Array.from({ length: 3 }).map((_, i) => {
-        return (
-          <div
-            // biome-ignore lint/suspicious/noArrayIndexKey: dqweqwe
-            key={i}
-            className={i % 2 ? "image_bg" : i % 3 ? "rgb_bg" : ""}
-          >
-            <section className={"grid"}>
-              {Array.from({ length: 3 }).map((_, i) => {
-                return (
-                  <div
-                    // biome-ignore lint/suspicious/noArrayIndexKey: dqweqwe
-                    key={i}
-                  >
-                    <DraggableGlassItem
-                      label={`Grid Item ${i + 1}`}
-                    ></DraggableGlassItem>
-                  </div>
-                );
-              })}
-            </section>
-          </div>
-        );
-      })}
-    </>
-  );
+export function Draggable(props: Partial<RefractiveGlassProps> = {}) {
+  const { children, ...rest } = props;
+  return Array.from({ length: 3 }).map((_, i) => {
+    return (
+      <section
+        // biome-ignore lint/suspicious/noArrayIndexKey: dqweqwe
+        key={i}
+        className={cn("grid", i % 2 ? "image_bg" : i % 3 ? "rgb_bg" : "")}
+      >
+        {Array.from({ length: 5 }).map((_, i) => {
+          return (
+            <DraggableGlassItem
+              // biome-ignore lint/suspicious/noArrayIndexKey: dqweqwe
+              key={i}
+              {...rest}
+            >
+              {children ?? `Grid Item ${i + 1}`}
+            </DraggableGlassItem>
+          );
+        })}
+      </section>
+    );
+  });
 }
-function DraggableGlassItem({ label }: { label: string }) {
+function DraggableGlassItem(props: RefractiveGlassProps) {
+  const {
+    ref,
+    children,
+    style,
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+    onPointerCancel,
+    ...rest
+  } = props;
   const { draggableRef, handleDragEnd, handleDragMove, handleDragStart } =
     useDraggable<HTMLDivElement>();
   return (
     <RefractiveGlass
-      ref={draggableRef}
-      style={{ padding: "var(--gap-3)" }}
-      onPointerDown={handleDragStart}
-      onPointerMove={handleDragMove}
-      onPointerUp={handleDragEnd}
-      onPointerCancel={handleDragEnd}
+      {...rest}
+      ref={mergeRefs(draggableRef)}
+      style={{ ...style, padding: "var(--gap-3)" }}
+      onPointerDown={mergeEvents(onPointerDown, handleDragStart)}
+      onPointerMove={mergeEvents(onPointerMove, handleDragMove)}
+      onPointerUp={mergeEvents(onPointerUp, handleDragEnd)}
+      onPointerCancel={mergeEvents(onPointerCancel, handleDragEnd)}
     >
-      {label}
+      {children}
     </RefractiveGlass>
   );
 }
