@@ -14,6 +14,7 @@ export * from "./useExternalFlag/useExternalFlag";
 export * from "./useFormHelpers/useFormHelpers";
 export * from "./useGlider/useGlider";
 export * from "./useId/useId";
+export * from "./useInView/useInView";
 export * from "./useIsomorphicLayoutEffect/useIsomorphicLayoutEffect";
 export * from "./useLocalStorage/useLocalStorage";
 export * from "./useMounted/useMounted";
