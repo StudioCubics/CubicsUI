@@ -3,6 +3,7 @@
 import type { PolymorphicComponentType } from "@cubicsui/types";
 import { cn, mergeEvents } from "@cubicsui/utils";
 import type { ElementType, ReactElement } from "react";
+import { useDefaultProps } from "../../Globals/DefaultProps/DefaultProps";
 import { useRipple } from "../../Misc/Ripple/Ripple";
 import styles from "./Button.module.css";
 import type { ButtonBaseProps, ButtonProps } from "./Button.types";
@@ -26,7 +27,7 @@ function ButtonBase<C extends ElementType = "button">(
     disabled,
     slotProps: _slotProps,
     ...restProps
-  } = props as ButtonProps<"button">;
+  } = useDefaultProps(Button, props);
   const slotProps: NonNullable<ButtonBaseProps["slotProps"]> = _slotProps ?? {};
   const Component = (as || "button") as ElementType;
   const { rippleElements, createRipple } = useRipple(slotProps.ripple);
