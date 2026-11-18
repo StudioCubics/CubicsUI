@@ -5,8 +5,8 @@ import { cn, mergeRefs } from "@cubicsui/utils";
 import { type ElementType, type ReactElement } from "react";
 import styles from "./RefractiveGlass.module.css";
 import type {
-  GlassCSSVariables,
   RefractiveGlassBaseProps,
+  RefractiveGlassCSSVars,
   RefractiveGlassProps,
 } from "./RefractiveGlass.types";
 import { useRefractiveGlass } from "./useRefractiveGlass";
@@ -27,9 +27,9 @@ function RefractiveGlassBase<C extends ElementType = "div">(
     br = 5.6,
     blur = 2,
     bevelWidth = 10,
-    smoothing = 0.14,
+    smoothing = 1,
     refractionScale = 20,
-    reflectionIntensity = 0.3,
+    reflectionIntensity = 0.15,
     ...rest
   } = props;
   const { glassRef, glassStyle, svgFilterDefs } = useRefractiveGlass({
@@ -52,7 +52,7 @@ function RefractiveGlassBase<C extends ElementType = "div">(
           {
             ...style,
             ...glassStyle,
-          } as GlassCSSVariables
+          } as RefractiveGlassCSSVars
         }
       >
         {children}

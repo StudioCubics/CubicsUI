@@ -5,7 +5,6 @@
   --sidebar-closed-width: 3rem;
   --size: var(--gap-2);
   --br: var(--br-lg);
-  --header-height: min(90px, 7dvh);
 
   display: flex;
   width: 100%;

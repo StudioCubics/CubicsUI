@@ -7,12 +7,6 @@
   /* Updated every frame by JS (pointer tracking) */
   --mouse-x: -9999px; /* pointer position, card-local (offscreen until first move) */
   --mouse-y: -9999px;
-  --near-x: 50px; /* edge point facing the pointer (near highlight) */
-  --near-y: 0px;
-  --far-x: 50px; /* opposite edge point (far bounce highlight) */
-  --far-y: 100px;
-  --nx: 0; /* smoothed unit vector from card center toward pointer */
-  --ny: -1;
   --near-light: 1; /* 1 → 0.2 strength of near/pointer light as pointer moves away */
   --far-light: 0.8; /* strength of far bounce, fades out faster with distance */
   --sheen-scale: 1; /* 1 → 0.3 radius scale of the interior sheen with distance */
@@ -33,29 +27,27 @@
   /* Subtle interior light scatter (near + far), then the base tint as the bottom layer */
   background:
     radial-gradient(
-      calc(var(--bevel-width) * 10 * var(--sheen-scale)) circle at var(--near-x)
-        var(--near-y),
+      var(--sheen-near-r) circle at var(--near-x) var(--near-y),
       color-mix(
         in srgb,
-        var(--tint) min(100%, calc(10% * var(--ri-near))),
+        var(--tint) min(100%, calc(30% * var(--ri-near))),
         transparent
       ),
       transparent 70%
     ),
     radial-gradient(
-      calc(var(--bevel-width) * 8 * var(--sheen-scale)) circle at var(--far-x)
-        var(--far-y),
+      var(--sheen-far-r) circle at var(--far-x) var(--far-y),
       color-mix(
         in srgb,
-        var(--tint) min(100%, calc(8% * var(--ri-far))),
+        var(--tint) min(100%, calc(20% * var(--ri-far))),
         transparent
       ),
       transparent 70%
     ),
-    color-mix(in srgb, var(--tint) 2%, transparent);
+    color-mix(in srgb, var(--tint) 3%, transparent);
 
   /* External depth only */
-  box-shadow: 0 20px 44px var(--color-shadow);
+  box-shadow: 0 var(--gap-5) var(--blur-gradient) var(--color-shadow);
   /* Border ring: pointer hotspot + near edge (capped by distance) + far bounce (fades faster) */
   &::before {
     content: "";

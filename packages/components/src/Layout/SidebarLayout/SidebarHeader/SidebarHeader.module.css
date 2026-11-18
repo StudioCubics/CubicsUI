@@ -44,11 +44,6 @@
     }
   }
 }
-.closesTo_shortened {
-  & :where(.header) {
-    padding: calc(var(--size));
-  }
-}
 .closesTo_full {
   & :where(.header) {
     padding: calc(var(--size));

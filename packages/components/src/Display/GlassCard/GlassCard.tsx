@@ -1,11 +1,11 @@
 "use client";
 
-import { usePointerPosition } from "@cubicsui/hooks";
+import { useInView, usePointerPosition } from "@cubicsui/hooks";
 import type {
   PolymorphicComponentProps,
   PolymorphicComponentType,
 } from "@cubicsui/types";
-import { cn, mergeRefs } from "@cubicsui/utils";
+import { cn, mergeRefs, remap } from "@cubicsui/utils";
 import { type ElementType, useEffect, useRef } from "react";
 import styles from "./GlassCard.module.css";
 
@@ -19,9 +19,10 @@ function GlassCardBase<C extends ElementType = "div">(
   const Component: ElementType = as || "div";
   const { pointerPosition } = usePointerPosition();
   const cardRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(cardRef);
 
   useEffect(() => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || !inView) return;
     if (!pointerPosition.x || !pointerPosition.y) return;
 
     const rect = cardRef.current.getBoundingClientRect();
@@ -29,14 +30,6 @@ function GlassCardBase<C extends ElementType = "div">(
     const y = pointerPosition.y - rect.top;
     const xCenter = rect.left + rect.width / 2;
     const yCenter = rect.top + rect.height / 2;
-
-    // Skip calculation when the element is completely offscreen
-    const isOffscreen =
-      rect.bottom < 0 ||
-      rect.top > window.innerHeight ||
-      rect.right < 0 ||
-      rect.left > window.innerWidth;
-    if (isOffscreen) return;
 
     const dx = (pointerPosition.x - xCenter) / rect.width;
     const dy = (pointerPosition.y - yCenter) / rect.height;
@@ -50,13 +43,13 @@ function GlassCardBase<C extends ElementType = "div">(
     const ndX = Math.min(Math.abs(dxGlobal) / window.innerWidth, 1);
     const ndY = Math.min(Math.abs(dyGlobal) / window.innerHeight, 1);
     const md = Math.min(ndX + ndY, 1); // Manhattan distance capped at 1
-    const intensity = 1 - (1 - 0.2) * md; // maps to 0.2..1
+    const intensity = remap(md, [0, 1], [0.2, 1]); // maps to 0.2..1
 
     cardRef.current.style.setProperty("--mouse-x", `${x}px`);
     cardRef.current.style.setProperty("--mouse-y", `${y}px`);
     cardRef.current.style.setProperty("--gradient-angle", `${angle}deg`);
     cardRef.current.style.setProperty("--reflection-intensity", `${intensity}`);
-  }, [pointerPosition]);
+  }, [pointerPosition, inView]);
 
   return (
     <Component
