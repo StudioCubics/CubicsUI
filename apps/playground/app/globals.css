@@ -80,7 +80,7 @@
   /* Misc */
   --blur-heavy: 10px;
   --blur-light: 5px;
-  --blur-gradient: 30px;
+  --blur-gradient: 50px;
   --column-grid-size: 8.33%;
   --zi-header: 99;
   --zi-drawer: 999;
@@ -90,6 +90,8 @@
   --gr: 1.618;
   --focus-ring: var(--border-width) dashed var(--color-focus);
   --pointer-light-size: 250px;
+  --header-height: min(110px, 7dvh);
+  --header-secondary-height: min(75px, 5.5dvh);
 }
 /* Theme */
 [data-theme="light"] {
@@ -168,7 +170,7 @@
 
   /* Misc Colors */
   --color-outline: #b4b4b6;
-  --color-shadow: #82829954;
+  --color-shadow: #b1b1b146;
   --color-scrim: #6c686d5c;
   --color-focus: #221a1e;
 }
