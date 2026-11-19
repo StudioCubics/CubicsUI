@@ -1,60 +1,37 @@
 "use client";
 
+import { useId } from "@cubicsui/hooks";
 import { cn, mergeEvents } from "@cubicsui/utils";
-import { type ReactElement, useId } from "react";
+import { type ReactElement } from "react";
 import { InputField } from "../InputField/InputField";
-import type { InputFieldProps } from "../InputField/InputField.types";
+import { extractInputFieldSharedProps } from "../InputField/InputField.utils";
 import styles from "./TextInput.module.css";
 import type { TextInputProps } from "./TextInput.types";
 
 export function TextInput(props: TextInputProps): ReactElement {
   const {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface,
-    afterSurface,
-    startAdornment,
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass,
+    inputFieldSharedProps,
     slotProps = {},
-
     id,
     className,
     type = "text",
     htmlSize,
     onClick,
     ...inputProps
-  } = props;
-  const fallbackId = useId();
-  const inputId = id ?? fallbackId;
+  } = extractInputFieldSharedProps(props);
+
+  const { error, helperText } = inputFieldSharedProps;
+  const inputId = useId(id);
   const descriptionId =
     error || helperText ? `${inputId}-description` : undefined;
 
-  const inputFieldProps: InputFieldProps = {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface,
-    afterSurface,
-    startAdornment,
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass,
-    slotProps,
-
-    inputId,
-    descriptionId,
-  };
   return (
-    <InputField {...inputFieldProps}>
+    <InputField
+      {...inputFieldSharedProps}
+      inputId={inputId}
+      descriptionId={descriptionId}
+      slotProps={slotProps}
+    >
       {({ createRipple }) => {
         return (
           <input

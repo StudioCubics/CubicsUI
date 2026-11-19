@@ -1,28 +1,18 @@
 "use client";
 
+import { useId } from "@cubicsui/hooks";
 import { PasswordVisibilityIcon } from "@cubicsui/icons";
 import { cn, mergeEvents } from "@cubicsui/utils";
-import { type ReactElement, useId, useState } from "react";
+import { type ReactElement, useState } from "react";
 import { InputField } from "../InputField/InputField";
-import type { InputFieldProps } from "../InputField/InputField.types";
+import { extractInputFieldSharedProps } from "../InputField/InputField.utils";
 import styles from "./PasswordInput.module.css";
 import type { PasswordInputProps } from "./PasswordInput.types";
 import { PasswordStrengthMeter } from "./PasswordStrengthMeter/PasswordStrengthMeter";
 
 export function PasswordInput(props: PasswordInputProps): ReactElement {
   const {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface,
-    afterSurface,
-    startAdornment,
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass,
+    inputFieldSharedProps,
     slotProps: _slotProps = {},
 
     id,
@@ -32,39 +22,27 @@ export function PasswordInput(props: PasswordInputProps): ReactElement {
     enableStrengthMeter,
     onClick,
     ...inputProps
-  } = props;
+  } = extractInputFieldSharedProps(props);
+  const { error, helperText, afterSurface } = inputFieldSharedProps;
   const { strengthMeter, visibilityToggle, ...slotProps } = _slotProps;
   const [showPass, setShowPass] = useState(false);
-  const fallbackId = useId();
-  const inputId = id ?? fallbackId;
+  const inputId = useId(id);
   const descriptionId =
     error || helperText ? `${inputId}-description` : undefined;
 
-  const inputFieldProps: InputFieldProps = {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface,
-    afterSurface: (
-      <>
-        {enableStrengthMeter && <PasswordStrengthMeter {...strengthMeter} />}
-        {afterSurface}
-      </>
-    ),
-    startAdornment,
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass,
-    slotProps,
-
-    inputId,
-    descriptionId,
-  };
   return (
-    <InputField {...inputFieldProps}>
+    <InputField
+      {...inputFieldSharedProps}
+      inputId={inputId}
+      descriptionId={descriptionId}
+      slotProps={slotProps}
+      afterSurface={
+        <>
+          {enableStrengthMeter && <PasswordStrengthMeter {...strengthMeter} />}
+          {afterSurface}
+        </>
+      }
+    >
       {({ createRipple }) => {
         return (
           <span className={styles.inputWrapper}>

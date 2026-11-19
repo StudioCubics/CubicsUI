@@ -5,6 +5,7 @@ import type {
 } from "../../Misc/Ripple/Ripple.types";
 import type { TextOrListProps } from "../../Typography/TextOrList/TextOrList.types";
 
+/** These props are extended by anything using InputField */
 export interface InputFieldSharedProps {
   /** Label for the input containing helpful info */
   label?: string;
@@ -50,12 +51,12 @@ export interface InputFieldSharedProps {
 
 export type InputFieldOwnProps = {
   /** id of the input element */
-  inputId?: string;
+  inputId: string;
   /** Id of the helperText or error  */
   descriptionId?: string;
 
   /** The input element that will be wrapped by `inputWrapper` */
-  children?: (props: {
+  children: (props: {
     /** Bind with onTouchstart and onClick to trigger ripple on inputSurface */
     createRipple: UseRippleReturns<HTMLElement>["createRipple"];
   }) => ReactNode;
@@ -76,7 +77,7 @@ export type InputFieldOwnProps = {
    * ```
    * @link InputFieldSlotProps
    */
-  slotProps?: InputFieldSlotProps;
+  slotProps: InputFieldSlotProps;
 };
 export type InputFieldProps = InputFieldOwnProps & InputFieldSharedProps;
 

@@ -1,59 +1,37 @@
 "use client";
 
+import { useId } from "@cubicsui/hooks";
 import { cn, mergeEvents } from "@cubicsui/utils";
-import { type ReactElement, useId } from "react";
+import { type ReactElement } from "react";
 import { InputField } from "../InputField/InputField";
-import type { InputFieldProps } from "../InputField/InputField.types";
+import { extractInputFieldSharedProps } from "../InputField/InputField.utils";
 import styles from "./TextAreaInput.module.css";
 import type { TextAreaInputProps } from "./TextAreaInput.types";
 
 export function TextAreaInput(props: TextAreaInputProps): ReactElement {
   const {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface,
-    afterSurface,
-    startAdornment,
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass,
+    inputFieldSharedProps,
     slotProps = {},
-
     id,
     className,
     disableResize,
     onClick,
     ...textareaProps
-  } = props;
-  const fallbackId = useId();
-  const inputId = id ?? fallbackId;
+  } = extractInputFieldSharedProps(props);
+
+  const { error, helperText, rootClass } = inputFieldSharedProps;
+  const inputId = useId(id);
   const descriptionId =
     error || helperText ? `${inputId}-description` : undefined;
 
-  const inputFieldProps: InputFieldProps = {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface,
-    afterSurface,
-    startAdornment,
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass: cn(rootClass, disableResize && styles.disableResize),
-    slotProps,
-
-    inputId,
-    descriptionId,
-  };
   return (
-    <InputField {...inputFieldProps}>
+    <InputField
+      {...inputFieldSharedProps}
+      inputId={inputId}
+      descriptionId={descriptionId}
+      slotProps={slotProps}
+      rootClass={cn(rootClass, disableResize && styles.disableResize)}
+    >
       {({ createRipple }) => {
         return (
           <textarea

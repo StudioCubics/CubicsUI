@@ -1,37 +1,27 @@
 "use client";
 
+import { useId } from "@cubicsui/hooks";
 import { cn, mergeRefs } from "@cubicsui/utils";
-import { type ReactElement, useId } from "react";
+import { type ReactElement } from "react";
 import { Card } from "../../Display/Card/Card";
 import { List } from "../../Display/List/List";
 import type { ListItemProps } from "../../Display/List/List.types";
 import { ListItem } from "../../Display/List/ListItem/ListItem";
 import { Popover } from "../../Layout/Popover/Popover";
 import { InputField } from "../InputField/InputField";
-import type { InputFieldProps } from "../InputField/InputField.types";
+import { extractInputFieldSharedProps } from "../InputField/InputField.utils";
 import styles from "./ComboBox.module.css";
 import type { ComboBoxProps } from "./ComboBox.types";
 import { normalizeOptions } from "./ComboBox.utils";
 import { ComboBoxChips } from "./ComboBoxChips";
 import { useComboBox } from "./useComboBox";
 
-// TODO add overriding chips and options react nodes
+// TODO add overriding chips and options react nodes also add prop to handle if the items sorting should change or filtered as it currently is.
 export function ComboBox<T, Multiple extends boolean | undefined = false>(
   props: ComboBoxProps<T, Multiple>,
 ): ReactElement {
   const {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface,
-    afterSurface,
-    startAdornment,
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass,
+    inputFieldSharedProps,
     slotProps = {},
 
     id,
@@ -49,9 +39,18 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
     name,
     chipSeparator,
     ...inputProps
-  } = props;
-  const fallbackId = useId();
-  const inputId = id ?? fallbackId;
+  } = extractInputFieldSharedProps(props);
+
+  const {
+    error,
+    helperText,
+    beforeSurface,
+    startAdornment,
+    size,
+    disablePadding,
+  } = inputFieldSharedProps;
+
+  const inputId = useId(id);
   const descriptionId =
     error || helperText ? `${inputId}-description` : undefined;
   const options = normalizeOptions(_options);
@@ -138,45 +137,35 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
       return props;
     },
   );
-  const inputFieldProps: InputFieldProps = {
-    label,
-    error,
-    helperText,
-    size,
-    beforeSurface: (
-      <>
-        {beforeSurface}
-        {multiple && !!selected.length && (
-          <ComboBoxChips
-            name={name}
-            size={size}
-            selected={selected}
-            options={options}
-            getOptionKey={getOptionKey}
-            removeChip={removeChip}
-          />
-        )}
-      </>
-    ),
-    afterSurface,
-    startAdornment: (
-      <>
-        {startAdornment}
-        {!multiple && selectedIcon}
-      </>
-    ),
-    endAdornment,
-    fullWidth,
-    disablePadding,
-    disableRipple,
-    rootClass,
-    slotProps,
 
-    inputId,
-    descriptionId,
-  };
   return (
-    <InputField {...inputFieldProps}>
+    <InputField
+      {...inputFieldSharedProps}
+      inputId={inputId}
+      descriptionId={descriptionId}
+      slotProps={slotProps}
+      beforeSurface={
+        <>
+          {beforeSurface}
+          {multiple && !!selected.length && (
+            <ComboBoxChips
+              name={name}
+              size={size}
+              selected={selected}
+              options={options}
+              getOptionKey={getOptionKey}
+              removeChip={removeChip}
+            />
+          )}
+        </>
+      }
+      startAdornment={
+        <>
+          {startAdornment}
+          {!multiple && selectedIcon}
+        </>
+      }
+    >
       {({ createRipple }) => {
         return (
           <div
