@@ -3,6 +3,7 @@ export * from "./DataTree";
 export * from "./Geometry";
 export * from "./HtmlTypes";
 export * from "./MediaProps";
+export * from "./ObjectWithId";
 export * from "./PolymorphicProps";
 export * from "./PositionString";
 export * from "./SetState";
