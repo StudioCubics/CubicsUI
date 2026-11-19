@@ -18,7 +18,7 @@ export function PasswordVisibilityIcon(
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className={cn("lucide", styles.root)}
+      className={cn("lucide", styles.root, className)}
     >
       <mask id={id} style={{ maskType: "luminance" }}>
         <path

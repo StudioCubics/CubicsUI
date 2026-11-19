@@ -3,7 +3,7 @@ import type { ComponentProps, ReactElement } from "react";
 import styles from "./DropDownIcon.module.css";
 
 export function DropDownIcon(props: ComponentProps<"svg">): ReactElement {
-  const { width = 24, height = width, style, ...rest } = props;
+  const { width = 24, height = width, className, ...rest } = props;
   return (
     <svg
       fill="none"
@@ -15,7 +15,7 @@ export function DropDownIcon(props: ComponentProps<"svg">): ReactElement {
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      className={cn("lucide", styles.root)}
+      className={cn("lucide", styles.root, className)}
     >
       <path d="m6 9 6 6 6-6" />
     </svg>

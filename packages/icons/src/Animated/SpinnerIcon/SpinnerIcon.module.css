@@ -1,0 +1,38 @@
+.main {
+  animation: spinning 1.6s linear infinite;
+  animation-delay: -1.6s;
+}
+.trailing {
+  animation-delay: -1s;
+  fill-opacity: 0.5;
+}
+@keyframes spinning {
+  12% {
+    x: 13;
+    y: 1;
+  }
+  25% {
+    x: 13;
+    y: 1;
+  }
+  37% {
+    x: 13;
+    y: 13;
+  }
+  50% {
+    x: 13;
+    y: 13;
+  }
+  62% {
+    x: 1;
+    y: 13;
+  }
+  75% {
+    x: 1;
+    y: 13;
+  }
+  87% {
+    x: 1;
+    y: 1;
+  }
+}
