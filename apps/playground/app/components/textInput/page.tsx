@@ -1,13 +1,10 @@
-import { Button, Card, TextInput } from "@cubicsui/components";
+import { Button, Card, PageLayout, TextInput } from "@cubicsui/components";
 import { CubicsUIFavicon } from "@cubicsui/icons";
 import { HybridInput } from "./hybridInput";
 
 export default function Page() {
   return (
-    <main className="main">
-      <h1>
-        <code>{"<TextInput/>"}</code>
-      </h1>
+    <PageLayout title={<code>{"<TextInput/>"}</code>}>
       <h2>Labels</h2>
       <section>
         <div className={"column"}>
@@ -195,6 +192,6 @@ export default function Page() {
           disabled
         />
       </section>
-    </main>
+    </PageLayout>
   );
 }
