@@ -24,9 +24,6 @@ export * from "./PasswordInput/PasswordStrengthMeter/PasswordStrengthMeter";
 export * from "./Rolodex/Rolodex";
 export * from "./Rolodex/Rolodex.types";
 
-export * from "./SearchInput/SearchInput";
-export * from "./SearchInput/SearchInput.types";
-
 export * from "./Select/Select";
 export * from "./Select/Select.types";
 
