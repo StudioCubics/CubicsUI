@@ -55,5 +55,5 @@ h5.title ~ .desc {
   font-size: var(--fs-body2);
 }
 h6.title ~ .desc {
-  font-size: var(--fs-code);
+  font-size: var(--fs-caption);
 }
