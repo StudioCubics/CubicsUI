@@ -1,3 +1,4 @@
+export * from "./AnchorLike";
 export * from "./CssTypes";
 export * from "./DataTree";
 export * from "./Geometry";
