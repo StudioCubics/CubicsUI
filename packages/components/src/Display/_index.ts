@@ -24,4 +24,4 @@ export * from "./RefractiveGlass/RefractiveGlass";
 export * from "./RefractiveGlass/RefractiveGlass.types";
 
 export * from "./Tooltip/Tooltip";
-export * from "./Tooltip/useTooltip";
+export * from "./Tooltip/Tooltip.types";

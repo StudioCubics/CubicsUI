@@ -1,29 +1,28 @@
-import type { Position, SafePositionOptions } from "@cubicsui/utils";
-import type { ReactElement, ReactNode, Ref } from "react";
+import type { PolymorphicComponentProps, Size2D } from "@cubicsui/types";
+import type { ElementType, ReactElement, ReactNode, Ref } from "react";
+import type { PopoverProps } from "../../Layout/Popover/Popover.types";
 
-export interface TooltipProps extends SafePositionOptions {
+export type TooltipBaseProps = Omit<
+  PopoverProps,
+  "title" | "open" | "anchorEl"
+> & {
   /** The content of the tooltip */
   title?: ReactNode;
   /** Renders an arrow towards the anchor element from the tooltip */
   renderArrow?: boolean;
-  children: ReactElement<{ ref?: Ref<HTMLElement | null> }>;
-}
+  /** Width and height of the arrow @default {width:16,height:8} */
+  arrowSize?: Size2D;
+  /** The tooltip follows the mouse pointer */
+  followPointer?: boolean;
+  /** Keeps the tooltip clear of the cursor graphic @default 16 */
+  pointerGap?: number;
+  /** Points the arrow to the center of the anchor */
+  pointToCenterOfAnchor?: boolean;
 
-export type UseTooltipReturn = {
-  showTooltip: boolean;
-  position: Position;
-  anchorRef: Ref<HTMLElement | null>;
-  tooltipRef: Ref<HTMLDivElement | null>;
-  updatePosition: () => void;
+  children: ReactElement<{
+    ref?: Ref<HTMLElement | null>;
+    [key: string]: unknown;
+  }>;
 };
-
-export type GetArrowDirectionReturn =
-  | "top"
-  | "bottom"
-  | "left"
-  | "right"
-  | "topLeft"
-  | "topRight"
-  | "bottomLeft"
-  | "bottomRight"
-  | null;
+export type TooltipProps<C extends ElementType = "div"> =
+  PolymorphicComponentProps<C, TooltipBaseProps>;
