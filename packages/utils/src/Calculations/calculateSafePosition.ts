@@ -1,16 +1,19 @@
-import type { PositionString } from "@cubicsui/types";
-
-type VerticalOrigin = "top" | "center" | "bottom";
-type HorizontalOrigin = "left" | "center" | "right";
+import type {
+  PositionHorizontal,
+  PositionString,
+  PositionVertical,
+} from "@cubicsui/types";
 
 interface ParsedOrigin {
-  vertical: VerticalOrigin;
-  horizontal: HorizontalOrigin;
+  vertical: PositionVertical;
+  horizontal: PositionHorizontal;
 }
 
 export interface SafePositionOptions {
-  anchorOrigin?: PositionString;
-  transformOrigin?: PositionString;
+  /** The area around the anchor where the popover should be positioned
+   * @default "bottom center" */
+  positionArea?: PositionString;
+  /** The margin around the anchor where the popover should be positioned */
   margin?: number;
 }
 
@@ -21,11 +24,11 @@ export interface Position {
 
 /**
  * Calculates safe position of an element within viewport relative to an anchor element
- * Works like Material UI Popover positioning:
- * - anchorOrigin: point on the anchor element (e.g., "top center" = top-center of anchor)
- * - transformOrigin: point on the positioned element that attaches to anchor (e.g., "bottom center" = bottom-center of popup attaches to anchor point)
+ * Works like the CSS `position-area` property, the anchor sits in the center cell of a 3x3 grid
+ * and the element is placed in the chosen cell, touching the anchor:
  *
- * Example: anchorOrigin "top center" + transformOrigin "bottom center" positions popup above and centered
+ * If the preferred side doesn't fit in the viewport, it flips to the opposite side so the element
+ * doesn't cover the anchor. It only clamps (and can overlap the anchor) when neither side fits.
  *
  * @param element - The element to position
  * @param anchorElement - The anchor element to position relative to
@@ -37,46 +40,51 @@ export function calculateSafePosition(
   anchorElement: HTMLElement | null,
   options: SafePositionOptions = {},
 ): Position {
-  const {
-    anchorOrigin = "bottom center",
-    transformOrigin = "top center",
-    margin = 0,
-  } = options;
+  const { positionArea = "bottom center", margin = 0 } = options;
 
   if (!element || !anchorElement) return { x: 0, y: 0 };
 
-  const elementRect = element.getBoundingClientRect();
+  // offsetWidth/offsetHeight ignore transforms, so the scale animation doesn't affect the measurement
+  const elementWidth = element.offsetWidth;
+  const elementHeight = element.offsetHeight;
   const anchorRect = anchorElement.getBoundingClientRect();
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
 
-  const anchor = parseOrigin(anchorOrigin);
-  const transform = parseOrigin(transformOrigin);
+  const area = parsePositionArea(positionArea);
 
-  // Calculate anchor point on the anchor element
-  const anchorX =
-    anchorRect.left + getAnchorOffset(anchorRect.width, anchor.horizontal);
-  const anchorY =
-    anchorRect.top + getAnchorOffset(anchorRect.height, anchor.vertical);
+  // Place the element in its grid cell around the anchor, flipping when the preferred side doesn't fit
+  let x: number;
+  if (area.horizontal === "center") {
+    x = anchorRect.left + anchorRect.width / 2 - elementWidth / 2;
+  } else {
+    const before = anchorRect.left - elementWidth; // left of the anchor
+    const after = anchorRect.right; // right of the anchor
+    const fitsBefore = before >= margin;
+    const fitsAfter = after + elementWidth <= viewportWidth - margin;
 
-  // Calculate where on the element we're attaching (transform origin point)
-  const elementOriginX = getTransformOffset(
-    elementRect.width,
-    transform.horizontal,
-  );
-  const elementOriginY = getTransformOffset(
-    elementRect.height,
-    transform.vertical,
-  );
+    if (area.horizontal === "left")
+      x = fitsBefore || !fitsAfter ? before : after;
+    else x = fitsAfter || !fitsBefore ? after : before;
+  }
 
-  // Position the element so its transform origin aligns with the anchor point
-  let x = anchorX - elementOriginX;
-  let y = anchorY - elementOriginY;
+  let y: number;
+  if (area.vertical === "center") {
+    y = anchorRect.top + anchorRect.height / 2 - elementHeight / 2;
+  } else {
+    const before = anchorRect.top - elementHeight; // above the anchor
+    const after = anchorRect.bottom; // below the anchor
+    const fitsBefore = before >= margin;
+    const fitsAfter = after + elementHeight <= viewportHeight - margin;
+
+    if (area.vertical === "top") y = fitsBefore || !fitsAfter ? before : after;
+    else y = fitsAfter || !fitsBefore ? after : before;
+  }
 
   // Check and adjust for viewport boundaries with margin
   // Right boundary
-  if (x + elementRect.width > viewportWidth - margin) {
-    x = viewportWidth - elementRect.width - margin;
+  if (x + elementWidth > viewportWidth - margin) {
+    x = viewportWidth - elementWidth - margin;
   }
   // Left boundary
   if (x < margin) {
@@ -84,8 +92,8 @@ export function calculateSafePosition(
   }
 
   // Bottom boundary
-  if (y + elementRect.height > viewportHeight - margin) {
-    y = viewportHeight - elementRect.height - margin;
+  if (y + elementHeight > viewportHeight - margin) {
+    y = viewportHeight - elementHeight - margin;
   }
   // Top boundary
   if (y < margin) {
@@ -95,42 +103,16 @@ export function calculateSafePosition(
   return { x: Math.max(margin, x), y: Math.max(margin, y) };
 }
 
-function parseOrigin(origin: string): ParsedOrigin {
-  const parts = origin.toLowerCase().trim().split(/\s+/);
-  let vertical: VerticalOrigin = "top";
-  let horizontal: HorizontalOrigin = "left";
+function parsePositionArea(area: string): ParsedOrigin {
+  const parts = area.toLowerCase().trim().split(/\s+/);
+  // Axes that aren't mentioned default to center, like CSS ("top" = "top center")
+  let vertical: PositionVertical = "center";
+  let horizontal: PositionHorizontal = "center";
 
   for (const part of parts) {
-    if (["top", "bottom"].includes(part)) vertical = part as VerticalOrigin;
-    else if (["left", "right"].includes(part))
-      horizontal = part as HorizontalOrigin;
-    else if (part === "center") {
-      // Assign center depending on position in string
-      if (parts.length === 1) {
-        vertical = "center";
-        horizontal = "center";
-      } else if (["top", "bottom"].includes(parts[0])) horizontal = "center";
-      else vertical = "center";
-    }
+    if (part === "top" || part === "bottom") vertical = part;
+    else if (part === "left" || part === "right") horizontal = part;
   }
 
   return { vertical, horizontal };
-}
-
-function getAnchorOffset(
-  size: number,
-  origin: VerticalOrigin | HorizontalOrigin,
-): number {
-  if (origin === "center") return size / 2;
-  if (origin === "bottom" || origin === "right") return size;
-  return 0; // top or left
-}
-
-function getTransformOffset(
-  size: number,
-  origin: VerticalOrigin | HorizontalOrigin,
-): number {
-  if (origin === "center") return size / 2;
-  if (origin === "bottom" || origin === "right") return size;
-  return 0; // top or left
 }
