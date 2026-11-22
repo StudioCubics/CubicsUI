@@ -1,4 +1,5 @@
 import type {
+  AnchorLike,
   PositionHorizontal,
   PositionString,
   PositionVertical,
@@ -13,10 +14,13 @@ export interface SafePositionOptions {
   /** The area around the anchor where the popover should be positioned
    * @default "bottom center" */
   positionArea?: PositionString;
-  /** The margin around the anchor where the popover should be positioned */
-  margin?: number;
+  /** The offset between the anchor and the element, e.g. to make room for an arrow
+   * @default 0 */
+  offset?: number;
+  /** The minimum distance kept between the element and the viewport edges
+   * @default 0 */
+  viewportPadding?: number;
 }
-
 export interface Position {
   x: number;
   y: number;
@@ -37,10 +41,14 @@ export interface Position {
  */
 export function calculateSafePosition(
   element: HTMLElement | null,
-  anchorElement: HTMLElement | null,
+  anchorElement: AnchorLike,
   options: SafePositionOptions = {},
 ): Position {
-  const { positionArea = "bottom center", margin = 0 } = options;
+  const {
+    positionArea = "bottom center",
+    offset = 0,
+    viewportPadding = 0,
+  } = options;
 
   if (!element || !anchorElement) return { x: 0, y: 0 };
 
@@ -52,16 +60,15 @@ export function calculateSafePosition(
   const viewportHeight = window.innerHeight;
 
   const area = parsePositionArea(positionArea);
-
   // Place the element in its grid cell around the anchor, flipping when the preferred side doesn't fit
   let x: number;
   if (area.horizontal === "center") {
     x = anchorRect.left + anchorRect.width / 2 - elementWidth / 2;
   } else {
-    const before = anchorRect.left - elementWidth; // left of the anchor
-    const after = anchorRect.right; // right of the anchor
-    const fitsBefore = before >= margin;
-    const fitsAfter = after + elementWidth <= viewportWidth - margin;
+    const before = anchorRect.left - elementWidth - offset; // left of the anchor
+    const after = anchorRect.right + offset; // right of the anchor
+    const fitsBefore = before >= viewportPadding;
+    const fitsAfter = after + elementWidth <= viewportWidth - viewportPadding;
 
     if (area.horizontal === "left")
       x = fitsBefore || !fitsAfter ? before : after;
@@ -72,35 +79,35 @@ export function calculateSafePosition(
   if (area.vertical === "center") {
     y = anchorRect.top + anchorRect.height / 2 - elementHeight / 2;
   } else {
-    const before = anchorRect.top - elementHeight; // above the anchor
-    const after = anchorRect.bottom; // below the anchor
-    const fitsBefore = before >= margin;
-    const fitsAfter = after + elementHeight <= viewportHeight - margin;
+    const before = anchorRect.top - elementHeight - offset; // above the anchor
+    const after = anchorRect.bottom + offset; // below the anchor
+    const fitsBefore = before >= viewportPadding;
+    const fitsAfter = after + elementHeight <= viewportHeight - viewportPadding;
 
     if (area.vertical === "top") y = fitsBefore || !fitsAfter ? before : after;
     else y = fitsAfter || !fitsBefore ? after : before;
   }
 
-  // Check and adjust for viewport boundaries with margin
+  // Check and adjust for viewport boundaries with padding
   // Right boundary
-  if (x + elementWidth > viewportWidth - margin) {
-    x = viewportWidth - elementWidth - margin;
+  if (x + elementWidth > viewportWidth - viewportPadding) {
+    x = viewportWidth - elementWidth - viewportPadding;
   }
   // Left boundary
-  if (x < margin) {
-    x = margin;
+  if (x < viewportPadding) {
+    x = viewportPadding;
   }
 
   // Bottom boundary
-  if (y + elementHeight > viewportHeight - margin) {
-    y = viewportHeight - elementHeight - margin;
+  if (y + elementHeight > viewportHeight - viewportPadding) {
+    y = viewportHeight - elementHeight - viewportPadding;
   }
   // Top boundary
-  if (y < margin) {
-    y = margin;
+  if (y < viewportPadding) {
+    y = viewportPadding;
   }
 
-  return { x: Math.max(margin, x), y: Math.max(margin, y) };
+  return { x: Math.max(viewportPadding, x), y: Math.max(viewportPadding, y) };
 }
 
 function parsePositionArea(area: string): ParsedOrigin {
