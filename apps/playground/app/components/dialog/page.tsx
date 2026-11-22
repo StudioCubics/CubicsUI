@@ -11,6 +11,8 @@ import {
 } from "@cubicsui/components";
 import { useDisclosure } from "@cubicsui/hooks";
 import { type ComponentProps, type ReactNode, useState } from "react";
+import { Hybrid } from "./hybrid";
+import { UnmountOnExit } from "./unmountOnExit";
 
 type DemoProps = Omit<ComponentProps<typeof Dialog>, "open" | "onClose"> & {
   label: string;
@@ -55,6 +57,9 @@ export default function Page() {
       <section>
         <DialogDemo label="Open dialog">This is a dialog</DialogDemo>
       </section>
+
+      <h2>Hybrid</h2>
+      <Hybrid />
 
       <h2>
         <code>modal</code>
@@ -116,16 +121,9 @@ export default function Page() {
       </section>
 
       <h2>
-        <code>keepMounted</code>
+        <code>unmountOnExit</code>
       </h2>
-      <section>
-        <DialogDemo label="Stays mounted (default)" modal>
-          Remains in the DOM when closed
-        </DialogDemo>
-        <DialogDemo label="Unmount on exit" modal unmountOnExit>
-          Removed from the DOM when closed
-        </DialogDemo>
-      </section>
+      <UnmountOnExit />
 
       <h2>
         <code>onClose</code> reasons
@@ -156,37 +154,6 @@ export default function Page() {
           Inspect the element for <code>id</code>, <code>className</code>, and{" "}
           <code>aria-labelledby</code>
         </DialogDemo>
-      </section>
-
-      <h2>
-        <code>command</code> and <code>commandfor</code>
-      </h2>
-      <section>
-        <p>
-          Opens and closes the dialog natively through the Invoker Commands API,
-          without React state. Escape and backdrop click should also close it
-        </p>
-        <div className={"column"}>
-          <Button command="show-modal" commandfor="command-dialog">
-            Open with command
-          </Button>
-          <Dialog id="command-dialog">
-            <Card fixedHeight="100%" fixedWidth="100%">
-              <CardHeader
-                title="Invoker command"
-                actions={
-                  <CloseButton
-                    size={"sm"}
-                    relative
-                    command="close"
-                    commandfor="command-dialog"
-                  />
-                }
-              />
-              <CardContent>Opened and closed without React state</CardContent>
-            </Card>
-          </Dialog>
-        </div>
       </section>
     </PageLayout>
   );

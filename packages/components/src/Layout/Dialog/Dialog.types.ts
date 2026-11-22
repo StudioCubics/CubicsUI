@@ -1,17 +1,13 @@
 import type { ComponentProps } from "react";
 
-export type DialogCloseReason = "backdropClick" | "escapeKeyDown";
-
 type OmittedProps = "onClose" | "onCancel";
 
-export interface DialogProps extends Omit<
+export interface DialogBaseProps extends Omit<
   ComponentProps<"dialog">,
   OmittedProps
 > {
-  /** Controls the open state assign open from useDisclosure here */
-  open?: boolean;
   /** Runs when dialog is closed */
-  onClose?: (event: Event | MouseEvent, reason: DialogCloseReason) => void;
+  onClose?: (event: Event | MouseEvent) => void;
   /** Makes the dialog be the width of the viewport */
   fullWidth?: boolean;
   /** Makes the dialog be the height of the viewport */
@@ -26,4 +22,23 @@ export interface DialogProps extends Omit<
   unmountOnExit?: boolean;
   /** Overrides the UA styles of the browser for a dialog */
   overrideUAStyles?: boolean;
+  /** Prevents closing when backdrop is clicked */
+  preventBackdropClick?: boolean;
 }
+
+export type DialogControlledProps = {
+  /** Controls the open state, you can pass open from `useDislosure` here */
+  open: boolean;
+  id?: string;
+};
+
+/** When the dialog is uncontrolled it can only be a modal as there is no command="show" but only command="show-modal" */
+export type DialogUncontrolledProps = {
+  /** Pass the id that was set in the triggers `commandfor` attribute */
+  id: string;
+  open?: never;
+};
+
+export type DialogHybridProps = DialogControlledProps | DialogUncontrolledProps;
+
+export type DialogProps = DialogBaseProps & DialogHybridProps;

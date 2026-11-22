@@ -4,14 +4,7 @@
   --popover-scale-from: 0.5;
   --popover-translate-from: 0px;
 
-  margin: 0;
-  inset: auto;
-  border: none;
-  background: none;
   position: fixed;
-  position-area: var(--popover-position-area, bottom center);
-  position-try-fallbacks: flip-block, flip-inline, flip-start;
-
   transform-origin: var(--popover-transform-origin, top center);
 
   /* closed state */
@@ -26,6 +19,10 @@
     display var(--popover-duration) var(--popover-easing) allow-discrete,
     overlay var(--popover-duration) var(--popover-easing) allow-discrete;
 }
+.root:not(.controlled) {
+  position-area: var(--popover-position-area, bottom center);
+  position-try-fallbacks: flip-block, flip-inline, flip-start;
+}
 
 .anchorWidth {
   width: anchor-size(width);
@@ -37,7 +34,19 @@
   scale: 1;
   translate: 0;
 }
-
+.overrideUAStyles {
+  margin: 0;
+  inset: auto;
+  border: none;
+  background: none;
+  padding: 0;
+  overflow: visible;
+  color: inherit;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+}
 @starting-style {
   .root:popover-open {
     opacity: 0;

@@ -1,4 +1,6 @@
 import { Button, Card, PageLayout, Popover } from "@cubicsui/components";
+import { Hybrid } from "./hybrid";
+import { UnmountOnExit } from "./unmountOnExit";
 
 export default function Page() {
   return (
@@ -6,7 +8,9 @@ export default function Page() {
       <h2>Basic Usage</h2>
       <section>
         <div className={"column"}>
-          <Button popoverTarget="basic-popover">Open popover</Button>
+          <Button variant="outlined" popoverTarget="basic-popover">
+            Open popover
+          </Button>
           <Popover id="basic-popover">
             <Card>This is a popover</Card>
           </Popover>
@@ -18,7 +22,7 @@ export default function Page() {
       </h2>
       <section>
         <div className={"column"}>
-          <Button popoverTarget="pos-bottom">
+          <Button variant="outlined" popoverTarget="pos-bottom">
             Bottom center {"("}default{")"}
           </Button>
           <Popover id="pos-bottom" positionArea="bottom center">
@@ -26,43 +30,57 @@ export default function Page() {
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="pos-top">Top center</Button>
+          <Button variant="outlined" popoverTarget="pos-top">
+            Top center
+          </Button>
           <Popover id="pos-top" positionArea="top center">
             <Card>Positioned top center</Card>
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="pos-left">Center left</Button>
+          <Button variant="outlined" popoverTarget="pos-left">
+            Center left
+          </Button>
           <Popover id="pos-left" positionArea="center left">
             <Card>Positioned center left</Card>
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="pos-right">Center right</Button>
+          <Button variant="outlined" popoverTarget="pos-right">
+            Center right
+          </Button>
           <Popover id="pos-right" positionArea="center right">
             <Card>Positioned center right</Card>
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="pos-top-left">Top left</Button>
+          <Button variant="outlined" popoverTarget="pos-top-left">
+            Top left
+          </Button>
           <Popover id="pos-top-left" positionArea="top left">
             <Card>Positioned top left</Card>
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="pos-top-right">Top right</Button>
+          <Button variant="outlined" popoverTarget="pos-top-right">
+            Top right
+          </Button>
           <Popover id="pos-top-right" positionArea="top right">
             <Card>Positioned top right</Card>
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="pos-bottom-left">Bottom left</Button>
+          <Button variant="outlined" popoverTarget="pos-bottom-left">
+            Bottom left
+          </Button>
           <Popover id="pos-bottom-left" positionArea="bottom left">
             <Card>Positioned bottom left</Card>
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="pos-bottom-right">Bottom right</Button>
+          <Button variant="outlined" popoverTarget="pos-bottom-right">
+            Bottom right
+          </Button>
           <Popover id="pos-bottom-right" positionArea="bottom right">
             <Card>Positioned bottom right</Card>
           </Popover>
@@ -77,13 +95,13 @@ export default function Page() {
           Controls where the default expand animation grows from, independent of{" "}
           <code>positionArea</code>
         </p>
-        <Button popoverTarget="origin-top">
+        <Button variant="outlined" popoverTarget="origin-top">
           Expands from top {"("}default{")"}
         </Button>
         <Popover id="origin-top" transformOrigin="top center">
           <Card>Expands from top</Card>
         </Popover>
-        <Button popoverTarget="origin-bottom-left">
+        <Button variant="outlined" popoverTarget="origin-bottom-left">
           Expands from bottom left
         </Button>
         <Popover id="origin-bottom-left" transformOrigin="bottom left">
@@ -98,7 +116,9 @@ export default function Page() {
           timing, easing, or scale without touching the default animation
         </p>
         <div className={"column"}>
-          <Button popoverTarget="anim-slow">Slow expand</Button>
+          <Button variant="outlined" popoverTarget="anim-slow">
+            Slow expand
+          </Button>
           <Popover
             id="anim-slow"
             style={
@@ -112,7 +132,9 @@ export default function Page() {
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="anim-slide">Slide instead of scale</Button>
+          <Button variant="outlined" popoverTarget="anim-slide">
+            Slide instead of scale
+          </Button>
           <Popover
             id="anim-slide"
             style={
@@ -132,7 +154,7 @@ export default function Page() {
       </h2>
       <section>
         <div className={"column"}>
-          <Button popoverTarget="popover-auto">
+          <Button variant="outlined" popoverTarget="popover-auto">
             Auto (default, light dismiss)
           </Button>
           <Popover id="popover-auto" popover="auto">
@@ -140,7 +162,9 @@ export default function Page() {
           </Popover>
         </div>
         <div className={"column"}>
-          <Button popoverTarget="popover-manual">Manual</Button>
+          <Button variant="outlined" popoverTarget="popover-manual">
+            Manual
+          </Button>
           <Popover id="popover-manual" popover="manual">
             <Card>Only closes when explicitly toggled</Card>
           </Popover>
@@ -152,11 +176,49 @@ export default function Page() {
       </h2>
       <section>
         <div className={"column"}>
-          <Button popoverTarget="as-article">Open</Button>
+          <Button variant="outlined" popoverTarget="as-article">
+            Open
+          </Button>
           <Popover as="article" id="as-article">
             <Card>
               Rendered as an <code>{"<article>"}</code>
             </Card>
+          </Popover>
+        </div>
+      </section>
+
+      <h2>Hybrid component Controlled and Uncontrolled</h2>
+      <Hybrid />
+
+      <h2>
+        <code>unmountOnExit</code>
+      </h2>
+      <UnmountOnExit />
+
+      <h2>
+        <code>anchorWidth</code>
+      </h2>
+      <section>
+        <div className={"column"}>
+          <Button variant="outlined" popoverTarget="anchor-width">
+            Popover matches my width
+          </Button>
+          <Popover id="anchor-width" anchorWidth>
+            <Card>Same width as the anchor</Card>
+          </Popover>
+        </div>
+      </section>
+
+      <h2>
+        <code>disablePortal</code>
+      </h2>
+      <section>
+        <div className={"column"}>
+          <Button variant="outlined" popoverTarget="no-portal">
+            Rendered in place
+          </Button>
+          <Popover id="no-portal" disablePortal>
+            <Card>Not portaled to document.body</Card>
           </Popover>
         </div>
       </section>

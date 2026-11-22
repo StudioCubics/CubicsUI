@@ -3,7 +3,7 @@
 import { useMounted } from "@cubicsui/hooks";
 import { cn } from "@cubicsui/utils";
 import { type ReactElement, useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
 import styles from "./Dialog.module.css";
 import type { DialogProps } from "./Dialog.types";
 
@@ -19,6 +19,7 @@ export function Dialog(props: DialogProps): ReactElement | null {
     disablePortal,
     modal,
     unmountOnExit,
+    preventBackdropClick,
     className,
     ...rest
   } = props;
@@ -52,7 +53,7 @@ export function Dialog(props: DialogProps): ReactElement | null {
     function handleCancel(e: Event) {
       // Controlled: parent closes via `open`. Uncontrolled: let the native Escape close happen
       if (!uncontrolled) e.preventDefault();
-      onClose?.(e, "escapeKeyDown");
+      onClose?.(e);
     }
 
     function handleClick(e: MouseEvent) {
@@ -64,9 +65,9 @@ export function Dialog(props: DialogProps): ReactElement | null {
         rect.left <= e.clientX &&
         e.clientX <= rect.left + rect.width;
 
-      if (!isInDialog) {
+      if (!isInDialog && !preventBackdropClick) {
         if (uncontrolled) dialog.close(); // uncontrolled: close natively
-        onClose?.(e, "backdropClick");
+        onClose?.(e);
       }
     }
 
@@ -77,7 +78,7 @@ export function Dialog(props: DialogProps): ReactElement | null {
       dialog.removeEventListener("cancel", handleCancel);
       dialog.removeEventListener("click", handleClick);
     };
-  }, [onClose, mounted, open]);
+  }, [onClose, mounted, open, preventBackdropClick]);
 
   const dialogContent = (
     <dialog
@@ -96,12 +97,14 @@ export function Dialog(props: DialogProps): ReactElement | null {
     </dialog>
   );
 
-  // Only render portal on client
-  if (!uncontrolled && !mounted) return null;
+  // Controlled + unmountOnExit: the node only exists while open
+  const unmounted = unmountOnExit && !open;
+  // The portal needs `document`, which isn't available during SSR
+  const canRender = disablePortal || mounted;
 
-  // Uncontrolled dialogs must stay mounted so commands can target them
-  if (!uncontrolled && unmountOnExit && !open) return null;
+  if (unmounted || !canRender) return null;
 
-  if (disablePortal) return dialogContent;
-  return ReactDOM.createPortal(dialogContent, document.body);
+  return disablePortal
+    ? dialogContent
+    : createPortal(dialogContent, document.body);
 }
