@@ -3,16 +3,30 @@
 import { useState } from "react";
 
 export interface UseDisclosureReturn {
+  /** The state controlling if something is open or not */
   open: boolean;
+  /** Toggles the open state */
   handleToggle: () => void;
+  /** Sets open state to `true` */
   handleOpen: () => void;
+  /** Sets open state to `false` */
   handleClose: () => void;
-  handleStrictClose: (
-    _: unknown,
-    reason: "backdropClick" | "escapeKeyDown",
-  ) => void;
 }
 
+/**
+ * Manages the open/closed state of things like dialogs, popovers and menus.
+ * Spread or pass the returned `open` and handlers to the controlled component.
+ *
+ * ```tsx
+ * const { open, handleToggle, handleClose } = useDisclosure();
+ *
+ * <Button onClick={handleToggle}>Toggle</Button>
+ * <Dialog open={open} onClose={handleClose}>...</Dialog>
+ * ```
+ *
+ * @param initialState Whether it starts open.
+ * @default false
+ */
 export function useDisclosure(
   initialState: boolean = false,
 ): UseDisclosureReturn {
@@ -24,20 +38,6 @@ export function useDisclosure(
   function handleClose(): void {
     setOpen(false);
   }
-
-  /**
-   * Hijacking the handleClose function to prevent the dialog from closing when the user clicks outside the dialog or presses the escape key.
-   * @param _ event not going to be used.
-   * @param reason The reason the dialog was closed.
-   */
-  function handleStrictClose(
-    _: unknown,
-    reason: "backdropClick" | "escapeKeyDown",
-  ): void {
-    if (reason === "backdropClick" || reason === "escapeKeyDown") return;
-    handleClose();
-  }
-
   function handleToggle(): void {
     setOpen((prev) => !prev);
   }
@@ -47,6 +47,5 @@ export function useDisclosure(
     handleToggle,
     handleOpen,
     handleClose,
-    handleStrictClose,
   };
 }
