@@ -1,7 +1,7 @@
-export type XPositions = "left" | "right" | "center";
-export type YPositions = "top" | "bottom" | "center";
+export type PositionHorizontal = "left" | "right" | "center";
+export type PositionVertical = "top" | "bottom" | "center";
 
-export type PositionString = `${YPositions} ${XPositions}`;
+export type PositionString = `${PositionVertical} ${PositionHorizontal}`;
 export type PositionStringExclude<E extends PositionString> = Exclude<
   PositionString,
   E
