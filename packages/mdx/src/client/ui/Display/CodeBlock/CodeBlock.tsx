@@ -8,7 +8,11 @@ import { Children, isValidElement } from "react";
 import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
 import styles from "./CodeBlock.module.css";
 import type { CodeBlockProps } from "./CodeBlock.types";
-import { getCodeHeight, hashCode } from "./CodeBlock.utils";
+import {
+  getCodeHeight,
+  hashCode,
+  monacoCodeblockOptions,
+} from "./CodeBlock.utils";
 import { CodeBlockFrame } from "./CodeBlockFrame";
 import { CodeBlockPkgManager } from "./CodeBlockPkgManager";
 
@@ -48,13 +52,7 @@ export function CodeBlock(props: CodeBlockProps) {
         height={getCodeHeight(code)}
         className={styles.editor}
         loading={<pre>{code}</pre>}
-        options={{
-          readOnly: true,
-          scrollBeyondLastLine: false,
-          renderLineHighlight: "none",
-          scrollbar: { vertical: "hidden" },
-          hideCursorInOverviewRuler: true,
-        }}
+        options={monacoCodeblockOptions}
       />
     </CodeBlockFrame>
   );

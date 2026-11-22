@@ -27,7 +27,7 @@
   align-items: flex-end;
   z-index: 2;
   pointer-events: none;
-  padding: var(--size);
+  padding: var(--size) calc(var(--size) * var(--gr));
 }
 .overlayActions {
   pointer-events: all;

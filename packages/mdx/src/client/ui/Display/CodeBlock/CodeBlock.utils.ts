@@ -1,3 +1,5 @@
+import type { editor } from "monaco-editor";
+
 // line height at fontSize 14 is ~19px in monaco's default; used to size the editor to its content
 const LINE_HEIGHT = 19;
 
@@ -13,3 +15,13 @@ export function hashCode(code: string) {
   }
   return (hash >>> 0).toString(36);
 }
+export const monacoCodeblockOptions: editor.IStandaloneEditorConstructionOptions =
+  {
+    readOnly: true,
+    scrollBeyondLastLine: false,
+    renderLineHighlight: "none",
+    foldingHighlight: false,
+    overviewRulerBorder: false,
+    scrollbar: { vertical: "hidden" },
+    hideCursorInOverviewRuler: true,
+  };

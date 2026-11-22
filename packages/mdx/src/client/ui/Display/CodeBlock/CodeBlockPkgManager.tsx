@@ -7,7 +7,7 @@ import {
 } from "@cubicsui/utils";
 import { type ReactNode, useMemo, useState } from "react";
 import { MonacoEditor } from "../../Inputs/MonacoEditor/MonacoEditor";
-import { getCodeHeight } from "./CodeBlock.utils";
+import { getCodeHeight, monacoCodeblockOptions } from "./CodeBlock.utils";
 import { CodeBlockFrame } from "./CodeBlockFrame";
 
 type PkgManagerCodeBlockProps = {
@@ -38,13 +38,8 @@ export function CodeBlockPkgManager(props: PkgManagerCodeBlockProps) {
           setActiveFile: (file: string) => setActive(file as PackageManager),
         }}
         options={{
-          readOnly: true,
-          scrollBeyondLastLine: false,
-          foldingHighlight: false,
+          ...monacoCodeblockOptions,
           lineNumbers: "off",
-          renderLineHighlight: "none",
-          scrollbar: { vertical: "hidden" },
-          hideCursorInOverviewRuler: true,
         }}
       />
     </CodeBlockFrame>
