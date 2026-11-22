@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export interface UseDisclosureReturn {
   /** The state controlling if something is open or not */
@@ -32,15 +32,15 @@ export function useDisclosure(
 ): UseDisclosureReturn {
   const [open, setOpen] = useState(initialState);
 
-  function handleOpen(): void {
+  const handleOpen = useCallback((): void => {
     setOpen(true);
-  }
-  function handleClose(): void {
+  }, []);
+  const handleClose = useCallback((): void => {
     setOpen(false);
-  }
-  function handleToggle(): void {
+  }, []);
+  const handleToggle = useCallback((): void => {
     setOpen((prev) => !prev);
-  }
+  }, []);
 
   return {
     open,
