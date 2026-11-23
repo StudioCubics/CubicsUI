@@ -21,6 +21,9 @@ export * from "./PasswordInput/PasswordInput";
 export * from "./PasswordInput/PasswordInput.types";
 export * from "./PasswordInput/PasswordStrengthMeter/PasswordStrengthMeter";
 
+export * from "./Pressable/Pressable";
+export * from "./Pressable/Pressable.types";
+
 export * from "./Rolodex/Rolodex";
 export * from "./Rolodex/Rolodex.types";
 
