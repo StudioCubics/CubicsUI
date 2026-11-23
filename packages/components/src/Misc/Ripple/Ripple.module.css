@@ -14,7 +14,8 @@
   background: var(--ripple-color);
   transform: scale(0);
   opacity: 0.5;
-  animation: ripple-expand var(--transition-time-slow) var(--transition-tf);
+  animation: ripple-expand var(--ripple-duration, var(--transition-time-slow))
+    var(--transition-tf);
   pointer-events: none;
 }
 @keyframes ripple-expand {
