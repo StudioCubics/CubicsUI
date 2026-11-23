@@ -13,6 +13,9 @@ export * from "./Chip/Chip.types";
 
 export * from "./GlassCard/GlassCard";
 
+export * from "./Kbd/Kbd";
+export * from "./Kbd/Kbd.types";
+
 export * from "./LabeledValue/LabeledValue";
 export * from "./LabeledValue/LabeledValue.types";
 

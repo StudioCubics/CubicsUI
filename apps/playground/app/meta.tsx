@@ -32,6 +32,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "Card", href: "/components/card" },
       { children: "Chip", href: "/components/chip" },
       { children: "GlassCard", href: "/components/glassCard" },
+      { children: "Kbd", href: "/components/kbd" },
       {
         children: "LabeledValue",
         href: "/components/labeledValue",

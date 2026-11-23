@@ -1,0 +1,147 @@
+.root {
+  --size: var(--gap-6);
+  --br: var(--br-sm);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--size) / 6);
+}
+.kbd {
+  --kbd-size-x: 1;
+  --kbd-size-y: 1;
+  --kbd-chars: 1;
+  --kbd-lines: 1;
+  --kbd-base: var(--size);
+  --kbd-pad: calc(var(--kbd-base) * 0.15);
+  --kbd-char-w: 0.6; /* monospace glyph width in em */
+  --kbd-line-h: 1.2;
+  box-sizing: border-box;
+  width: calc(var(--kbd-size-x) * var(--kbd-base));
+  height: calc(var(--kbd-size-y) * var(--kbd-base));
+  padding: var(--kbd-pad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #ebd6dc;
+  background: #313133;
+  border-radius: var(--br);
+  text-align: center;
+  line-height: var(--kbd-line-h);
+  white-space: pre-line;
+  font-family:
+    ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  /* Largest size that fits: capped by default, width limit, and height limit */
+  font-size: min(
+    calc(var(--kbd-base) * 0.6),
+    calc(
+      (var(--kbd-size-x) * var(--kbd-base) - 2 * var(--kbd-pad)) /
+        (var(--kbd-chars) * var(--kbd-char-w))
+    ),
+    calc(
+      (var(--kbd-size-y) * var(--kbd-base) - 2 * var(--kbd-pad)) /
+        (var(--kbd-lines) * var(--kbd-line-h))
+    )
+  );
+}
+.realistic {
+  & > .kbd {
+    --stop-top-right: 13%;
+    --stop-bottom-right: 39%;
+    --stop-bottom-left: 61%;
+    --stop-top-left: 87%;
+    --kbd-r: calc(var(--kbd-base) * 0.16); /* same length on both axes */
+    position: relative;
+    padding-bottom: calc(var(--size) / 3.5);
+    isolation: isolate;
+    overflow: hidden;
+    /* Body: dark sides/top, lighter bottom bevel. Drawn at one key unit wide, then stretched */
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: var(--kbd-base);
+      margin-left: calc(var(--kbd-base) / -2);
+      transform: scaleX(var(--kbd-size-x));
+      z-index: -2;
+      background-color: #1a1a1a;
+      background-image:
+/* sharp lit bevel: wedge hugging the bottom-left diagonal, hard edge on the diagonal */
+        conic-gradient(
+          from 0deg at 50% 31%,
+          #00000000 0%,
+          #00000000 calc(var(--stop-bottom-left) - 20%),
+          #aaaaaa59 var(--stop-bottom-left),
+          #00000000 calc(var(--stop-bottom-left) + 2%),
+          #00000000 100%
+        ),
+        /* fades the bevel from left (lit) to right (shadow) */
+        linear-gradient(to right, #00000000, #00000066),
+        conic-gradient(
+          from 0deg at 50% 50%,
+          #1a1a1a 0%,
+          #1a1a1a var(--stop-top-right),
+          #222222 var(--stop-top-right),
+          #666666 var(--stop-bottom-right),
+          #666666 var(--stop-bottom-left),
+          #222222 var(--stop-top-left),
+          #1a1a1a var(--stop-top-left),
+          #1a1a1a 100%
+        );
+    }
+
+    /* Cap: nearly flat dark, higher on the key, so the bottom bevel stays visible */
+    &::before {
+      content: "";
+      background: linear-gradient(217.2deg, #575757 15.96%, #1c1c1c 91.99%);
+      box-shadow: inset 0 calc(var(--kbd-base) * -0.02) 0 #ffffff14; /* faint lit edge on the cap's lower lip */
+      position: absolute;
+      inset: calc(var(--size) / 17) calc(var(--size) / 10) calc(var(--size) / 7)
+        calc(var(--size) / 10);
+
+      z-index: -1;
+      /* fixed lengths so the top corners stay round at any width */
+      border-radius: var(--kbd-r) var(--kbd-r) calc(var(--kbd-base) * 0.4)
+        calc(var(--kbd-base) * 0.4) / var(--kbd-r) var(--kbd-r)
+        calc(var(--kbd-base) * 0.1) calc(var(--kbd-base) * 0.1);
+    }
+  }
+}
+
+/* Key grows to fit the text; sizeX/sizeY become minimums */
+.fitContent {
+  & > .kbd {
+    width: auto;
+    height: auto;
+    min-width: calc(var(--kbd-size-x) * var(--kbd-base));
+    min-height: calc(var(--kbd-size-y) * var(--kbd-base));
+    /* Fixed font size, no shrinking */
+    font-size: calc(var(--kbd-base) * 0.6);
+    /* Horizontal breathing room, since width no longer comes from the box */
+    padding-inline: calc(var(--kbd-base) * 0.3);
+    white-space: pre;
+  }
+  &.realistic > .kbd::after {
+    left: 0;
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+}
+
+.root[data-size="xs"] {
+  --size: var(--gap-4);
+  --br: var(--br-sm);
+}
+.root[data-size="sm"] {
+  --size: var(--gap-5);
+  --br: var(--br-sm);
+}
+.root[data-size="lg"] {
+  --size: var(--gap-8);
+  --br: var(--br-md);
+}
+.root[data-size="xl"] {
+  --size: var(--gap-10);
+  --br: var(--br-lg);
+}
