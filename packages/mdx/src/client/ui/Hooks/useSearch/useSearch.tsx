@@ -16,11 +16,13 @@ export function useSearch(props: UseSearchProps) {
     embedQuery,
     enabled = true,
     limit = 10,
+    debounceMs = 200,
   } = props;
 
   const dbRef = useRef<SearchDB | null>(null);
   const hasVectors = useRef(false); // true only if the built index contains embeddings
   const requestId = useRef(0); // drops results of outdated queries
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined); // pending debounce timer
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<SearchResult | null>(null);
@@ -45,57 +47,67 @@ export function useSearch(props: UseSearchProps) {
     };
   }, [enabled, indexUrl]);
 
+  // Clear the pending timer on unmount
+  useEffect(() => () => clearTimeout(timer.current), []);
+
   const query = useCallback(
-    async (term: string) => {
-      const db = dbRef.current;
-      const id = ++requestId.current;
-      if (!db || !term.trim()) {
+    (term: string) => {
+      const id = ++requestId.current; // invalidate in-flight queries immediately
+      clearTimeout(timer.current);
+
+      if (!dbRef.current || !term.trim()) {
         setResults(null);
         setLoading(false);
         return;
       }
-      setLoading(true);
+      setLoading(true); // show the spinner right away, before the debounce fires
 
-      let vector: number[] | undefined;
-      if (embedQuery) {
-        try {
-          vector = await embedQuery(term);
-        } catch {
-          // Fall back to full-text below
+      timer.current = setTimeout(async () => {
+        const db = dbRef.current;
+        if (!db) return;
+
+        let vector: number[] | undefined;
+        if (embedQuery) {
+          try {
+            vector = await embedQuery(term);
+          } catch {
+            // Fall back to full-text below
+          }
         }
-      }
+        if (id !== requestId.current) return; // a newer keystroke arrived while embedding
 
-      const baseOptions: SearchParams<SearchDB, SearchDocument> = {
-        term,
-        properties: ["title", "heading", "content"],
-        boost: { title: 3, heading: 2 },
-        limit,
-      };
-      try {
-        let res: SearchResult;
+        const baseOptions: SearchParams<SearchDB, SearchDocument> = {
+          term,
+          properties: ["title", "heading", "content"],
+          boost: { title: 3, heading: 2 },
+          limit,
+        };
         try {
-          res = vector
-            ? await search(db, {
-                ...baseOptions,
-                term,
-                mode: "hybrid",
-                vector: { value: vector, property: "embedding" },
-                similarity: 0.6,
-              })
-            : await search(db, baseOptions);
+          let res: SearchResult;
+          try {
+            res = vector
+              ? await search(db, {
+                  ...baseOptions,
+                  term,
+                  mode: "hybrid",
+                  vector: { value: vector, property: "embedding" },
+                  similarity: 0.6,
+                })
+              : await search(db, baseOptions);
+          } catch (error) {
+            console.error(error);
+            res = await search(db, baseOptions);
+          }
+          if (id !== requestId.current) return;
+          setResults(res);
         } catch (error) {
           console.error(error);
-          res = await search(db, baseOptions);
+        } finally {
+          if (id === requestId.current) setLoading(false);
         }
-        if (id !== requestId.current) return;
-        setResults(res);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        if (id === requestId.current) setLoading(false);
-      }
+      }, debounceMs);
     },
-    [embedQuery, limit],
+    [embedQuery, limit, debounceMs],
   );
 
   return { query, results, ready, loading };
