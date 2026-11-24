@@ -2,19 +2,25 @@ import GithubSlugger from "github-slugger";
 
 export const stripMarkdown = (s: string) =>
   s
-    .replace(/\{\/\*[\s\S]*?\*\/\}/g, "") // MDX comments {/* ... */}
-    .replace(/<!--[\s\S]*?-->/g, "") // HTML comments
-    .replace(/^(import|export)\s.+$/gm, "") // MDX esm
-    .replace(/^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/gm, "") // table separator rows
+    // --- Remove non-content blocks ---
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, "") // MDX comments: {/* ... */}
+    .replace(/<!--[\s\S]*?-->/g, "") // HTML comments: <!-- ... -->
+    .replace(/^(import|export)\s.+$/gm, "") // MDX import/export statements
+    .replace(/^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/gm, "") // table separator rows: |---|---|
     // .replace(/^\s*\|.*\|\s*$/gm, (row) => row.replace(/\|/g, " ")) // table rows → plain cells
-    .replace(/^\s*([-*_])\1{2,}\s*$/gm, "") // horizontal rules
-    .replace(/<[^>]+>/g, " ") // JSX tags
-    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1") // images → alt text
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // links → text
-    .replace(/[*_`>#~]/g, "")
-    .replace(/[^\S\n]+/g, " ") // collapse spaces/tabs only, keep newlines
+    .replace(/^\s*([-*_])\1{2,}\s*$/gm, "") // horizontal rules: ---, ***, ___
+
+    // --- Unwrap markup, keep the readable text ---
+    .replace(/^\s*>\s*\[!\w+\][^\S\n]*/gm, "") // callout marker: `> [!NOTE] Title` → `Title`
+    .replace(/<[^>]+>/g, " ") // JSX/HTML tags → space
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1") // images: ![alt](src) → alt
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // links: [text](url) → text
+    .replace(/[*_`>#~]/g, "") // leftover inline syntax: bold, italic, code, quotes, headings, strikethrough
+
+    // --- Normalize whitespace ---
+    .replace(/[^\S\n]+/g, " ") // collapse spaces/tabs, keep newlines
     .replace(/ ?\n ?/g, "\n") // trim spaces around newlines
-    .replace(/\n{3,}/g, "\n\n") // max one blank line
+    .replace(/\n{3,}/g, "\n\n") // allow at most one blank line
     .trim();
 
 /** Splits an MDX body into one chunk per heading, ids match rehype-slug */
