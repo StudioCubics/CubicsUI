@@ -1,8 +1,8 @@
 import { cn } from "@cubicsui/utils";
 import type { ComponentProps, ReactElement } from "react";
-import styles from "./Spinner.module.css";
+import styles from "./SpinnerIcon.module.css";
 
-export function Spinner(props: ComponentProps<"svg">): ReactElement {
+export function SpinnerIcon(props: ComponentProps<"svg">): ReactElement {
   const { width = 24, height = width, className, ...rest } = props;
 
   return (
