@@ -17,13 +17,15 @@ export interface UseActiveNodeGliderOptions {
     activeNode: Element,
     root: HTMLElement,
   ) => Element | null;
+  /** Offsets the gliders size by the amount of px, negative for offsetting inwards, positive for outwards */
+  offset?: number;
 }
 
 /** Glider that returns active node along with it */
 export function useActiveNodeGlider(
   options: UseActiveNodeGliderOptions = {},
 ): UseActiveNodeGliderReturn {
-  const { observeAttributes, resolveActiveNode } = options;
+  const { observeAttributes, resolveActiveNode, offset = 0 } = options;
   const [activeNode, setActiveNode] = useState<Element | null>(null);
   const { gliderRef, rootRef } = useGlider(
     (glider, rootRect, scrollLeft, scrollTop) => {
@@ -36,14 +38,15 @@ export function useActiveNodeGlider(
       const rect = activeNode.getBoundingClientRect();
       const computedStyle = window.getComputedStyle(activeNode);
       const borderRadius = computedStyle.borderRadius;
+
       glider.style.position = "absolute";
       glider.style.opacity = "1";
       glider.style.scale = "1 1";
-      glider.style.width = `${rect.width}px`;
-      glider.style.height = `${rect.height}px`;
-      glider.style.left = `${rect.left - rootRect.left + scrollLeft}px`;
-      glider.style.top = `${rect.top - rootRect.top + scrollTop}px`;
-      glider.style.borderRadius = borderRadius;
+      glider.style.width = `${Math.max(0, rect.width + offset * 2)}px`;
+      glider.style.height = `${Math.max(0, rect.height + offset * 2)}px`;
+      glider.style.left = `${rect.left - rootRect.left + scrollLeft - offset}px`;
+      glider.style.top = `${rect.top - rootRect.top + scrollTop - offset}px`;
+      glider.style.borderRadius = `calc(${borderRadius} + ${offset}px)`;
     },
     [activeNode],
   );
