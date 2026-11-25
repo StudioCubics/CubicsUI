@@ -62,6 +62,7 @@ export function List(props: ListProps): ReactElement {
   const { gliderRef, rootRef } = useActiveNodeGlider({
     observeAttributes: LIST_OBSERVED_ATTRIBUTES,
     resolveActiveNode: resolveCollapsedAncestor,
+    offset: 2,
   });
   // Default to decimal list if ordered is true
   const listType = (_listType ?? ordered) ? "decimal" : undefined;

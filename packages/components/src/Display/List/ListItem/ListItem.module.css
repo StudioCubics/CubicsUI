@@ -2,7 +2,7 @@
   display: flow-root list-item;
   border-radius: var(--br);
 }
-.surface {
+.root > :where(.surface) {
   display: flex;
   align-items: center;
   gap: calc(var(--size) / var(--gr));
@@ -11,12 +11,6 @@
   border-radius: var(--br);
   background: transparent;
   color: var(--color);
-}
-.surface:not(.disabled) {
-  cursor: pointer;
-  &:hover:not(:has(.dropdownToggle:hover)) {
-    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
-  }
 }
 .content {
   flex: 1 1 20ch;
@@ -97,6 +91,14 @@
     height: 1em;
   }
 }
+/* Hover styles */
+.surface:where(:not(.disabled)) {
+  cursor: pointer;
+  &:hover:not(:has(.dropdownToggle:hover)) {
+    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+  }
+}
+
 /* Disabled Styles */
 .disabled {
   opacity: 0.5;

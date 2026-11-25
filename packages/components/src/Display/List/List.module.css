@@ -32,29 +32,30 @@
     scale var(--transition-time) var(--transition-tf),
     width var(--transition-time) var(--transition-tf);
 }
-.root:has(.glider) :where([data-active="true"]) {
-  background: transparent;
-  backdrop-filter: unset;
-}
+
 /* Sizes */
-.root[data-size="xs"] {
+.root[data-size="xs"],
+.root > li[data-size="xs"] {
   --size: calc(var(--gap) / 2);
   --br: var(--br-xs);
   --fs: var(--fs-xs);
 }
-.root[data-size="sm"] {
+.root[data-size="sm"],
+.root > li[data-size="sm"] {
   --size: var(--gap);
   --br: var(--br-sm);
   --fs: var(--fs-sm);
 }
 
-.root[data-size="lg"] {
+.root[data-size="lg"],
+.root > li[data-size="lg"] {
   --size: var(--gap-2);
   --br: var(--br-lg);
   --fs: var(--fs-lg);
 }
 
-.root[data-size="xl"] {
+.root[data-size="xl"],
+.root > li[data-size="xl"] {
   --size: var(--gap-3);
   --br: var(--br-xl);
   --fs: var(--fs-xl);

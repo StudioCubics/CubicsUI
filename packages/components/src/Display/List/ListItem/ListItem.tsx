@@ -58,8 +58,8 @@ export function ListItemTypeCollapsible(
     onCollapsed,
     defaultCollapsed,
     nodes,
-    color,
-    size,
+    color: _color,
+    size: _size,
     className,
     dropdownIcon,
     onlyIcon,
@@ -74,6 +74,8 @@ export function ListItemTypeCollapsible(
     listType,
     getCollapsed,
     toggleCollapsed,
+    color,
+    size,
   } = useList();
   const Component = (
     href ? (_LinkComponent ?? LinkComponent) : "div"
@@ -96,8 +98,8 @@ export function ListItemTypeCollapsible(
       {...slotProps.root}
       id={id}
       className={cn(slotProps.root?.className, styles.root)}
-      data-color={color}
-      data-size={size}
+      data-color={_color || color}
+      data-size={_size || size}
       data-collapsed={collapsed}
       suppressHydrationWarning
     >
@@ -187,14 +189,14 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     onClick,
     selected: _selected,
     onlyIcon = false,
-    color,
-    size,
+    color: _color,
+    size: _size,
     className,
     LinkComponent: _LinkComponent,
     slotProps = {},
     ...rest
   } = props;
-  const { LinkComponent, selectedWhen } = useList();
+  const { LinkComponent, selectedWhen, size, color } = useList();
   const isClickable = !!href || !!onClick;
   const Component = (
     href ? (_LinkComponent ?? LinkComponent) : "div"
@@ -210,8 +212,8 @@ export function ListItemTypeItem(props: ListItemTypeItemProps): ReactElement {
     <li
       {...slotProps.root}
       className={cn(slotProps.root?.className, styles.root)}
-      data-color={color}
-      data-size={size}
+      data-color={_color || color}
+      data-size={_size || size}
     >
       <Component
         className={cn(
