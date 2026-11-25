@@ -205,3 +205,28 @@ export const KBD_BUTTON_LIST = {
     content: "🔇",
   },
 } as const;
+export function getCornerStops(
+  width: number,
+  height: number,
+): {
+  topRight: number;
+  bottomRight: number;
+  bottomLeft: number;
+  topLeft: number;
+} {
+  const cx = width / 2;
+  const cy = height / 2;
+
+  const angle = (x: number, y: number) => {
+    const deg = Math.atan2(x - cx, cy - y) * (180 / Math.PI);
+
+    return (((deg + 360) % 360) / 360) * 100;
+  };
+
+  return {
+    topRight: angle(width, 0),
+    bottomRight: angle(width, height) - 10,
+    bottomLeft: angle(0, height),
+    topLeft: angle(0, 0),
+  };
+}

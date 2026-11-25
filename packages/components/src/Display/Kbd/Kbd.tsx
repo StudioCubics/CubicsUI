@@ -1,12 +1,56 @@
+"use client";
+
 import { cn } from "@cubicsui/utils";
-import { type CSSProperties, Fragment, type ReactElement } from "react";
+import {
+  type CSSProperties,
+  Fragment,
+  type ReactElement,
+  useEffect,
+  useRef,
+} from "react";
 import styles from "./Kbd.module.css";
 import type { ButtonSpec, KbdProps } from "./Kbd.types";
-import { KBD_BUTTON_LIST } from "./Kbd.utils";
+import { getCornerStops, KBD_BUTTON_LIST } from "./Kbd.utils";
 
 /** TODO make keyboard tester using this */
 export function Kbd(props: KbdProps): ReactElement {
-  const { className, buttons, size, realistic, fitContent, ...rest } = props;
+  const { className, buttons, size, color, realistic, fitContent, ...rest } =
+    props;
+
+  const keyRefs = useRef<(HTMLElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!realistic) return;
+
+    const observers: ResizeObserver[] = [];
+
+    keyRefs.current.forEach((element) => {
+      if (!element) return;
+
+      const observer = new ResizeObserver(([entry]) => {
+        const { width, height } = entry.target.getBoundingClientRect();
+
+        if (!width || !height) return;
+
+        const stops = getCornerStops(width, height);
+
+        element.style.setProperty("--stop-top-right", `${stops.topRight}%`);
+        element.style.setProperty(
+          "--stop-bottom-right",
+          `${stops.bottomRight}%`,
+        );
+        element.style.setProperty("--stop-bottom-left", `${stops.bottomLeft}%`);
+        element.style.setProperty("--stop-top-left", `${stops.topLeft}%`);
+      });
+
+      observer.observe(element);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, [buttons, realistic, fitContent, size]);
 
   return (
     <div
@@ -17,6 +61,7 @@ export function Kbd(props: KbdProps): ReactElement {
         fitContent && styles.fitContent,
       )}
       data-size={size}
+      data-color={color}
       {...rest}
     >
       {buttons.map((b, i) => {
@@ -27,12 +72,15 @@ export function Kbd(props: KbdProps): ReactElement {
               })
             : b;
         const lines = button.content.split("\n");
-        // Longest line in characters (spread handles emoji/surrogate pairs)
         const chars = Math.max(...lines.map((l) => [...l].length));
+
         return (
           <Fragment key={i}>
             <kbd
-              className={cn(styles.kbd)}
+              ref={(element) => {
+                keyRefs.current[i] = element;
+              }}
+              className={styles.kbd}
               style={
                 {
                   "--kbd-size-x": button.sizeX ?? 1,
@@ -45,11 +93,12 @@ export function Kbd(props: KbdProps): ReactElement {
               {button.content}
             </kbd>
 
-            {i >= 0 && i < buttons.length - 1 && "+"}
+            {i < buttons.length - 1 && "+"}
           </Fragment>
         );
       })}
     </div>
   );
 }
+
 export { KBD_BUTTON_LIST };

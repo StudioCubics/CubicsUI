@@ -1,4 +1,6 @@
 .root {
+  --bg: var(--color-surface);
+  --color: var(--color-on-surface);
   --size: var(--gap-6);
   --br: var(--br-sm);
   display: flex;
@@ -21,8 +23,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: #ebd6dc;
-  background: #313133;
+  color: var(--color);
+  background: var(--bg);
   border-radius: var(--br);
   text-align: center;
   line-height: var(--kbd-line-h);
@@ -44,11 +46,19 @@
 }
 .realistic {
   & > .kbd {
-    --stop-top-right: 13%;
-    --stop-bottom-right: 39%;
-    --stop-bottom-left: 61%;
-    --stop-top-left: 87%;
     --kbd-r: calc(var(--kbd-base) * 0.16); /* same length on both axes */
+
+    /* Shades derived from --color-surface: mix toward black to darken, white to lighten */
+    --shade-dark: color-mix(in srgb, var(--bg) 60%, var(--color-surface-dim));
+    --shade-lit: color-mix(in srgb, var(--bg), var(--color-surface-bright) 20%);
+    --shade-highlight: color-mix(
+      in srgb,
+      var(--bg),
+      var(--color-surface-bright) 60%
+    );
+    --shade-lip: color-mix(in srgb, var(--bg), var(--color-surface-bright) 8%);
+    --shade-shadow: color-mix(in srgb, var(--bg), var(--color-surface-dim) 60%);
+
     position: relative;
     padding-bottom: calc(var(--size) / 3.5);
     isolation: isolate;
@@ -57,44 +67,44 @@
     &::after {
       content: "";
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: var(--kbd-base);
-      margin-left: calc(var(--kbd-base) / -2);
-      transform: scaleX(var(--kbd-size-x));
+      inset: 0;
+      width: 100%;
       z-index: -2;
-      background-color: #1a1a1a;
+      background-color: var(--shade-dark);
       background-image:
-/* sharp lit bevel: wedge hugging the bottom-left diagonal, hard edge on the diagonal */
+        /* sharp lit bevel: wedge hugging the bottom-left diagonal, hard edge on the diagonal */
         conic-gradient(
-          from 0deg at 50% 31%,
+          from 0deg at 50% 50%,
           #00000000 0%,
-          #00000000 calc(var(--stop-bottom-left) - 20%),
-          #aaaaaa59 var(--stop-bottom-left),
-          #00000000 calc(var(--stop-bottom-left) + 2%),
+          #00000000 calc(var(--stop-bottom-right) - 20%),
+          var(--shade-highlight) var(--stop-bottom-left),
+          #00000000 calc(var(--stop-bottom-left) + 3%),
           #00000000 100%
         ),
         /* fades the bevel from left (lit) to right (shadow) */
-        linear-gradient(to right, #00000000, #00000066),
+        linear-gradient(to right, #00000000, var(--shade-shadow)),
         conic-gradient(
           from 0deg at 50% 50%,
-          #1a1a1a 0%,
-          #1a1a1a var(--stop-top-right),
-          #222222 var(--stop-top-right),
-          #666666 var(--stop-bottom-right),
-          #666666 var(--stop-bottom-left),
-          #222222 var(--stop-top-left),
-          #1a1a1a var(--stop-top-left),
-          #1a1a1a 100%
+          var(--shade-dark) 0deg,
+          var(--shade-dark) var(--stop-top-right),
+          var(--color-surface) var(--stop-top-right),
+          var(--shade-lit) var(--stop-bottom-right),
+          var(--shade-lit) var(--stop-bottom-left),
+          var(--color-surface) var(--stop-top-left),
+          var(--shade-dark) var(--stop-top-left),
+          var(--shade-dark) 360deg
         );
     }
 
     /* Cap: nearly flat dark, higher on the key, so the bottom bevel stays visible */
     &::before {
       content: "";
-      background: linear-gradient(217.2deg, #575757 15.96%, #1c1c1c 91.99%);
-      box-shadow: inset 0 calc(var(--kbd-base) * -0.02) 0 #ffffff14; /* faint lit edge on the cap's lower lip */
+      background: linear-gradient(
+        217.2deg,
+        var(--shade-lit) 15.96%,
+        var(--shade-dark) 91.99%
+      );
+      box-shadow: inset 0 calc(var(--kbd-base) * -0.02) 0 var(--shade-lip); /* faint lit edge on the cap's lower lip */
       position: absolute;
       inset: calc(var(--size) / 17) calc(var(--size) / 10) calc(var(--size) / 7)
         calc(var(--size) / 10);
@@ -121,14 +131,8 @@
     padding-inline: calc(var(--kbd-base) * 0.3);
     white-space: pre;
   }
-  &.realistic > .kbd::after {
-    left: 0;
-    width: 100%;
-    margin-left: 0;
-    transform: none;
-  }
 }
-
+/* Sizes */
 .root[data-size="xs"] {
   --size: var(--gap-4);
   --br: var(--br-sm);
@@ -144,4 +148,29 @@
 .root[data-size="xl"] {
   --size: var(--gap-10);
   --br: var(--br-lg);
+}
+/* Colors */
+.root[data-color="primary"] {
+  --bg: var(--color-primary);
+  --color: var(--color-on-primary);
+}
+.root[data-color="secondary"] {
+  --bg: var(--color-secondary);
+  --color: var(--color-on-secondary);
+}
+.root[data-color="tertiary"] {
+  --bg: var(--color-tertiary);
+  --color: var(--color-on-tertiary);
+}
+.root[data-color="error"] {
+  --bg: var(--color-error);
+  --color: var(--color-on-error);
+}
+.root[data-color="warn"] {
+  --bg: var(--color-warn);
+  --color: var(--color-on-warn);
+}
+.root[data-color="success"] {
+  --bg: var(--color-success);
+  --color: var(--color-on-success);
 }

@@ -5,6 +5,8 @@ export interface KbdProps extends Omit<ComponentProps<"div">, "children"> {
   buttons: KeyCombo;
   /** The size of the font and overall spacing */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
+  /** Color theme of the Kbd. */
+  color?: "primary" | "secondary" | "tertiary" | "error" | "warn" | "success";
   /** Renders a realistic keyboard key designed after one of my favourite logitech keyboard */
   realistic?: boolean;
   /** When true the key grows to fit its text, otherwise the text shrinks to fit the key */
