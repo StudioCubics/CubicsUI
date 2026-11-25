@@ -57,6 +57,10 @@
   justify-content: center;
   height: 100%;
   flex-shrink: 0;
+  & > svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
 }
 
 .helperText {
