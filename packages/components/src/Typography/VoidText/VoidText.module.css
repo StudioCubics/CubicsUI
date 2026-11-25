@@ -1,7 +1,29 @@
 .root {
-  text-align: center;
   width: 100%;
+  mix-blend-mode: multiply;
+  margin-block: 1cqh;
+  font-size: clamp(var(--fs-body), 5cqw, var(--fs-hero));
+  display: grid;
+  place-items: center;
+}
+.image {
   opacity: 0.5;
+  & svg,
+  & img {
+    width: max(24px, 10cqw);
+    height: auto;
+  }
+}
+.title {
+  opacity: 0.5;
+  text-align: center;
   font-weight: bold;
+  font-size: inherit;
+  font-family: var(--font-h);
+  color: var(--color-on-background);
+}
+.subtitle {
+  text-align: center;
+  font-size: max(var(--fs-body2), 30%);
   color: var(--color-on-background-low);
 }

@@ -2,23 +2,52 @@ import type { PolymorphicComponentType } from "@cubicsui/types";
 import { cn } from "@cubicsui/utils";
 import type { ElementType } from "react";
 import styles from "./VoidText.module.css";
-import type { VoidTextProps } from "./VoidText.types";
+import type { VoidTextBaseProps, VoidTextProps } from "./VoidText.types";
 
-function VoidTextBase<C extends ElementType = "p">(props: VoidTextProps<C>) {
+function VoidTextBase<C extends ElementType = "div">(props: VoidTextProps<C>) {
   const {
     as,
-    children = "Welcome to the void!",
     className,
+    title = "Nothing found!",
+    subtitle,
+    image,
+    slotProps = {},
     ...rest
-  } = props as VoidTextProps<"p">;
-  const Component = as || "p";
+  } = props as VoidTextProps<"div">;
+  const Component = as || "div";
   return (
     <Component {...rest} className={cn(className, styles.root)}>
-      {children}
+      {title && (
+        <span
+          {...slotProps.image}
+          className={cn(slotProps.image?.className, styles.image)}
+        >
+          {image}
+        </span>
+      )}
+      {title && (
+        <p
+          {...slotProps.title}
+          className={cn(slotProps.title?.className, styles.title)}
+        >
+          {title}
+        </p>
+      )}
+      {subtitle && (
+        <p
+          {...slotProps.subtitle}
+          className={cn(slotProps.subtitle?.className, styles.subtitle)}
+        >
+          {subtitle}
+        </p>
+      )}
     </Component>
   );
 }
 
 VoidTextBase.displayName = "VoidText";
 
-export const VoidText = VoidTextBase as PolymorphicComponentType<object, "p">;
+export const VoidText = VoidTextBase as PolymorphicComponentType<
+  VoidTextBaseProps,
+  "div"
+>;
