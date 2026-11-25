@@ -9,10 +9,8 @@ export type CardProps<C extends ElementType = "div"> =
  * These extend the intrinsic element props of whatever element is passed via `as`.
  */
 export interface CardBaseProps {
-  /** Visual style variant.
-   * @default "contained"
-   */
-  variant?: "contained" | "outlined" | "colored";
+  /** Visual style variants of the Card. */
+  variant?: "outlined" | "colored";
 
   /** Expands width to 100%. */
   fullWidth?: boolean;
@@ -59,9 +57,7 @@ interface CardOverflowProps {
 }
 
 export interface CardContentProps
-  extends ComponentProps<"div">,
-    CardOverflowProps {}
+  extends ComponentProps<"div">, CardOverflowProps {}
 
 export interface CardFooterProps
-  extends ComponentProps<"div">,
-    CardOverflowProps {}
+  extends ComponentProps<"div">, CardOverflowProps {}

@@ -23,7 +23,7 @@
   width: 100dvw;
   height: 100dvh;
 }
-.surface {
+.surface:where(:not(:empty)) {
   padding: var(--size);
   background: var(--bg);
   position: relative;
