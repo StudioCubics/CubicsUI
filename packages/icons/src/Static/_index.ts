@@ -12,6 +12,7 @@ export * from "./CopyIcon";
 export * from "./EllipsisIcon";
 export * from "./FishingHookIcon";
 export * from "./FormIcon";
+export * from "./GhostIcon";
 export * from "./InfoIcon";
 export * from "./LightBulbIcon";
 export * from "./MessageSquareWarningIcon";
