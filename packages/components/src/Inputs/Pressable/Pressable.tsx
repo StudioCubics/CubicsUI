@@ -24,9 +24,9 @@ function PressableBase<T extends ElementType = "div">(
     id,
     slotProps = {},
     ...rest
-  } = props;
+  } = props as PressableProps<"div">;
   const Component = as || "div";
-  const isNativeButton = Component === "button";
+  const isNativeButton = (Component as ElementType) === "button";
   const contentId = useId(id);
   const containerRef = useRef<HTMLElement>(null);
   const { createRipple, rippleElements } = useRipple(
@@ -46,7 +46,7 @@ function PressableBase<T extends ElementType = "div">(
       aria-labelledby={labelledBy}
       aria-disabled={disabled || undefined}
       className={cn(className, styles.root, disabled && styles.disabled)}
-      onClick={(e: React.MouseEvent<HTMLElement>) => {
+      onClick={(e) => {
         if (disabled) {
           e.preventDefault();
           return;
@@ -54,7 +54,7 @@ function PressableBase<T extends ElementType = "div">(
         createRipple(e);
         onClick?.(e);
       }}
-      onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+      onKeyDown={(e) => {
         onKeyDown?.(e);
         if (isNativeButton || hasHref || disabled) return;
         // Enter activates on keydown, Space on keyup (native button behavior)
@@ -66,7 +66,7 @@ function PressableBase<T extends ElementType = "div">(
           e.preventDefault(); // stop page scroll
         }
       }}
-      onKeyUp={(e: React.KeyboardEvent<HTMLElement>) => {
+      onKeyUp={(e) => {
         onKeyUp?.(e);
         if (isNativeButton || hasHref || disabled) return;
         if (e.key === " ") {
@@ -118,5 +118,7 @@ PressableBase.displayName = "Pressable";
  * </Pressable>
  * ```
  */
-export const Pressable =
-  PressableBase as PolymorphicComponentType<PressableBaseProps>;
+export const Pressable = PressableBase as PolymorphicComponentType<
+  PressableBaseProps,
+  "div"
+>;
