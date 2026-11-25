@@ -6,6 +6,7 @@ export interface PageHeaderProps extends Omit<
   ComponentProps<"header">,
   "title"
 > {
+  children?: never;
   /** Anything that can be placed inside a heading tag */
   title?: ReactNode;
 

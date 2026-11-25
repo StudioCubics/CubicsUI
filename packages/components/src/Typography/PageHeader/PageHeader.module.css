@@ -13,7 +13,6 @@
   grid-area: title;
   text-wrap: balance;
   font-family: var(--ff);
-  place-self: center flex-start;
   & > svg {
     width: 1em;
     height: 1em;
