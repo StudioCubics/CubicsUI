@@ -27,6 +27,9 @@ export * from "./Pressable/Pressable.types";
 export * from "./Rolodex/Rolodex";
 export * from "./Rolodex/Rolodex.types";
 
+export * from "./SearchCenter/SearchCenter";
+export * from "./SearchCenter/SearchCenter.types";
+
 export * from "./Select/Select";
 export * from "./Select/Select.types";
 

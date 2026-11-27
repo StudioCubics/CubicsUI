@@ -1,0 +1,15 @@
+.dialog {
+  margin-block-start: 15svh;
+  margin-block-end: auto;
+}
+.dialogCard {
+  width: clamp(300px, 70vw, 750px);
+  max-height: 60svh;
+  gap: var(--gap-4);
+  interpolate-size: allow-keywords;
+  transition: height var(--transition-time) var(--transition-tf);
+}
+
+.error {
+  color: var(--color-error);
+}
