@@ -3,6 +3,7 @@ export * from "./CssTypes";
 export * from "./DataTree";
 export * from "./Geometry";
 export * from "./HtmlTypes";
+export * from "./KeyboardEvent";
 export * from "./MediaProps";
 export * from "./ObjectWithId";
 export * from "./PolymorphicProps";
