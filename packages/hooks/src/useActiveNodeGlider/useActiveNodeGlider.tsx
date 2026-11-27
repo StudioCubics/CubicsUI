@@ -4,30 +4,35 @@ import type { SetState } from "@cubicsui/types";
 import { useEffect, useState } from "react";
 import { type UseGliderReturn, useGlider } from "../useGlider/useGlider";
 
-export interface UseActiveNodeGliderReturn extends UseGliderReturn {
+export interface UseActiveNodeGliderReturn<
+  R extends HTMLElement = HTMLElement,
+  G extends HTMLElement = HTMLElement,
+> extends UseGliderReturn<R, G> {
   setActiveNode: SetState<Element | null>;
   activeNode: Element | null;
 }
 
-export interface UseActiveNodeGliderOptions {
+export interface UseActiveNodeGliderOptions<
+  R extends HTMLElement = HTMLElement,
+> {
   /** Attributes (besides data-active) that trigger a re-resolve when mutated */
   observeAttributes?: string[];
   /** Maps the raw active node to the node the glider should actually target */
-  resolveActiveNode?: (
-    activeNode: Element,
-    root: HTMLElement,
-  ) => Element | null;
+  resolveActiveNode?: (activeNode: Element, root: R) => Element | null;
   /** Offsets the gliders size by the amount of px, negative for offsetting inwards, positive for outwards */
   offset?: number;
 }
 
-/** Glider that returns active node along with it */
-export function useActiveNodeGlider(
-  options: UseActiveNodeGliderOptions = {},
-): UseActiveNodeGliderReturn {
+/** Glider hook that returns active node along with it */
+export function useActiveNodeGlider<
+  R extends HTMLElement = HTMLElement,
+  G extends HTMLElement = HTMLElement,
+>(
+  options: UseActiveNodeGliderOptions<R> = {},
+): UseActiveNodeGliderReturn<R, G> {
   const { observeAttributes, resolveActiveNode, offset = 0 } = options;
   const [activeNode, setActiveNode] = useState<Element | null>(null);
-  const { gliderRef, rootRef } = useGlider(
+  const { gliderRef, rootRef } = useGlider<R, G>(
     (glider, rootRect, scrollLeft, scrollTop) => {
       if (!activeNode) {
         glider.style.opacity = "0";

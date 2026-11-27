@@ -18,7 +18,7 @@ export function useCopyAction({
   delay = 2000,
 }: UseCopyActionProps): UseCopyActionReturn {
   const [copied, setCopied] = useState(false);
-  const delayedAction = useDelayedAction();
+  const { delayAction, clearDelay } = useDelayedAction();
 
   async function handleCopy(): Promise<void> {
     const t = text || ref?.current?.textContent;
@@ -31,10 +31,11 @@ export function useCopyAction({
     }
   }
   useEffect(() => {
-    if (copied) {
-      delayedAction(() => setCopied(false), delay);
-    }
-  }, [delayedAction, delay, copied]);
+    if (!copied) return;
+    clearDelay();
+    delayAction(() => setCopied(false), delay);
+    return () => clearDelay();
+  }, [delay, copied, delayAction, clearDelay]);
 
   return { copied, handleCopy };
 }

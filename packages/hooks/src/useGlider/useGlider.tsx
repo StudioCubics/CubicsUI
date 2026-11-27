@@ -2,24 +2,27 @@
 
 import { type RefObject, useEffect, useRef } from "react";
 
-type GliderUpdater = (
-  glider: HTMLDivElement,
+type GliderUpdater<G extends HTMLElement = HTMLElement> = (
+  glider: G,
   rootRect: DOMRect,
   scrollLeft: number,
   scrollTop: number,
 ) => void;
-export type UseGliderReturn = {
-  gliderRef: RefObject<HTMLElement | null>;
-  rootRef: RefObject<HTMLElement | null>;
+export type UseGliderReturn<
+  R extends HTMLElement = HTMLElement,
+  G extends HTMLElement = HTMLElement,
+> = {
+  rootRef: RefObject<R | null>;
+  gliderRef: RefObject<G | null>;
 };
 
-export function useGlider(
-  updater: GliderUpdater,
-  deps: unknown[],
-): UseGliderReturn {
-  const gliderRef = useRef<HTMLDivElement>(null);
-  const rootRef = useRef<HTMLOListElement>(null);
-  const updaterRef = useRef<GliderUpdater>(updater);
+export function useGlider<
+  R extends HTMLElement = HTMLElement,
+  G extends HTMLElement = HTMLElement,
+>(updater: GliderUpdater<G>, deps: unknown[] = []): UseGliderReturn<R, G> {
+  const gliderRef = useRef<G>(null);
+  const rootRef = useRef<R>(null);
+  const updaterRef = useRef<GliderUpdater<G>>(updater);
 
   updaterRef.current = updater;
 
@@ -47,7 +50,8 @@ export function useGlider(
     return () => {
       resizeObserver.disconnect();
     };
-  }, [...deps]);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: deps are provided by the caller
+  }, deps);
 
   return { gliderRef, rootRef };
 }
