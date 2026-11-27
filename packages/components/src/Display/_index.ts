@@ -26,5 +26,9 @@ export * from "./List/ListItem/ListItem";
 export * from "./RefractiveGlass/RefractiveGlass";
 export * from "./RefractiveGlass/RefractiveGlass.types";
 
+export * from "./SearchHit/SearchHit";
+export * from "./SearchHit/SearchHit.types";
+export * from "./SearchHit/SearchHitExpandable/SearchHitExpandable";
+
 export * from "./Tooltip/Tooltip";
 export * from "./Tooltip/Tooltip.types";

@@ -1,0 +1,42 @@
+.root {
+  --toggle-size: 1.5rem;
+  position: relative;
+  display: list-item flow-root;
+}
+.surface {
+  padding-bottom: var(--toggle-size);
+}
+.toggle {
+  height: var(--toggle-size);
+  position: absolute;
+  bottom: 0;
+  & svg {
+    rotate: 0deg;
+    transition: rotate var(--transition-time) var(--transition-tf);
+  }
+}
+.content {
+  grid-template-rows: auto auto 0fr;
+  transition: grid-template-rows var(--transition-time) var(--transition-tf);
+}
+.desc {
+  padding: 0;
+  margin-top: 0;
+  transition:
+    padding var(--transition-time) var(--transition-tf),
+    margin var(--transition-time) var(--transition-tf);
+}
+.expanded {
+  & .content {
+    grid-template-rows: auto auto 1fr;
+  }
+  & .desc {
+    margin-top: var(--size);
+    padding: var(--size) calc(var(--size) * var(--gr));
+  }
+  & .toggle {
+    & svg {
+      rotate: 180deg;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+.root {
+  --bg: var(--color-surface);
+  --bg-hover: color-mix(in srgb, var(--color-surface) 80%, transparent);
+  --bg-active: color-mix(in srgb, var(--color-surface-high) 80%, transparent);
+  margin-top: var(--size);
+  opacity: 1;
+  transition: opacity var(--transition-time) var(--transition-tf);
+}
+.surface {
+  padding-block: var(--size);
+  padding-inline: calc(var(--size) * var(--gr));
+  position: relative;
+}
+.content {
+  display: grid;
+  align-content: start;
+  grid-template-areas:
+    "img title"
+    "img subtitle"
+    "desc desc";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+  container-type: inline-size;
+  overflow: hidden;
+}
+.img {
+  grid-area: img;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  contain: size;
+  margin-right: var(--size);
+  object-fit: contain;
+  border-radius: var(--br-md);
+  background: var(--color-surface-dim);
+}
+.title {
+  grid-area: title;
+  width: 100%;
+  height: min-content;
+  font-family: var(--font-h);
+  font-size: var(--fs-h5);
+}
+.subtitle {
+  grid-area: subtitle;
+  width: 100%;
+  height: min-content;
+  font-size: var(--fs-body);
+  color: var(--color-on-background-low);
+}
+.desc {
+  grid-area: desc;
+  font-size: var(--fs-body2);
+  min-height: 0;
+  background: var(--color-background);
+  border-radius: var(--br-md);
+  max-height: 40svh;
+  overflow: auto;
+  padding: var(--size) calc(var(--size) * var(--gr));
+  margin-top: var(--size);
+}
+.desc:empty,
+.desc:has(*:empty) {
+  margin-top: 0;
+  padding: 0;
+}
