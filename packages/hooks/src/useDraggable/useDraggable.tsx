@@ -1,3 +1,5 @@
+"use client";
+
 import type { Point2D } from "@cubicsui/types";
 import { type PointerEvent, type RefObject, useEffect, useRef } from "react";
 
