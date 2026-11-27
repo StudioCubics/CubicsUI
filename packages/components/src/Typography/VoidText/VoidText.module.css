@@ -21,6 +21,7 @@
   font-size: inherit;
   font-family: var(--font-h);
   color: var(--color-on-background);
+  word-break: break-all;
 }
 .subtitle {
   text-align: center;

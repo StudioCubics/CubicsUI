@@ -11,6 +11,9 @@
   border-radius: var(--br);
   background: var(--bg);
   color: var(--color);
+  &:focus-visible {
+    outline: var(--focus-ring);
+  }
 }
 .content {
   flex: 1 1 20ch;
