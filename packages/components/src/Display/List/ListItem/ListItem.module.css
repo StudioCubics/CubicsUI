@@ -9,7 +9,7 @@
   transition: all var(--transition-time) var(--transition-tf);
   padding: calc(var(--size) / 2) calc(var(--size) * var(--gr));
   border-radius: var(--br);
-  background: transparent;
+  background: var(--bg);
   color: var(--color);
 }
 .content {
@@ -30,7 +30,7 @@
   color: var(--color);
   font-size: var(--fs);
   &:hover {
-    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+    background: var(--bg-hover);
   }
   & > svg {
     width: 1.5em;
@@ -92,10 +92,10 @@
   }
 }
 /* Hover styles */
-.surface:where(:not(.disabled)) {
+.isClickable:where(:not(.disabled)) {
   cursor: pointer;
   &:hover:not(:has(.dropdownToggle:hover)) {
-    background: color-mix(in srgb, var(--bg-hover) 50%, transparent);
+    background: var(--bg-hover);
   }
 }
 

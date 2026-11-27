@@ -1,5 +1,6 @@
 .root {
   --color: var(--color-on-surface);
+  --bg: transparent;
   --bg-hover: color-mix(in srgb, var(--color-on-surface) 10%, transparent);
   --bg-active: var(--color-surface-bright);
   --color-active: var(--color-on-background);
@@ -63,42 +64,42 @@
 /* Colors */
 .root[data-color="primary"] {
   --color: var(--color-primary);
-  --bg-hover: var(--color-primary-container);
+  --bg-hover: var(--color-primary-alpha);
   --bg-active: var(--color-primary-container);
   --color-active: var(--color-on-primary-container);
   --glider-color: var(--color-primary);
 }
 .root[data-color="secondary"] {
   --color: var(--color-secondary);
-  --bg-hover: var(--color-secondary-container);
+  --bg-hover: var(--color-secondary-alpha);
   --bg-active: var(--color-secondary-container);
   --color-active: var(--color-on-secondary-container);
   --glider-color: var(--color-secondary);
 }
 .root[data-color="tertiary"] {
   --color: var(--color-tertiary);
-  --bg-hover: var(--color-tertiary-container);
+  --bg-hover: var(--color-tertiary-alpha);
   --bg-active: var(--color-tertiary-container);
   --color-active: var(--color-on-tertiary-container);
   --glider-color: var(--color-tertiary);
 }
 .root[data-color="error"] {
   --color: var(--color-error);
-  --bg-hover: var(--color-error-container);
+  --bg-hover: var(--color-error-alpha);
   --bg-active: var(--color-error-container);
   --color-active: var(--color-on-error-container);
   --glider-color: var(--color-error);
 }
 .root[data-color="warn"] {
   --color: var(--color-warn);
-  --bg-hover: var(--color-warn-container);
+  --bg-hover: var(--color-warn-alpha);
   --bg-active: var(--color-warn-container);
   --color-active: var(--color-on-warn-container);
   --glider-color: var(--color-warn);
 }
 .root[data-color="success"] {
   --color: var(--color-success);
-  --bg-hover: var(--color-success-container);
+  --bg-hover: var(--color-success-alpha);
   --bg-active: var(--color-success-container);
   --color-active: var(--color-on-success-container);
   --glider-color: var(--color-success);
