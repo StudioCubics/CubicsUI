@@ -110,6 +110,10 @@ export function SearchCenter<
                   rest.onChange?.(e);
                   setInternalQuery(e.target.value);
                 }}
+                onBlur={(e) => {
+                  rest.onBlur?.(e);
+                  setActiveIndex(-1);
+                }}
                 onKeyDown={handleKeyDown}
                 fullWidth={fullWidth}
                 type="search"
