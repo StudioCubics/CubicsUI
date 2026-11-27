@@ -116,6 +116,7 @@ export function useRefractiveGlass(
 
   // Track global pointer coordinates & run smooth ray-box reflection loop
   useEffect(() => {
+    // TODO extract logic to make it reusable.
     if (!inView) return;
     let rafId = 0;
     const updateReflection = () => {

@@ -17,6 +17,7 @@ import { ComboBoxChips } from "./ComboBoxChips";
 import { useComboBox } from "./useComboBox";
 
 // TODO add overriding chips and options react nodes also add prop to handle if the items sorting should change or filtered as it currently is.
+// TODO Cleanup this garbage
 export function ComboBox<T, Multiple extends boolean | undefined = false>(
   props: ComboBoxProps<T, Multiple>,
 ): ReactElement {
@@ -112,8 +113,10 @@ export function ComboBox<T, Multiple extends boolean | undefined = false>(
         case undefined: {
           key = `item-${String(getOptionKey(o))}`;
           const selectableIndex = selectableOptions.indexOf(o);
+          // strip option-only fields so they don't leak into the <li/> props
+          const { value: _value, label: _label, ...itemRest } = o;
           props = {
-            ...o,
+            ...itemRest,
             type: "item",
             icon: o.icon,
             disabled: o.disabled,
