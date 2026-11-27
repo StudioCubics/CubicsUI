@@ -16,7 +16,11 @@ export function PkgSelectorCard(props: PkgSelectorCardProps) {
   const { open, activeItem } = useRolodex();
   const isActive = activeItem.id === id;
   return (
-    <Card size="sm" color={open && isActive ? "primary" : undefined}>
+    <Card
+      elevation="highest"
+      size="sm"
+      color={open && isActive ? "primary" : undefined}
+    >
       <CardHeader
         as="h6"
         title={

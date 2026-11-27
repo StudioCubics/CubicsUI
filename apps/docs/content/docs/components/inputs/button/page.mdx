@@ -159,17 +159,34 @@ There are multiple colors for you to chose from the main default color should be
 <Sandcube title="Button Colors">
     <SandcubeFile path="/App.tsx">
       ```tsx
-      import { Button } from "@cubicsui/components";
+      import { Button, type ButtonProps } from "@cubicsui/components";
       export default function App() {
+        const variants: ButtonProps["variant"][] = [
+          undefined,
+          "outlined",
+          "contained",
+        ];
+        const colors: ButtonProps["color"][] = [
+          undefined,
+          "primary",
+          "secondary",
+          "tertiary",
+          "error",
+          "warn",
+          "success",
+        ];
         return (
           <div>
-            <Button>Default</Button>
-            <Button color="primary">primary</Button>
-            <Button color="secondary">secondary</Button>
-            <Button color="tertiary">tertiary</Button>
-            <Button color="error">error</Button>
-            <Button color="warn">warn</Button>
-            <Button color="success">success</Button>
+            {variants.map((v) => (
+              <div key={v ?? "default"}>
+                {v ?? "default"}
+                {colors.map((c) => (
+                  <Button key={c ?? "default"} variant={v} color={c}>
+                    {c ?? "default"}
+                  </Button>
+                ))}
+              </div>
+            ))}
           </div>
         );
       }
@@ -195,7 +212,7 @@ Props specific to the Button component.
 | **align** | `"left" \| "center" \| "right"` | `"center"` | Justifies the content of the button |
 | **endIcon** | `ReactNode` | `—` | Renders an icon at the end of the button. |
 | **selected** | `boolean` | `—` | Marks the button as selected. |
-| **variant** | `"contained" \| "outlined"` | `"text"` | Visual style variant. |
+| **variant** | `"contained" \| "outlined"` | `—` | Visual style variants of the Button. |
 | **fullWidth** | `boolean` | `false` | Expands width to 100%. |
 | **icon** | `boolean` | `false` | When button is supposed to be an icon button, make sure to pass a square icon to not mess up the button's size |
 | **size** | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"` | Button size. |

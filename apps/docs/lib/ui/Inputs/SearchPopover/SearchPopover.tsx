@@ -1,76 +1,76 @@
 "use client";
 import {
   Button,
-  Card,
-  CardContent,
-  CardHeader,
-  List,
-  ListItem,
-  Popover,
+  Kbd,
+  SearchCenter,
   TextInput,
+  useSidebarLayout,
 } from "@cubicsui/components";
-import { useDisclosure } from "@cubicsui/hooks";
 import { SearchIcon } from "@cubicsui/icons";
 import { useSearch } from "@cubicsui/mdx/client";
-import { getFirstLines } from "@cubicsui/utils";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { embedQuery, isModelReady, warmupModel } from "@/lib/utils/embedQuery";
 
 export function SearchPopover() {
-  const { open, handleToggle, handleClose } = useDisclosure();
+  const [enabled, setEnabled] = useState(false);
+  const { sidebarOpen } = useSidebarLayout();
   const { query, results, loading } = useSearch({
     indexUrl: "/api/search",
     embedQuery,
-    enabled: open,
+    enabled,
   });
   const [modelReady, setModelReady] = useState(isModelReady());
-
-  useEffect(() => {
-    if (!open) return;
-    // warmupModel must return the promise (return extractor at its end)
-    warmupModel()
-      .then(() => setModelReady(true))
-      .catch(() => {});
-  }, [open]);
   return (
-    <>
-      <Button
-        icon
-        type="button"
-        popoverTarget="search_popover"
-        onClick={handleToggle}
-      >
-        <SearchIcon />
-      </Button>
-      {open && (
-        <Popover id={"search_popover"} onClose={handleClose}>
-          <Card fixedWidth="300px" fixedHeight="500px">
-            <CardHeader
-              title={
-                <TextInput
-                  placeholder="What are you looking for?"
-                  onChange={(e) => query(e.target.value)}
-                />
-              }
-            />
-            <CardContent>
-              {!modelReady && <p>Improving results…</p>}
-              {loading && <p>Searching…</p>}
-              <List LinkComponent={Link}>
-                {results?.hits.map((h) => (
-                  <ListItem key={h.id} href={h.document.url}>
-                    {h.document.title}
-                    {h.document.heading && ` > ${h.document.heading}`}
-                    <br />
-                    <pre>{getFirstLines(h.document.content)}</pre>
-                  </ListItem>
-                ))}
-              </List>
-            </CardContent>
-          </Card>
-        </Popover>
-      )}
-    </>
+    <SearchCenter
+      expandableHits
+      placeholder="Search documentation"
+      shortcutKey={[
+        ["Control", "k"],
+        ["Meta", "k"],
+      ]}
+      trigger={
+        sidebarOpen ? (
+          <TextInput
+            size="sm"
+            placeholder="Search documentation"
+            startAdornment={<SearchIcon />}
+            endAdornment={
+              <Kbd
+                size="sm"
+                fitContent
+                realistic
+                grouped
+                keys={["Control", "k"]}
+              />
+            }
+          />
+        ) : (
+          <Button icon>
+            <SearchIcon />
+          </Button>
+        )
+      }
+      hits={results?.hits ?? []}
+      loading={loading || !modelReady}
+      renderHit={(hit) => {
+        return {
+          id: hit.id,
+          title: hit.document.heading,
+          subtitle: hit.document.title,
+          href: hit.document.url,
+          desc: hit.document.content && <pre>{hit.document.content}</pre>,
+        };
+      }}
+      LinkComponent={Link}
+      onChange={(e) => query(e.target.value)}
+      onDialogOpen={() => {
+        setEnabled((p) => !p);
+        if (modelReady) return;
+        warmupModel()
+          .then(() => setModelReady(true))
+          .catch(() => {});
+      }}
+    />
   );
 }
