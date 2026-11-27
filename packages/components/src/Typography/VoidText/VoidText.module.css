@@ -2,7 +2,7 @@
   width: 100%;
   mix-blend-mode: multiply;
   margin-block: 1cqh;
-  font-size: clamp(var(--fs-body), 5cqw, var(--fs-hero));
+  font-size: clamp(var(--fs-body), 5cqw, var(--fs-display));
   display: grid;
   place-items: center;
 }
