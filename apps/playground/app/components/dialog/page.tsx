@@ -10,7 +10,7 @@ import {
   PageLayout,
 } from "@cubicsui/components";
 import { useDisclosure } from "@cubicsui/hooks";
-import { type ComponentProps, type ReactNode, useState } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { Hybrid } from "./hybrid";
 import { UnmountOnExit } from "./unmountOnExit";
 
@@ -22,7 +22,6 @@ type DemoProps = Omit<ComponentProps<typeof Dialog>, "open" | "onClose"> & {
 // Wraps a trigger button + controlled dialog and logs the last close reason
 function DialogDemo({ label, children, ...dialogProps }: DemoProps) {
   const { open, handleOpen, handleClose } = useDisclosure();
-  const [reason, setReason] = useState<string | null>(null);
 
   return (
     <div className={"column"}>
@@ -32,8 +31,7 @@ function DialogDemo({ label, children, ...dialogProps }: DemoProps) {
       <Dialog
         {...dialogProps}
         open={open}
-        onClose={(_, closeReason) => {
-          setReason(closeReason);
+        onClose={(_) => {
           handleClose();
         }}
       >
@@ -45,7 +43,6 @@ function DialogDemo({ label, children, ...dialogProps }: DemoProps) {
           <CardContent>{children}</CardContent>
         </Card>
       </Dialog>
-      <small>Last close reason: {reason ?? "none"}</small>
     </div>
   );
 }

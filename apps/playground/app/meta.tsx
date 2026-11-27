@@ -65,6 +65,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
       { children: "PasswordInput", href: "/components/passwordInput" },
       { children: "Pressable", href: "/components/pressable" },
       { children: "Rolodex", href: "/components/rolodex", icon: "🚧" },
+      { children: "SearchCenter", href: "/components/searchCenter" },
       { children: "Select", href: "/components/select" },
       { children: "Switch", href: "/components/switch" },
       { children: "TextAreaInput", href: "/components/textAreaInput" },
@@ -153,6 +154,7 @@ export const componentsMeta: ListItemProps<Route>[] = [
     nodes: [
       { children: "PageHeader", href: "/components/pageHeader" },
       { children: "TextOrList", href: "/components/textOrList" },
+      { children: "VoidText", href: "/components/voidText" },
     ],
   },
   // Misc
