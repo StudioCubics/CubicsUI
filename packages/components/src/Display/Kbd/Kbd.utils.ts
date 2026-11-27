@@ -1,31 +1,41 @@
-export const KBD_BUTTON_LIST = {
-  A: { content: "A" },
-  B: { content: "B" },
-  C: { content: "C" },
-  D: { content: "D" },
-  E: { content: "E" },
-  F: { content: "F" },
-  G: { content: "G" },
-  H: { content: "H" },
-  I: { content: "I" },
-  J: { content: "J" },
-  K: { content: "K" },
-  L: { content: "L" },
-  M: { content: "M" },
-  N: { content: "N" },
-  O: { content: "O" },
-  P: { content: "P" },
-  Q: { content: "Q" },
-  R: { content: "R" },
-  S: { content: "S" },
-  T: { content: "T" },
-  U: { content: "U" },
-  V: { content: "V" },
-  W: { content: "W" },
-  X: { content: "X" },
-  Y: { content: "Y" },
-  Z: { content: "Z" },
+import type {
+  KbdKey,
+  KbdKeyArray,
+  KbdKeyList,
+  KbdKeyNestedArray,
+  KbdKeyProps,
+  KbdKeys,
+} from "./Kbd.types";
 
+const buttonListAlphabetsKeys = {
+  a: { content: "A" },
+  b: { content: "B" },
+  c: { content: "C" },
+  d: { content: "D" },
+  e: { content: "E" },
+  f: { content: "F" },
+  g: { content: "G" },
+  h: { content: "H" },
+  i: { content: "I" },
+  j: { content: "J" },
+  k: { content: "K" },
+  l: { content: "L" },
+  m: { content: "M" },
+  n: { content: "N" },
+  o: { content: "O" },
+  p: { content: "P" },
+  q: { content: "Q" },
+  r: { content: "R" },
+  s: { content: "S" },
+  t: { content: "T" },
+  u: { content: "U" },
+  v: { content: "V" },
+  w: { content: "W" },
+  x: { content: "X" },
+  y: { content: "Y" },
+  z: { content: "Z" },
+};
+const buttonListDigitsKeys = {
   "0": { content: "0" },
   "1": { content: "1" },
   "2": { content: "2" },
@@ -36,25 +46,19 @@ export const KBD_BUTTON_LIST = {
   "7": { content: "7" },
   "8": { content: "8" },
   "9": { content: "9" },
-
-  "`": { content: "`" },
-  "-": { content: "-" },
-  "=": { content: "=" },
+};
+const buttonListPunctuationKeys = {
+  "/": { content: "/" },
+  ".": { content: "." },
+  ",": { content: "," },
+  ";": { content: ";" },
+  "'": { content: "'" },
   "[": { content: "[" },
   "]": { content: "]" },
-  Backslash: {
-    content: "\\",
-  },
-  ";": { content: ";" },
-  "'": {
-    content: "'",
-  },
-  ",": { content: "," },
-  ".": { content: "." },
-  Forwardslash: {
-    content: "/",
-  },
-
+  "\\": { content: "\\" },
+  "-": { content: "-" },
+  "=": { content: "=" },
+  "`": { content: "`" },
   "~": { content: "~" },
   "!": { content: "!" },
   "@": { content: "@" },
@@ -68,143 +72,376 @@ export const KBD_BUTTON_LIST = {
   ")": { content: ")" },
   _: { content: "_" },
   "+": { content: "+" },
-
-  "{": {
-    content: "{",
-  },
-  "}": {
-    content: "}",
-  },
+  "{": { content: "{" },
+  "}": { content: "}" },
   "|": { content: "|" },
   ":": { content: ":" },
-  '"': {
-    content: '"',
-  },
-  "<": {
-    content: "<",
-  },
-  ">": {
-    content: ">",
-  },
+  '"': { content: '"' },
+  "<": { content: "<" },
+  ">": { content: ">" },
   "?": { content: "?" },
-
-  Space: {
-    content: "Space",
-  },
-  Enter: {
-    content: "Enter",
-  },
-  Backspace: {
-    content: "Backspace",
-  },
-  Esc: {
-    content: "Esc",
-  },
-  Shift: {
-    content: "Shift",
-  },
-  Ctrl: {
-    content: "Ctrl",
-  },
-  Alt: {
-    content: "Alt",
-  },
-
-  Tab: {
-    content: "Tab\n↹",
-  },
-
-  CapsLock: {
-    content: "Caps\nLock",
-  },
+};
+const buttonListModifierKeys = {
+  Control: { content: "Ctrl" },
+  Shift: { content: "Shift" },
+  Alt: { content: "Alt" },
+  Meta: { content: "⌘" },
+  AltGraph: { content: "AltGr" },
+  CapsLock: { content: "Caps\nLock" },
   Fn: { content: "Fn" },
-  UpArrow: {
-    content: "↑",
-  },
-  DownArrow: {
-    content: "↓",
-  },
-  LeftArrow: {
-    content: "←",
-  },
-  RightArrow: {
-    content: "→",
-  },
-
-  Insert: {
-    content: "Insert",
-  },
-  Delete: {
-    content: "Delete",
-  },
-  Home: {
-    content: "Home",
-  },
-  End: {
-    content: "End",
-  },
-  PageUp: {
-    content: "Pg Up",
-  },
-  PageDown: {
-    content: "Pg Dn",
-  },
-
-  PrintScreen: {
-    content: "Print\nScr",
-  },
-
-  ScrollLock: {
-    content: "Scrl\nLock",
-  },
-
-  Pause: {
-    content: "Pause",
-  },
-
-  NumLock: {
-    content: "Num\nLock",
-  },
-
-  "⌘": { content: "⌘" },
-
-  "⏮": {
-    content: "⏮",
-  },
-  "▶": {
-    content: "▶",
-  },
-  "⏸": {
-    content: "⏸",
-  },
-  "⏯": {
-    content: "⏯",
-  },
-  "⏹": {
-    content: "⏹",
-  },
-  "⏭": {
-    content: "⏭",
-  },
-  "⏪": {
-    content: "⏪",
-  },
-  "⏩": {
-    content: "⏩",
-  },
-  "🕨": {
-    content: "🕨",
-  },
-  "🕩": {
-    content: "🕩",
-  },
-  "🕪": {
-    content: "🕪",
-  },
-  "🔇": {
-    content: "🔇",
-  },
-} as const;
+  FnLock: { content: "Fn\nLock" },
+  NumLock: { content: "Num\nLock" },
+  ScrollLock: { content: "Scrl\nLock" },
+  Super: { content: "Super" },
+  Hyper: { content: "Hyper" },
+  Symbol: { content: "Symbol" },
+  SymbolLock: { content: "Symbol\nLock" },
+};
+const buttonListWhitespaceKeys = {
+  Enter: { content: "Enter" },
+  Tab: { content: "Tab\n↹" },
+  " ": { content: "Space" },
+};
+const buttonListNavigationKeys = {
+  ArrowUp: { content: "↑" },
+  ArrowDown: { content: "↓" },
+  ArrowLeft: { content: "←" },
+  ArrowRight: { content: "→" },
+  Home: { content: "Home" },
+  End: { content: "End" },
+  PageUp: { content: "Pg Up" },
+  PageDown: { content: "Pg Dn" },
+};
+const buttonListEditingKeys = {
+  Backspace: { content: "← Backspace" },
+  Delete: { content: "Delete" },
+  Insert: { content: "Insert" },
+  Clear: { content: "Clear" },
+  Copy: { content: "Copy" },
+  Cut: { content: "Cut" },
+  Paste: { content: "Paste" },
+  Undo: { content: "Undo" },
+  Redo: { content: "Redo" },
+  CrSel: { content: "CrSel" },
+  EraseEof: { content: "Erase EOF" },
+  ExSel: { content: "ExSel" },
+};
+const buttonListUiKeys = {
+  Escape: { content: "Esc" },
+  ContextMenu: { content: "☰" },
+  Pause: { content: "⏸" },
+  Play: { content: "▶" },
+  Find: { content: "Find" },
+  Help: { content: "Help" },
+  Select: { content: "Select" },
+  Cancel: { content: "Cancel" },
+  Execute: { content: "Execute" },
+  ZoomIn: { content: "Zoom In" },
+  ZoomOut: { content: "Zoom Out" },
+  Accept: { content: "Accept" },
+  Again: { content: "Again" },
+  Attn: { content: "Attn" },
+  Props: { content: "Props" },
+};
+const buttonListFunctionKeys = {
+  F1: { content: "F1" },
+  F2: { content: "F2" },
+  F3: { content: "F3" },
+  F4: { content: "F4" },
+  F5: { content: "F5" },
+  F6: { content: "F6" },
+  F7: { content: "F7" },
+  F8: { content: "F8" },
+  F9: { content: "F9" },
+  F10: { content: "F10" },
+  F11: { content: "F11" },
+  F12: { content: "F12" },
+  F13: { content: "F13" },
+  F14: { content: "F14" },
+  F15: { content: "F15" },
+  F16: { content: "F16" },
+  F17: { content: "F17" },
+  F18: { content: "F18" },
+  F19: { content: "F19" },
+  F20: { content: "F20" },
+  F21: { content: "F21" },
+  F22: { content: "F22" },
+  F23: { content: "F23" },
+  F24: { content: "F24" },
+};
+const buttonListSoftKeys = {
+  Soft1: { content: "Soft 1" },
+  Soft2: { content: "Soft 2" },
+  Soft3: { content: "Soft 3" },
+  Soft4: { content: "Soft 4" },
+};
+const buttonListMediaKeys = {
+  MediaPlayPause: { content: "⏯" },
+  MediaStop: { content: "⏹" },
+  MediaTrackNext: { content: "⏭" },
+  MediaTrackPrevious: { content: "⏮" },
+  AudioVolumeUp: { content: "🕨" },
+  AudioVolumeDown: { content: "🕩" },
+  AudioVolumeMute: { content: "🔇" },
+};
+const buttonListMediaExtraKeys = {
+  MediaPause: { content: "⏸" },
+  MediaPlay: { content: "▶" },
+  MediaRecord: { content: "⏺" },
+  MediaFastForward: { content: "⏩" },
+  MediaRewind: { content: "⏪" },
+  MediaClose: { content: "Media\nClose" },
+};
+const buttonListAudioKeys = {
+  AudioBalanceLeft: { content: "Balance\nLeft" },
+  AudioBalanceRight: { content: "Balance\nRight" },
+  AudioBassBoostDown: { content: "Bass\nBoost -" },
+  AudioBassBoostToggle: { content: "Bass\nBoost" },
+  AudioBassBoostUp: { content: "Bass\nBoost +" },
+  AudioFaderFront: { content: "Fader\nFront" },
+  AudioFaderRear: { content: "Fader\nRear" },
+  AudioSurroundModeNext: { content: "Surround\nNext" },
+  AudioTrebleDown: { content: "Treble -" },
+  AudioTrebleUp: { content: "Treble +" },
+  MicrophoneToggle: { content: "Mic" },
+  MicrophoneVolumeDown: { content: "Mic -" },
+  MicrophoneVolumeUp: { content: "Mic +" },
+  MicrophoneVolumeMute: { content: "Mic\nMute" },
+};
+const buttonListImeKeys = {
+  AllCandidates: { content: "All\nCandidates" },
+  Alphanumeric: { content: "Alpha\nNumeric" },
+  CodeInput: { content: "Code\nInput" },
+  Compose: { content: "Compose" },
+  Convert: { content: "変換" },
+  Dead: { content: "Dead" },
+  FinalMode: { content: "Final" },
+  GroupFirst: { content: "Group\nFirst" },
+  GroupLast: { content: "Group\nLast" },
+  GroupNext: { content: "Group\nNext" },
+  GroupPrevious: { content: "Group\nPrev" },
+  ModeChange: { content: "Mode\nChange" },
+  NextCandidate: { content: "Next\nCandidate" },
+  NonConvert: { content: "無変換" },
+  PreviousCandidate: { content: "Prev\nCandidate" },
+  Process: { content: "Process" },
+  SingleCandidate: { content: "Single\nCandidate" },
+  KanaMode: { content: "Kana" },
+  KanjiMode: { content: "Kanji" },
+  HangulMode: { content: "한/영" },
+  HanjaMode: { content: "한자" },
+  JunjaMode: { content: "전자" },
+  Hankaku: { content: "半角" },
+  Zenkaku: { content: "全角" },
+  ZenkakuHankaku: { content: "全角/半角" },
+  Hiragana: { content: "ひらがな" },
+  HiraganaKatakana: { content: "ひらがな/\nカタカナ" },
+  Katakana: { content: "カタカナ" },
+  Romaji: { content: "ローマ字" },
+  Eisu: { content: "英数" },
+};
+const buttonListDeviceKeys = {
+  BrightnessDown: { content: "Brightness -" },
+  BrightnessUp: { content: "Brightness +" },
+  Eject: { content: "Eject" },
+  Hibernate: { content: "Hibernate" },
+  LogOff: { content: "Log Off" },
+  Power: { content: "Power" },
+  PowerOff: { content: "Power Off" },
+  PrintScreen: { content: "PrtSc" },
+  Standby: { content: "Standby" },
+  WakeUp: { content: "Wake Up" },
+};
+const buttonListMultimediaKeys = {
+  ChannelDown: { content: "CH -" },
+  ChannelUp: { content: "CH +" },
+  Close: { content: "Close" },
+  MailForward: { content: "Mail\nForward" },
+  MailReply: { content: "Mail\nReply" },
+  MailSend: { content: "Mail\nSend" },
+  New: { content: "New" },
+  Open: { content: "Open" },
+  Print: { content: "Print" },
+  Save: { content: "Save" },
+  SpellCheck: { content: "Spell\nCheck" },
+};
+const buttonListMultimediaNumpadKeys = {
+  Key11: { content: "Key 11" },
+  Key12: { content: "Key 12" },
+};
+const buttonListSpeechKeys = {
+  SpeechCorrectionList: { content: "Speech\nCorrect" },
+  SpeechInputToggle: { content: "Speech\nInput" },
+};
+const buttonListApplicationKeys = {
+  LaunchApplication1: { content: "App 1" },
+  LaunchApplication2: { content: "App 2" },
+  LaunchCalendar: { content: "Calendar" },
+  LaunchContacts: { content: "Contacts" },
+  LaunchMail: { content: "Mail" },
+  LaunchMediaPlayer: { content: "Media\nPlayer" },
+  LaunchMusicPlayer: { content: "Music\nPlayer" },
+  LaunchPhone: { content: "Phone" },
+  LaunchScreenSaver: { content: "Screen\nSaver" },
+  LaunchSpreadsheet: { content: "Sheet" },
+  LaunchWebBrowser: { content: "Browser" },
+  LaunchWebCam: { content: "Webcam" },
+  LaunchWordProcessor: { content: "Word" },
+};
+const buttonListBrowserKeys = {
+  BrowserBack: { content: "Back" },
+  BrowserFavorites: { content: "Favorites" },
+  BrowserForward: { content: "Forward" },
+  BrowserHome: { content: "Browser\nHome" },
+  BrowserRefresh: { content: "Refresh" },
+  BrowserSearch: { content: "Search" },
+  BrowserStop: { content: "Stop" },
+};
+const buttonListMobileKeys = {
+  AppSwitch: { content: "App\nSwitch" },
+  Call: { content: "Call" },
+  Camera: { content: "Camera" },
+  CameraFocus: { content: "Focus" },
+  EndCall: { content: "End\nCall" },
+  GoBack: { content: "Back" },
+  GoHome: { content: "Home" },
+  HeadsetHook: { content: "Headset\nHook" },
+  LastNumberRedial: { content: "Redial" },
+  Notification: { content: "Notification" },
+  MannerMode: { content: "Manner\nMode" },
+  VoiceDial: { content: "Voice\nDial" },
+};
+const buttonListTvKeys = {
+  TV: { content: "TV" },
+  TV3DMode: { content: "3D" },
+  TVAntennaCable: { content: "Antenna/\nCable" },
+  TVAudioDescription: { content: "Audio\nDesc" },
+  TVAudioDescriptionMixDown: { content: "Audio Desc\nMix -" },
+  TVAudioDescriptionMixUp: { content: "Audio Desc\nMix +" },
+  TVContentsMenu: { content: "Contents\nMenu" },
+  TVDataService: { content: "Data\nService" },
+  TVInput: { content: "TV\nInput" },
+  TVInputComponent1: { content: "Component 1" },
+  TVInputComponent2: { content: "Component 2" },
+  TVInputComposite1: { content: "Composite 1" },
+  TVInputComposite2: { content: "Composite 2" },
+  TVInputHDMI1: { content: "HDMI 1" },
+  TVInputHDMI2: { content: "HDMI 2" },
+  TVInputHDMI3: { content: "HDMI 3" },
+  TVInputHDMI4: { content: "HDMI 4" },
+  TVInputVGA1: { content: "VGA 1" },
+  TVMediaContext: { content: "Media\nContext" },
+  TVNetwork: { content: "Network" },
+  TVNumberEntry: { content: "Number\nEntry" },
+  TVPower: { content: "TV\nPower" },
+  TVRadioService: { content: "Radio" },
+  TVSatellite: { content: "Satellite" },
+  TVSatelliteBS: { content: "Satellite\nBS" },
+  TVSatelliteCS: { content: "Satellite\nCS" },
+  TVSatelliteToggle: { content: "Satellite\nToggle" },
+  TVTerrestrialAnalog: { content: "Terrestrial\nAnalog" },
+  TVTerrestrialDigital: { content: "Terrestrial\nDigital" },
+  TVTimer: { content: "Timer" },
+};
+const buttonListMediaControllerKeys = {
+  AVRInput: { content: "AVR\nInput" },
+  AVRPower: { content: "AVR\nPower" },
+  ColorF0Red: { content: "Red" },
+  ColorF1Green: { content: "Green" },
+  ColorF2Yellow: { content: "Yellow" },
+  ColorF3Blue: { content: "Blue" },
+  ColorF4Grey: { content: "Grey" },
+  ColorF5Brown: { content: "Brown" },
+  ClosedCaptionToggle: { content: "CC" },
+  Dimmer: { content: "Dimmer" },
+  DisplaySwap: { content: "Display\nSwap" },
+  DVR: { content: "DVR" },
+  Exit: { content: "Exit" },
+  FavoriteClear0: { content: "Fav Clear\n0" },
+  FavoriteClear1: { content: "Fav Clear\n1" },
+  FavoriteClear2: { content: "Fav Clear\n2" },
+  FavoriteClear3: { content: "Fav Clear\n3" },
+  FavoriteRecall0: { content: "Fav Recall\n0" },
+  FavoriteRecall1: { content: "Fav Recall\n1" },
+  FavoriteRecall2: { content: "Fav Recall\n2" },
+  FavoriteRecall3: { content: "Fav Recall\n3" },
+  FavoriteStore0: { content: "Fav Store\n0" },
+  FavoriteStore1: { content: "Fav Store\n1" },
+  FavoriteStore2: { content: "Fav Store\n2" },
+  FavoriteStore3: { content: "Fav Store\n3" },
+  Guide: { content: "Guide" },
+  GuideNextDay: { content: "Guide\nNext Day" },
+  GuidePreviousDay: { content: "Guide\nPrev Day" },
+  Info: { content: "Info" },
+  InstantReplay: { content: "Instant\nReplay" },
+  Link: { content: "Link" },
+  ListProgram: { content: "List\nProgram" },
+  LiveContent: { content: "Live\nContent" },
+  Lock: { content: "Lock" },
+  MediaApps: { content: "Media\nApps" },
+  MediaAudioTrack: { content: "Audio\nTrack" },
+  MediaLast: { content: "Media\nLast" },
+  MediaSkipBackward: { content: "Skip\nBack" },
+  MediaSkipForward: { content: "Skip\nForward" },
+  MediaStepBackward: { content: "Step\nBack" },
+  MediaStepForward: { content: "Step\nForward" },
+  MediaTopMenu: { content: "Top\nMenu" },
+  NavigateIn: { content: "Nav\nIn" },
+  NavigateNext: { content: "Nav\nNext" },
+  NavigateOut: { content: "Nav\nOut" },
+  NavigatePrevious: { content: "Nav\nPrev" },
+  NextFavoriteChannel: { content: "Next\nFav CH" },
+  NextUserProfile: { content: "Next\nProfile" },
+  OnDemand: { content: "On\nDemand" },
+  Pairing: { content: "Pairing" },
+  PinPDown: { content: "PiP\nDown" },
+  PinPMove: { content: "PiP\nMove" },
+  PinPToggle: { content: "PiP" },
+  PinPUp: { content: "PiP\nUp" },
+  PlaySpeedDown: { content: "Speed -" },
+  PlaySpeedReset: { content: "Speed\nReset" },
+  PlaySpeedUp: { content: "Speed +" },
+  RandomToggle: { content: "Random" },
+  RcLowBattery: { content: "RC Low\nBattery" },
+  RecordSpeedNext: { content: "Rec Speed\nNext" },
+  RfBypass: { content: "RF\nBypass" },
+  ScanChannelsToggle: { content: "Scan\nChannels" },
+  ScreenModeNext: { content: "Screen\nMode" },
+  Settings: { content: "Settings" },
+  SplitScreenToggle: { content: "Split\nScreen" },
+  STBInput: { content: "STB\nInput" },
+  STBPower: { content: "STB\nPower" },
+  Subtitle: { content: "Subtitle" },
+  Teletext: { content: "Teletext" },
+  VideoModeNext: { content: "Video\nMode" },
+  Wink: { content: "Wink" },
+  ZoomToggle: { content: "Zoom" },
+};
+export const KBD_BUTTON_LIST: KbdKeyList = {
+  ...buttonListAlphabetsKeys,
+  ...buttonListDigitsKeys,
+  ...buttonListPunctuationKeys,
+  ...buttonListModifierKeys,
+  ...buttonListWhitespaceKeys,
+  ...buttonListNavigationKeys,
+  ...buttonListEditingKeys,
+  ...buttonListUiKeys,
+  ...buttonListFunctionKeys,
+  ...buttonListSoftKeys,
+  ...buttonListMediaKeys,
+  ...buttonListMediaExtraKeys,
+  ...buttonListAudioKeys,
+  ...buttonListImeKeys,
+  ...buttonListDeviceKeys,
+  ...buttonListMultimediaKeys,
+  ...buttonListMultimediaNumpadKeys,
+  ...buttonListSpeechKeys,
+  ...buttonListApplicationKeys,
+  ...buttonListBrowserKeys,
+  ...buttonListMobileKeys,
+  ...buttonListTvKeys,
+  ...buttonListMediaControllerKeys,
+};
 export function getCornerStops(
   width: number,
   height: number,
@@ -229,4 +466,29 @@ export function getCornerStops(
     bottomLeft: angle(0, height),
     topLeft: angle(0, 0),
   };
+}
+export function normalizeButtons(buttons: KbdKeys): KbdKeyProps[][] {
+  const normalizeKey = (key: KbdKey): KbdKeyProps => {
+    if (typeof key !== "string") return key;
+
+    return (
+      (KBD_BUTTON_LIST as Record<string, KbdKeyProps>)[key] ?? {
+        content: key,
+      }
+    );
+  };
+
+  if (typeof buttons === "string" || !Array.isArray(buttons)) {
+    return [[normalizeKey(buttons as KbdKey)]];
+  }
+
+  if (buttons.length === 0) return [];
+
+  if (Array.isArray(buttons[0])) {
+    return (buttons as KbdKeyNestedArray).map((combo) =>
+      combo.map(normalizeKey),
+    );
+  }
+
+  return [(buttons as KbdKeyArray).map(normalizeKey)];
 }

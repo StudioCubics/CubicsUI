@@ -6,32 +6,36 @@ import {
   Fragment,
   type ReactElement,
   useEffect,
+  useMemo,
   useRef,
 } from "react";
 import styles from "./Kbd.module.css";
-import type { ButtonSpec, KbdProps } from "./Kbd.types";
-import { getCornerStops, KBD_BUTTON_LIST } from "./Kbd.utils";
+import type { KbdProps } from "./Kbd.types";
+import { getCornerStops, KBD_BUTTON_LIST, normalizeButtons } from "./Kbd.utils";
 
-/** TODO make keyboard tester using this */
-export function Kbd(props: KbdProps): ReactElement {
-  const { className, buttons, size, color, realistic, fitContent, ...rest } =
-    props;
+export function Kbd(props: KbdProps): ReactElement | null {
+  const {
+    className,
+    keys,
+    size,
+    color,
+    realistic,
+    fitContent,
+    grouped,
+    ...rest
+  } = props;
 
   const keyRefs = useRef<(HTMLElement | null)[]>([]);
+  const normalizedButtons = useMemo(() => normalizeButtons(keys), [keys]);
 
   useEffect(() => {
     if (!realistic) return;
-
     const observers: ResizeObserver[] = [];
-
     keyRefs.current.forEach((element) => {
       if (!element) return;
-
       const observer = new ResizeObserver(([entry]) => {
         const { width, height } = entry.target.getBoundingClientRect();
-
         if (!width || !height) return;
-
         const stops = getCornerStops(width, height);
 
         element.style.setProperty("--stop-top-right", `${stops.topRight}%`);
@@ -50,7 +54,8 @@ export function Kbd(props: KbdProps): ReactElement {
     return () => {
       observers.forEach((observer) => observer.disconnect());
     };
-  }, [buttons, realistic, fitContent, size]);
+  }, [keys, realistic, fitContent, size]);
+  if (!keys) return null;
 
   return (
     <div
@@ -64,39 +69,49 @@ export function Kbd(props: KbdProps): ReactElement {
       data-color={color}
       {...rest}
     >
-      {buttons.map((b, i) => {
-        const button: ButtonSpec =
-          typeof b === "string"
-            ? ((KBD_BUTTON_LIST as Record<string, ButtonSpec>)[b] ?? {
-                content: b,
-              })
-            : b;
-        const lines = button.content.split("\n");
-        const chars = Math.max(...lines.map((l) => [...l].length));
+      {normalizedButtons.map((combo, comboIndex) => (
+        <Fragment key={comboIndex}>
+          {comboIndex > 0 && " / "}
 
-        return (
-          <Fragment key={i}>
-            <kbd
-              ref={(element) => {
-                keyRefs.current[i] = element;
-              }}
-              className={styles.kbd}
-              style={
-                {
-                  "--kbd-size-x": button.sizeX ?? 1,
-                  "--kbd-size-y": button.sizeY ?? 1,
-                  "--kbd-chars": chars,
-                  "--kbd-lines": lines.length,
-                } as CSSProperties
-              }
-            >
-              {button.content}
+          {grouped ? (
+            <kbd className={styles.kbd}>
+              {combo.map((button, keyIndex) => (
+                <Fragment key={keyIndex}>
+                  {keyIndex > 0 && "+"}
+                  {button.content}
+                </Fragment>
+              ))}
             </kbd>
+          ) : (
+            combo.map((button, keyIndex) => {
+              const lines = button.content.split("\n");
+              const chars = Math.max(...lines.map((line) => [...line].length));
 
-            {i < buttons.length - 1 && "+"}
-          </Fragment>
-        );
-      })}
+              return (
+                <Fragment key={keyIndex}>
+                  {keyIndex > 0 && "+"}
+                  <kbd
+                    ref={(element) => {
+                      keyRefs.current.push(element);
+                    }}
+                    className={styles.kbd}
+                    style={
+                      {
+                        "--kbd-size-x": button.sizeX ?? 1,
+                        "--kbd-size-y": button.sizeY ?? 1,
+                        "--kbd-chars": chars,
+                        "--kbd-lines": lines.length,
+                      } as CSSProperties
+                    }
+                  >
+                    {button.content}
+                  </kbd>
+                </Fragment>
+              );
+            })
+          )}
+        </Fragment>
+      ))}
     </div>
   );
 }

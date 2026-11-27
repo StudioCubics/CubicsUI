@@ -1,24 +1,31 @@
 import {
   KBD_BUTTON_LIST,
   Kbd,
+  type KbdKeys,
   type KbdProps,
-  type KeyCombo,
   PageLayout,
 } from "@cubicsui/components";
+import { KeyboardEventTest } from "./keyboardEventTest";
 
 const sizes: NonNullable<KbdProps["size"]>[] = ["xs", "sm", "md", "lg", "xl"];
-
-const combos: KeyCombo[] = [
-  ["Ctrl", "C"],
-  ["Ctrl", "Shift", "P"],
-  ["Alt", "Tab"],
-  ["⌘", "K"],
-  ["Ctrl", "Alt", "Delete"],
-  ["⏮", "⏯", "⏭"],
+const colors: NonNullable<KbdProps["color"]>[] = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "error",
+  "warn",
+  "success",
 ];
 
-// Every key in buttonList, to verify each one renders correctly
-const allKeys = Object.keys(KBD_BUTTON_LIST);
+const combos: KbdKeys[] = [
+  ["Control", "C"],
+  ["Control", "Shift", "P"],
+  ["Alt", "Tab"],
+  ["Meta", "K"],
+  ["Control", "Alt", "Delete"],
+  ["MediaTrackPrevious", "MediaPlayPause", "MediaStop", "MediaTrackNext"],
+  ["Custom key", "This is also a key"],
+];
 
 export default function Page() {
   return (
@@ -27,16 +34,24 @@ export default function Page() {
       <Kbd buttons={["Ctrl", "C"]} />
 
       <h2>Combos</h2>
-      {combos.map((buttons) => (
-        <div key={buttons.join("+")}>
+      {combos.map((buttons, i) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: dqweqw
+        <div key={i}>
           <Kbd buttons={buttons} />
         </div>
       ))}
 
       <h2>Sizes</h2>
       {sizes.map((s) => (
-        <div key={s}>
+        <div className={"column"} key={s}>
           <code>{s}</code> <Kbd size={s} buttons={["Ctrl", "Shift", "P"]} />
+        </div>
+      ))}
+      <h2>Colors</h2>
+      {colors.map((s) => (
+        <div className={"column"} key={s}>
+          <code>{s}</code>{" "}
+          <Kbd color={s} fitContent buttons={["Ctrl", "Shift", "P"]} />
         </div>
       ))}
 
@@ -54,22 +69,44 @@ export default function Page() {
       <Kbd className="custom" buttons={["Esc"]} />
 
       <h2>Realistic</h2>
-      <Kbd size="xl" realistic buttons={[" "]} />
-      {sizes.map((s) => (
-        <div key={s}>
-          <code>{s}</code>{" "}
-          <Kbd realistic size={s} buttons={["Ctrl", "Shift", "P"]} />
+      <div className="column">
+        <div className="row">
+          <Kbd size="xl" realistic buttons={[" "]} />
+          <Kbd size="xl" realistic fitContent buttons={["BigButtonBabeee"]} />
         </div>
-      ))}
+        <div className={"row"}>
+          {sizes.map((s) => (
+            <div className={"column"} key={s}>
+              <code>{s}</code>{" "}
+              <Kbd realistic size={s} buttons={["Ctrl", "Shift", "P"]} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <h2>Fit Content</h2>
+      <div className="column">
+        <div className="row">
+          <Kbd size="xl" buttons={["BigButtonBabeee"]} />
+          <Kbd size="xl" fitContent buttons={["BigButtonBabeee"]} />
+        </div>
+        <div className="row">
+          <Kbd size="xl" realistic buttons={["BigButtonBabeee"]} />
+          <Kbd size="xl" realistic fitContent buttons={["BigButtonBabeee"]} />
+        </div>
+      </div>
 
-      <h2>All keys</h2>
+      <h2>All mapped keys</h2>
       <div className="row">
-        {allKeys.map((k) => (
-          <div key={k}>
-            <code>{k}</code> <Kbd buttons={[k]} />
+        {Object.entries(KBD_BUTTON_LIST).map(([key, props]) => (
+          <div key={key}>
+            <code>{key}</code>
+            <Kbd buttons={[key]} />
+            <small>{props.content}</small>
           </div>
         ))}
       </div>
+      <h2>Test key event</h2>
+      <KeyboardEventTest />
     </PageLayout>
   );
 }
