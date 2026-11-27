@@ -129,10 +129,10 @@
   --color-on-success-container: #1f331d;
 
   /* Surface colors */
-  --color-background: #e0ccd1;
+  --color-background: #fbf9fa;
   --color-on-background: #313133;
   --color-on-background-low: #818181;
-  --color-surface: #eee7e9;
+  --color-surface: #efe9f1;
   --color-on-surface: #4b4b4b;
   --color-surface-high: #f5f0f1;
   --color-surface-highest: #fbf9fa;
@@ -211,7 +211,7 @@
   --color-background: #0f0f13;
   --color-on-background: #d9d9da;
   --color-on-background-low: #818181;
-  --color-surface: #272731;
+  --color-surface: #2a2731;
   --color-on-surface: #b3b3b3;
   --color-surface-high: #302f3a;
   --color-surface-highest: #393842;
