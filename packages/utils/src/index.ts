@@ -1,4 +1,5 @@
 export * from "./API/_index";
+export * from "./Browser/_index";
 export * from "./Calculations/_index";
 export * from "./Code/_index";
 export * from "./Dates/_index";
